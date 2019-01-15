@@ -1,0 +1,50 @@
+# Logs
+logs
+*.log
+.DS_Store
+
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory
+coverage 
+/client/coverage
+/server/coverage
+
+#build
+build
+.cache
+
+# Dependency directory
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# private files
+.env
+dist/
+package-lock.json
+yarn.lock
+.nyc_output/
+yarn-error.log
+
+# Vscode
+.vscode
+
+# Intellij
+.idea/
+
+
+
