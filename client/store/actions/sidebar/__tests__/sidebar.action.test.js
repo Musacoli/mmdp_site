@@ -7,3 +7,4 @@ describe('Sidebar Actions Creators', () => {
     expect(setActiveSidebarIndex({}).type).toEqual(SET_ACTIVE_SIDEBAR_INDEX);
   });
 });
+

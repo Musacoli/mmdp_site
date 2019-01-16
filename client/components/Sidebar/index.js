@@ -30,7 +30,16 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
         />
         <TitleContent
           title="About"
-          items={[{ name: 'Level 1', path: '/about-1' }, { name: 'Level 2', path: '/about-2' }]}
+          items={[
+            {
+              name: 'Message from the governor',
+                path: '/about/governor-message'
+            },
+            {
+              name: 'About MMDP',
+              path: '/about/about-mmdp'
+            }
+          ]}
           active={activeIndex === 1}
           onClick={() => handleClick(1)}
         />
@@ -90,3 +99,4 @@ SidebarMenu.propTypes = {
   activeIndex: PropTypes.number.isRequired,
 };
 export default SidebarMenu;
+

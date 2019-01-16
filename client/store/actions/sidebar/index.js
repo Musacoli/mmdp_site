@@ -6,3 +6,4 @@ export const setActiveSidebarIndex = payload => ({
 });
 
 export default setActiveSidebarIndex;
+

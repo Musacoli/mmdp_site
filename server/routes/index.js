@@ -43,4 +43,6 @@ export default function (app) {
   app.put(`${baseUrl}/users/edit`, verifyEdit, routes.api.Users.edited);
 
   app.use(errorHandler);
+
 }
+
