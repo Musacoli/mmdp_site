@@ -13,3 +13,4 @@ User.add({
 });
 
 User.register();
+
