@@ -1,12 +1,20 @@
-import React from 'react'
+import 'babel-polyfill';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './App.jsx';
-import store from './store';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import routes from './routes';
+import { store } from './store';
 
 const app = (
   <Provider store={store}>
-    <App/>
+    <Router>
+      <Switch>
+        {routes.map(route => (
+          <Route exact path={route.path} component={route.component} key={route.path} />
+        ))}
+      </Switch>
+    </Router>
   </Provider>
 );
 

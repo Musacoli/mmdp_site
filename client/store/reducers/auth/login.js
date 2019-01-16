@@ -1,4 +1,4 @@
-import { LOGIN, LOGIN_SUCCESS } from '../../constants/auth';
+import { LOGIN, LOGIN_SUCCESS } from '../../../constants/auth';
 
 /**
 * @param {Object} state - Default application state
@@ -6,7 +6,7 @@ import { LOGIN, LOGIN_SUCCESS } from '../../constants/auth';
 * @returns {Object} New state
 */
 const initialState = {
-  loading: false
+  loading: false,
 };
 
 const login = (state = initialState, action = {}) => {
@@ -14,12 +14,12 @@ const login = (state = initialState, action = {}) => {
     case LOGIN:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
-        loading: false
+        loading: false,
       };
     default: return state;
   }
