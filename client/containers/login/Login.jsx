@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import LoginView from '../../components/LoginView';
+import LoginView from '../../components/LoginView.jsx';
 import { loginLoading } from '../../store/actions/auth/login';
 
 
@@ -13,15 +13,16 @@ export class Login extends Component {
   render() {
     return (
       <LoginView loading={this.props.loading} />
-    )
+    );
   }
 }
 
 Login.propTypes = {
   loading: PropTypes.bool.isRequired,
-}
+  loginLoading: PropTypes.func.isRequired,
+};
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   loading: state.login.loading
 });
 

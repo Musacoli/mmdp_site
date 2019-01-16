@@ -1,22 +1,22 @@
-import keystone from './helpers/keystone';
 import chai from 'chai';
+import keystone from './helpers/keystone';
 
 chai.should();
 
- const dbURI = process.env.MONGODB_URL || "mongodb://localhost/mongodb://127.0.0.1/mmdp-cms";
+const dbURI = process.env.MONGODB_URL || 'mongodb://127.0.0.1/mmdp-cms';
 
-describe('Users', function() {
-  before(function(done){
+describe('Users', () => {
+  before((done) => {
     if (keystone.mongoose.connection.db) return done();
     keystone.mongoose.connect(dbURI, done);
   });
 
-  it('should be a connection to Mongo', function(done){
+  it('should be a connection to Mongo', (done) => {
     keystone.mongoose.connection.db.should.be.a('Object');
     done();
   });
 
-  it('should be a Mongoose Model', function(done) {
+  it('should be a Mongoose Model', (done) => {
     const User = keystone.list('User');
 
     User.should.be.a('Object');
