@@ -1,9 +1,9 @@
-import keystone from "keystone";
-import { hasPassword } from "../utils/validators";
+import keystone from 'keystone';
+import { hasPassword } from '../utils/validators';
 
-const Types = keystone.Field.Types;
+const { Types } = keystone.Field;
 
-export const User = new keystone.List("User");
+export const User = new keystone.List('User');
 
 User.add(
   {
@@ -11,7 +11,7 @@ User.add(
       type: Types.Text,
       required: true,
       default: 'first name',
-      index: true
+      index: true,
     },
     last_name: {
       type: Types.Text,
@@ -25,7 +25,7 @@ User.add(
       required: true,
       index: true,
       unique: true,
-      default: "new@User"
+      default: 'new@User',
     },
     phone: {
       type: Types.Number,
@@ -36,22 +36,22 @@ User.add(
       required: true,
       index: true,
       initial: true,
-      unique: true
+      unique: true,
     },
     password: {
       type: Types.Password,
       required: true,
       initial: true,
-      default: hasPassword("P@ssword1")
+      default: hasPassword('P@ssword1'),
     },
-    confirmed: { type: Boolean, index: false }
+    confirmed: { type: Boolean, index: false },
   },
-  "Permissions",
+  'Permissions',
   {
-    isAdmin: { type: Boolean, label: "Can access Keystone", index: false }
-  }
+    isAdmin: { type: Boolean, label: 'Can access Keystone', index: false },
+  },
 );
 
-User.defaultColumns = "username, email";
+User.defaultColumns = 'username, email';
 
 User.register();
