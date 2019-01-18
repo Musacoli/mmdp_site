@@ -3,7 +3,7 @@ import login from './auth/login';
 
 
 const rootReducer = combineReducers({
-  login
+  login,
 });
 
 export default rootReducer;

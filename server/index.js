@@ -5,17 +5,18 @@ import routes from './routes';
 
 dotEnv.config();
 
+const MONGODB_URL = process.env.NODE_ENV === 'test' ? process.env.TEST_MONGODB_URL : process.env.MONGODB_URL;
+
 keystone.init({
   name: 'MMDP CMS',
   brand: 'MMDP CMS',
   sass: './public',
   static: './public',
-  favicon: './public/favicon.ico',
   updates: './updates',
   'auto update': true,
   session: true,
   auth: true,
-  mongo: process.env.MONGODB_URL,
+  mongo: MONGODB_URL,
   'user model': 'User',
   'cookie secret': process.env.COOKIE_SECRET,
 });
