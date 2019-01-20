@@ -1,15 +1,17 @@
+/* eslint import/no-named-as-default: 0 */
 import Login from '../containers/Login';
+import Dashboard from '../views/Dashboard';
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Login, // TODO: User home component instead of Login
-  },
   {
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/',
+    name: 'Dashboard',
+    component: Dashboard,
   },
 ];
 
