@@ -9,6 +9,7 @@ import About from '../containers/About';
 
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
+import { EditUserView} from "../views/Users";
 
 const routes = [
   {
