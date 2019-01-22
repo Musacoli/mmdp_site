@@ -12,6 +12,7 @@
       "jest": true
     },
     "rules": {
+      "consistent-return": 0,
       "jsx-a11y/label-has-associated-control": [ 2, {
         "labelComponents": ["label"],
         "labelAttributes": ["htmlFor"],
