@@ -1,6 +1,7 @@
 import path from "path";
 const keystone = require('keystone');
 const importRoutes = keystone.importer(__dirname);
+import cors from 'cors';
 import {
   checkIfAdmin,
   requireUser,
@@ -15,6 +16,9 @@ import {
 export const baseUrl = "/api/v1";
 
 exports = module.exports = app => {
+
+  app.use(cors());
+  
   const routes = {
     api: importRoutes("./api")
   };
