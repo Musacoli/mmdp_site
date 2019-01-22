@@ -7,6 +7,9 @@ import groupCart from './group/cart';
 import governorMessage from './about/governorMessage';
 import aboutMMDP from './about/aboutMMDP';
 import report from './resources/report';
+import register from './users/';
+import Users from './users/fetchUsers';
+
 
 const rootReducer = combineReducers({
   sidebar,
@@ -17,6 +20,8 @@ const rootReducer = combineReducers({
   governorMessage,
   aboutMMDP,
   report,
+  register,
+  Users
 });
 
 export default rootReducer;

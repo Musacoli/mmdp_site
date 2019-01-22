@@ -6,6 +6,10 @@ import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
 import About from '../containers/About';
 import AddReport from '../views/Resources/Report/AddReport';
+import About from '../containers/About'
+
+import AddUserView from '../views/Users';
+import { EditUserView} from "../views/Users";
 
 const routes = [
   {
@@ -49,6 +53,17 @@ const routes = [
     name: 'Add Report',
     component: AddReport,
     exact: true,
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: AddUserView,
+  },
+
+  {
+    path: '/users/all',
+    name: 'confirmation',
+    component: EditUserView,
   },
 ];
 

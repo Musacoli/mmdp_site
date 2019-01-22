@@ -10,6 +10,13 @@ import {
 import { watchAddReport } from './resources/report';
 import { watchFetchingPermissions } from './permission';
 import * as aboutWatcher from './about';
+import {
+  put, takeEvery, all, fork,
+} from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import {watchRegistration} from './users/AddUsersSaga';
+import { watchFetchingUsers} from './users/fetchUsers'
+
 
 export default function* root() {
   yield all([
@@ -27,5 +34,7 @@ export default function* root() {
     fork(aboutWatcher.updateAboutMMDPWatcher),
     fork(aboutWatcher.getAboutMMDPWatcher),
     fork(watchAddReport),
+    fork(watchRegistration),
+    fork(watchFetchingUsers)
   ]);
 }

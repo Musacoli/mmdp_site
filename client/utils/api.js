@@ -35,4 +35,8 @@ export const api = {
   permission: {
     list: () => client.get('api/permissions'),
   },
+  users: {
+    create: data => client.post('api/v1/users', data),
+    list: data => client.get('api/v1/users')
+  }
 };
