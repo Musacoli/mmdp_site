@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import { store } from './store';
+import './assets/index.sass';
 
 const app = (
   <Provider store={store}>

@@ -23,7 +23,9 @@
   "author": "MMDP",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.3",
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express-validation": "^1.0.2",
     "joi": "^14.3.1",

@@ -6,7 +6,7 @@ import TemplateDefault from '..';
 describe('<Template /> ', () => {
   it('renders Default template component without crashing', () => {
     shallow(
-      <TemplateDefault>
+      <TemplateDefault title="dashboard">
         <div className="hello">Hello world</div>
       </TemplateDefault>,
     );

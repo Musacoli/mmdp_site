@@ -2,6 +2,7 @@ import {
   put, takeEvery, all, fork,
 } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
+import {watchRegistration} from './users/AddUsersSaga';
 import { LOGIN, LOGIN_SUCCESS } from '../constants/auth';
 
 export function* loginAsync() {
@@ -16,5 +17,6 @@ export function* wathIncrement() {
 export default function* root() {
   yield all([
     fork(wathIncrement),
+    fork(watchRegistration)
   ]);
 }
