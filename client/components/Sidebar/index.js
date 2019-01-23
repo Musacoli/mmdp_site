@@ -71,13 +71,13 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
           title="Users"
           items={[]} // Provide an empty array if the item doesn't have menu levels
           active={activeIndex === 7}
-          onClick={() => goTo('/users', 7)}
+          onClick={() => goTo('/login', 7)}
         />
         <TitleContent
           title="Groups"
           items={[]} // Provide an empty array if the item doesn't have menu levels
           active={activeIndex === 8}
-          onClick={() => goTo('/group', 8)}
+          onClick={() => goTo('/group/list', 8)}
         />
       </div>
     </div>

@@ -13,9 +13,9 @@
     "client:build": "parcel build client/index.html",
     "run:server": "nodemon ./server/index.js --exec babel-node",
     "watch:build": "parcel watch ./client/index.js --out-dir ./server/public/js --no-cache",
-    "test:server": "NODE_ENV=test mocha --require babel-register ./server/__tests__/** --reporter spec --timeout 10000 --exit",
+    "test:server": "NODE_ENV=test mocha --require @babel/register ./server/__tests__/** --reporter spec --timeout 10000 --exit",
     "test:client": "jest  --coverage",
-    "test:client:watch": "jest  --require babel-register --watch",
+    "test:client:watch": "jest --watch",
     "coverage:server": "nyc --reporter html --reporter text --report-dir ./server/coverage yarn run test:server",
     "pretest": "yarn run lint",
     "lint": "eslint . --fix "
@@ -23,9 +23,11 @@
   "author": "MMDP",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.3",
     "dotenv": "^6.2.0",
     "express-validation": "^1.0.2",
+    "jest-mock-axios": "^2.1.11",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
     "keystone": "^4.0.0",
@@ -35,6 +37,7 @@
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
+    "react-select": "^2.3.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.2",
@@ -71,6 +74,7 @@
     "nyc": "^13.1.0",
     "parcel-bundler": "^1.11.0",
     "react-router-enzyme-context": "^1.2.0",
+    "redux-saga-test-plan": "^3.7.0",
     "should": "^13.2.3",
     "sinon": "^7.2.2",
     "supertest": "^3.3.0",
@@ -80,6 +84,7 @@
     "setupTestFrameworkScriptFile": "<rootDir>/client/__tests__/setup/setupEnzyme.js",
     "testPathIgnorePatterns": [
       "<rootDir>/client/__tests__/setup/",
+      "<rootDir>/client/middlewares/*",
       "<rootDir>/server/"
     ],
     "transform": {
@@ -94,7 +99,8 @@
       "!**/coverage/**",
       "!client/store/index.js",
       "!client/store/reducer/index.js",
-      "!client/index.js"
+      "!client/index.js",
+      "!**/middlewares/**"
     ],
     "coverageDirectory": "./client/coverage",
     "coverageReporters": [

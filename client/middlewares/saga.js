@@ -1,20 +1,20 @@
+import { all, fork } from 'redux-saga/effects';
 import {
-  put, takeEvery, all, fork,
-} from 'redux-saga/effects';
-import { delay } from 'redux-saga';
-import { LOGIN, LOGIN_SUCCESS } from '../constants/auth';
-
-export function* loginAsync() {
-  yield delay(1000);
-  yield put({ type: LOGIN_SUCCESS, payload: { msg: 1 } });
-}
-
-export function* wathIncrement() {
-  yield takeEvery(LOGIN, loginAsync);
-}
+  watchFetchingGroups,
+  watchFetchingGroup,
+  watchCreateGroup,
+  watchUpdateGroup,
+  watchDeleteGroup,
+} from './group';
+import { watchFetchingPermissions } from './permission';
 
 export default function* root() {
   yield all([
-    fork(wathIncrement),
+    fork(watchFetchingGroups),
+    fork(watchFetchingPermissions),
+    fork(watchCreateGroup),
+    fork(watchFetchingGroup),
+    fork(watchUpdateGroup),
+    fork(watchDeleteGroup),
   ]);
 }

@@ -8,13 +8,15 @@ const TemplateDefault = ({ children, title, ...props }) => (
   <React.Fragment>
     <Grid columns={2}>
       <Grid.Row>
-        <Grid.Column width={3}>
+        <Grid.Column width={4}>
           <Sidebar {...props} />
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column widescreen="12">
           <Container className="main-content">
             <Header as="h1">{title}</Header>
-            {children}
+            <div className="content-container">
+              {children}
+            </div>
           </Container>
         </Grid.Column>
       </Grid.Row>
