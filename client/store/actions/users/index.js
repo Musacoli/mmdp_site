@@ -13,19 +13,19 @@ export const registrationStarted = () => ({
   type: REGISTER_USER
 });
 
-export const startRegistration = payload => ({
+export const startRegistration = (payload) => ({
   type: REGISTERING_USER,
   payload
 });
 
 export const registerUserSuccess = payload => ({
   type: REGISTER_SUCCESS,
-  payload
+  payload,
 });
 
 export const registerUserFailure = payload => ({
   type: REGISTER_ERROR,
-  payload
+  payload,
 });
 
 export const userEditStarted = () => ({

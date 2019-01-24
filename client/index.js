@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import { store } from './store';
 import './assets/index.sass';
+import '../client/components/Users/index.sass';
+import '../client/containers/Users/index.sass';
 
 const app = (
   <Provider store={store}>

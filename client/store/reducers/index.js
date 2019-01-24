@@ -8,8 +8,8 @@ import sidebar from './sidebar';
 const rootReducer = combineReducers({
   login,
   register,
-  userEdit,
   sidebar,
+  userEdit,
 });
 
 export default rootReducer;

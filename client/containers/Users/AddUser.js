@@ -8,7 +8,7 @@ class AddUser extends Component {
   state = {
     email: "",
     status: false,
-    success: false,
+    success: false
   };
 
   onChange = event => {
@@ -25,9 +25,9 @@ class AddUser extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { status, success } = nextProps;
-    this.setState({ status, success});
+    this.setState({ status, success });
     setTimeout(() => {
-      this.setState({ status: false, success: false});
+      this.setState({ status: false, success: false });
     }, 2000);
   }
 
@@ -35,26 +35,27 @@ class AddUser extends Component {
     const { isRegistering, errors, user } = this.props;
     const { status, success } = this.state;
     return (
-      <div>
-          {status && <Message className={'negative'}> {errors.message} </Message>}
+      <div className="conatiner">
+          {status && <Message className='negative'> {errors.message} </Message>}
           {success && <Message className='positive'> {user.message} </Message>}
-          <Form loading={isRegistering}>
-            <Form.Field error={errors? errors.message: ''}>
-              <label>Email</label>
-              <input
+          <Form>
+            <Form.Group>
+              <Form.Input
+                className='w'
+                placeholder="please enter a valid email"
+                label="Email address"
                 type="email"
                 name="email"
                 onChange={this.onChange}
               />
-            </Form.Field>
-            <Button
-              className= {this.state.email ? 'save_user': 'b btn_disabled'}
-              type="submit"
-              disabled={!this.state.email}
-              onClick={this.onSubmit}
-            >
-              save user
-            </Button>
+              <Form.Button
+                className='b'
+                type="submit"
+                disabled={!this.state.email}
+                onClick={this.onSubmit}
+              >save user
+              </Form.Button>
+            </Form.Group>
           </Form>
       </div>
     );
