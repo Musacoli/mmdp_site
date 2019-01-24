@@ -29,7 +29,7 @@ const DisplayUsers = ({first_name, last_name, username, email, phone}) => (
             <Table.Cell>{email}</Table.Cell>
             <Table.Cell>{phone}</Table.Cell>
             {/*<Table.Cell>SuperUser</Table.Cell>*/}
-            <Table.Cell><ActionButtons/></Table.Cell>
+            <Table.Cell><ActionButtons email={email}/></Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>

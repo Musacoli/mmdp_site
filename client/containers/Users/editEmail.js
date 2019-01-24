@@ -40,6 +40,7 @@ class EditEmail extends Component {
   render() {
     const { isEditing, errors, user } = this.props;
     const { status, success } = this.state;
+    console.log(this.props)
     return (
       <div className='ui container'>
         <h2>Edit User Email</h2>

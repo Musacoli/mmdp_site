@@ -20,7 +20,7 @@ const routes = [
     component: AddUserView,
   },
   {
-    path: '/users/edit',
+    path: '/users/edit/:email',
     name: 'edit',
     component: editEmailView,
   },
