@@ -1,55 +1,59 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import LoginView from '../../components/LoginView';
-import { loginLoading } from '../../store/actions/auth/login';
-import MarkdownEditor from '../../components/common/MarkdownEditor';
-import './index.scss';
+import LoginViewForm from '../../components/LoginView/LoginView';
+import { loginUser } from '../../store/actions/auth/login';
 
 export class Login extends Component {
-
   state = {
-    editorValue: 'initial editor text',
-  }
+    username: '',
+    password: '',
+  };
 
-  componentDidMount() {
-    const { loginLoadingAction } = this.props;
-    loginLoadingAction();
-  }
+  onChange = (e) => {
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
-  handleEditorChange = (value) => {
-    this.setState({ editorValue: value });
-  }
+  validateEmail = (email) => {
+    const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return EMAIL_REGEX.test(email);
+  };
+
+  onFormSubmit = (e) => {
+    e.preventDefault();
+    const { loginUser: LoginUserAction } = this.props;
+    const { username, password } = this.state;
+    if (this.validateEmail(username)) {
+      const newEmailState = {
+        email: username,
+        password,
+      };
+      LoginUserAction(newEmailState);
+    } else {
+      const data = this.state;
+      LoginUserAction(data);
+    }
+  };
 
   render() {
-    const { loading } = this.props;
-    const { editorValue } = this.state;
-    return (
-      <React.Fragment>
-        <LoginView loading={loading} />
-        <div className="markdown__area">
-          <h4>{editorValue}</h4>
-          <MarkdownEditor 
-            value={editorValue} 
-            handleEditorChange={this.handleEditorChange}
-          />
-        </div>
-      </React.Fragment>
-    );
+    return <LoginViewForm onSubmit={this.onFormSubmit} onChange={this.onChange} />;
   }
 }
 
 Login.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  loginLoadingAction: PropTypes.func.isRequired,
+  loginUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  loading: state.login.loading,
+  Login: state.response,
 });
 
 const mapDispatchToProps = {
-  loginLoadingAction: loginLoading,
+  loginUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);

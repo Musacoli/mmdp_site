@@ -1,0 +1,99 @@
+.login__form{
+  padding-top: 100px;
+  margin: 10% auto auto;
+  height: 300px;
+  width: 50%;
+}
+
+.form__container{
+  font-size: larger;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fafeff;
+  margin-bottom: 20px;
+  width:550px;
+}
+.form__holder{
+  width: 95%;
+  padding-left: 40px;
+  padding-top: 10px;
+  padding-bottom: 80px;
+}
+
+.login__description{
+  /* position: relative; */
+  left: 30%;
+  margin-top:40px;
+  margin-bottom: 60px;
+  background-color: white;
+}
+
+#mmdp__logo{
+  /* display: inline-block; */
+  padding-left: 255px;
+}
+.form__input{
+  width: 80%;
+  height: 50px;
+  border-radius: 3px;
+}
+.login__container{
+  margin-top: 15px;
+}
+
+#login__btn {
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.81;
+  letter-spacing: -0.3px;
+  text-align: center;
+  background-color:#3faaca ;
+}
+
+.form__desc{
+  padding-top: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.36;
+  letter-spacing: -0.3px;
+  text-align: center;
+}
+
+#sign__text{
+  color: azure;
+}
+
+#forgot__password__container{
+  margin-top: 5px;
+  position: relative;
+  top:50%;
+  left:40%;
+  color: #296d81;
+}
+
+.input__field{
+  padding-top: 30px;
+}
+
+/*Media queries and responsive design for mobile devices*/
+@media only screen and (max-width: 600px) {
+  .form__container{
+    width:90%;
+  }
+
+  .login__description{
+  margin-bottom: 60px;
+}
+
+
+#mmdp__logo{
+  padding-left: 40%;
+}
+}
