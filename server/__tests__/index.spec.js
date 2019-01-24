@@ -3,8 +3,6 @@ import keystone from './helpers/keystone';
 
 chai.should();
 
-const dbURI = process.env.MONGODB_URL || 'mongodb://localhost/mongodb://127.0.0.1/mmdp-cms';
-
 describe('Users', () => {
   it('should be a connection to Mongo', (done) => {
     keystone.mongoose.connection.db.should.be.a('Object');

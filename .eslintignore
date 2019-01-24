@@ -1,0 +1,5 @@
+/node_modules
+/dist
+/server/public
+/server/coverage
+/client/coverage
