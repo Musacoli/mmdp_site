@@ -1,5 +1,6 @@
 import Login from '../containers/Login';
 import AddUserView from '../views/Users';
+import editEmailView from '../views/Users/editEmailView';
 
 const routes = [
   {
@@ -16,6 +17,11 @@ const routes = [
     path: '/users',
     name: 'users',
     component: AddUserView,
+  },
+  {
+    path: '/users/edit',
+    name: 'edit',
+    component: editEmailView,
   },
 ];
 

@@ -36,22 +36,19 @@ class AddUser extends Component {
     const { status, success } = this.state;
     return (
       <div>
-        <Segment>
-          {status && <Message color='red'> {errors.message} </Message>}
-          {success && <Message color='green'> {user.message} </Message>}
+          {status && <Message className={'negative'}> {errors.message} </Message>}
+          {success && <Message className='positive'> {user.message} </Message>}
           <Form loading={isRegistering}>
-            <Form.Group widths="equal">
-              <div className="error">
-                <Form.Input
-                  label="Email address"
-                  type="email"
-                  name="email"
-                  onChange={this.onChange}
-                />
-              </div>
-            </Form.Group>
+            <Form.Field error={errors? errors.message: ''}>
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                onChange={this.onChange}
+              />
+            </Form.Field>
             <Button
-              className='b'
+              className= {this.state.email ? 'save_user': 'b btn_disabled'}
               type="submit"
               disabled={!this.state.email}
               onClick={this.onSubmit}
@@ -59,7 +56,6 @@ class AddUser extends Component {
               save user
             </Button>
           </Form>
-        </Segment>
       </div>
     );
   }
