@@ -1,20 +1,47 @@
-import { REGISTER_USER, REGISTER_SUCCESS, REGISTER_ERROR, REGISTERING_USER} from "../../../constants/users";
+import {
+  REGISTER_USER,
+  REGISTER_SUCCESS,
+  REGISTER_ERROR,
+  REGISTERING_USER,
+  FETCHING_USERS_SUCCESS,
+  FETCHING,
+  FETCHING_STARTED,
+  FETCHING_USERS_ERROR
+} from "../../../constants/users";
 
 export const registrationStarted = () => ({
   type: REGISTER_USER
 });
 
-export const startRegistration = (payload) => ({
+export const startRegistration = payload => ({
   type: REGISTERING_USER,
   payload
 });
 
 export const registerUserSuccess = payload => ({
   type: REGISTER_SUCCESS,
-  payload,
+  payload
 });
 
 export const registerUserFailure = payload => ({
   type: REGISTER_ERROR,
-  payload,
+  payload
+});
+
+export const FetchingComplete = (payload) => ({
+  type: FETCHING_USERS_SUCCESS,
+  payload
+});
+
+export const fetchingStarted = () => ({
+  type: FETCHING
+});
+
+export const fetchingUsers = () => ({
+  type: FETCHING_STARTED
+});
+
+export const fetchingError = payload => ({
+  type: FETCHING_USERS_ERROR,
+  payload
 });

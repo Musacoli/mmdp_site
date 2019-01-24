@@ -1,15 +1,9 @@
 import {
-  takeEvery,
   takeLatest,
   put,
   call,
-  all,
-  fork
 } from "redux-saga/effects";
 import {
-  REGISTER_USER,
-  REGISTER_SUCCESS,
-  REGISTER_ERROR,
   REGISTERING_USER
 } from "../../constants/users/";
 import {

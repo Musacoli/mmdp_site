@@ -1,7 +1,7 @@
 import React from 'react'
 import {Grid, Container, Input, Dropdown, Button} from 'semantic-ui-react'
 
-const SearchSection = ({handleSubmit, name}) => (
+const SearchSection = () => (
    <Container>
   <Grid columns='equal'>
     <Grid.Column >
@@ -11,7 +11,7 @@ const SearchSection = ({handleSubmit, name}) => (
       <Dropdown placeholder='All Groups' fluid multiple search selection />
     </Grid.Column>
     <Grid.Column width={3}>
-      <Button className='search-btn' onClick={handleSubmit}>search {name}</Button>
+      <Button className='search-btn'>search</Button>
     </Grid.Column>
   </Grid>
    </Container>
