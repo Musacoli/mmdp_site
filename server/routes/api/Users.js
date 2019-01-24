@@ -1,8 +1,7 @@
 import { User } from "../../models/User";
 import username from "../../utils/usernameGenerator";
 import { sendConfirmationEmail } from "../../utils/mailer";
-import { fields, exclude, status } from "../../constants/controllerConstants";
-import resp from "../../constants/controllerConstants";
+import resp, { fields, exclude, status } from "../../constants/controllerConstants";
 const { SUCCESS, ERROR, FAIL } = status;
 
 export const createUser = (req, res) => {
