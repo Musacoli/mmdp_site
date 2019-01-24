@@ -34,13 +34,14 @@
     "node-sass-middleware": "^0.11.0",
     "nodemailer": "^5.1.1",
     "password-validator": "^4.1.1",
+    "path-to-regexp": "^3.0.0",
     "prettier": "^1.16.0",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "redux": "^4.0.1",
+    "redux": "^3.1.0 || ^4.0.0",
     "redux-devtools-extension": "^2.13.7",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.2",
@@ -87,6 +88,7 @@
     "setupTestFrameworkScriptFile": "<rootDir>/client/__tests__/setup/setupEnzyme.js",
     "testPathIgnorePatterns": [
       "<rootDir>/client/__tests__/setup/",
+      "<rootDir>/dist/",
       "<rootDir>/server/"
     ],
     "transform": {

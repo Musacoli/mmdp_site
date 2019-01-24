@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { startRegistration } from "../../store/actions/users/";
 import { Button, Form, Segment, Message } from "semantic-ui-react";
 
-class AddUser extends Component {
+export class AddUser extends Component {
   state = {
     email: "",
     status: false,
@@ -37,7 +36,8 @@ class AddUser extends Component {
     return (
       <div className="conatiner">
           {status && <Message className='negative'> {errors.message} </Message>}
-          {success && <Message className='positive'> {user.message} </Message>}
+          {success && <Message className='positive'> {user.message} </Message> && <Riderect to={'all'}></Riderect>}
+
           <Form>
             <Form.Group>
               <Form.Input
@@ -62,11 +62,9 @@ class AddUser extends Component {
   }
 }
 
-AddUser.propTypes = {};
+export const mapStateToProps = ({ register }) => register;
 
-const mapStateToProps = ({ register }) => register;
-
-const mapDispatchToProps = {
+export const mapDispatchToProps = {
   registerUser: startRegistration
 };
 
