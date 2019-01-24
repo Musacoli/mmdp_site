@@ -2,7 +2,7 @@ import React from "react";
 import { Dropdown } from "semantic-ui-react";
 
 const DropdownButton = () => (
-  <Dropdown pointing icon="ellipsis horizontal">
+  <Dropdown  className='btn-action' pointing icon="ellipsis horizontal">
     <Dropdown.Menu>
       <Dropdown.Item>Edit</Dropdown.Item>
       {/*<Dropdown.Item>Reset password</Dropdown.Item>*/}
