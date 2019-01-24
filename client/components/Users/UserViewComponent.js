@@ -1,8 +1,9 @@
 import React from "react";
 import { Table, Checkbox, Grid, Container } from "semantic-ui-react";
-import ActionButtons from "./ActionButtons";
+import UserRows from './TableRows';
+import ActionButtons from './ActionButtons'
 
-const DisplayUsers = ({first_name, last_name, username, email, phone}) => (
+const DisplayUsers = ({users}) => (
   <Container>
     <Grid.Row className="table-row">
       <Table className="no margin top no border radius">
@@ -20,17 +21,19 @@ const DisplayUsers = ({first_name, last_name, username, email, phone}) => (
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <Table.Row>
-            {/*<Table.Cell collapsing>*/}
-              {/*<Checkbox />*/}
-            {/*</Table.Cell>*/}
-            <Table.Cell>{first_name}  {" "} {last_name}</Table.Cell>
-            <Table.Cell>{username}</Table.Cell>
-            <Table.Cell>{email}</Table.Cell>
-            <Table.Cell>{phone}</Table.Cell>
-            {/*<Table.Cell>SuperUser</Table.Cell>*/}
-            <Table.Cell><ActionButtons/></Table.Cell>
-          </Table.Row>
+          {users.map(user => (
+            <Table.Row>
+              <Table.Cell>{user.first_name}{" "}{user.last_name}</Table.Cell>
+              <Table.Cell>{user.username}</Table.Cell>
+              <Table.Cell>{user.email}</Table.Cell>
+              <Table.Cell>{user.phone}</Table.Cell>
+              {/*<Table.Cell>SuperUser</Table.Cell>*/}
+              <Table.Cell>
+                <ActionButtons />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+
         </Table.Body>
       </Table>
     </Grid.Row>

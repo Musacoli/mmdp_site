@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { startRegistration } from "../../store/actions/users/";
 import { Button, Form, Segment, Message } from "semantic-ui-react";
 
@@ -37,7 +36,8 @@ class AddUser extends Component {
     return (
       <div className="conatiner">
           {status && <Message className='negative'> {errors.message} </Message>}
-          {success && <Message className='positive'> {user.message} </Message>}
+          {success && <Message className='positive'> {user.message} </Message> && <Riderect to={'all'}></Riderect>}
+
           <Form>
             <Form.Group>
               <Form.Input
@@ -61,8 +61,6 @@ class AddUser extends Component {
     );
   }
 }
-
-AddUser.propTypes = {};
 
 const mapStateToProps = ({ register }) => register;
 

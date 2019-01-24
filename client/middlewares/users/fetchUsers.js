@@ -1,6 +1,6 @@
 import { call, takeLatest, put } from "redux-saga/effects";
 
-import { FETCHING, REGISTERING_USER } from "../../constants/users";
+import { FETCHING } from "../../constants/users";
 import {
   FetchingComplete,
   fetchingUsers,

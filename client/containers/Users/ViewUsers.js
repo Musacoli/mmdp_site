@@ -7,21 +7,18 @@ import { fetchingStarted } from "../../store/actions/users";
 import { connect } from "react-redux";
 
 class ViewUsers extends Component {
-
   componentWillMount = () => {
     const { fetchUsersList } = this.props;
     fetchUsersList();
   };
 
   render() {
+    const { users } = this.props;
     return (
       <div>
         {/*<UserView handleSubmit={this.handleSubmit} name={name} />*/}
         <Group />
-        {this.props.users.map(user =>(
-          <UserViewList {...user} />
-
-        ))}
+        <UserViewList users={users} />
       </div>
     );
   }
