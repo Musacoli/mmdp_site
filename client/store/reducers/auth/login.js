@@ -1,28 +1,27 @@
-import { LOGIN, LOGIN_SUCCESS } from '../../../constants/auth';
+import { LOGIN, LOGIN_SUCCESS_OR_FAILURE } from '../../../constants/auth';
 
 /**
-* @param {Object} state - Default application state
-* @param {Object} action - Action from action creator
-* @returns {Object} New state
-*/
-const initialState = {
-  loading: false,
-};
+ * @param {Object} state - Default application state
+ * @param {Object} action - Action from action creator
+ * @returns {Object} New state
+ */
+const initialState = {};
 
-const login = (state = initialState, action = {}) => {
+const loginReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case LOGIN:
       return {
         ...state,
-        loading: true,
+        payload: action.payload,
       };
-    case LOGIN_SUCCESS:
+    case LOGIN_SUCCESS_OR_FAILURE:
       return {
         ...state,
-        loading: false,
+        payload: action.payload,
       };
-    default: return state;
+    default:
+      return state;
   }
 };
 
-export default login;
+export default loginReducer;
