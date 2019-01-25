@@ -3,8 +3,13 @@
       "airbnb"
     ],
     "parser": "babel-eslint",
-    "globals": {
-      "document": true
+    "env": {
+      "node": true,
+      "es6": true,
+      "mocha": true,
+      "browser": true,
+      "commonjs": true,
+      "jest": true
     },
     "rules": {
       "jsx-a11y/label-has-associated-control": [ 2, {

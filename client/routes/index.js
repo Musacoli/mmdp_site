@@ -4,6 +4,7 @@ import Group from '../views/Group';
 import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 
+
 const routes = [
   {
     path: '/',
