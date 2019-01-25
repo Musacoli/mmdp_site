@@ -24,8 +24,10 @@
   "license": "ISC",
   "dependencies": {
     "@tinymce/tinymce-react": "^2.5.0",
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^3.0.3",
+    "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express-validation": "^1.0.2",
     "joi": "^14.3.1",
@@ -47,6 +49,7 @@
     "regenerator": "^0.13.3",
     "regenerator-runtime": "^0.13.1",
     "semantic-ui-react": "^0.84.0",
+    "toastr": "^2.1.4",
     "underscore": "^1.9.1",
     "validator": "^10.11.0"
   },

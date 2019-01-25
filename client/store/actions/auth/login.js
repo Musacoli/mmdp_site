@@ -1,10 +1,11 @@
-import { LOGIN, LOGIN_SUCCESS } from '../../../constants/auth';
+import { LOGIN, LOGIN_SUCCESS_OR_FAILURE } from '../../../constants/auth';
 
-export const loginLoading = () => ({
+export const loginUser = data => ({
   type: LOGIN,
+  payload: data,
 });
 
-export const loginSuccessful = payload => ({
-  type: LOGIN_SUCCESS,
-  payload,
+export const loginSuccessOrFail = data => ({
+  type: LOGIN_SUCCESS_OR_FAILURE,
+  payload: data,
 });
