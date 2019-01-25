@@ -12,7 +12,9 @@ export function* loadUsers() {
   try {
     yield put(fetchingUsers());
     const usersList = yield call(api.users.list);
-    const { data: {users} } = usersList;
+    const {
+      data: { users }
+    } = usersList;
     yield put(FetchingComplete(users));
   } catch (error) {
     yield put(

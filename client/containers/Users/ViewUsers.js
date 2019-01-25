@@ -16,13 +16,12 @@ class ViewUsers extends Component {
   };
 
   render() {
-    const { users } = this.props;
+    const { users, success } = this.props;
     return (
       <div>
         {/*<UserView handleSubmit={this.handleSubmit} name={name} />*/}
         <Group />
-        {this.props.success ? <UserViewList users={users} /> : <Loader/>}
-        {users.length === 0 && <NoResults/> }
+        <UserViewList users={users} success={success} />
       </div>
     );
   }

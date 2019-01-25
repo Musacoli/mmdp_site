@@ -1,6 +1,6 @@
-import React from 'react';
-import { Table, Header } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Table, Header } from "semantic-ui-react";
+import PropTypes from "prop-types";
 
 const NoResultsRow = ({ colSpan }) => (
   <Table.Footer fullWidth>
@@ -13,10 +13,10 @@ const NoResultsRow = ({ colSpan }) => (
 );
 
 NoResultsRow.propTypes = {
-  colSpan: PropTypes.number,
+  colSpan: PropTypes.number
 };
 
 NoResultsRow.defaultProps = {
-  colSpan: 4,
+  colSpan: 4
 };
 export default NoResultsRow;
