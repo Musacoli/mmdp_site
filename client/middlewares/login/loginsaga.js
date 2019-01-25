@@ -28,6 +28,9 @@ export function* loginuser(action) {
       const userToken = response.data.user.token;
       toastr.success(response.message);
       localStorage.setItem('userToken', userToken);
+      setTimeout(() => {
+        window.location.replace('/');
+      }, 1000);
     } else {
       toastr.warning(response.message);
     }

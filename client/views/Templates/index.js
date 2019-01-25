@@ -21,8 +21,6 @@ const TemplateDefault = ({ children, title, ...props }) => (
         </Grid.Column>
       </Grid.Row>
     </Grid>
-
-
   </React.Fragment>
 );
 
@@ -32,3 +30,4 @@ TemplateDefault.propTypes = {
 };
 
 export default TemplateDefault;
+

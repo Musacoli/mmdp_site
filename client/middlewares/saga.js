@@ -8,6 +8,8 @@ import {
   watchDeleteGroup,
 } from './group';
 import { watchFetchingPermissions } from './permission';
+import * as aboutWatcher from './about'
+
 
 export default function* root() {
   yield all([
@@ -18,5 +20,12 @@ export default function* root() {
     fork(watchUpdateGroup),
     fork(watchDeleteGroup),
     fork(loginSagaWatcher),
+    fork(aboutWatcher.createGovernorMessageWatcher),
+    fork(aboutWatcher.updateGovernorMessageWatcher),
+    fork(aboutWatcher.getGovernorMessageWatcher),
+    fork(aboutWatcher.createAboutMMDPWatcher),
+    fork(aboutWatcher.updateAboutMMDPWatcher),
+    fork(aboutWatcher.getAboutMMDPWatcher),
   ]);
 }
+

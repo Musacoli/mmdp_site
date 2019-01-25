@@ -14,6 +14,8 @@ pids
 coverage 
 /client/coverage
 /server/coverage
+/server/upload/images
+*.test.js.snap
 
 #build
 build
