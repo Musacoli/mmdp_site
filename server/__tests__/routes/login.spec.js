@@ -1,37 +1,52 @@
 import chai from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
-import { user } from '../../routes/api/auth';
+import {User} from '../../models/User';
+import {user} from '../../routes/api/auth';
 import keystone from '../helpers/keystone';
 
-const { app } = keystone;
+const {app} = keystone;
 
 const route = '/api/v1/auth/login';
 
-const { expect } = chai;
+const {expect} = chai;
 
 const server = request(app);
 
+const createAccount = async (data) => await User.model.create({...data});
+
 const completedAccount = {
-  email: 'admin@mmdp.com',
+  email: 'tbag@mmdp.com',
+  username: 'tbag',
   password: 'admin',
 };
+
 const unCompletedAccount = {
-  email: 'user@mmdp.com',
+  email: 'cnote@mmdp.com',
+  username: 'cnote',
   password: 'user',
 };
 
 const completedAccount2 = {
-  username: 'admin',
-  password: 'admin',
+  email: 'henry@mmdp.com',
+  username: 'henry',
+  password: 'henry',
 };
 
 const invalidAccount = {
-  username: 'swerfegr',
-  password: 'sdfcsd',
+  username: 'foo',
+  password: 'bar',
 };
 
 describe('Auth route', () => {
+  before(async () => {
+    await User.model.remove();
+    // create completed and uncompleted accounts
+    await createAccount({...completedAccount, confirmed: true});
+    await createAccount(unCompletedAccount);
+    await createAccount({...completedAccount2, confirmed: true});
+  });
+
   describe('POST /auth/login', () => {
     it('should return a 400 status when password is empty', async () => {
       const res = await server

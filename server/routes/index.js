@@ -14,6 +14,8 @@ import {
   verifyAccount,
   verifyEdit,
 } from '../middlewares/userMiddlewares';
+import {paramGroupExists, validateGroupData} from "../middlewares/groupMiddlewares";
+import authorize from '../middlewares/authorize';
 
 const importRoutes = keystone.importer(__dirname);
 
@@ -42,7 +44,36 @@ export default function (app) {
   app.get(`${baseUrl}/users`, routes.api.Users.fetchAllUsers);
   app.put(`${baseUrl}/users/edit`, verifyEdit, routes.api.Users.edited);
 
+  app.get(
+    '/api/groups',
+    [authorize.group.list],
+    routes.api.group.list
+  );
+  app.get(
+    '/api/groups/:id',
+    [authorize.group.get, paramGroupExists],
+    routes.api.group.get
+  );
+  app.post(
+    '/api/groups/',
+    [authorize.group.create, validateGroupData],
+    routes.api.group.create
+  );
+  app.put(
+    '/api/groups/:id',
+    [authorize.group.update, paramGroupExists, validateGroupData],
+    routes.api.group.update
+  );
+  app.delete(
+    '/api/groups/:id',
+    [authorize.group.delete, paramGroupExists],
+    routes.api.group.remove
+  );
+  app.get(
+    '/api/permissions',
+    [authorize.permission.list],
+    routes.api.permission.list
+  );
+
   app.use(errorHandler);
-
 }
-
