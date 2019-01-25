@@ -29,6 +29,7 @@
     "bcrypt": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
+    "jest-mock-axios": "^2.1.11",
     "express-validation": "^1.0.2",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
@@ -42,6 +43,7 @@
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
+    "react-select": "^2.3.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.7",
     "redux-logger": "^3.0.6",
@@ -93,6 +95,7 @@
     "setupTestFrameworkScriptFile": "<rootDir>/client/__tests__/setup/setupEnzyme.js",
     "testPathIgnorePatterns": [
       "<rootDir>/client/__tests__/setup/",
+      "<rootDir>/client/middlewares/*",
       "<rootDir>/server/"
     ],
     "transform": {
@@ -107,7 +110,8 @@
       "!**/coverage/**",
       "!client/store/index.js",
       "!client/store/reducer/index.js",
-      "!client/index.js"
+      "!client/index.js",
+      "!**/middlewares/**"
     ],
     "coverageDirectory": "./client/coverage",
     "coverageReporters": [
