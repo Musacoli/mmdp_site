@@ -36,6 +36,10 @@ export class Login extends Component {
     }
   };
 
+  handleEditorChange = (value) => {
+    this.setState({ editorValue: value });
+  }
+
   render() {
     return <LoginViewForm onSubmit={this.onFormSubmit} onChange={this.onChange} />;
   }
