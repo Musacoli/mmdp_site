@@ -31,7 +31,7 @@ class ActionModal extends Component {
           </Modal.Content>
           <Modal.Actions>
             <Button id="actionModal-no-button" negative onClick={() => this.toggleModal()}>No</Button>
-            <Button id="actionModal-yes-button" onClick={() => this.delete(group)} positive icon="checkmark" labelPosition="right" content="Yes" />
+            <Button className="cool-blue" id="actionModal-yes-button" onClick={() => this.delete(group)} positive icon="checkmark" labelPosition="right" content="Yes" />
           </Modal.Actions>
         </Modal>
       );

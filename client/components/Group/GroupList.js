@@ -14,19 +14,19 @@ const GroupList = ({
   confirmDeleteGroup,
 }) => (
   <Table compact className="no margin top no border radius">
-    <Table.Header>
-      <Table.Row>
-        <Table.HeaderCell>
-          <Checkbox className="group-list-check-box" onChange={handeMainCheckBoxChange} />
-        </Table.HeaderCell>
-        <Table.HeaderCell>Group Name</Table.HeaderCell>
-        <Table.HeaderCell>Users</Table.HeaderCell>
-        <Table.HeaderCell>Permissions</Table.HeaderCell>
-        <Table.HeaderCell>More</Table.HeaderCell>
-      </Table.Row>
-    </Table.Header>
 
-    <Table.Body>
+
+    <Table.Body className="table__list">
+      <Table.Row>
+        <Table.Cell>
+          <Checkbox className="group-list-check-box" onChange={handeMainCheckBoxChange} />
+        </Table.Cell>
+        <Table.Cell><b>Group Name</b></Table.Cell>
+        <Table.Cell><b>Users</b></Table.Cell>
+        <Table.Cell><b>Permissions</b></Table.Cell>
+        <Table.Cell><b>More</b></Table.Cell>
+
+      </Table.Row>
       {groups.groups.map(group => (
         <GroupItem
           group={group}
