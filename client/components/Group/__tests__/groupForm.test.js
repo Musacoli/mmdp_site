@@ -16,6 +16,7 @@ const props = {
   errors: { name: testText },
   serverError: testText,
   success: true,
+  groupId: '',
 };
 
 
@@ -33,5 +34,7 @@ describe('<GroupForm /> ', () => {
     expect(node.instance().value).toEqual(testText);
     node = wrapper.find('.primary .color-blue');
     node.simulate('click');
+    props.groupId = '123ert76';
+    mount(<GroupForm {...props} />);
   });
 });

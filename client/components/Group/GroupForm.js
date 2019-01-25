@@ -5,7 +5,7 @@ import Select from 'react-select';
 import './styles.sass';
 
 const GroupForm = ({
-  options, name, selectedOption,
+  options, name, selectedOption, groupId,
   handleSelectChange, handleInputChange, busy,
   handleSubmit, errors, serverError, success,
 }) => (
@@ -20,7 +20,14 @@ const GroupForm = ({
     {success
     && (
     <Message success>
-      <Message.Header>Group Submitted successfully</Message.Header>
+      <Message.Header>
+Group
+        {' '}
+        {groupId && <span>updated</span>}
+        {!groupId && <span>created</span>}
+        {' '}
+successfully
+      </Message.Header>
     </Message>
     )
         }
@@ -57,6 +64,7 @@ GroupForm.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  groupId: PropTypes.string.isRequired,
   errors: PropTypes.shape({}).isRequired,
   serverError: PropTypes.string.isRequired,
   success: PropTypes.bool.isRequired,

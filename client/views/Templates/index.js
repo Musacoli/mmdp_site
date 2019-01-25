@@ -26,8 +26,11 @@ const TemplateDefault = ({ children, title, ...props }) => (
 
 TemplateDefault.propTypes = {
   children: PropTypes.element.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
+};
+
+TemplateDefault.defaultProps = {
+  title: '',
 };
 
 export default TemplateDefault;
-

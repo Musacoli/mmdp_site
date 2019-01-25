@@ -1,7 +1,8 @@
 import chai from 'chai';
 import keystone from './helpers/keystone';
 
-chai.should();
+const { expect } = chai;
+
 
 describe('Users', () => {
   it('should be a connection to Mongo', (done) => {

@@ -28,7 +28,7 @@ export class GroupFormContainer extends Component {
     selectedOption: [],
     name: '',
     errors: {},
-    id: null,
+    id: '',
   }
 
   componentDidMount() {
@@ -116,7 +116,9 @@ export class GroupFormContainer extends Component {
 
   render() {
     const { permissions, groups } = this.props;
-    const { selectedOption, name, errors } = this.state;
+    const {
+      selectedOption, name, errors, id,
+    } = this.state;
     return (
       <GroupForm
         selectedOption={selectedOption}
@@ -129,6 +131,7 @@ export class GroupFormContainer extends Component {
         serverError={groups.errors}
         success={groups.success}
         busy={groups.isFetching}
+        groupId={id}
       />
     );
   }

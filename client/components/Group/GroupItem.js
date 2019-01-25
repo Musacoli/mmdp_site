@@ -21,7 +21,7 @@ const GroupItem = ({
     </Table.Cell>
     <Table.Cell>
 
-      <Dropdown pointing icon="ellipsis horizontal" className="linkitem">
+      <Dropdown pointing icon="ellipsis horizontal" className="elipses-icon">
         <Dropdown.Menu>
           <Dropdown.Item className="group-item-edit-dropdown" onClick={() => redirectTo(group._id)}>Edit</Dropdown.Item>
           <Dropdown.Item>
