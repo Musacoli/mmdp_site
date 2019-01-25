@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { startEditing } from "../../store/actions/users/";
 import { Button, Form, Message } from "semantic-ui-react";
 
@@ -40,9 +41,8 @@ class EditEmail extends Component {
   render() {
     const { isEditing, errors, user } = this.props;
     const { status, success } = this.state;
-    console.log(this.props)
     return (
-      <div className='ui container'>
+      <div className="ui container">
         <h2>Edit User Email</h2>
         {status && (
           <Message negative>
@@ -50,10 +50,10 @@ class EditEmail extends Component {
           </Message>
         )}
         {success && (
-          <Message positive>
-            <Message.Header> {user.message} </Message.Header>
-          </Message>
-        )}
+            <Message positive>
+              <Message.Header> {user.message} </Message.Header>
+            </Message>
+          )}
         <Form loading={isEditing}>
           <Form.Field>
             <label>Old Email</label>

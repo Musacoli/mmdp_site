@@ -1,10 +1,8 @@
-import {
-  put, takeEvery, all, fork,
-} from 'redux-saga/effects';
-import { delay } from 'redux-saga';
-import {watchRegistration, watchUserEdit} from './users/AddUsersSaga';
-import { watchFetchingUsers} from './users/fetchUsers';
-import { LOGIN, LOGIN_SUCCESS } from '../constants/auth';
+import { put, takeEvery, all, fork } from "redux-saga/effects";
+import { delay } from "redux-saga";
+import { watchRegistration, watchUserEdit } from "./users/AddUsersSaga";
+import { watchFetchingUsers } from "./users/fetchUsers";
+import { LOGIN, LOGIN_SUCCESS } from "../constants/auth";
 
 export function* loginAsync() {
   yield delay(1000);

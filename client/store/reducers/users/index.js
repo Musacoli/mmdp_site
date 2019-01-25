@@ -7,7 +7,7 @@ import {
 const initialState = {
   status: false,
   success: false,
-  isRegistering: false,
+  isRegistering: false
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {

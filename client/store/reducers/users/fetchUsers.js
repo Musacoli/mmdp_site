@@ -5,7 +5,7 @@ import {
 } from "../../../constants/users/";
 
 const initialState = {
-  users:[],
+  users: [],
   isFetching: false,
   success: false,
   error: false

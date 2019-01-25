@@ -1,18 +1,18 @@
 import {
   EDIT_USER,
   USER_EDIT_ERROR,
-  USER_EDIT_SUCCESS,
-} from '../../../constants/users';
+  USER_EDIT_SUCCESS
+} from "../../../constants/users";
 
 const initialState = {
   status: false,
   success: false,
-  isEditing: false,
+  isEditing: false
 };
 const editingReducer = (state = initialState, action) => {
   switch (action.type) {
     case EDIT_USER: {
-      return { ...state, isEditing: true,  status: false,};
+      return { ...state, isEditing: true, status: false };
     }
     case USER_EDIT_SUCCESS: {
       return {
@@ -20,7 +20,7 @@ const editingReducer = (state = initialState, action) => {
         user: action.payload,
         status: false,
         success: true,
-        isEditing: false,
+        isEditing: false
       };
     }
     case USER_EDIT_ERROR: {

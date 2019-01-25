@@ -17,14 +17,14 @@ export const registrationStarted = () => ({
   type: REGISTER_USER
 });
 
-export const startRegistration = (payload) => ({
+export const startRegistration = payload => ({
   type: REGISTERING_USER,
   payload
 });
 
 export const registerUserSuccess = payload => ({
   type: REGISTER_SUCCESS,
-  payload,
+  payload
 });
 
 export const registerUserFailure = payload => ({
@@ -32,7 +32,7 @@ export const registerUserFailure = payload => ({
   payload
 });
 
-export const FetchingComplete = (payload) => ({
+export const FetchingComplete = payload => ({
   type: FETCHING_USERS_SUCCESS,
   payload
 });
