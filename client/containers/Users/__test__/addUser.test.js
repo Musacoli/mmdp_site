@@ -10,10 +10,15 @@ const state = {
 const props = {
   isRegistering: false,
   registerUser: jest.fn(),
+  onChange: jest.fn(),
+  onSubmit: jest.fn(),
 };
+
 
 const wrapper = mount(<AddUser {...props} />);
 
-it('Maps state to props', () => {
-  expect(mapStateToProps(state)).toEqual(state.register);
-});
+describe('<AddUser />', () => {
+  it('Maps state to props', () => {
+    expect(mapStateToProps(state)).toEqual(state.register);
+  });
+})

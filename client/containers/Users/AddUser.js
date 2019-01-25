@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { startRegistration } from "../../store/actions/users/";
 import { Button, Form, Segment, Message } from "semantic-ui-react";
 
@@ -36,7 +37,7 @@ export class AddUser extends Component {
     return (
       <div className="conatiner">
           {status && <Message className='negative'> {errors.message} </Message>}
-          {success && <Message className='positive'> {user.message} </Message> && <Riderect to={'all'}></Riderect>}
+          {success && <Message className='positive'> {user.message} </Message>}
 
           <Form>
             <Form.Group>

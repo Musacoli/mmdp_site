@@ -5,8 +5,12 @@ import Group from "../../components/Users/GroupButtons";
 import UserViewList from "../../components/Users/UserViewComponent";
 import { fetchingStarted } from "../../store/actions/users";
 import { connect } from "react-redux";
+import  Loader from '../../components/common/TableRowLoading/';
+import NoResults from '../../components/common/TableRowLoading/NoResultsRow'
+
 
 class ViewUsers extends Component {
+
   componentWillMount = () => {
     const { fetchUsersList } = this.props;
     fetchUsersList();
@@ -18,7 +22,8 @@ class ViewUsers extends Component {
       <div>
         {/*<UserView handleSubmit={this.handleSubmit} name={name} />*/}
         <Group />
-        <UserViewList users={users} />
+        {this.props.success ? <UserViewList users={users} /> : <Loader/>}
+        {users.length === 0 && <NoResults/> }
       </div>
     );
   }

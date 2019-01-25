@@ -30,4 +30,5 @@ describe('User Reducer test', () => {
     expect(fetchUsers(initialState.users, action)).toEqual([]);
   });
 
+
 });
