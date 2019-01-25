@@ -1,4 +1,5 @@
 import { all, fork } from 'redux-saga/effects';
+import loginSagaWatcher from './login/loginsaga';
 import {
   watchFetchingGroups,
   watchFetchingGroup,
@@ -16,5 +17,6 @@ export default function* root() {
     fork(watchFetchingGroup),
     fork(watchUpdateGroup),
     fork(watchDeleteGroup),
+    fork(loginSagaWatcher),
   ]);
 }
