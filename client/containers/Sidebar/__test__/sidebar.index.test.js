@@ -30,4 +30,3 @@ describe('<Sidebar /> Container', () => {
     wrapper.instance().goTo(1);
   });
 });
-

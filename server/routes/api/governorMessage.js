@@ -4,7 +4,6 @@ export const create = (req, res) => {
   const item = new GovernorMessage.model();
 
   item.getUpdateHandler(req).process(req.body, (err) => {
-    console.log(res.body);
     if (err) return res.apiError('create error', err);
     res.apiResponse({
       item,

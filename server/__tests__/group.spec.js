@@ -1,22 +1,20 @@
-import keystone from "./helpers/keystone";
-import Group from "../models/Group";
-import supertest from "supertest";
+import supertest from 'supertest';
 import expect from 'expect';
+import keystone from './helpers/keystone';
+import Group from '../models/Group';
 
 const app = supertest(keystone.app);
 
 const groupData = {
-  name: "Security Admin",
+  name: 'Security Admin',
   permissions: [
-    "user.*",
-    "group.*",
-    "cms.*",
-  ]
+    'user.*',
+    'group.*',
+    'cms.*',
+  ],
 };
 
-const createGroup = async (data = groupData) => {
-  return await app.post('/api/groups').send(data);
-};
+const createGroup = async (data = groupData) => await app.post('/api/groups').send(data);
 
 describe('Create group (POST)', () => {
   beforeEach(async () => {
@@ -26,36 +24,36 @@ describe('Create group (POST)', () => {
   it('should create successfully when data is valid', async () => {
     const res = await createGroup();
     expect(res.status).toBe(201);
-    expect(res.body.group).toMatchObject({name: groupData.name});
+    expect(res.body.group).toMatchObject({ name: groupData.name });
     expect(res.body.message).toBe(`The ${groupData.name} group was created successfully.`);
   });
 
   it('should fail if name is missing', async () => {
-    const data = {...groupData, name: null};
+    const data = { ...groupData, name: null };
     const res = await createGroup(data);
     expect(res.status).toBe(422);
   });
 
   it('should fail if permissions is missing', async () => {
-    const data = {...groupData, permissions: null};
+    const data = { ...groupData, permissions: null };
     const res = await createGroup(data);
     expect(res.status).toBe(422);
   });
 
   it('should fail if name is of incorrect type', async () => {
-    const data = {...groupData, name: 1};
+    const data = { ...groupData, name: 1 };
     const res = await createGroup(data);
     expect(res.status).toBe(422);
   });
 
   it('should fail if permissions is of incorrect type', async () => {
-    const data = {...groupData, permissions: 1};
+    const data = { ...groupData, permissions: 1 };
     const res = await createGroup(data);
     expect(res.status).toBe(422);
   });
 
   it('should fail if provided permissions do not exist on the system', async () => {
-    const data = {...groupData, permissions: ['foo', 'bar', 'baz']};
+    const data = { ...groupData, permissions: ['foo', 'bar', 'baz'] };
     const res = await createGroup(data);
     expect(res.status).toBe(422);
   });
@@ -70,11 +68,9 @@ describe('Create group (POST)', () => {
   });
 });
 
-const updateGroup = async (id, data) => {
-  return await app.put(`/api/groups/${id}`).send(data);
-};
+const updateGroup = async (id, data) => await app.put(`/api/groups/${id}`).send(data);
 
-const validUpdateData = {name: 'Root', permissions: ['user.*', 'group.*', 'cms.*']};
+const validUpdateData = { name: 'Root', permissions: ['user.*', 'group.*', 'cms.*'] };
 
 describe('Update group (PUT)', async () => {
   let existingGroup;
@@ -87,7 +83,7 @@ describe('Update group (PUT)', async () => {
   it('should update successfully when data is valid', async () => {
     const res = await updateGroup(existingGroup._id, validUpdateData);
     expect(res.status).toBe(200);
-    expect(res.body.group).toMatchObject({name: validUpdateData.name});
+    expect(res.body.group).toMatchObject({ name: validUpdateData.name });
     expect(res.body.message).toBe(`The ${validUpdateData.name} group was updated successfully.`);
   });
 
@@ -97,54 +93,52 @@ describe('Update group (PUT)', async () => {
   });
 
   it('should fail if name is missing', async () => {
-    const data = {...validUpdateData, name: null};
+    const data = { ...validUpdateData, name: null };
     const res = await updateGroup(existingGroup._id, data);
     expect(res.status).toBe(422);
   });
 
   it('should fail if permissions is missing', async () => {
-    const data = {...validUpdateData, permissions: null};
+    const data = { ...validUpdateData, permissions: null };
     const res = await updateGroup(existingGroup._id, data);
     expect(res.status).toBe(422);
   });
 
   it('should fail if name is of incorrect type', async () => {
-    const data = {...validUpdateData, name: 1};
+    const data = { ...validUpdateData, name: 1 };
     const res = await updateGroup(existingGroup._id, data);
     expect(res.status).toBe(422);
   });
 
   it('should fail if permissions is of incorrect type', async () => {
-    const data = {...validUpdateData, permissions: 1};
+    const data = { ...validUpdateData, permissions: 1 };
     const res = await updateGroup(existingGroup._id, data);
     expect(res.status).toBe(422);
   });
 
   it('should fail if provided permissions do not exist on the system', async () => {
-    const data = {...validUpdateData, permissions: ['foo', 'bar', 'baz']};
+    const data = { ...validUpdateData, permissions: ['foo', 'bar', 'baz'] };
     const res = await updateGroup(existingGroup._id, data);
     expect(res.status).toBe(422);
   });
 
   it('should fail on attempt to rename group to existing group', async () => {
     // add a group named 'Super Admin'
-    const superAdmin = (await createGroup({...groupData, name: 'Super Admin'})).body.group;
+    const superAdmin = (await createGroup({ ...groupData, name: 'Super Admin' })).body.group;
     // try renaming 'Super Admin' to 'Security Admin' which exists (from groupData)
-    const res = await updateGroup(superAdmin._id, {...groupData, name: 'Security Admin'});
+    const res = await updateGroup(superAdmin._id, { ...groupData, name: 'Security Admin' });
     expect(res.status).toBe(409);
     expect(res.body.message).toBe(`A group named ${groupData.name} already exists.`);
   });
 });
 
-const listGroups = async () => {
-  return await app.get('/api/groups');
-};
+const listGroups = async () => await app.get('/api/groups');
 
 describe('List group (GET)', async () => {
   beforeEach(async () => {
     await Group.model.remove();
     for (let i = 0; i < 5; i++) {
-      await createGroup({...groupData, name: `group_${i}`})
+      await createGroup({ ...groupData, name: `group_${i}` });
     }
   });
 
@@ -158,14 +152,12 @@ describe('List group (GET)', async () => {
     const data = res.body.groups;
     expect(data.length).toBe(5);
     for (let i = 0; i < 5; i++) {
-      expect(data).toContainEqual(expect.objectContaining({name: `group_${i}`}));
+      expect(data).toContainEqual(expect.objectContaining({ name: `group_${i}` }));
     }
   });
 });
 
-const getGroup = async (id) => {
-  return await app.get(`/api/groups/${id}`);
-};
+const getGroup = async id => await app.get(`/api/groups/${id}`);
 
 describe('Get group (GET)', async () => {
   let existingGroup;
@@ -188,9 +180,7 @@ describe('Get group (GET)', async () => {
   });
 });
 
-const deleteGroup = async (id) => {
-  return await app.delete(`/api/groups/${id}`);
-};
+const deleteGroup = async id => await app.delete(`/api/groups/${id}`);
 
 describe('Delete group (DELETE)', async () => {
   let existingGroup;

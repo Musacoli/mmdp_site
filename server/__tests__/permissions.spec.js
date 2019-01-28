@@ -1,8 +1,8 @@
-import expect from "expect";
-import supertest from "supertest";
-import keystone from "./helpers/keystone";
-import permissions from "../core/permissions";
-import {getPermissionsMapArray} from "../utils/permissions";
+import expect from 'expect';
+import supertest from 'supertest';
+import keystone from './helpers/keystone';
+import permissions from '../core/permissions';
+import { getPermissionsMapArray } from '../utils/permissions';
 
 const app = supertest(keystone.app);
 

@@ -3,11 +3,11 @@ export const fields = {
   id: '*',
   username: '*',
   isAdmin: '*',
-  confirmed: '*'
-}
+  confirmed: '*',
+};
 
 export const exclude = {
   password: 0,
   _id: 0,
-  __v: 0
-}
+  __v: 0,
+};

@@ -12,7 +12,7 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
       <div className="item logo">
         <div as="h2">
           <div className="float-left">
-            <Image className="brand__logo" circular src="http://3.17.158.38/assets/images/common/group-2.png" />
+            <Image className="brand__logo" circular src="http://3.17.158.38/assets/images/common/mmdp-logo-white-text.svg" />
           </div>
           <div className="brand__name float-left">
           The Managing Migration through
@@ -33,12 +33,12 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
           items={[
             {
               name: 'Message from the governor',
-                path: '/about/governor-message'
+              path: '/about/governor-message',
             },
             {
               name: 'About MMDP',
-              path: '/about/about-mmdp'
-            }
+              path: '/about/about-mmdp',
+            },
           ]}
           active={activeIndex === 1}
           onClick={() => handleClick(1)}
@@ -99,4 +99,3 @@ SidebarMenu.propTypes = {
   activeIndex: PropTypes.number.isRequired,
 };
 export default SidebarMenu;
-

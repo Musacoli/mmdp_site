@@ -1,21 +1,17 @@
 import expect from 'expect';
 import Group from '../../models/Group';
-import {User} from '../../models/User';
+import { User } from '../../models/User';
 import {
   allPermissionsFor,
   getPermissionsMapArray,
   getUserPermissions,
   hasAllPermissions,
-  hasAnyPermission
-} from "../../utils/permissions";
+  hasAnyPermission,
+} from '../../utils/permissions';
 
-const createUser = async (data, groups = []) => {
-  return (await User.model.create({...data, groups})).populate('groups');
-};
+const createUser = async (data, groups = []) => (await User.model.create({ ...data, groups })).populate('groups');
 
-const createGroup = async (data) => {
-  return (await Group.model.create(data));
-};
+const createGroup = async data => (await Group.model.create(data));
 
 describe('utils - permissions.js', () => {
   describe('allPermissionsFor()', () => {
@@ -35,15 +31,15 @@ describe('utils - permissions.js', () => {
   describe('getPermissionsMapArray()', () => {
     it('should map permissions correctly', () => {
       const cmsPermissions = [
-        'cms.about.*', 'cms.about.create', 'cms.about.edit', 'cms.about.view', 'cms.about.archive'
+        'cms.about.*', 'cms.about.create', 'cms.about.edit', 'cms.about.view', 'cms.about.archive',
       ];
 
       const cmsPermissionsMap = [
-        {'cms.about.*': "Full about access"},
-        {'cms.about.create': "Create about content"},
-        {'cms.about.edit': "Edit about content"},
-        {'cms.about.view': "View about content"},
-        {'cms.about.archive': "Archive about content"},
+        { 'cms.about.*': 'Full about access' },
+        { 'cms.about.create': 'Create about content' },
+        { 'cms.about.edit': 'Edit about content' },
+        { 'cms.about.view': 'View about content' },
+        { 'cms.about.archive': 'Archive about content' },
       ];
 
       expect(getPermissionsMapArray(cmsPermissions)).toEqual(cmsPermissionsMap);
@@ -109,7 +105,7 @@ describe('utils - permissions.js', () => {
       // create a group
       const group = await createGroup({
         name: 'Super Admin',
-        permissions: permissions
+        permissions,
       });
       // create a user belonging to the group
       const user = await createUser({
@@ -119,7 +115,7 @@ describe('utils - permissions.js', () => {
         email: 'tbag@pb.com',
         password: 'Pas$Word',
       }, [group._id]);
-      expect(await getUserPermissions(user)).toEqual(permissions)
+      expect(await getUserPermissions(user)).toEqual(permissions);
     });
 
     it('should return an empty array if user has no permissions', async () => {
@@ -131,7 +127,7 @@ describe('utils - permissions.js', () => {
         email: 'makena@ss.com',
         password: 'Pas$Word',
       });
-      expect(await getUserPermissions(user)).toEqual([])
+      expect(await getUserPermissions(user)).toEqual([]);
     });
   });
 });
