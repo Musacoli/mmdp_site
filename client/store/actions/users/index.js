@@ -74,20 +74,20 @@ export const editUserSuccess = payload => ({
   payload
 });
 
-export const userDeletingStarted = () => {
+export const userDeletingStarted = () => ({
   type : DELETE_USER
-};
+});
 
-export const deletingStarted = () => {
+export const deletingStarted = () => ({
   type: DELETING_USER
-};
+});
 
-export const deletingSuccess = payload => {
+export const deletingSuccess = payload => ({
   type : DELETING_SUCCESS,
-  payload
-};
+    payload
+});
 
-export const deletingFailed = payload => {
+export const deletingFailed = payload => ({
   type: DELETING_FAILURE,
-  payload
-};
+    payload
+});

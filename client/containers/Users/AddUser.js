@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { startRegistration } from "../../store/actions/users/";
-import { Button, Form, Segment, Message } from "semantic-ui-react";
+import { Form, Message, Loader } from "semantic-ui-react";
 
 export class AddUser extends Component {
   state = {
@@ -38,8 +37,8 @@ export class AddUser extends Component {
       <div className="container">
         {status && <Message className='negative'> {errors.message} </Message>}
         {success && <Message className='positive'> {user.message} </Message>}
-
         <Form>
+
           <Form.Group>
             <Form.Input
               className='w'
@@ -60,6 +59,7 @@ export class AddUser extends Component {
         </Form>
       </div>
     );
+
   }
 }
 

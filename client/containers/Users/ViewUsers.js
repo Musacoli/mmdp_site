@@ -5,7 +5,7 @@ import { fetchingStarted } from "../../store/actions/users";
 import { connect } from "react-redux";
 
 
-class ViewUsers extends Component {
+export class ViewUsers extends Component {
 
   componentWillMount = () => {
     const { fetchUsersList } = this.props;
@@ -25,7 +25,7 @@ class ViewUsers extends Component {
 
 ViewUsers.propTypes = {};
 
-const mapStateToProps = ({ Users }) => Users;
+export const mapStateToProps = ({ Users }) => Users;
 
 const mapDispatchToProps = {
   fetchUsersList: fetchingStarted

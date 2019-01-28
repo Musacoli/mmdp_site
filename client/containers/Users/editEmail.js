@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { startEditing } from "../../store/actions/users/";
 import { Button, Form, Message } from "semantic-ui-react";
 
-class EditEmail extends Component {
+export class EditEmail extends Component {
   state = {
     data: {
       newEmail: ""
@@ -77,7 +77,7 @@ class EditEmail extends Component {
 
 EditEmail.propTypes = {};
 
-const mapStateToProps = ({ userEdit }) => userEdit;
+export const mapStateToProps = ({ userEdit }) => userEdit;
 
 const mapDispatchToProps = {
   editEmail: startEditing

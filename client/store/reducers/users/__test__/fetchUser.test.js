@@ -1,5 +1,5 @@
 import { user } from '../../../../__mocks__/fetchUserData';
-import { FETCHING_USERS_SUCCESS, FETCHING, FETCHING_STARTED, FETCHING_USERS_ERROR } from '../../../../constants/users';
+import { FETCHING_USERS_SUCCESS, FETCHING, FETCHING_STARTED } from '../../../../constants/users';
 import fetchUsers from '../fetchUsers';
 import initialState from './initialState';
 
@@ -12,8 +12,6 @@ describe('User Reducer test', () => {
 
   it('should handle FETCHING_STARTED', () => {
     action.type = FETCHING_STARTED;
-    // action.payload.results = user.fetchedUsersData;
-    // expect(fetchUsers(initialState.users, action).users).toEqual([]);
     expect(fetchUsers(initialState.users, action).success).toEqual(false);
   });
 
@@ -29,6 +27,4 @@ describe('User Reducer test', () => {
     action.payload.results = user.fetchedUsersData;
     expect(fetchUsers(initialState.users, action)).toEqual([]);
   });
-
-
 });
