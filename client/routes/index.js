@@ -4,7 +4,7 @@ import Group from '../views/Group';
 import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
-import About from '../containers/About'
+import About from '../containers/About';
 
 
 const routes = [
@@ -47,4 +47,3 @@ const routes = [
 ];
 
 export default routes;
-

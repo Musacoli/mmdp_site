@@ -9,8 +9,8 @@ const func = jest.fn();
 
 const props = {
   aboutMMDP: {
-    about: "",
-    background: "",
+    about: '',
+    background: '',
     error: null,
     id: null,
     loading: false,
@@ -18,16 +18,15 @@ const props = {
   },
   updateAboutMMDP: () => {},
   getAboutMMDP: () => {},
-  createAboutMMDP: () => {}
-}
-const component = (   
-  <AboutMMDP {...props} isValidData={func} change={func} submit={func} handleEditorChange={func}/>
+  createAboutMMDP: () => {},
+};
+const component = (
+  <AboutMMDP {...props} isValidData={func} change={func} submit={func} handleEditorChange={func} />
 );
 
-const wrapper =  mount(component, new ReactRouterEnzymeContext());;
+const wrapper = mount(component, new ReactRouterEnzymeContext());
 
 describe('AboutMMDP', () => {
-
   it('should render properly', () => {
     const tree = toJson(wrapper);
     expect(tree).toMatchSnapshot();
@@ -40,7 +39,7 @@ describe('AboutMMDP', () => {
     wrapper.find('MarkdownEditor').at(1).prop('handleEditorChange')('value');
     wrapper.find('MarkdownEditor').at(0).simulate('change');
     wrapper.find('MarkdownEditor').at(1).simulate('change');
-    wrapper.setState({ about: 'about', id: "1234", updateMode: true });
+    wrapper.setState({ about: 'about', id: '1234', updateMode: true });
     wrapper.find('form').simulate('submit');
     wrapper.find('button').simulate('click');
     wrapper.find('SectionTitle').simulate('click');
@@ -50,6 +49,4 @@ describe('AboutMMDP', () => {
     wrapper.instance().handleEditorChange('about', 'this is an about information');
     wrapper.instance().handleEditorChange('background', 'this is a background information');
   });
-
-
 });

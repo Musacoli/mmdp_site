@@ -7,7 +7,7 @@ import './index.scss';
 
 class MarkdownEditor extends Component {
   handleEditorChange = (e) => {
-    this.props.handleEditorChange(e.target.getContent())
+    this.props.handleEditorChange(e.target.getContent());
   }
 
   render() {
@@ -16,7 +16,7 @@ class MarkdownEditor extends Component {
         initialValue={this.props.value || ''}
         init={{
           plugins: 'link lists image',
-          toolbar: 'fontsizeselect bold italic underline alignleft aligncenter alignright bullist numlist outdent indent image'
+          toolbar: 'fontsizeselect bold italic underline alignleft aligncenter alignright bullist numlist outdent indent image',
         }}
         onChange={this.handleEditorChange}
       />
@@ -27,6 +27,6 @@ class MarkdownEditor extends Component {
 MarkdownEditor.propTypes = {
   handleEditorChange: PropTypes.func,
   value: PropTypes.string,
-}
+};
 
 export default MarkdownEditor;

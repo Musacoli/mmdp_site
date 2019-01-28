@@ -8,7 +8,7 @@ import {
   watchDeleteGroup,
 } from './group';
 import { watchFetchingPermissions } from './permission';
-import * as aboutWatcher from './about'
+import * as aboutWatcher from './about';
 
 
 export default function* root() {
@@ -28,4 +28,3 @@ export default function* root() {
     fork(aboutWatcher.getAboutMMDPWatcher),
   ]);
 }
-

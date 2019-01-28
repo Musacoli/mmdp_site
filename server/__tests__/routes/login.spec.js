@@ -1,19 +1,19 @@
 import chai from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
-import {User} from '../../models/User';
-import {user} from '../../routes/api/auth';
+import { User } from '../../models/User';
+import { user } from '../../routes/api/auth';
 import keystone from '../helpers/keystone';
 
-const {app} = keystone;
+const { app } = keystone;
 
 const route = '/api/v1/auth/login';
 
-const {expect} = chai;
+const { expect } = chai;
 
 const server = request(app);
 
-const createAccount = async (data) => await User.model.create({...data});
+const createAccount = data => User.model.create({ ...data });
 
 const completedAccount = {
   email: 'tbag@mmdp.com',
@@ -42,9 +42,9 @@ describe('Auth route', () => {
   before(async () => {
     await User.model.remove();
     // create completed and uncompleted accounts
-    await createAccount({...completedAccount, confirmed: true});
+    await createAccount({ ...completedAccount, confirmed: true });
     await createAccount(unCompletedAccount);
-    await createAccount({...completedAccount2, confirmed: true});
+    await createAccount({ ...completedAccount2, confirmed: true });
   });
 
   describe('POST /auth/login', () => {

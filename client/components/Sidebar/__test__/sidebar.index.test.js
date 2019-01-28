@@ -12,4 +12,3 @@ describe('<Sidebar /> ', () => {
     wrapper.find('.title.item').map(item => item.simulate('click'));
   });
 });
-

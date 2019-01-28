@@ -2,34 +2,31 @@ import keystone from 'keystone';
 
 const importPolicies = keystone.importer(__dirname);
 
-const checkPermission = (userPermissions, validPermissions) => {
-  return userPermissions.some(permission => validPermissions.indexOf(permission) >= 0);
-};
+const checkPermission = (userPermissions, validPermissions) => userPermissions.some(permission => validPermissions.indexOf(permission) >= 0);
 
 const getActionCallbacks = (actions) => {
-  let callbacks = {};
+  const callbacks = {};
 
-  Object.keys(actions).forEach(actionKey => {
+  Object.keys(actions).forEach((actionKey) => {
     callbacks[actionKey] = async (req, res, next) => {
       if (actions[actionKey](req)) {
         next();
       } else {
         return res.status(403).json({
-          status: "error",
-          message: "You are not authorized to perform this action."
+          status: 'error',
+          message: 'You are not authorized to perform this action.',
         });
       }
-    }
+    };
   });
 
   return callbacks;
 };
 
 const getPolicyCallbacks = (policies) => {
-  let callbacks = {};
+  const callbacks = {};
 
-  Object.keys(policies).forEach(policyKey => {
-
+  Object.keys(policies).forEach((policyKey) => {
     const actions = policies[policyKey].default;
 
     callbacks[policyKey] = getActionCallbacks(actions);

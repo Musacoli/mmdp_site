@@ -2,9 +2,7 @@ import aboutMMDPReducer from '../aboutMMDP';
 import * as types from '../../../../constants/about';
 
 
-
 describe('About MMDP reducer test', () => {
-
   const initialState = {
     error: [{ about: '"About" is requires' }],
     loading: true,
@@ -13,33 +11,33 @@ describe('About MMDP reducer test', () => {
   it('should update store', () => {
     expect(
       aboutMMDPReducer(
-        initialState, 
+        initialState,
         {
-          type: types.ABOUT_MMDP_SUCCESS
-        }).loading
+          type: types.ABOUT_MMDP_SUCCESS,
+        },
+      ).loading,
     ).toEqual(false);
   });
 
   it('should update store', () => {
     expect(
       aboutMMDPReducer(
-        initialState, 
+        initialState,
         {
-          type: types.ABOUT_MMDP_LOADING
-        }).loading
+          type: types.ABOUT_MMDP_LOADING,
+        },
+      ).loading,
     ).toEqual(true);
   });
 
   it('should update store', () => {
     expect(
       aboutMMDPReducer(
-        initialState, 
+        initialState,
         {
-          type: types.ABOUT_MMDP_FAILURE
-        }).loading
+          type: types.ABOUT_MMDP_FAILURE,
+        },
+      ).loading,
     ).toEqual(false);
   });
-
 });
-
-

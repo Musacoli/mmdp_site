@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Grid } from 'Semantic-ui-react';
 import toastr from '../../../utils/toastr';
 import * as aboutMMDPRequest from '../../../store/actions/about';
-import PropTypes from 'prop-types';
 import MarkdownEditor from '../../../components/common/MarkdownEditor';
-import { Grid } from 'Semantic-ui-react';
 import { FileInput, TextInput } from '../../../components/About/Inputs';
 import Label from '../../../components/About/Label';
 import SectionTitle from '../../../components/About/SectionTitle';
@@ -12,12 +12,10 @@ import AboutTemplate from '../../../views/About';
 import '../common/style.scss';
 
 
-
 export class AboutMMDP extends Component {
-
   state = {
-    about: "",
-    background: "",
+    about: '',
+    background: '',
     error: null,
     id: null,
     loading: false,
@@ -30,17 +28,16 @@ export class AboutMMDP extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { aboutMMDP } = props;
-    if(!state.updateMode){
-      return { 
-        ...aboutMMDP, 
-        updateMode: !!aboutMMDP.about,
-        id: aboutMMDP._id 
-      };
-    } else {
+    if (!state.updateMode) {
       return {
-        loading: aboutMMDP.loading,
-      }
+        ...aboutMMDP,
+        updateMode: !!aboutMMDP.about,
+        id: aboutMMDP._id,
+      };
     }
+    return {
+      loading: aboutMMDP.loading,
+    };
   }
 
   handleEditorChange = (name, val) => {
@@ -49,18 +46,18 @@ export class AboutMMDP extends Component {
 
   submit = (e) => {
     e.preventDefault();
-    const data = this.state
+    const data = this.state;
     const { updateAboutMMDP, createAboutMMDP } = this.props;
 
-    if(this.state.loading || !this.isValidData(this.state)) return;
+    if (this.state.loading || !this.isValidData(this.state)) return;
 
     const formData = new FormData();
-    Object.keys(data).forEach(key => {
+    Object.keys(data).forEach((key) => {
       formData.append(key, data[key]);
     });
 
-    if(data.updateMode){
-      updateAboutMMDP({id: data.id, formData});
+    if (data.updateMode) {
+      updateAboutMMDP({ id: data.id, formData });
     } else {
       createAboutMMDP(formData);
     }
@@ -69,18 +66,18 @@ export class AboutMMDP extends Component {
   isValidData = (data) => {
     let errors = [];
 
-    if(data.about.trim().length < 20) {
+    if (data.about.trim().length < 20) {
       errors = [...errors, '"About" must have twenty(20) characters minimum'];
     }
 
-    if(data.background.trim().length < 20) {
+    if (data.background.trim().length < 20) {
       errors = [...errors, '"Background" must have twenty(20) characters minimum'];
     }
 
-    if(errors.length){
+    if (errors.length) {
       errors.reverse().forEach(err => toastr.error(err));
       return false;
-    };
+    }
     return true;
   }
 
@@ -96,7 +93,7 @@ export class AboutMMDP extends Component {
               <div className="markdown">
                 <MarkdownEditor
                   value={about}
-                  handleEditorChange={(val) =>this.handleEditorChange("about", val)}
+                  handleEditorChange={val => this.handleEditorChange('about', val)}
                 />
               </div>
             </div>
@@ -105,7 +102,7 @@ export class AboutMMDP extends Component {
               <div className="markdown">
                 <MarkdownEditor
                   value={background}
-                  handleEditorChange={(val) =>this.handleEditorChange("background", val)}
+                  handleEditorChange={val => this.handleEditorChange('background', val)}
                 />
               </div>
             </div>
@@ -125,7 +122,7 @@ AboutMMDP.propTypes = {
   getAboutMMDP: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   aboutMMDP: state.aboutMMDP,
 });
 
@@ -136,4 +133,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AboutMMDP);
-

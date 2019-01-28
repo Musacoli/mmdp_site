@@ -6,6 +6,6 @@ const func = () => {};
 
 describe('<FileInput /> ', () => {
   it('renders FileInput component without crashing', () => {
-    shallow(<FileInput classNames={"class"} id="id" name="name" placeholder="placeholder" inputLabel={"label"} value="value" change={func} />);
+    shallow(<FileInput classNames="class" id="id" name="name" placeholder="placeholder" inputLabel="label" value="value" change={func} />);
   });
 });

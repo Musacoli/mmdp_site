@@ -1,4 +1,4 @@
-import {allPermissionsFor, hasAnyPermission} from "../../../utils/permissions";
+import { allPermissionsFor, hasAnyPermission } from '../../../utils/permissions';
 
 /*
 todo refer to ./groups.js to see required refactor.
@@ -8,7 +8,5 @@ todo refer to ./groups.js to see required refactor.
 const userPermissions = ['group.*'];
 
 export default {
-  list: (req) => {
-    return hasAnyPermission(userPermissions, allPermissionsFor('group'));
-  }
+  list: req => hasAnyPermission(userPermissions, allPermissionsFor('group')),
 };

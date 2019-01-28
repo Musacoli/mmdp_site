@@ -8,7 +8,6 @@ const request = supertest(keystone.app);
 const coordinationPath = '/api/v1/about/coordination';
 
 
-
 const data = {
   highlight: ['this is a highlight'],
   coordination: 'coodination test data is here',

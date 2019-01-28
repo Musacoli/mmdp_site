@@ -30,4 +30,3 @@ TemplateDefault.propTypes = {
 };
 
 export default TemplateDefault;
-

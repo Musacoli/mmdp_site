@@ -8,4 +8,3 @@ const DashboardView = ({ ...props }) => (
 );
 
 export default DashboardView;
-
