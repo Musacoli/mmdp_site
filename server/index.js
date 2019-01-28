@@ -19,7 +19,7 @@ keystone.init({
   'auto update': true,
   session: true,
   auth: true,
-  mongo: MONGODB_URL,
+  mongo: 'mongodb://mongo-server:27017/mmdp_cms',
   'user model': 'User',
   'cookie secret': process.env.COOKIE_SECRET,
 });
