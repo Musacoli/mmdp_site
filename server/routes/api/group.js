@@ -11,12 +11,10 @@ export const list = (req, res) => {
   });
 };
 
-export const get = (req, res) => {
-  Group.model.findById(req.params.id).exec(async (err, group) => {
-    return res.send({
-      status: "success",
-      group: await presentData(group),
-    });
+export const get = async (req, res) => {
+  return res.send({
+    status: "success",
+    group: await presentData(req.group),
   });
 };
 
@@ -45,15 +43,22 @@ export const create = (req, res) => {
 export const update = (req, res) => {
   // try to query for the existence of a group with the same
   // name but different id
-  Group.model.findOne({name: req.body.name, _id: {$ne: req.params.id}}).exec((err, group) => {
-    if (!group) {
-      Group.model.findById(req.params.id).exec((err, group) => {
-        group.getUpdateHandler(req).process(req.body, async (err) => {
-          return res.json({
-            status: "success",
-            message: `The ${group.name} group was updated successfully.`,
-            group: await presentData(group),
-          });
+  Group.model.findOne({name: req.body.name, _id: {$ne: req.params.id}}).exec((err, existingGroup) => {
+    if (!existingGroup) {
+      const group = req.group;
+      let updates;
+      const {name, permissions} = req.body;
+      if (name) {
+        group.name = name;
+      }
+      if (permissions) {
+        group.permissions = permissions;
+      }
+      group.save(async (err) => {
+        return res.json({
+          status: "success",
+          message: `The ${group.name} group was updated successfully.`,
+          group: await presentData(group),
         });
       });
     } else {
@@ -65,16 +70,21 @@ export const update = (req, res) => {
   });
 };
 
-export const remove = (req, res) => {
-  Group.model.findById(req.params.id).exec((err, group) => {
-    // todo check that the group does not have a dependant i.e. user
-    group.remove((err) => {
-      return res.json({
-        status: "success",
-        message: `The ${group.name} group was removed successfully.`
-      });
-    })
-  });
+export const remove = async (req, res) => {
+  const group = req.group;
+  const groupData = await presentData(group);
+  if (groupData.users && groupData.users.length) {
+    return res.status(400).json({
+      status: "error",
+      message: 'The group cannot be deleted as there are users that belong to it.'
+    });
+  }
+  group.remove((err) => {
+    return res.json({
+      status: "success",
+      message: `The ${group.name} group was removed successfully.`
+    });
+  })
 };
 
 // view helper methods
