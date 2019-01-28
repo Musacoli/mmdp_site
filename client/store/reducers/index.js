@@ -8,6 +8,7 @@ import governorMessage from './about/governorMessage';
 import aboutMMDP from './about/aboutMMDP';
 import report from './resources/report';
 import register from './users/';
+import userEdit from "./users/editUser";
 import Users from './users/fetchUsers';
 
 
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   aboutMMDP,
   report,
   register,
+  userEdit,
   Users
 });
 

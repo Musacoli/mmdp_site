@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import { startRegistration } from "../../store/actions/users/";
 import { Button, Form, Segment, Message } from "semantic-ui-react";
 
-class AddUser extends Component {
+export class AddUser extends Component {
   state = {
     email: "",
     status: false,
-    success: false
+    success: false,
   };
 
   onChange = event => {
@@ -35,38 +35,37 @@ class AddUser extends Component {
     const { isRegistering, errors, user } = this.props;
     const { status, success } = this.state;
     return (
-      <div className="conatiner">
-          {status && <Message className='negative'> {errors.message} </Message>}
-          {success && <Message className='positive'> {user.message} </Message>}
-          <Form>
-            <Form.Group>
-              <Form.Input
-                className='w'
-                placeholder="please enter a valid email"
-                label="Email address"
-                type="email"
-                name="email"
-                onChange={this.onChange}
-              />
-              <Form.Button
-                className='b'
-                type="submit"
-                disabled={!this.state.email}
-                onClick={this.onSubmit}
-              >save user
-              </Form.Button>
-            </Form.Group>
-          </Form>
+      <div className="container">
+        {status && <Message className='negative'> {errors.message} </Message>}
+        {success && <Message className='positive'> {user.message} </Message>}
+
+        <Form>
+          <Form.Group>
+            <Form.Input
+              className='w'
+              placeholder="please enter a valid email"
+              label="Email address"
+              type="email"
+              name="email"
+              onChange={this.onChange}
+            />
+            <Form.Button
+              className='b'
+              type="submit"
+              disabled={!this.state.email}
+              onClick={this.onSubmit}
+            >save user
+            </Form.Button>
+          </Form.Group>
+        </Form>
       </div>
     );
   }
 }
 
-AddUser.propTypes = {};
+export const mapStateToProps = ({ register }) => register;
 
-const mapStateToProps = ({ register }) => register;
-
-const mapDispatchToProps = {
+export const mapDispatchToProps = {
   registerUser: startRegistration
 };
 

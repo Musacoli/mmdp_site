@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import UserView from "../../components/Users";
 import Group from "../../components/Users/GroupButtons";
 import UserViewList from "../../components/Users/UserViewComponent";
 import { fetchingStarted } from "../../store/actions/users";
 import { connect } from "react-redux";
+
 
 class ViewUsers extends Component {
 
@@ -14,14 +13,11 @@ class ViewUsers extends Component {
   };
 
   render() {
+    const { users, success } = this.props;
     return (
       <div>
-        {/*<UserView handleSubmit={this.handleSubmit} name={name} />*/}
         <Group />
-        {this.props.users.map(user =>(
-          <UserViewList {...user} />
-
-        ))}
+        <UserViewList users={users} success={success} />
       </div>
     );
   }

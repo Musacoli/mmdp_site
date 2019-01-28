@@ -9,6 +9,7 @@ import AddReport from '../views/Resources/Report/AddReport';
 import About from '../containers/About'
 
 import AddUserView from '../views/Users';
+import editEmailView from '../views/Users/editEmailView';
 import { EditUserView} from "../views/Users";
 
 const routes = [
@@ -58,12 +59,19 @@ const routes = [
     path: '/users',
     name: 'users',
     component: AddUserView,
+    exact: true,
   },
-
+  {
+    path: '/users/edit/:email',
+    name: 'edit',
+    component: editEmailView,
+    exact: true,
+  },
   {
     path: '/users/all',
     name: 'confirmation',
     component: EditUserView,
+    exact: true,
   },
 ];
 
