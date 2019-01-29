@@ -10,7 +10,12 @@ import {
   FETCHING_USERS_SUCCESS,
   FETCHING,
   FETCHING_STARTED,
-  FETCHING_USERS_ERROR
+  FETCHING_USERS_ERROR,
+  DELETE_USER,
+  DELETING_USER,
+  DELETING_SUCCESS,
+  DELETING_FAILURE
+
 } from "../../../constants/users";
 
 export const registrationStarted = () => ({
@@ -68,3 +73,21 @@ export const editUserSuccess = payload => ({
   type: USER_EDIT_SUCCESS,
   payload
 });
+
+export const userDeletingStarted = () => {
+  type : DELETE_USER
+};
+
+export const deletingStarted = () => {
+  type: DELETING_USER
+};
+
+export const deletingSuccess = payload => {
+  type : DELETING_SUCCESS,
+  payload
+};
+
+export const deletingFailed = payload => {
+  type: DELETING_FAILURE,
+  payload
+};
