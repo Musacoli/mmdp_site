@@ -5,15 +5,26 @@ services:
     image: mongo:3.4.19-jessie
     ports:
       - "27017:27017"
+    expose:
+       - 27017
   web-app:
-    build:
-      context: .
-      dockerfile: Dockerfile-dev
+    build: .
     ports:
-      - "1234:1234"
       - "3000:3000" 
     volumes:
       - /mmdp/node_modules
       - .:/mmdp
+  frontend:
+    image: nginx
+    ports:
+      - "80:8080"
+    volumes:
+      - ./:/var/www/mmdp
+      - ./nginx.conf:/etc/nginx/conf.d/mmdp.conf
+    environment:
+      - NGINX_PORT=8080
+    depends_on:
+      - "web-app"
+
 
   
