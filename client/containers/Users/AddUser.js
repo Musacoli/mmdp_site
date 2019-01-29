@@ -1,25 +1,14 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { startRegistration } from "../../store/actions/users/";
-import { Form, Message, Loader } from "semantic-ui-react";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Form, Message } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { startRegistration } from '../../store/sagas/users';
 
 export class AddUser extends Component {
   state = {
-    email: "",
+    email: '',
     status: false,
     success: false,
-  };
-
-  onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  onSubmit = event => {
-    event.preventDefault();
-    const { registerUser } = this.props;
-    registerUser({
-      email: this.state.email
-    });
   };
 
   componentWillReceiveProps(nextProps) {
@@ -30,18 +19,30 @@ export class AddUser extends Component {
     }, 2000);
   }
 
+  onChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    const { registerUser } = this.props;
+    const { email } = this.state;
+    registerUser({
+      email,
+    });
+  };
+
   render() {
     const { isRegistering, errors, user } = this.props;
-    const { status, success } = this.state;
+    const { status, success, email } = this.state;
     return (
       <div className="container">
-        {status && <Message className='negative'> {errors.message} </Message>}
-        {success && <Message className='positive'> {user.message} </Message>}
-        <Form>
-
+        {status && <Message className="negative"> {errors.message} </Message>}
+        {success && <Message className="positive"> {user.message} </Message>}
+        <Form loading={isRegistering}>
           <Form.Group>
             <Form.Input
-              className='w'
+              className="add-user-email"
               placeholder="please enter a valid email"
               label="Email address"
               type="email"
@@ -49,27 +50,36 @@ export class AddUser extends Component {
               onChange={this.onChange}
             />
             <Form.Button
-              className='b'
+              className="add-user-submit"
               type="submit"
-              disabled={!this.state.email}
+              disabled={!email}
               onClick={this.onSubmit}
-            >save user
+            >
+              save user
             </Form.Button>
           </Form.Group>
         </Form>
       </div>
     );
-
   }
 }
+
+AddUser.propTypes = {
+  registerUser: PropTypes.func,
+  status: PropTypes.bool,
+  success: PropTypes.bool,
+  isRegistering: PropTypes.bool,
+  errors: PropTypes.shape(),
+  user: PropTypes.shape(),
+};
 
 export const mapStateToProps = ({ register }) => register;
 
 export const mapDispatchToProps = {
-  registerUser: startRegistration
+  registerUser: startRegistration,
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AddUser);

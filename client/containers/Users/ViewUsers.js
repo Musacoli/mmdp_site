@@ -1,37 +1,51 @@
-import React, { Component } from "react";
-import Group from "../../components/Users/GroupButtons";
-import UserViewList from "../../components/Users/UserViewComponent";
-import { fetchingStarted } from "../../store/actions/users";
-import { connect } from "react-redux";
-
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Group from '../../components/common/GroupButtons';
+import UserViewList from '../../components/Users/UsersDetails';
+import { fetchingStarted, userDeletingStarted } from '../../store/sagas/users';
 
 export class ViewUsers extends Component {
-
-  componentWillMount = () => {
+  componentDidMount = () => {
     const { fetchUsersList } = this.props;
     fetchUsersList();
   };
 
   render() {
-    const { users, success } = this.props;
+    const { users, success, deleteUser, history } = this.props;
     return (
       <div>
         <Group />
-        <UserViewList users={users} success={success} />
+        <UserViewList
+          users={users}
+          success={success}
+          deleteUser={deleteUser}
+          history={history}
+        />
       </div>
     );
   }
 }
 
-ViewUsers.propTypes = {};
+ViewUsers.propTypes = {
+  fetchUsersList: PropTypes.func,
+  users: PropTypes.shape(),
+  success: PropTypes.bool,
+  deleteUser: PropTypes.func,
+  history: PropTypes.shape(),
+};
 
-export const mapStateToProps = ({ Users }) => Users;
+export const mapStateToProps = ({ Users, deleteUser }) => ({
+  ...Users,
+  deleteUser,
+});
 
 const mapDispatchToProps = {
-  fetchUsersList: fetchingStarted
+  fetchUsersList: fetchingStarted,
+  deleteUser: userDeletingStarted,
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ViewUsers);

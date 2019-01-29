@@ -4,7 +4,7 @@ export default {
   success: true,
   user: {
     results: {
-      user: { message: "email successfully changed", status: "success" }
-    }
-  }
+      user: { message: 'email successfully changed', status: 'success' },
+    },
+  },
 };

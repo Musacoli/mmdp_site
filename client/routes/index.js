@@ -4,13 +4,11 @@ import Group from '../views/Group';
 import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
-import About from '../containers/About';
 import AddReport from '../views/Resources/Report/AddReport';
-import About from '../containers/About'
+import About from '../containers/About';
 
-import AddUserView from '../views/Users';
 import editEmailView from '../views/Users/editEmailView';
-import { EditUserView} from "../views/Users";
+import AddUserView, { EditUserView } from '../views/Users';
 
 const routes = [
   {

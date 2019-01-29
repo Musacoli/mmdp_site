@@ -5,7 +5,7 @@ import DividerTitle from './DividerTitle';
 import TitleContent from './TitleContent';
 import logo from '../../assets/images/logo-white.svg';
 
-import './styles.sass';
+import '../../assets/css/sidebar/styles.sass';
 
 const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
   <React.Fragment>

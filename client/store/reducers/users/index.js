@@ -7,12 +7,12 @@ import {
 const initialState = {
   status: false,
   success: false,
-  isRegistering: false
+  isRegistering: false,
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_USER: {
-      return { ...state, isRegistering: true,  status: false,};
+      return { ...state, isRegistering: true, status: false };
     }
     case REGISTER_SUCCESS: {
       return {
@@ -28,7 +28,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         errors: action.payload,
         isRegistering: false,
-        status: true
+        status: true,
       };
     }
 

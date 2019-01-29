@@ -36,8 +36,9 @@ export const api = {
     list: () => client.get('api/permissions'),
   },
   users: {
-    create: data => client.post("api/v1/users", data),
-    edit: data => client.put("api/v1/users/", data),
-    list: data => client.get("api/v1/users")
-  }
+    create: (data) => client.post('api/v1/users', data),
+    edit: (data) => client.put('api/v1/users/', data),
+    list: () => client.get('api/v1/users'),
+    delete: (data) => client.delete(`api/v1/users/${data}`),
+  },
 };
