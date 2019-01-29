@@ -8,9 +8,7 @@ services:
     expose:
        - 27017
   web-app:
-    build:
-      context: .
-      dockerfile: Dockerfile-dev
+    build: .
     ports:
       - "3000:3000" 
     volumes:
