@@ -1,8 +1,7 @@
+let API = ""
 
-let API = "";
-
-if(process.env.NODE_ENV !== 'production') {
-  API = "http://localhost:3000";
+if (process.env.NODE_ENV !== 'production') {
+  API = 'http://web-app:3000/';
 }
 
 export default API;

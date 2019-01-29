@@ -1,5 +1,5 @@
 # use ubuntu base file
-FROM ubuntu as builder
+FROM ubuntu
 
 # create working directory
 WORKDIR '/mmdp'
@@ -13,27 +13,12 @@ RUN  apt-get update -yq \
 
 # install node dependencies
 COPY ./package.json .
-RUN npm install
+RUN npm cache clean --force
+RUN npm install yarn -g
+RUN yarn install
+# RUN npm install semantic-ui-react
 
 # copy files to the container
 COPY . .
 # build the code
-CMD  ["npm", "run", "build"]
-
-FROM ubuntu
-
-RUN  apt-get update -yq \
-    && apt-get install curl gnupg -yq \
-    && curl -sL https://deb.nodesource.com/setup_8.x | bash \
-    && apt-get install nodejs -yq 
-
-
-
-RUN npm install -g yarn
-# run the server with npm
-WORKDIR "/mmdp"
-COPY ./package.json .
-RUN npm install
-COPY --from=builder /mmdp/dist-server .
-CMD ["npm", "start"]
-
+CMD  ["node", "dist-server/index"]
