@@ -5,12 +5,12 @@ import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
 import AddReport from '../views/Resources/Report/AddReport';
-import About from '../containers/About';
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
 import CreateEvent from '../containers/events/event';
 import ListEvents from '../containers/events/eventsList';
 import EditEvents from '../containers/events/editEvents';
+import { GovernorMessage, AboutMMDP, Coordination } from '../views/About';
 
 const routes = [
   {
@@ -46,7 +46,25 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: About,
+    component: GovernorMessage,
+    exact: true,
+  },
+  {
+    path: '/about/governor-message',
+    name: 'Governor Message',
+    component: GovernorMessage,
+    exact: false,
+  },
+  {
+    path: '/about/about-mmdp',
+    name: 'About MMDP',
+    component: AboutMMDP,
+    exact: false,
+  },
+  {
+    path: '/about/coordination',
+    name: 'Coordination',
+    component: Coordination,
     exact: false,
   },
   {

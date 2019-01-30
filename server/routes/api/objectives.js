@@ -4,12 +4,19 @@ export const create = (req, res) => {
   // eslint-disable-next-line new-cap
   const item = new Objectives.model();
 
-  item.getUpdateHandler(req).process(req.body, (err) => {
-    if (err) return res.apiError('create error', err);
-    res.apiResponse({
-      item,
-    });
-  });
+  item.getUpdateHandler(req).process(
+    {
+      // eslint-disable-next-line no-underscore-dangle
+      creator: req.user._id,
+      ...req.body,
+    },
+    (err) => {
+      if (err) return res.apiError('create error', err);
+      res.apiResponse({
+        item,
+      });
+    },
+  );
 };
 
 export const update = (req, res) => {

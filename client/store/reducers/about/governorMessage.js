@@ -3,6 +3,7 @@ import * as types from '../../../constants/about';
 const initialState = {
   error: null,
   loading: false,
+  message: {},
 };
 
 const governorMessage = (state = initialState, action = {}) => {

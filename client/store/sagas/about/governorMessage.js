@@ -1,7 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import toastr from '../../../utils/toastr';
-import * as aboutApi from '../../../api/about';
+import * as aboutApi from '../../../utils/about';
 import * as types from '../../../constants/about';
+import showErrorMessage from './showErrorMessage';
 
 export function* createGovernorMessage(action) {
   yield put({ type: types.GOVERNOR_MESSAGE_LOADING });
@@ -10,12 +11,10 @@ export function* createGovernorMessage(action) {
     const { data } = yield call(aboutApi.createGovernorMessage, action.payload);
     yield put({ type: types.GOVERNOR_MESSAGE_SUCCESS, payload: data.item });
     toastr.success('"Governor Message" created successfully');
-  } catch (error) {
-    yield put({
-      type: types.GOVERNOR_MESSAGE_FAILURE,
-      error: error.response.data.errors,
-    });
-    toastr.error(error.response.data.errors.join('\\n'));
+  } catch (e) {
+    const error = showErrorMessage(e);
+    error.reverse().forEach((err) => toastr.error(err));
+    yield put({ type: types.GOVERNOR_MESSAGE_FAILURE, error });
   }
 }
 
@@ -26,12 +25,10 @@ export function* updateGovernorMessage(action) {
     const { data } = yield call(aboutApi.updateGovernorMessage, action.payload);
     yield put({ type: types.GOVERNOR_MESSAGE_SUCCESS, payload: data.item });
     toastr.success('"Governor Message" updated successfully');
-  } catch (error) {
-    yield put({
-      type: types.GOVERNOR_MESSAGE_FAILURE,
-      error: error.response.data.errors,
-    });
-    toastr.error(error.response.data.errors.join('\\n'));
+  } catch (e) {
+    const error = showErrorMessage(e);
+    error.reverse().forEach((err) => toastr.error(err));
+    yield put({ type: types.GOVERNOR_MESSAGE_FAILURE, error });
   }
 }
 
@@ -40,11 +37,10 @@ export function* getGovernorMessage(action) {
   try {
     const { data } = yield call(aboutApi.getGovernorMessage, action);
     yield put({ type: types.GOVERNOR_MESSAGE_SUCCESS, payload: data.items[0] });
-  } catch (error) {
-    yield put({
-      type: types.GOVERNOR_MESSAGE_FAILURE,
-      error: error.response.data.errors,
-    });
+  } catch (e) {
+    const error = showErrorMessage(e);
+    error.reverse().forEach((err) => toastr.error(err));
+    yield put({ type: types.GOVERNOR_MESSAGE_FAILURE, error });
   }
 }
 

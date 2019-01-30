@@ -1,6 +1,7 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import toastr from 'toastr';
 import axios from 'axios';
+import API from '../../../utils/keys';
 import { LOGIN } from '../../../constants/auth';
 import { loginSuccessOrFail } from '../../actions/auth/login';
 
@@ -21,7 +22,7 @@ const apiRequest = (url, data) =>
 
 export function* loginuser(action) {
   try {
-    const LOGIN_URL = 'http://0.0.0.0:3000/api/v1/auth/login';
+    const LOGIN_URL = `${API}/api/v1/auth/login`;
     const USERDETAILS = action.payload;
     const response = yield call(apiRequest, LOGIN_URL, USERDETAILS);
     yield put(loginSuccessOrFail(response));

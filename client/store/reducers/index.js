@@ -17,6 +17,7 @@ import listEvents from './events/events';
 import singleEvent from './events/singleEvent';
 import deleteEvent from './events/deleteEvent';
 import updateEvent from './events/updateEvent';
+import coordination from './about/coordination';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   singleEvent,
   deleteEvent,
   updateEvent,
+  coordination,
 });
 
 export default rootReducer;

@@ -1,14 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Templates from '../Templates';
+import AboutMMDPContainer from '../../containers/About/AboutMMDP';
+import CoordinationContainer from '../../containers/About/Coordination';
+import GovernorMessageContainer from '../../containers/About/GovernorMessage';
 
-import './index.scss';
-
-const AboutTemplate = ({ children }) => (
-  <div className="form__area">
-    <div className="form">{children}</div>
-  </div>
+export const AboutMMDP = ({ ...props }) => (
+  <Templates {...props} title="About MMDP">
+    <AboutMMDPContainer {...props} />
+  </Templates>
 );
 
-AboutTemplate.propTypes = { children: PropTypes.shape({}).isRequired };
+export const Coordination = ({ ...props }) => (
+  <Templates {...props} title="Coordination">
+    <CoordinationContainer {...props} />
+  </Templates>
+);
 
-export default AboutTemplate;
+export const GovernorMessage = ({ ...props }) => (
+  <Templates {...props} title="Governor Message">
+    <GovernorMessageContainer {...props} />
+  </Templates>
+);

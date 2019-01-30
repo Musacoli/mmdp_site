@@ -1,0 +1,58 @@
+
+div.flex__item {
+  min-width: 300px;
+  width: 47%;
+}
+
+
+span.file__wrapper {
+
+  position: relative;
+
+  label.file__label {
+    font-size: 1.0rem !important;
+    position: absolute;
+    left: 9px;
+    top: 11px;
+    background: #fff;
+    width: 85%;
+    padding: 0 7px;
+    letter-spacing: 0.5px;
+    height: 1.5rem;
+    overflow: hidden;
+  }
+}
+input.input {
+  width: 100%;
+  border: 0.5px solid #cae7f0;
+  font-size: 1.0rem;
+  padding: 1rem;
+  font-weight: 400;
+  color: #444;
+  letter-spacing: 0.6px;
+  background: #fff;
+  outline: none;
+}
+
+input.input::-webkit-input-placeholder {
+  color: #777;
+}
+
+input.input::-moz-placeholder {
+  color: #777;
+}
+
+input.input:-ms-input-placeholder {
+  color: #777;
+}
+
+input.input:-moz-input-placeholder {
+  color: #777;
+}
+
+input[type="file"].input {
+  padding: 0.8rem;
+  padding-left: 2rem;
+  padding-right: 3rem;
+}
+

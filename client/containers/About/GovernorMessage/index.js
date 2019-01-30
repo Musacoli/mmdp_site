@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import toastr from '../../../utils/toastr';
 import * as governorMessageRequest from '../../../store/actions/about';
 import MarkdownEditor from '../../../components/common/MarkdownEditor';
-import { FileInput, TextInput } from '../../../components/About/Inputs';
-import Label from '../../../components/About/Label';
-import SectionTitle from '../../../components/About/SectionTitle';
-import AboutTemplate from '../../../views/About';
-import '../common/style.scss';
+import { FileInput, TextInput } from '../../../components/common/Inputs';
+import Label from '../../../components/common/Label';
+import Button from '../../../components/common/Button';
+import '../../../assets/styles/About/common/style.scss';
 
 export class GovernorMessage extends Component {
   state = {
@@ -49,6 +48,7 @@ export class GovernorMessage extends Component {
       };
     }
     return {
+      error: rest.error,
       loading: rest.loading,
     };
   }
@@ -95,18 +95,18 @@ export class GovernorMessage extends Component {
   isValidData = (data) => {
     let errors = [];
 
-    if (!data.fileName.trim().length) {
+    if (!data.fileName || !data.fileName.trim().length) {
       errors = [...errors, '"Governor Photo" is required'];
     }
 
-    if (data.governorName.trim().length < 2) {
+    if (!data.governorName || data.governorName.trim().length < 2) {
       errors = [
         ...errors,
         '"Governor Name" must have two(2) characters minimum',
       ];
     }
 
-    if (data.governorMessage.trim().length < 20) {
+    if (!data.governorMessage || data.governorMessage.trim().length < 20) {
       errors = [
         ...errors,
         '"Governor Message" must have twenty(20) characters minimum',
@@ -124,48 +124,42 @@ export class GovernorMessage extends Component {
     const { governorName, governorMessage, fileName, loading } = this.state;
     return (
       <React.Fragment>
-        <SectionTitle title="Message from the governor" />
-        <AboutTemplate>
-          <form onSubmit={this.submit}>
-            <div className="input__area">
-              <div className="flex">
-                <TextInput
-                  inputLabel="Set Governor Name"
-                  placeholder="Governor name"
-                  value={governorName}
-                  id="governorName"
-                  name="governorName"
-                  change={this.change}
-                />
-                <FileInput
-                  inputLabel="Attach Photo"
-                  placeholder={fileName || 'Select a photo'}
-                  value=""
-                  id="governorPhoto"
-                  name="governorPhoto"
-                  change={this.change}
-                />
-              </div>
-            </div>
-            <div className="markdown__area">
-              <Label
-                htmlFor="governor-message-markdown"
-                label="Message from the governor"
+        <form className="about__section" onSubmit={this.submit}>
+          <div className="input__area">
+            <div className="flex">
+              <TextInput
+                inputLabel="Set Governor Name"
+                placeholder="Governor name"
+                value={governorName}
+                id="governorName"
+                name="governorName"
+                change={this.change}
               />
-              <div className="markdown">
-                <MarkdownEditor
-                  value={governorMessage}
-                  handleEditorChange={this.handleEditorChange}
-                />
-              </div>
+              <FileInput
+                inputLabel="Attach Photo"
+                placeholder={fileName || 'Select a photo'}
+                value=""
+                id="governorPhoto"
+                name="governorPhoto"
+                accept="image/*"
+                change={this.change}
+              />
             </div>
-            <div className="button__area">
-              <button disabled={loading} type="submit">
-                Save
-              </button>
+          </div>
+          <div className="markdown__area">
+            <Label
+              htmlFor="governor-message-markdown"
+              label="Message from the governor"
+            />
+            <div className="markdown">
+              <MarkdownEditor
+                value={governorMessage}
+                handleEditorChange={this.handleEditorChange}
+              />
             </div>
-          </form>
-        </AboutTemplate>
+          </div>
+          <Button loading={loading} type="submit" name="Save" />
+        </form>
       </React.Fragment>
     );
   }

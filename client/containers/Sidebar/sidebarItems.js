@@ -25,6 +25,10 @@ export const sidebarItems = [
         name: 'About MMDP',
         path: '/about/about-mmdp',
       },
+      {
+        name: 'Coordination',
+        path: '/about/coordination',
+      },
     ],
   },
   {

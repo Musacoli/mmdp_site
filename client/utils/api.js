@@ -1,18 +1,4 @@
-import axios from 'axios';
-import { baseAPI } from '../constants';
-
-export const authUserHeader = () => {
-  const token = localStorage.getItem('userToken');
-  return token ? { Authorization: `Bearer ${token}` } : {};
-};
-
-export const client = axios.create({
-  baseURL: baseAPI,
-  headers: {
-    'Content-Type': 'application/json',
-    ...authUserHeader(),
-  },
-});
+import { client } from './keys';
 
 export const api = {
   group: {
