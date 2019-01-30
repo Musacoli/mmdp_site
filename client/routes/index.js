@@ -4,8 +4,8 @@ import Group from '../views/Group';
 import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
-import About from '../containers/About'
-
+import About from '../containers/About';
+import Research from '../containers/Resources/Research';
 
 const routes = [
   {
@@ -44,7 +44,12 @@ const routes = [
     component: About,
     exact: false,
   },
+  {
+    path: '/research',
+    name: 'Research',
+    component: Research,
+    exact: false,
+  },
 ];
 
 export default routes;
-
