@@ -1,5 +1,5 @@
-import GovernorMessage from './GovernorMessage'
-import AboutMMDP from './AboutMMDP'
+import GovernorMessage from './GovernorMessage';
+import AboutMMDP from './AboutMMDP';
 
 const routes = [
   {

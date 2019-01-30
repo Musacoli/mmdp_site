@@ -1,0 +1,62 @@
+#research__header{
+  width: 153px;
+  height: 35px;
+  /* font-family: Muli; */
+  font-size: 25px;
+  font-weight: 800;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.4;
+  letter-spacing: -0.8px;
+  color: #1a1f37;
+}
+
+.title__input{
+  width: 80px;
+  height: 29px;
+  /* font-family: Muli; */
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.81;
+  letter-spacing: -0.3px;
+  color:#1a1f37;
+}
+
+.research__view{
+  /* background-color: red; */
+  padding-top: 50px;
+  padding-left: 30px;
+}
+
+
+.research__input{
+  /* background-color: lightblue; */
+  margin-right: 350px;
+}
+
+
+
+#resources__btn{
+  background-color: #3faaca;
+  width: 250px;
+  height: 50px;
+  /* background-color: #f8fdff; */
+}
+
+#research__title,#reportFile{
+  width: 300px;
+  height: 50px;
+  border-radius: 3px;
+  /* border-color: aliceblue; */
+}
+
+
+.research__header{
+  /* background-color: bisque; */
+  margin-bottom: 20px;
+}
+#reportFile{
+  padding-right: 20px;
+}

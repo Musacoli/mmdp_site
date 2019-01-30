@@ -1,8 +1,4 @@
 
-let API = "";
-
-if(process.env.NODE_ENV !== 'production') {
-  API = "http://localhost:3000";
-}
+const API = process.env.SERVER_APP_API_URL;
 
 export default API;

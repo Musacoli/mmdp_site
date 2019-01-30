@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import Label from '../Label';
 import './index.scss';
 
-export const TextInput = (props) => (
+export const TextInput = props => (
   <div className={`flex__item ${props.classNames || ''}`}>
     <Label label={props.inputLabel || ''} />
     <span className="block">
-      <input 
+      <input
         className="input"
-        type={props.type || ''} 
+        type={props.type || ''}
         id={props.id || ''}
         name={props.name || ''}
         value={props.value || ''}
@@ -30,4 +30,3 @@ TextInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
 };
-

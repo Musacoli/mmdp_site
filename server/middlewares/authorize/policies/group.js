@@ -1,4 +1,4 @@
-import {hasAnyPermission} from "../../../utils/permissions";
+import { hasAnyPermission } from '../../../utils/permissions';
 
 /**
  * Foreach of the actions provide an array of valid permissions i.e.
@@ -19,19 +19,9 @@ Get user permissions:
 const userPermissions = ['group.*', 'user.*'];
 
 export default {
-  list: (req) => {
-    return hasAnyPermission(userPermissions, ['group.*', 'group.list']);
-  },
-  get: (req) => {
-    return hasAnyPermission(userPermissions, ['group.*', 'group.get']);
-  },
-  create: (req) => {
-    return hasAnyPermission(userPermissions, ['group.*', 'group.create']);
-  },
-  update: (req) => {
-    return hasAnyPermission(userPermissions, ['group.*', 'group.update']);
-  },
-  delete: (req) => {
-    return hasAnyPermission(userPermissions, ['group.*', 'group.delete']);
-  },
+  list: req => hasAnyPermission(userPermissions, ['group.*', 'group.list']),
+  get: req => hasAnyPermission(userPermissions, ['group.*', 'group.get']),
+  create: req => hasAnyPermission(userPermissions, ['group.*', 'group.create']),
+  update: req => hasAnyPermission(userPermissions, ['group.*', 'group.update']),
+  delete: req => hasAnyPermission(userPermissions, ['group.*', 'group.delete']),
 };

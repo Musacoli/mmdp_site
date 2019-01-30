@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import { mockReq, mockRes } from 'sinon-express-mock';
 import { generateToken, generateInvalidToken } from '../helpers/auth';
-import checkAuth from '../../middleware/authentication';
+import checkAuth from '../../middlewares/authentication';
 
 chai.use(sinonChai);
 

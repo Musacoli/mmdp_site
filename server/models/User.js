@@ -45,7 +45,7 @@ User.add(
       default: hasPassword('P@ssword1'),
     },
     confirmed: { type: Boolean, index: false },
-    groups: { type: Types.Relationship, ref: 'Group', many: true},
+    groups: { type: Types.Relationship, ref: 'Group', many: true },
   },
   'Permissions',
   {

@@ -1,38 +1,37 @@
 import React from 'react';
-import './styles.scss';
 import { FileInput } from '../../About/Inputs/FileInput';
+import './styles.css';
 
-const ResearchView = ({ onChange, onSubmit }) => (
+const ResearchView = ({ onChange, onSubmit, fileName }) => (
   <div className="research__view">
-    <h3>Add Research</h3>
+    <h3 id="research__header">Add Research</h3>
     <div className="casca">
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="ui form">
         <div className="ui grid">
           <div className="four wide column">
-            <label htmlFor="fileupload"> Upload file</label>
-            <input
-              type="file"
-              name="researchUpload"
-              id="fileupload"
-              placeholder="select a file"
-              onChange={onChange}
-              className="ui input"
-            />
-            {/* <FileInput
-              placeholder="select a file"
-              onChange={onchange}
-              name="researchupload"
-              id="fileupload"
+            <label htmlFor="reportFile" className="title__input">
+              {' '}
+              Upload file
+            </label>
+            <FileInput
+              placeholder={fileName || 'select a file'}
+              change={onChange}
+              name="reportFile"
+              id="reportFile"
               value=""
-            /> */}
+            />
           </div>
-          <div className="four wide column">
-            <label htmlFor="research">Research title</label>
+          <div className="four wide column research__input">
+            <div className="research__header">
+              <label htmlFor="research__title" className="title__input">
+                Research title
+              </label>
+            </div>
             <input
               type="text"
-              name="researchTitle"
-              id="research"
-              className="ui input focus"
+              name="title"
+              id="research__title"
+              className="ui input field"
               placeholder="Research carried out last year"
               onChange={onChange}
               required

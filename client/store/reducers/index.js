@@ -6,7 +6,7 @@ import permissions from './permission';
 import groupCart from './group/cart';
 import governorMessage from './about/governorMessage';
 import aboutMMDP from './about/aboutMMDP';
-
+import research from './resources/research';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
   loginReducer,
   governorMessage,
   aboutMMDP,
+  research,
 });
 
 export default rootReducer;

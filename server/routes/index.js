@@ -2,9 +2,10 @@ import cors from 'cors';
 import keystone from 'keystone';
 import validate from 'express-validation';
 import aboutValidator from '../middlewares/about';
-import apiResponse from '../middleware/apiResponse';
+import apiResponse from '../middlewares/apiResponse';
 import validator from '../validation/validator';
-import errorHandler from '../middleware/errorHandler';
+import errorHandler from '../middlewares/errorHandler';
+import appendFilesToBody from '../middlewares/appendFilesToBody';
 import {
   checkIfAdmin,
   requireUser,
@@ -32,9 +33,11 @@ const App = (app) => {
 
   app.use(cors());
 
+  app.use(apiResponse);
+
   app.use(
-    '/api/v1/auth/login',
-    [apiResponse, validate(validator.login)],
+    `${baseUrl}/auth/login`,
+    [validate(validator.login)],
     routes.api.auth.index.login,
   );
 
@@ -206,8 +209,6 @@ const App = (app) => {
     res.json({ message: 'API endpoint for mmdp cms' });
   });
 
-  app.use('/api/v1/auth/login', [apiResponse, validate(validator.login)], routes.api.auth.index.login);
-
   app.post(
     `${baseUrl}/users`,
     parseRegistration,
@@ -271,6 +272,12 @@ const App = (app) => {
     '/api/permissions',
     [authorize.permission.list],
     routes.api.permission.list,
+  );
+
+  app.post(
+    `${baseUrl}/resources/research`,
+    [appendFilesToBody, validate(validator.research)],
+    routes.api.resources.research.create,
   );
 
   app.use(errorHandler);

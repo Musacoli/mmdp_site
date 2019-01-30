@@ -7,7 +7,7 @@ import routes from './routes';
 import Template from '../../views/Templates';
 import './index.scss';
 
-const About = (props) => (
+const About = props => (
   <Template {...props} title="">
     <div>
       {routes.map(route => (
@@ -20,4 +20,3 @@ const About = (props) => (
 About.propTypes = {};
 
 export default About;
-

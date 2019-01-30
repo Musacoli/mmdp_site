@@ -1,12 +1,12 @@
-import Group from "../models/Group";
-import mongoose from "mongoose";
-import permissions from "../core/permissions";
-import Joi from "joi";
+import mongoose from 'mongoose';
+import Joi from 'joi';
+import Group from '../models/Group';
+import permissions from '../core/permissions';
 
 export const paramGroupExists = async (req, res, next) => {
   const errorResp = {
-    status: "error",
-    message: "The group does not exist.",
+    status: 'error',
+    message: 'The group does not exist.',
   };
 
   const id = req.params.id;
@@ -32,11 +32,10 @@ export const validateGroupData = (req, res, next) => {
     permissions: Joi.array().items(Joi.string().valid(...allPermissions)),
   };
 
-  const {error} = Joi.validate(req.body, schema);
+  const { error } = Joi.validate(req.body, schema);
 
   if (error) {
     return res.status(422).json(error);
-  } else {
-    next();
   }
+  next();
 };

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
 
-const SectionTitle = (props) => (
+const SectionTitle = props => (
   <div className="section__title">
-    {props.title || ''} 
+    {props.title || ''}
   </div>
 );
 

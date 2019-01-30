@@ -1,5 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
 import loginSagaWatcher from './login/loginsaga';
+import addUserResearchWatcher from './resources/resources';
 import {
   watchFetchingGroups,
   watchFetchingGroup,
@@ -8,8 +9,7 @@ import {
   watchDeleteGroup,
 } from './group';
 import { watchFetchingPermissions } from './permission';
-import * as aboutWatcher from './about'
-
+import * as aboutWatcher from './about';
 
 export default function* root() {
   yield all([
@@ -26,6 +26,6 @@ export default function* root() {
     fork(aboutWatcher.createAboutMMDPWatcher),
     fork(aboutWatcher.updateAboutMMDPWatcher),
     fork(aboutWatcher.getAboutMMDPWatcher),
+    fork(addUserResearchWatcher),
   ]);
 }
-
