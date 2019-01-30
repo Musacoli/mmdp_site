@@ -20,7 +20,7 @@ const GroupList = ({
         <Table.Cell>
           <Checkbox className="group-list-check-box" onChange={handeMainCheckBoxChange} />
         </Table.Cell>
-        <Table.Cell><b>Group Name</b></Table.Cell>
+        <Table.Cell><b>Group name</b></Table.Cell>
         <Table.Cell><b>Users</b></Table.Cell>
         <Table.Cell><b>Permissions</b></Table.Cell>
         <Table.Cell><b>More</b></Table.Cell>

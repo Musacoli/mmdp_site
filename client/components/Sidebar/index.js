@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import DividerTitle from './DividerTitle';
 import TitleContent from './TitleContent';
 
-import './styles.sass';
-
 const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
   <React.Fragment>
     <div className="ui sidebar vertical left menu overlay visible theme_primary">
@@ -33,12 +31,12 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
           items={[
             {
               name: 'Message from the governor',
-                path: '/about/governor-message'
+              path: '/about/governor-message',
             },
             {
               name: 'About MMDP',
-              path: '/about/about-mmdp'
-            }
+              path: '/about/about-mmdp',
+            },
           ]}
           active={activeIndex === 1}
           onClick={() => handleClick(1)}
@@ -99,4 +97,3 @@ SidebarMenu.propTypes = {
   activeIndex: PropTypes.number.isRequired,
 };
 export default SidebarMenu;
-

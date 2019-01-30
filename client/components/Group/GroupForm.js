@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, Message } from 'semantic-ui-react';
 import Select from 'react-select';
-import './styles.sass';
 
 const GroupForm = ({
   options, name, selectedOption, groupId,

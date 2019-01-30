@@ -46,6 +46,7 @@ export default (state = initialState, { type, payload }) => {
 
     case TOGGLE_SELECT_GROUPS: {
       const groups = state.groups.map((group) => {
+        // eslint-disable-next-line no-param-reassign
         group.selected = payload.selected;
         return group;
       });
