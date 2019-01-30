@@ -14,6 +14,8 @@ services:
     volumes:
       - /mmdp/node_modules
       - .:/mmdp
+    environment:
+      - NODE_ENV=production
     depends_on:
       - "mongo-server"
   frontend:
