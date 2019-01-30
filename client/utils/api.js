@@ -4,8 +4,20 @@ export const authUserHeader = () => ({
   Authorization: 'Bearer {token}',
 });
 
+const serverUrl = () => {
+  if (process.env.NODE_ENV === 'production') {
+    const SERVER_APP_API_URL = process.env.SERVER_APP_API_URL;
+    return SERVER_APP_API_URL;
+  }
+  if (process.env.NODE_ENV === 'development') {
+    const SERVER_APP_API_URL = process.env.DEV_SERVER_API_URL;
+    return SERVER_APP_API_URL;
+  }
+};
+
+
 export const client = axios.create({
-  baseURL: process.env.SERVER_APP_API_URL,
+  baseURL: serverUrl(),
   headers: {
     'Content-Type': 'application/json',
     ...authUserHeader(),
