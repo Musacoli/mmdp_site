@@ -12,11 +12,14 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
       <div className="item logo">
         <div as="h2">
           <div className="float-left">
-            <Image className="brand__logo" circular src="http://3.17.158.38/assets/images/common/mmdp-logo-white-text.svg" />
+            <Image
+              className="brand__logo"
+              circular
+              src="http://3.17.158.38/assets/images/common/mmdp-logo-white-text.svg"
+            />
           </div>
           <div className="brand__name float-left">
-          The Managing Migration through
-          Development Programme
+            The Managing Migration through Development Programme
           </div>
         </div>
       </div>
@@ -51,7 +54,10 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
         />
         <TitleContent
           title="Resources"
-          items={[{ name: 'Resource 1', path: '/resource-1' }, { name: 'Resource 2', path: '/resource-2' }]}
+          items={[
+            { name: 'Research', path: '/research' },
+            { name: 'Resource 2', path: '/resource-2' },
+          ]}
           active={activeIndex === 3}
           onClick={() => handleClick(3)}
         />
