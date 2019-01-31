@@ -24,16 +24,21 @@
   color:#1a1f37;
 }
 
-.research__view{
-  /* background-color: red; */
-  padding-top: 50px;
-  padding-left: 30px;
+#research__view{
+  padding-top: 20px;
+  float: right;
+  margin-right:28%;
+}
+
+
+.research__header__container{
+  padding-bottom: 50px;
 }
 
 
 .research__input{
   /* background-color: lightblue; */
-  margin-right: 350px;
+  margin-left: 50px;
 }
 
 
@@ -42,14 +47,13 @@
   background-color: #3faaca;
   width: 250px;
   height: 50px;
+  margin-top: 25px;
   /* background-color: #f8fdff; */
 }
 
 #research__title,#reportFile{
   width: 300px;
   height: 50px;
-  border-radius: 3px;
-  /* border-color: aliceblue; */
 }
 
 
@@ -58,5 +62,11 @@
   margin-bottom: 20px;
 }
 #reportFile{
-  padding-right: 20px;
+  // background-color: bisque;
+  // margin-right: 200px;
+}
+
+
+.report__file__container{
+  margin-right: 130px;
 }

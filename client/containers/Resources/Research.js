@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ResearchView from '../../components/Resources/Research/ResearchView';
 import { addResearch } from '../../store/actions/resources/research';
+import SideBarNav from '../Sidebar';
 
 export class Research extends Component {
   state = {
@@ -34,12 +35,17 @@ export class Research extends Component {
 
   render() {
     return (
-      <div>
-        <ResearchView
-          onChange={this.onChange}
-          onSubmit={this.onFormSubmit}
-          fileName={this.state.fileName}
-        />
+      <div className="research__container">
+        <div>
+          <SideBarNav />
+        </div>
+        <div id="research__view">
+          <ResearchView
+            onChange={this.onChange}
+            onSubmit={this.onFormSubmit}
+            fileName={this.state.fileName}
+          />
+        </div>
       </div>
     );
   }
