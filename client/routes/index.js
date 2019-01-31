@@ -9,7 +9,6 @@ import About from '../containers/About';
 
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
-import { EditUserView} from "../views/Users";
 
 const routes = [
   {
@@ -61,7 +60,7 @@ const routes = [
     exact: true,
   },
   {
-    path: '/users/edit/:email',
+    path: '/users/edit/:email/:username',
     name: 'edit',
     component: editEmailView,
     exact: true,

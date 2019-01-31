@@ -22,3 +22,10 @@ export const deleteInitialState = {
   isDeleting: false,
   success: false,
 };
+
+export const initialStateFetchOne = {
+  singleUser: null,
+  isFetching: false,
+  success: false,
+  error: false,
+};

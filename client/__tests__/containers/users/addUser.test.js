@@ -2,25 +2,38 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { AddUser, mapStateToProps } from '../../../containers/Users/AddUser';
+import fetchedGroups from '../../../__mocks__/fetchGroups';
 
 const state = {
   register: jest.fn(),
+  groups: jest.fn(),
 };
 
 const props = {
-  isRegistering: false,
   registerUser: jest.fn(),
+  allGroups: jest.fn(),
   onChange: jest.fn(),
   onSubmit: jest.fn(),
-  status: false,
-  success: false,
+  groups: {
+    groups: fetchedGroups,
+  },
+  register: {
+    isRegistering: false,
+    status: false,
+    success: false,
+  },
+  history: {
+    push: {
+      name: 'push',
+    },
+  },
 };
 
 const wrapper = mount(<AddUser {...props} />);
 
 describe('<AddUser />', () => {
   it('Maps state to props', () => {
-    expect(mapStateToProps(state)).toEqual(state.register);
+    expect(mapStateToProps(state)).toEqual(state);
   });
 
   it('renders form component as expected', () => {
@@ -29,6 +42,13 @@ describe('<AddUser />', () => {
 
   it('test componentWillReceiveProps', () => {
     const spy = jest.spyOn(AddUser.prototype, 'componentWillReceiveProps');
+    wrapper.state({
+      email: '',
+      status: false,
+      success: false,
+      selectedOption: null,
+      selectedGroups: null,
+    });
     wrapper.instance().componentWillReceiveProps(props);
     expect(spy.mock.calls.length).toEqual(1);
   });
@@ -39,5 +59,20 @@ describe('<AddUser />', () => {
     const data = {};
     wrapper.instance().onSubmit(e, data);
     expect(onSubmitSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls the onChange function', () => {
+    const onChangeSpy = jest.spyOn(wrapper.instance(), 'onChange');
+    const e = { target: { name: '', value: '' } };
+    const data = {};
+    wrapper.instance().onChange(e, data);
+    expect(onChangeSpy.mock.calls.length).toEqual(1);
+  });
+
+  it('calls the handleChange function', () => {
+    const onChangeSpy = jest.spyOn(wrapper.instance(), 'handleChange');
+    const data = [{ value: '5c52bf9dfed75d1ec044c7fb', label: 'Cordinator' }];
+    wrapper.instance().handleChange(data);
+    expect(onChangeSpy.mock.calls.length).toEqual(1);
   });
 });

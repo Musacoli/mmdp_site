@@ -1,9 +1,10 @@
-import keystone from "./keystone/index";
+/* eslint-disable */
 import faker from 'faker';
+import supertest from 'supertest';
+import keystone from './keystone/index';
 import Group from '../../models/Group';
-import {User} from '../../models/User';
-import supertest from "supertest";
-import {generateToken} from "./auth";
+import { User } from '../../models/User';
+import { generateToken } from './auth';
 
 /**
  * Use faker to generate random test data. All test helpers requiring fake data
@@ -12,7 +13,7 @@ import {generateToken} from "./auth";
  * of duplicate data. This can break tests in an unpredictable fashion
  * which is hard to debug.
  */
-export {faker};
+export { faker };
 
 /**
  * Create randomly generated group details. Provide permissions that the group
@@ -26,9 +27,9 @@ export {faker};
 export const makeGroup = (permissions = [], overrides = {}) => {
   return {
     name: faker.name.jobTitle(), // unique
-    permissions: permissions,
-    ...overrides
-  }
+    permissions,
+    ...overrides,
+  };
 };
 
 /**
@@ -59,7 +60,7 @@ export const makeUser = async (permissions = [], overrides = {}) => {
   const data = {
     first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
-    username: faker.internet.userName(), //unique
+    username: faker.internet.userName(), // unique
     phone: faker.phone.phoneNumber('07########'),
     email: faker.internet.email(), // unique
     password: faker.internet.password(),
@@ -67,7 +68,7 @@ export const makeUser = async (permissions = [], overrides = {}) => {
     groups: group ? [group._id] : [],
   };
 
-  return {...data, ...overrides};
+  return { ...data, ...overrides };
 };
 
 /**
@@ -160,7 +161,7 @@ export class app {
     const request = this.app.get(url);
 
     if (this.token) {
-      return request.set('authorization', `Bearer ${this.token}`)
+      return request.set('authorization', `Bearer ${this.token}`);
     }
     return request;
   }

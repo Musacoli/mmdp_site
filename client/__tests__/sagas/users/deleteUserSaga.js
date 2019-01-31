@@ -1,7 +1,11 @@
 import { runSaga } from 'redux-saga';
 import { api } from '../../../utils/api';
 import { deleteUser } from '../../../store/sagas/users/deleteUser';
-import { DELETING_SUCCESS, DELETING_FAILURE } from '../../../constants/users';
+import {
+  DELETING_USER,
+  DELETING_SUCCESS,
+  DELETING_FAILURE,
+} from '../../../constants/users';
 
 describe('Delete users saga', () => {
   it('should handle user deletion in case of success', async () => {
@@ -23,7 +27,7 @@ describe('Delete users saga', () => {
     expect(api.users.delete.mock.calls.length).toBe(1);
     expect(dispatchedActions).toEqual([
       {
-        type: 'DELETING_USER',
+        type: DELETING_USER,
       },
       { payload: undefined, type: DELETING_SUCCESS },
       { type: 'FETCHING' },
@@ -32,6 +36,7 @@ describe('Delete users saga', () => {
 
   it('should handle user deletion in case of error', async () => {
     const dispatchedActions = [];
+
     api.users.delete = jest.fn(() => Promise.resolve());
 
     const fakeStore = {
@@ -46,7 +51,7 @@ describe('Delete users saga', () => {
     await runSaga(fakeStore, deleteUser, {}).done;
     expect(api.users.delete.mock.calls.length).toBe(1);
     expect(dispatchedActions).toEqual([
-      { type: 'DELETING_USER' },
+      { type: DELETING_USER },
       {
         payload: { message: 'Something went wrong.' },
         type: DELETING_FAILURE,

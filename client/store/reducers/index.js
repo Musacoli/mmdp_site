@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import loginReducer from './auth/login';
-import register from "./users/";
-import userEdit from "./users/editUser";
+import register from './users';
+import userEdit from './users/editUser';
+import fetchOneUser from './users/fetchOneUser';
 import sidebar from './sidebar';
 import groups from './group';
 import permissions from './permission';
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   userEdit,
   Users,
   deleteUser,
+  fetchOneUser,
 });
 
 export default rootReducer;

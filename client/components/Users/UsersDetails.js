@@ -6,7 +6,7 @@ import NoResults from '../common/TableRowLoading/NoResultsRow';
 import Loader from '../common/TableRowLoading';
 import DeleteUser from './deleteUser';
 
-class UsersDetails extends Component {
+class DisplayUsers extends Component {
   state = {
     deleteModalOpen: false,
     selectedUser: null,
@@ -37,6 +37,7 @@ class UsersDetails extends Component {
           closeModal={this.hideDeleteModal}
           handleDelete={this.handleDelete}
         />
+
         <Container>
           <Grid.Row className="table-row">
             <Table className="no margin top no border radius">
@@ -46,6 +47,7 @@ class UsersDetails extends Component {
                   <Table.HeaderCell>Username</Table.HeaderCell>
                   <Table.HeaderCell>Email address</Table.HeaderCell>
                   <Table.HeaderCell>Phone</Table.HeaderCell>
+                  <Table.HeaderCell>Group(s)</Table.HeaderCell>
                   <Table.HeaderCell>More</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
@@ -60,8 +62,17 @@ class UsersDetails extends Component {
                     <Table.Cell>{user.email}</Table.Cell>
                     <Table.Cell>{user.phone}</Table.Cell>
                     <Table.Cell>
+                      {user.groups.length > 0 &&
+                        user.groups.map((agroup) => (
+                          <Table.Row className="user-group-name">
+                            {agroup.name}
+                          </Table.Row>
+                        ))}
+                    </Table.Cell>
+                    <Table.Cell>
                       <ActionButtons
                         email={user.email}
+                        username={user.username}
                         handleDelete={() => this.showDeleteModal(user)}
                       />
                     </Table.Cell>
@@ -77,11 +88,11 @@ class UsersDetails extends Component {
   }
 }
 
-UsersDetails.propTypes = {
+DisplayUsers.propTypes = {
   users: PropTypes.bool,
   success: PropTypes.bool,
   history: PropTypes.shape({}),
   deleteUser: PropTypes.func,
 };
 
-export default UsersDetails;
+export default DisplayUsers;

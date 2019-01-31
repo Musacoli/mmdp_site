@@ -1,12 +1,13 @@
-import {faker} from "../../base";
+/* eslint-disable  no-return-await */
+import { faker } from '../../base';
 import GovernorMessage from '../../../../models/GovernorMessage';
 
 export const makeGovernorMessage = (overrides = {}) => {
   return {
     governorName: faker.name.findName(),
     governorMessage: faker.lorem.sentence(),
-    ...overrides
-  }
+    ...overrides,
+  };
 };
 
 export const createGovernorMessage = async (overrides = {}) => {

@@ -1,5 +1,5 @@
-import React from "react";
-import { Grid, Button, Icon, Container } from "semantic-ui-react";
+import React from 'react';
+import { Grid, Button, Icon, Container } from 'semantic-ui-react';
 
 const GroupButtons = () => (
   <Container>
@@ -13,7 +13,7 @@ const GroupButtons = () => (
             save user
           </a>
         </Grid.Column>
-        <Grid.Column width={14}>
+        <Grid.Column width={14} className="actions-delete-edit">
           <Button.Group
             basic
             className="right floated no border radius button-height group-btn btn-actions"

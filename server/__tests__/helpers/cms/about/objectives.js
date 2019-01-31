@@ -1,11 +1,12 @@
-import {faker} from "../../base";
+/* eslint-disable no-return-await */
+import { faker } from '../../base';
 import Objective from '../../../../models/Objectives';
 
 export const makeObjective = (overrides = {}) => {
   return {
     Objectives: faker.lorem.paragraph(25),
-    ...overrides
-  }
+    ...overrides,
+  };
 };
 
 export const createObjective = async (overrides = {}) => {
