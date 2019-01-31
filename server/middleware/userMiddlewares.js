@@ -1,26 +1,48 @@
-import jwt from 'jsonwebtoken';
+import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 
-import validator from 'validator';
-import User from '../models/User';
+import { User } from "../models/User";
+import Group from "../models/Group";
+import validator from "validator";
 import {
   hasPassword,
   passwordvalidator,
-  usernamevalidator,
-} from '../utils/validators';
-import resp, { status } from '../constants/middlewareConstants';
-import { passwordError } from '../constants/controllerConstants';
+  usernamevalidator
+} from "../utils/validators";
+import { status } from "../constants/middlewareConstants";
+import { passwordError } from "../constants/controllerConstants";
 
 const { FAIL } = status;
+import resp from "../constants/middlewareConstants";
 
 // checks whether the user is registered already
 export const checkEmail = async (req, res, next) => {
   const user = await User.model.findOne({ email: req.body.email });
   if (!user) {
-    next();
+    const groupIds = req.body.groups;
+    for (let i = 0; i < groupIds.length; i++) {
+      if (!mongoose.Types.ObjectId.isValid(groupIds[i])) {
+        return res.status(422).json({
+          status: FAIL,
+          message: "The request is invalid."
+        });
+      }
+    }
+    const check = await Group.model.find({
+      _id: groupIds
+    });
+    if (!check) {
+      res.status(400).json({
+        status: FAIL,
+        message: "check group"
+      });
+    } else {
+      next();
+    }
   } else {
     res.status(400).json({
       status: FAIL,
-      message: resp.emailTaken,
+      message: resp.emailTaken
     });
   }
 };
@@ -28,7 +50,16 @@ export const checkEmail = async (req, res, next) => {
 export const parseRegistration = async (req, res, next) => {
   if (Object.keys(req.body).length === 0) {
     res.status(400).json({ status: FAIL, message: resp.emailRequired });
-  } else if (!Object.keys(req.body).includes('email')) {
+  }
+  if (!req.body.email || !req.body.groups) {
+    res
+      .status(400)
+      .json({ status: FAIL, message: "only email and groups fields are required!" });
+  }
+  if (
+    !Object.keys(req.body).includes("email") &&
+    !Object.keys(req.body).includes("groups")
+  ) {
     res.status(400).json({ status: FAIL, message: resp.onlyEmail });
   } else if (!validator.isEmail(req.body.email)) {
     res.status(400).json({ status: FAIL, message: resp.passwordRequired });
@@ -44,7 +75,7 @@ export const validateEmail = (req, res, next) => {
   ) {
     res.status(400).json({
       status: FAIL,
-      message: resp.newOldEmail,
+      message: resp.newOldEmail
     });
   } else if (
     !validator.isEmail(req.body.newEmail) ||
@@ -52,7 +83,7 @@ export const validateEmail = (req, res, next) => {
   ) {
     res.status(400).json({
       status: FAIL,
-      message: resp.bothEmails,
+      message: resp.bothEmails
     });
   } else {
     next();
@@ -61,207 +92,215 @@ export const validateEmail = (req, res, next) => {
 
 // verify User account
 export const verifyAccount = (req, res, next) => {
-  const { token } = req.body;
+  const token = req.body.token;
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         res.status(401).json({
           status: FAIL,
-          message: resp.tokenMissing,
+          message: resp.tokenMissing
         });
       } else {
         if (!req.body.username) {
           return res.status(401).json({
             status: FAIL,
-            message: resp.usernameRequired,
+            message: resp.usernameRequired
           });
         }
         if (!req.body.password) {
           return res.status(401).json({
             status: FAIL,
-            message: resp.passRequired,
+            message: resp.passRequired
           });
         }
         // If user is confirmed abort this operation
-        User.model.findOne({ email: decoded.email }).then((user) => {
+        User.model.findOne({ email: decoded.email }).then(user => {
           if (!user) {
             return res.status(400).json({
               status: FAIL,
-              message: resp.notFound,
+              message: resp.notFound
             });
           }
           if (user.confirmed) {
             //  Already confirmed
             return res.status(400).json({
               status: FAIL,
-              message: resp.accVerified,
+              message: resp.accVerified
             });
-          }
-          if (!passwordvalidator(req.body.password)) {
-            return res.status(400).json({
-              status: FAIL,
-              error: passwordError.password,
-            });
-          }
-          if (usernamevalidator(req.body.username)) {
-            return res.status(400).json({
-              status: FAIL,
-              message: resp.usernameLength,
-            });
-          }
-          User.model
-            .findOne({ username: req.body.username })
-            .then((foundUser) => {
-              if (foundUser) {
+          } else {
+            if (!passwordvalidator(req.body.password)) {
+              return res.status(400).json({
+                status: FAIL,
+                error: passwordError.password
+              });
+            }
+            if (usernamevalidator(req.body.username)) {
+              return res.status(400).json({
+                status: FAIL,
+                message: resp.usernameLength
+              });
+            }
+            User.model.findOne({ username: req.body.username }).then(user => {
+              if (user) {
                 return res.status(400).json({
                   status: FAIL,
-                  message: resp.usernameDublicate,
+                  message: resp.usernameDublicate
                 });
               }
             });
-          User.model
-            .findOneAndUpdate(
-              { email: decoded.email },
-              {
-                confirmed: true,
-                phone: req.body.phone,
-                first_name: req.body.firstName,
-                last_name: req.body.lastName,
-                username: req.body.username,
-                password: hasPassword(req.body.password),
-              },
-            )
-            .then(() => {
-              next();
-            });
+            User.model
+              .findOneAndUpdate(
+                { email: decoded.email },
+                {
+                  confirmed: true,
+                  phone: req.body.phone,
+                  first_name: req.body.firstName,
+                  last_name: req.body.lastName,
+                  username: req.body.username,
+                  password: hasPassword(req.body.password)
+                }
+              )
+              .then(() => {
+                next();
+              });
+          }
         });
       }
     });
   } else {
     res.status(401).json({
       status: FAIL,
-      message: resp.tokenMissing,
+      message: resp.tokenMissing
     });
   }
 };
 
-// allows admin to update users emails
+//allows admin to update users emails
 export const updateDetails = async (req, res, next) => {
-  const { oldEmail, newEmail } = req.body;
+  let { oldEmail, newEmail } = req.body;
   const user = await User.model.findOne({ email: req.body.oldEmail });
   const userWithEmailExists = await User.model.findOne({
-    email: req.body.newEmail,
+    email: req.body.newEmail
   });
   if (user) {
     if (!userWithEmailExists) {
-      await User.model.findOneAndUpdate(
-        { email: oldEmail },
-        { email: newEmail },
-      );
+      let user = User.model;
+      await user.findOneAndUpdate({ email: oldEmail }, { email: newEmail });
       next();
     } else {
       return res.status(404).json({
         status: FAIL,
-        message: resp.newEmail,
+        message: resp.newEmail
       });
     }
   } else {
     return res.status(404).json({
       status: FAIL,
-      message: resp.oldEmail,
+      message: resp.oldEmail
     });
   }
 };
 
 // verify the details provided when updating the user details
-export const verifyEdit = async (req, res, next) => {
-  const { email } = req.user;
+export const verifyEdit = (req, res, next) => {
+  // we are trying to edit the details of the user making the request
+  const email = req.user.email;
   // check whether this user is activated
-  const user = await User.model.findOne({ email });
-  if (!user) {
-    return res.status(400).json({
-      status: FAIL,
-      message: resp.notFound,
-    });
-  }
-  if (!user.confirmed) {
-    //  At this point the user is not confirmed
-    return res.status(400).json({
-      status: FAIL,
-      message: resp.activateAcc,
-    });
-  }
-  if (!req.body.username) {
-    //  if username not provided try to update the password
-    if (!req.body.password) {
-      // at this point no details were provided
+  User.model.findOne({ email: email }).then(user => {
+    if (!user) {
       return res.status(400).json({
         status: FAIL,
-        message: resp.allFieldsReq,
+        message: resp.notFound
       });
     }
-    //  try to update password
-
-    if (!passwordvalidator(req.body.password)) {
-      return res
-        .status(400)
-        .json({ status: FAIL, message: passwordError.password });
-    }
-    await User.model.findOneAndUpdate(
-      { email },
-      {
-        password: hasPassword(req.body.password),
-      },
-    );
-    next();
-  } else {
-    if (req.body.password) {
-      if (!passwordvalidator(req.body.password)) {
-        return res.status(400).json({ error: passwordError.password });
-      }
-      const foundUser = await User.model.findOne({
-        username: req.body.username,
+    if (!user.confirmed) {
+      //  At this point the user is not confirmed
+      return res.status(400).json({
+        status: FAIL,
+        message: resp.activateAcc
       });
-      if (foundUser) {
+    } else if (!req.body.username) {
+      //  if username not provided try to update the password
+      if (!req.body.password) {
+        // at this point no details were provided
         return res.status(400).json({
           status: FAIL,
-          message: resp.usernameTaken,
+          message: resp.allFieldsReq
         });
+      }
+      //  try to update password
+      else {
+        if (!passwordvalidator(req.body.password)) {
+          return res
+            .status(400)
+            .json({ status: FAIL, message: passwordError.password });
+        }
+        User.model
+          .findOneAndUpdate(
+            { email: email },
+            {
+              password: hasPassword(req.body.password)
+            }
+          )
+          .then(() => {
+            next();
+          });
+      }
+    } else {
+      if (req.body.password) {
+        if (!passwordvalidator(req.body.password)) {
+          return res.status(400).json({ error: passwordError.password });
+        }
+        User.model.findOne({ username: req.body.username }).then(user => {
+          if (user) {
+            return res.status(400).json({
+              status: FAIL,
+              message: resp.usernameTaken
+            });
+          }
+        });
+        if (usernamevalidator(req.body.username)) {
+          return res.status(400).json({
+            status: FAIL,
+            message: resp.usernameLength
+          });
+        }
+        User.model
+          .findOneAndUpdate(
+            { email: email },
+            {
+              username: req.body.username,
+              password: hasPassword(req.body.password)
+            }
+          )
+          .then(() => {
+            next();
+          });
       }
       if (usernamevalidator(req.body.username)) {
         return res.status(400).json({
           status: FAIL,
-          message: resp.usernameLength,
+          message: resp.usernameLength
         });
       }
-      await User.model.findOneAndUpdate(
-        { email },
-        {
-          username: req.body.username,
-          password: hasPassword(req.body.password),
-        },
-      );
-      return next();
-    }
-    if (usernamevalidator(req.body.username)) {
-      return res.status(400).json({
-        status: FAIL,
-        message: resp.usernameLength,
+      User.model.findOne({ username: req.body.username }).then(user => {
+        if (user) {
+          return res.status(400).json({
+            status: FAIL,
+            message: resp.usernameTaken
+          });
+        }
       });
+      User.model
+        .findOneAndUpdate(
+          { email: email },
+          {
+            username: req.body.username
+          }
+        )
+        .then(() => {
+          next();
+        });
     }
-    const foundUser = await User.model.findOne({ username: req.body.username });
-    if (foundUser) {
-      return res.status(400).json({
-        status: FAIL,
-        message: resp.usernameTaken,
-      });
-    }
-    await User.model.findOneAndUpdate(
-      { email },
-      {
-        username: req.body.username,
-      },
-    );
-    return next();
-  }
+  });
 };
