@@ -27,7 +27,7 @@ export function* addUserResearch(action) {
     if (response.status === 'success') {
       toastr.success(response.message);
     } else {
-      toastr.warning(response.message);
+      toastr.warning(response.error.files);
     }
   } catch (error) {
     throw error;

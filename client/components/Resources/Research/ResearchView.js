@@ -7,7 +7,7 @@ const ResearchView = ({ onChange, onSubmit, fileName }) => (
     <div className="research__header__container">
       <h3 id="research__header">Add Research</h3>
     </div>
-    <form onSubmit={onSubmit} className="ui">
+    <form onSubmit={onSubmit} className="ui ">
       <div className="ui grid">
         <div className="four wide column report__file__container">
           <label htmlFor="reportFile" className="title__input">

@@ -27,7 +27,7 @@
 #research__view{
   padding-top: 20px;
   float: right;
-  margin-right:28%;
+  margin-right:20%;
 }
 
 
@@ -37,8 +37,8 @@
 
 
 .research__input{
-  /* background-color: lightblue; */
-  margin-left: 50px;
+  // background-color: lightblue;
+  margin-left: 95px;
 }
 
 
@@ -52,8 +52,11 @@
 }
 
 #research__title,#reportFile{
-  width: 300px;
+  // width: 350px;
+  // height: 50px;
+  width: 440px;
   height: 50px;
+  // border-radius: 3px;
 }
 
 
@@ -61,12 +64,7 @@
   /* background-color: bisque; */
   margin-bottom: 20px;
 }
-#reportFile{
-  // background-color: bisque;
-  // margin-right: 200px;
-}
-
 
 .report__file__container{
-  margin-right: 130px;
+  margin-right: 150px;
 }

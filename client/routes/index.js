@@ -5,7 +5,7 @@ import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
 import About from '../containers/About';
-import Research from '../containers/Resources/Research';
+import Research from '../views/Resources/Research';
 
 const routes = [
   {
