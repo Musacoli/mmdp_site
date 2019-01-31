@@ -1,6 +1,4 @@
-[![Test Coverage](https://api.codeclimate.com/v1/badges/144a347123fc9ec7f179/test_coverage)](https://codeclimate.com/github/andela/mmdp_site/test_coverage)
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/144a347123fc9ec7f179/maintainability)](https://codeclimate.com/github/andela/mmdp_site/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/144a347123fc9ec7f179/test_coverage)](https://codeclimate.com/github/andela/mmdp_site/test_coverage)[![Maintainability](https://api.codeclimate.com/v1/badges/144a347123fc9ec7f179/maintainability)](https://codeclimate.com/github/andela/mmdp_site/maintainability)
 
 # MMDP
 
