@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../public/logo.svg';
+import logo from '../../assets/images/logo.svg';
 import './styles.css';
 
 export const LoginView = ({ onSubmit, onChange }) => (

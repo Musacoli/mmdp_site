@@ -1,0 +1,31 @@
+
+@import url('https://fonts.googleapis.com/css?family=Muli:400,600,700');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+	font-family: 'Muli', sans-serif;
+	background-color: #f8fdff;	
+}
+
+.ui.form .field>label {
+	font-size: 16px;
+}
+
+.cool-blue {
+	background-color: #3faaca !important;
+	color: white !important;
+	font-weight: 400 !important;
+}
+
+.show .content {
+	display: block !important;
+	height: auto !important;
+	opacity: 1 !important;
+	padding: 12px !important;
+}

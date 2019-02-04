@@ -1,8 +1,8 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import toastr from 'toastr';
 import axios from 'axios';
-import { LOGIN } from '../../constants/auth';
-import { loginSuccessOrFail } from '../../store/actions/auth/login';
+import { LOGIN } from '../../../constants/auth';
+import { loginSuccessOrFail } from '../../actions/auth/login';
 
 toastr.options = {
   positionClass: 'toast-top-center',

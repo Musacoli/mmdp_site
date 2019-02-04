@@ -7,7 +7,7 @@ import validator from '../validation/validator';
 import errorHandler from '../middleware/errorHandler';
 import authorize from '../middleware/authorize';
 import authenticate from '../middleware/authenticate';
-
+import appendFilesToBody from '../middleware/appendFilesToBody';
 import {
   checkEmail,
   parseRegistration,
@@ -20,9 +20,8 @@ import {
 import {
   paramGroupExists,
   validateGroupCreate,
-  validateGroupUpdate
+  validateGroupUpdate,
 } from '../middleware/groupMiddlewares';
-
 
 const importRoutes = keystone.importer(__dirname);
 
@@ -38,9 +37,11 @@ const App = (app) => {
 
   app.use(cors());
 
-  app.use(
-    '/api/v1/auth/login',
-    [apiResponse, validate(validator.login)],
+  app.use(apiResponse);
+
+  app.post(
+    `${baseUrl}/auth/login`,
+    [validate(validator.login)],
     routes.api.auth.index.login,
   );
 
@@ -204,8 +205,6 @@ const App = (app) => {
     res.json({ message: 'API endpoint for mmdp cms' });
   });
 
-  app.use('/api/v1/auth/login', [apiResponse, validate(validator.login)], routes.api.auth.index.login);
-
   // users
   app.post(
     `${baseUrl}/users`,
@@ -275,6 +274,11 @@ const App = (app) => {
     '/api/permissions',
     [authenticate, authorize.permission.list],
     routes.api.permission.list,
+  );
+  app.post(
+    `${baseUrl}/resources/report`,
+    [appendFilesToBody, validate(validator.report)],
+    routes.api.resources.report.create,
   );
 
   app.use(errorHandler);
