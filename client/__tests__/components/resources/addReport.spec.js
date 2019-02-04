@@ -32,17 +32,23 @@ describe.only('AddReport', () => {
   });
   it('should set state for the title field when onChange method is called with an event target name of title', () => {
     const title = 'A new report';
-    wrapper.find('ReportForm').prop('onChange')(createFormEvent('title', title));
+    wrapper.find('ReportForm').prop('onChange')(
+      createFormEvent('title', title),
+    );
     expect(wrapper.state('title')).toEqual(title);
   });
   it('should set state for the reportFile field when onChange method is called with an event target name of reportFile', () => {
     const fileName = 'blank.pdf';
-    wrapper.find('ReportForm').prop('onChange')(createFormEvent('reportFile', fileName, true));
+    wrapper.find('ReportForm').prop('onChange')(
+      createFormEvent('reportFile', fileName, true),
+    );
     expect(wrapper.state('reportFile').name).toEqual(fileName);
   });
   it('should set state for the reportType field when onChange method is called with an event target name of reportType', () => {
     const reportType = 'annual';
-    wrapper.find('ReportForm').prop('onChange')(createFormEvent('reportType', reportType));
+    wrapper.find('ReportForm').prop('onChange')(
+      createFormEvent('reportType', reportType),
+    );
     expect(wrapper.state('reportType')).toEqual(reportType);
   });
   it('should clear error for a particular input field when onChange method is called by the input field', () => {
@@ -53,7 +59,9 @@ describe.only('AddReport', () => {
         reportFile: ['Select a report file to upload'],
       },
     });
-    wrapper.find('ReportForm').prop('onChange')(createFormEvent('title', title));
+    wrapper.find('ReportForm').prop('onChange')(
+      createFormEvent('title', title),
+    );
     expect(wrapper.state('title')).toEqual(title);
     expect(wrapper.state('errors').title).not.toBeDefined();
   });

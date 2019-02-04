@@ -1,6 +1,4 @@
-import {
-  put, takeEvery, call,
-} from 'redux-saga/effects';
+import { put, takeEvery, call } from 'redux-saga/effects';
 import { api } from '../../../utils/api';
 import { fetchPermissions } from '../../actions/permission';
 import { FETCHING_PERMISSIONS } from '../../../constants';

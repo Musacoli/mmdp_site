@@ -5,7 +5,11 @@ import Joi from 'joi';
 import GroupForm from '../../components/Group/GroupForm';
 import { fetchingPermissions } from '../../store/actions/permission';
 import {
-  createGroup, clearGroupErrors, fetchGroup, setGroup, updateGroup,
+  createGroup,
+  clearGroupErrors,
+  fetchGroup,
+  setGroup,
+  updateGroup,
 } from '../../store/actions/groups';
 import { groupValidationSchema } from '../../utils/validations';
 import { permissionOptions } from '../../store/reducers/permission';
@@ -22,18 +26,21 @@ export class GroupFormContainer extends Component {
     getGroup: PropTypes.func.isRequired,
     removeGroup: PropTypes.func.isRequired,
     editGroup: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     selectedOption: [],
     name: '',
     errors: {},
     id: null,
-  }
+  };
 
   componentDidMount() {
     const {
-      getPermissions, match: { params }, getGroup, clearErrors,
+      getPermissions,
+      match: { params },
+      getGroup,
+      clearErrors,
     } = this.props;
     if (params.id) {
       this.setState({ id: params.id });
@@ -47,7 +54,7 @@ export class GroupFormContainer extends Component {
     const { removeGroup, clearErrors } = this.props;
     removeGroup({ group: {} });
     clearErrors({});
-  }
+  };
 
   componentDidUpdate = () => {
     const { groups, clearErrors, history } = this.props;
@@ -69,11 +76,11 @@ export class GroupFormContainer extends Component {
         selectedOption: permissionOptions(group.permissions),
       });
     }
-  }
+  };
 
   handleSelectChange = (selectedOption) => {
     this.setState({ selectedOption });
-  }
+  };
 
   handleInputChange = (e) => {
     const { target } = e;
@@ -86,7 +93,7 @@ export class GroupFormContainer extends Component {
       [name]: value,
       errors,
     });
-  }
+  };
 
   handleSubmit = (event) => {
     const { name, selectedOption, id } = this.state;
@@ -102,7 +109,9 @@ export class GroupFormContainer extends Component {
       const permissions = [];
       let data = { name };
       if (selectedOption.length > 0) {
-        selectedOption.map(permission => permissions.push(permission.value[0]));
+        selectedOption.map((permission) =>
+          permissions.push(permission.value[0]),
+        );
         data = { ...data, permissions };
       }
       if (id) {
@@ -112,7 +121,7 @@ export class GroupFormContainer extends Component {
       }
       return addGroup(data);
     });
-  }
+  };
 
   render() {
     const { permissions, groups } = this.props;
@@ -134,7 +143,7 @@ export class GroupFormContainer extends Component {
   }
 }
 
-export const mapStateToProps = state => ({
+export const mapStateToProps = (state) => ({
   permissions: state.permissions,
   groups: state.groups,
 });
@@ -148,4 +157,7 @@ export const mapDispatchToProps = {
   removeGroup: setGroup,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupFormContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(GroupFormContainer);

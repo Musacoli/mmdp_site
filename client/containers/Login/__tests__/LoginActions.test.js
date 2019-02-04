@@ -1,5 +1,8 @@
 import { LOGIN, LOGIN_SUCCESS_OR_FAILURE } from '../../../constants/auth';
-import { loginUser, loginSuccessOrFail } from '../../../store/actions/auth/login';
+import {
+  loginUser,
+  loginSuccessOrFail,
+} from '../../../store/actions/auth/login';
 
 describe('Login user action', () => {
   it('should create an action to login a user', () => {

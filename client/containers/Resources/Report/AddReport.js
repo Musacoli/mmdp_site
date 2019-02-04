@@ -12,7 +12,7 @@ export class AddReport extends Component {
     title: '',
     reportFile: {},
     reportType: '',
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -30,7 +30,7 @@ export class AddReport extends Component {
       });
       submitReport(formData);
     }
-  }
+  };
 
   handleChange = (event) => {
     let value;
@@ -49,7 +49,7 @@ export class AddReport extends Component {
       [event.target.name]: value,
       errors,
     });
-  }
+  };
 
   render() {
     const { reportType, reportFile, errors } = this.state;
@@ -77,7 +77,7 @@ AddReport.propTypes = {
   loading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   response: state.report.response,
   loading: state.report.loading,
 });
@@ -86,4 +86,7 @@ const mapDispatchToProps = {
   submitReport: addReport,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddReport);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddReport);

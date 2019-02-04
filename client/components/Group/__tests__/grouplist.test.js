@@ -8,11 +8,13 @@ const testFunc = jest.fn();
 let props = {
   groups: {
     isFetching: true,
-    groups: [{
-      name: testText,
-      users: [],
-      permissions: [{ cms: 'cmss' }],
-    }],
+    groups: [
+      {
+        name: testText,
+        users: [],
+        permissions: [{ cms: 'cmss' }],
+      },
+    ],
   },
   redirectTo: testFunc,
   handleCheckBoxChange: testFunc,
@@ -20,19 +22,21 @@ let props = {
   confirmDeleteGroup: testFunc,
 };
 
-
-const wrapper = mount(
-  <GroupList {...props} />,
-);
+const wrapper = mount(<GroupList {...props} />);
 
 describe('<GroupList /> ', () => {
   it('renders GroupList component without crashing', () => {
-    wrapper.find('.group-list-check-box').at(1).simulate('change');
+    wrapper
+      .find('.group-list-check-box')
+      .at(1)
+      .simulate('change');
   });
   it('renders GroupList component without groups item', () => {
-    props = { ...props, isFetching: true, groups: { groups: [], isFetching: false } };
-    mount(
-      <GroupList {...props} />,
-    );
+    props = {
+      ...props,
+      isFetching: true,
+      groups: { groups: [], isFetching: false },
+    };
+    mount(<GroupList {...props} />);
   });
 });

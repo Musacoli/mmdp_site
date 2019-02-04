@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,7 +9,11 @@ import {
   editGroup,
   toggleDeleteGroup,
 } from '../../store/actions/groups';
-import { addGroupItem, addAllGroupsToCart, removeAllGroupsToCart } from '../../store/actions/groups/cart';
+import {
+  addGroupItem,
+  addAllGroupsToCart,
+  removeAllGroupsToCart,
+} from '../../store/actions/groups/cart';
 
 export class GroupContainer extends Component {
   static propTypes = {
@@ -22,13 +27,12 @@ export class GroupContainer extends Component {
     toggleSelected: PropTypes.func.isRequired,
     confirmDelete: PropTypes.func.isRequired,
     groupCart: PropTypes.arrayOf(PropTypes.shape([])).isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
     this.state = {};
   }
-
 
   componentDidMount() {
     const { getGroups } = this.props;
@@ -38,38 +42,41 @@ export class GroupContainer extends Component {
   redirectTo = (_id) => {
     const { history } = this.props;
     history.push(`/group/edit/${_id}`);
-  }
+  };
 
   handeMainCheckBoxChange = (e, data) => {
     const { checked } = data;
     const {
-      toggleSelected, addGroupAllToCart, groups, clearGroupCart,
+      toggleSelected,
+      addGroupAllToCart,
+      groups,
+      clearGroupCart,
     } = this.props;
     if (checked) {
       toggleSelected({ selected: true });
-      groups.groups.map(item => addGroupAllToCart(item._id));
+      groups.groups.map((item) => addGroupAllToCart(item._id));
     } else {
       toggleSelected({ selected: false });
       clearGroupCart({});
     }
-  }
+  };
 
   handleCheckBoxChange = (group) => {
     const { addGroupToCart, editAGroup } = this.props;
     addGroupToCart(group._id);
     const payload = { ...group, selected: !group.selected };
     editAGroup(payload);
-  }
+  };
 
   confirmDeleteGroup = (group) => {
     const { confirmDelete } = this.props;
     confirmDelete({ ...group, delete: true });
-  }
+  };
 
   bulkDeleteGroups = () => {
     const { groupCart } = this.props;
-    groupCart.map(item => this.confirmDeleteGroup({ _id: item }));
-  }
+    groupCart.map((item) => this.confirmDeleteGroup({ _id: item }));
+  };
 
   render() {
     const { groups } = this.props;
@@ -86,7 +93,7 @@ export class GroupContainer extends Component {
   }
 }
 
-export const mapStateToProps = state => ({
+export const mapStateToProps = (state) => ({
   groups: state.groups,
   groupCart: state.groupCart,
 });
@@ -99,7 +106,9 @@ export const mapDispatchToProps = {
   clearGroupCart: removeAllGroupsToCart,
   toggleSelected: toggleSelectGroups,
   confirmDelete: toggleDeleteGroup,
-
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(GroupContainer);

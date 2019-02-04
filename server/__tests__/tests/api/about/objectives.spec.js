@@ -1,7 +1,15 @@
-import {app, removeAllGroupsAndUsers, removeAllModels} from '../../../helpers/commons/base';
+/* eslint-disable no-underscore-dangle */
 import expect from 'expect';
+import {
+  app,
+  removeAllGroupsAndUsers,
+  removeAllModels,
+} from '../../../helpers/commons/base';
 import Objective from '../../../../models/Objectives';
-import {makeObjective, createObjective} from "../../../helpers/about/objectives";
+import {
+  makeObjective,
+  createObjective,
+} from '../../../helpers/about/objectives';
 
 const objectivesPath = '/api/v1/about/objectives';
 
@@ -9,28 +17,21 @@ const data = {
   Objectives: 'Objectives must at least be twenty characters in number',
 };
 
-const apiCreateObjective = async (data) => {
-  return await app.post(`${objectivesPath}/create`).send(data);
-};
+const apiCreateObjective = async (payload) =>
+  app.post(`${objectivesPath}/create`).send(payload);
 
-const apiUpdateObjective = async (id, data) => {
-  return await app.put(`${objectivesPath}/${id}/update`).send(data)
-};
+const apiUpdateObjective = async (id, payload) =>
+  app.put(`${objectivesPath}/${id}/update`).send(payload);
 
-const apiGetObjective = async (id) => {
-  return await app.get(`${objectivesPath}/${id}`).send()
-};
+const apiGetObjective = async (id) => app.get(`${objectivesPath}/${id}`).send();
 
-const apiListObjectives = async () => {
-  return await app.get(`${objectivesPath}/list`).send()
-};
+const apiListObjectives = async () => app.get(`${objectivesPath}/list`).send();
 
-const apiArchiveObjective = async (id) => {
-  return await app.delete(`${objectivesPath}/${id}/remove`).send()
-};
+const apiArchiveObjective = async (id) =>
+  app.delete(`${objectivesPath}/${id}/remove`).send();
 
 describe('Objectives API', () => {
-  describe('create objectives', function () {
+  describe('create objectives', () => {
     beforeEach(async () => {
       await removeAllModels(Objective);
       await removeAllGroupsAndUsers();
@@ -42,7 +43,7 @@ describe('Objectives API', () => {
       expect(res.status).toBe(200);
       expect(res.body.item).toMatchObject({
         Objectives: data.Objectives,
-      })
+      });
     });
 
     it('should create with full about or cms permissions', async () => {
@@ -55,22 +56,21 @@ describe('Objectives API', () => {
     });
 
     it('expect to not create Objectives with invalid fields', async () => {
-      const res = await apiCreateObjective({Objectives: 'worng words'});
+      const res = await apiCreateObjective({ Objectives: 'worng words' });
       expect(res.body.errors).toEqual([
         'Objectives must be twenty(20)  characters minimum',
-      ])
+      ]);
     });
 
     it('expect to not create Objectives with empty fields', async () => {
       const res = await apiCreateObjective({});
-      expect(res.body.errors).toEqual([
-        'Objectives is required',
-      ])
+      expect(res.body.errors).toEqual(['Objectives is required']);
     });
   });
 
   describe('update objectives', () => {
-    let existingObjective, newData;
+    let existingObjective;
+    let newData;
 
     beforeEach(async () => {
       await removeAllModels(Objective);
@@ -81,18 +81,25 @@ describe('Objectives API', () => {
     });
 
     it('expect to update Objectives by id', async () => {
-      const updated = (await apiUpdateObjective(existingObjective._id, newData)).body.item;
+      const updated = (await apiUpdateObjective(existingObjective._id, newData))
+        .body.item;
 
       expect(updated).toMatchObject(newData);
     });
 
     it('should update with full about or cms permission', async () => {
       await app.loginRandom(['cms.about.*']);
-      expect((await apiUpdateObjective(existingObjective._id, newData)).status).toBe(200);
+      expect(
+        (await apiUpdateObjective(existingObjective._id, newData)).status,
+      ).toBe(200);
       await app.loginRandom(['cms.update']);
-      expect((await apiUpdateObjective(existingObjective._id, newData)).status).toBe(200);
+      expect(
+        (await apiUpdateObjective(existingObjective._id, newData)).status,
+      ).toBe(200);
       await app.loginRandom(['cms.*']);
-      expect((await apiUpdateObjective(existingObjective._id, newData)).status).toBe(200);
+      expect(
+        (await apiUpdateObjective(existingObjective._id, newData)).status,
+      ).toBe(200);
     });
 
     it('expect to not update Objectives with an invalid id', async () => {
@@ -153,16 +160,14 @@ describe('Objectives API', () => {
       await removeAllModels(Objective);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
-      for (let i = 0; i < 5; i++) {
-        await createObjective();
-      }
+      await Promise.all([...Array(5)].map(() => createObjective()));
     });
 
     it('expect to retrieve the list of Objectives', async () => {
       const objectives = await Objective.model.find({});
       const res = await apiListObjectives();
       expect(res.status).toBe(200);
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 5; i += 1) {
         expect(res.body.items[i]).toMatchObject({
           Objectives: objectives[i].Objectives,
         });
@@ -203,11 +208,17 @@ describe('Objectives API', () => {
 
     it('should archive with full full about or cms permission', async () => {
       await app.loginRandom(['cms.about.*']);
-      expect((await apiArchiveObjective(existingObjectives._id)).status).toBe(200);
+      expect((await apiArchiveObjective(existingObjectives._id)).status).toBe(
+        200,
+      );
       await app.loginRandom(['cms.archive']);
-      expect((await apiArchiveObjective(existingObjectives._id)).status).toBe(200);
+      expect((await apiArchiveObjective(existingObjectives._id)).status).toBe(
+        200,
+      );
       await app.loginRandom(['cms.*']);
-      expect((await apiArchiveObjective(existingObjectives._id)).status).toBe(200);
+      expect((await apiArchiveObjective(existingObjectives._id)).status).toBe(
+        200,
+      );
     });
 
     it('expect to not archive the Objectives with an invalid id', async () => {

@@ -42,7 +42,6 @@ GovernorMessage.add({
   },
 });
 
-
 GovernorMessage.defaultColumns = 'governorName';
 GovernorMessage.register();
 

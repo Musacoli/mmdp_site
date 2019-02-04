@@ -9,8 +9,9 @@ describe('<MarkdownEditor /> ', () => {
     shallow(<MarkdownEditor value="value" handleEditorChange={func} />);
   });
   it('renders MarkdownEditor component without crashing', () => {
-    const wrapper = mount(<MarkdownEditor value="value" handleEditorChange={func} />);
-    wrapper.instance().handleEditorChange({target: {getContent: ()=>{}}});
+    const wrapper = mount(
+      <MarkdownEditor value="value" handleEditorChange={func} />,
+    );
+    wrapper.instance().handleEditorChange({ target: { getContent: () => {} } });
   });
 });
-

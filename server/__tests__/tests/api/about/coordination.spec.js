@@ -1,7 +1,15 @@
-import {app, removeAllGroupsAndUsers, removeAllModels} from '../../../helpers/commons/base';
+/* eslint-disable no-underscore-dangle */
 import expect from 'expect';
-import Coordination from "../../../../models/Coordination";
-import {createCoordination, makeCoordination} from "../../../helpers/about/coordination";
+import {
+  app,
+  removeAllGroupsAndUsers,
+  removeAllModels,
+} from '../../../helpers/commons/base';
+import Coordination from '../../../../models/Coordination';
+import {
+  createCoordination,
+  makeCoordination,
+} from '../../../helpers/about/coordination';
 
 const coordinationPath = '/api/v1/about/coordination';
 
@@ -12,25 +20,20 @@ const data = {
   introToHighlights: 'this is an introduction to our highlights at mmdp',
 };
 
-const apiCreateCoordination = async (data) => {
-  return await app.post(`${coordinationPath}/create`).send(data);
-};
+const apiCreateCoordination = async (payload) =>
+  app.post(`${coordinationPath}/create`).send(payload);
 
-const apiUpdateCoordination = async (id, data) => {
-  return await app.put(`${coordinationPath}/${id}/update`).send(data)
-};
+const apiUpdateCoordination = async (id, payload) =>
+  app.put(`${coordinationPath}/${id}/update`).send(payload);
 
-const apiGetCoordination = async (id) => {
-  return await app.get(`${coordinationPath}/${id}`).send()
-};
+const apiGetCoordination = async (id) =>
+  app.get(`${coordinationPath}/${id}`).send();
 
-const apiListCoordination = async () => {
-  return await app.get(`${coordinationPath}/list`).send()
-};
+const apiListCoordination = async () =>
+  app.get(`${coordinationPath}/list`).send();
 
-const apiArchiveCoordination = async (id) => {
-  return await app.delete(`${coordinationPath}/${id}/remove`).send()
-};
+const apiArchiveCoordination = async (id) =>
+  app.delete(`${coordinationPath}/${id}/remove`).send();
 
 describe('Coordination API', () => {
   describe('create coordination', () => {
@@ -47,8 +50,8 @@ describe('Coordination API', () => {
         coordination: data.coordination,
         whatAreWeDoing: data.whatAreWeDoing,
         introToHighlights: data.introToHighlights,
-        archived: false
-      })
+        archived: false,
+      });
     });
 
     it('should create with full about or cms permissions', async () => {
@@ -62,7 +65,10 @@ describe('Coordination API', () => {
 
     it('expect to not create Coordination with invalid fields', async () => {
       const res = await apiCreateCoordination({
-        coordination: 'worng words', whatAreWeDoing: 'nothing', introToHighlights: 'there isnt', highlight: 'test',
+        coordination: 'worng words',
+        whatAreWeDoing: 'nothing',
+        introToHighlights: 'there isnt',
+        highlight: 'test',
       });
       expect(res.status).toBe(400);
       expect(res.body.errors).toEqual([
@@ -84,7 +90,8 @@ describe('Coordination API', () => {
   });
 
   describe('update coordination', () => {
-    let existingCoordination, newData;
+    let existingCoordination;
+    let newData;
 
     before(async () => {
       await removeAllModels(Coordination);
@@ -95,7 +102,10 @@ describe('Coordination API', () => {
     });
 
     it('expect to update Coordination by id', async () => {
-      const updated = (await apiUpdateCoordination(existingCoordination._id, newData)).body.item;
+      const updated = (await apiUpdateCoordination(
+        existingCoordination._id,
+        newData,
+      )).body.item;
 
       expect(updated).toMatchObject({
         coordination: newData.coordination,
@@ -106,11 +116,17 @@ describe('Coordination API', () => {
 
     it('should update with full about or cms permission', async () => {
       await app.loginRandom(['cms.about.*']);
-      expect((await apiUpdateCoordination(existingCoordination._id, newData)).status).toBe(200);
+      expect(
+        (await apiUpdateCoordination(existingCoordination._id, newData)).status,
+      ).toBe(200);
       await app.loginRandom(['cms.update']);
-      expect((await apiUpdateCoordination(existingCoordination._id, newData)).status).toBe(200);
+      expect(
+        (await apiUpdateCoordination(existingCoordination._id, newData)).status,
+      ).toBe(200);
       await app.loginRandom(['cms.*']);
-      expect((await apiUpdateCoordination(existingCoordination._id, newData)).status).toBe(200);
+      expect(
+        (await apiUpdateCoordination(existingCoordination._id, newData)).status,
+      ).toBe(200);
     });
 
     it('expect to not update Coordination with an invalid id', async () => {
@@ -126,7 +142,7 @@ describe('Coordination API', () => {
     });
   });
 
-  describe('get coordination', function () {
+  describe('get coordination', () => {
     let existingCoordination;
 
     beforeEach(async () => {
@@ -148,11 +164,17 @@ describe('Coordination API', () => {
 
     it('should retrieve with full about or cms permission', async () => {
       await app.loginRandom(['cms.about.*']);
-      expect((await apiGetCoordination(existingCoordination._id)).status).toBe(200);
+      expect((await apiGetCoordination(existingCoordination._id)).status).toBe(
+        200,
+      );
       await app.loginRandom(['cms.view']);
-      expect((await apiGetCoordination(existingCoordination._id)).status).toBe(200);
+      expect((await apiGetCoordination(existingCoordination._id)).status).toBe(
+        200,
+      );
       await app.loginRandom(['cms.*']);
-      expect((await apiGetCoordination(existingCoordination._id)).status).toBe(200);
+      expect((await apiGetCoordination(existingCoordination._id)).status).toBe(
+        200,
+      );
     });
 
     it('expect to not retrieve Coordination with an invalid id', async () => {
@@ -167,16 +189,14 @@ describe('Coordination API', () => {
       await removeAllModels(Coordination);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
-      for (let i = 0; i < 5; i++) {
-        await createCoordination();
-      }
+      await Promise.all([...Array(5)].map(() => createCoordination()));
     });
 
     it('expect to retrieve the list of Coordinations', async () => {
       const coordination = await Coordination.model.find({});
       const res = await apiListCoordination();
       expect(res.status).toBe(200);
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 5; i += 1) {
         expect(res.body.items[i]).toMatchObject({
           coordination: coordination[i].coordination,
           whatAreWeDoing: coordination[i].whatAreWeDoing,
@@ -210,11 +230,17 @@ describe('Coordination API', () => {
 
     it('should archive with full full about or cms permission', async () => {
       await app.loginRandom(['cms.about.*']);
-      expect((await apiArchiveCoordination(existingCoordination._id)).status).toBe(200);
+      expect(
+        (await apiArchiveCoordination(existingCoordination._id)).status,
+      ).toBe(200);
       await app.loginRandom(['cms.archive']);
-      expect((await apiArchiveCoordination(existingCoordination._id)).status).toBe(200);
+      expect(
+        (await apiArchiveCoordination(existingCoordination._id)).status,
+      ).toBe(200);
       await app.loginRandom(['cms.*']);
-      expect((await apiArchiveCoordination(existingCoordination._id)).status).toBe(200);
+      expect(
+        (await apiArchiveCoordination(existingCoordination._id)).status,
+      ).toBe(200);
     });
 
     it('expect to not archive coordinations with an invalid id', async () => {

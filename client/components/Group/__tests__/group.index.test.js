@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import GroupIndex from '..';
 
 const testText = 'name';
@@ -8,11 +8,13 @@ const testFunc = jest.fn();
 const props = {
   groups: {
     isFetching: true,
-    groups: [{
-      name: testText,
-      users: [],
-      permissions: [{ cms: 'cmss' }],
-    }],
+    groups: [
+      {
+        name: testText,
+        users: [],
+        permissions: [{ cms: 'cmss' }],
+      },
+    ],
   },
   redirectTo: testFunc,
   handleCheckBoxChange: testFunc,

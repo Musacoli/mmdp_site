@@ -1,4 +1,4 @@
-import {hasAnyPermission} from "../../../utils/permissions";
+import { hasAnyPermission } from '../../../utils/permissions';
 
 export default {
   list: (userPermissions) => {

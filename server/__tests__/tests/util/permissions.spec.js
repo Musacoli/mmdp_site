@@ -1,6 +1,6 @@
 import expect from 'expect';
 import Group from '../../../models/Group';
-import { User } from '../../../models/User';
+import User from '../../../models/User';
 import {
   allPermissionsFor,
   getPermissionsMapArray,
@@ -9,15 +9,20 @@ import {
   hasAnyPermission,
 } from '../../../utils/permissions';
 
-const createUser = async (data, groups = []) => (await User.model.create({ ...data, groups })).populate('groups');
+const createUser = async (data, groups = []) =>
+  (await User.model.create({ ...data, groups })).populate('groups');
 
-const createGroup = data => Group.model.create(data);
+const createGroup = (data) => Group.model.create(data);
 
 describe('utils - permissions.js', () => {
   describe('allPermissionsFor()', () => {
     it('should list all permissions for a permission group', () => {
       const allGroupPermissions = [
-        'group.*', 'group.create', 'group.edit', 'group.view', 'group.delete',
+        'group.*',
+        'group.create',
+        'group.edit',
+        'group.view',
+        'group.delete',
       ];
 
       expect(allPermissionsFor('group')).toEqual(allGroupPermissions);
@@ -31,7 +36,11 @@ describe('utils - permissions.js', () => {
   describe('getPermissionsMapArray()', () => {
     it('should map permissions correctly', () => {
       const cmsPermissions = [
-        'cms.about.*', 'cms.about.create', 'cms.about.edit', 'cms.about.view', 'cms.about.archive',
+        'cms.about.*',
+        'cms.about.create',
+        'cms.about.edit',
+        'cms.about.view',
+        'cms.about.archive',
       ];
 
       const cmsPermissionsMap = [
@@ -51,16 +60,24 @@ describe('utils - permissions.js', () => {
   });
 
   describe('hasAnyPermission()', () => {
-    const validPermissions = ['cms.about.*', 'cms.about.view', 'cms.about.archive'];
+    const validPermissions = [
+      'cms.about.*',
+      'cms.about.view',
+      'cms.about.archive',
+    ];
     const withValidPermissions = ['cms.about.view', 'group.about'];
     const withoutValidPermissions = ['user.*'];
 
     it('should return true when user has any valid permission', () => {
-      expect(hasAnyPermission(withValidPermissions, validPermissions)).toEqual(true);
+      expect(hasAnyPermission(withValidPermissions, validPermissions)).toEqual(
+        true,
+      );
     });
 
     it('should return false when user has no valid permission', () => {
-      expect(hasAnyPermission(withoutValidPermissions, validPermissions)).toEqual(false);
+      expect(
+        hasAnyPermission(withoutValidPermissions, validPermissions),
+      ).toEqual(false);
     });
 
     it('should return false when user has no permissions', () => {
@@ -74,15 +91,23 @@ describe('utils - permissions.js', () => {
 
   describe('hasAllPermissions()', () => {
     const requiredPermissions = ['cms.about.view', 'cms.about.archive'];
-    const withRequiredPermissions = ['cms.about.view', 'cms.about.archive', 'group.*'];
+    const withRequiredPermissions = [
+      'cms.about.view',
+      'cms.about.archive',
+      'group.*',
+    ];
     const withoutRequiredPermissions = ['user.*'];
 
     it('should return true when user has all required permissions', () => {
-      expect(hasAllPermissions(withRequiredPermissions, requiredPermissions)).toEqual(true);
+      expect(
+        hasAllPermissions(withRequiredPermissions, requiredPermissions),
+      ).toEqual(true);
     });
 
     it('should return false when user is missing any of the required permissions', () => {
-      expect(hasAllPermissions(withoutRequiredPermissions, requiredPermissions)).toEqual(false);
+      expect(
+        hasAllPermissions(withoutRequiredPermissions, requiredPermissions),
+      ).toEqual(false);
     });
 
     it('should return false when user has no permissions', () => {
@@ -108,13 +133,17 @@ describe('utils - permissions.js', () => {
         permissions,
       });
       // create a user belonging to the group
-      const user = await createUser({
-        first_name: 'Theodore',
-        last_name: 'T-Bag',
-        username: 'tbag',
-        email: 'tbag@pb.com',
-        password: 'Pas$Word',
-      }, [group._id]);
+      const user = await createUser(
+        {
+          first_name: 'Theodore',
+          last_name: 'T-Bag',
+          username: 'tbag',
+          email: 'tbag@pb.com',
+          password: 'Pas$Word',
+        },
+        // eslint-disable-next-line no-underscore-dangle
+        [group._id],
+      );
       expect(await getUserPermissions(user)).toEqual(permissions);
     });
 

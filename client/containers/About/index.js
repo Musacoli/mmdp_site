@@ -1,16 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Grid } from 'Semantic-ui-react';
-import { Switch, Route } from 'react-router-dom';
-import GovernorMessage from './GovernorMessage';
+import { Route } from 'react-router-dom';
 import routes from './routes';
 import Template from '../../views/Templates';
 
 const About = (props) => (
   <Template {...props} title="">
     <div>
-      {routes.map(route => (
-        <Route exact={route.exact} path={route.path} component={route.component} key={route.path} />
+      {routes.map((route) => (
+        <Route
+          exact={route.exact}
+          path={route.path}
+          component={route.component}
+          key={route.path}
+        />
       ))}
     </div>
   </Template>
@@ -19,4 +21,3 @@ const About = (props) => (
 About.propTypes = {};
 
 export default About;
-

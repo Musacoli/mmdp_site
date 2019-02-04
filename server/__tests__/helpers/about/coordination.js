@@ -1,21 +1,21 @@
+/* eslint-disable no-underscore-dangle */
 import Coordination from '../../../models/Coordination';
 import Highlight from '../../../models/Highlight';
-import {faker, createUser} from "../commons/base";
+import { faker, createUser } from '../commons/base';
 
 export const makeHighlight = (overrides = {}) => {
   return {
     name: faker.lorem.sentence(15),
     ...overrides,
-  }
+  };
 };
 
-export const createHighlight = async (overrides = {}) => {
-  return await Highlight.model.create(makeHighlight(overrides));
-};
+export const createHighlight = async (overrides = {}) =>
+  Highlight.model.create(makeHighlight(overrides));
 
 export const makeCoordination = async (overrides = {}) => {
   const user = await createUser();
-  const highlight =  await createHighlight();
+  const highlight = await createHighlight();
   return {
     creator: user._id,
     coordination: faker.lorem.sentence(10),
@@ -23,9 +23,8 @@ export const makeCoordination = async (overrides = {}) => {
     introToHighlights: faker.lorem.sentence(20),
     highlight: [highlight._id],
     ...overrides,
-  }
+  };
 };
 
-export const createCoordination = async (overrides = {}) => {
-  return await Coordination.model.create(await makeCoordination(overrides));
-};
+export const createCoordination = async (overrides = {}) =>
+  Coordination.model.create(await makeCoordination(overrides));

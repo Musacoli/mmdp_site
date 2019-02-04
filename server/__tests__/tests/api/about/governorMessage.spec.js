@@ -1,7 +1,15 @@
-import {app, removeAllGroupsAndUsers, removeAllModels} from '../../../helpers/commons/base';
+/* eslint-disable no-underscore-dangle */
 import expect from 'expect';
+import {
+  app,
+  removeAllGroupsAndUsers,
+  removeAllModels,
+} from '../../../helpers/commons/base';
 import GovernorMessage from '../../../../models/GovernorMessage';
-import {makeGovernorMessage, createGovernorMessage} from "../../../helpers/about/governorMessage";
+import {
+  makeGovernorMessage,
+  createGovernorMessage,
+} from '../../../helpers/about/governorMessage';
 
 const governorMessagePath = '/api/v1/about/governor-message';
 
@@ -10,25 +18,20 @@ const data = {
   governorMessage: 'this is a message from the governor',
 };
 
-const apiCreateGovernorMessage = async (data) => {
-  return await app.post(`${governorMessagePath}/create`).send(data);
-};
+const apiCreateGovernorMessage = async (payload) =>
+  app.post(`${governorMessagePath}/create`).send(payload);
 
-const apiUpdateGovernorMessage = async (id, data) => {
-  return await app.put(`${governorMessagePath}/${id}/update`).send(data)
-};
+const apiUpdateGovernorMessage = async (id, payload) =>
+  app.put(`${governorMessagePath}/${id}/update`).send(payload);
 
-const apiGetGovernorMessage = async (id) => {
-  return await app.get(`${governorMessagePath}/${id}`).send()
-};
+const apiGetGovernorMessage = async (id) =>
+  app.get(`${governorMessagePath}/${id}`).send();
 
-const apiListGovernorMessage = async () => {
-  return await app.get(`${governorMessagePath}/list`).send()
-};
+const apiListGovernorMessage = async () =>
+  app.get(`${governorMessagePath}/list`).send();
 
-const apiArchiveGovernorMessage = async (id) => {
-  return await app.delete(`${governorMessagePath}/${id}/remove`).send()
-};
+const apiArchiveGovernorMessage = async (id) =>
+  app.delete(`${governorMessagePath}/${id}/remove`).send();
 
 describe('Governor Message API', () => {
   describe('create governor message', () => {
@@ -44,7 +47,7 @@ describe('Governor Message API', () => {
       expect(res.body.item).toMatchObject({
         governorName: data.governorName,
         governorMessage: data.governorMessage,
-      })
+      });
     });
 
     it('should create with full about or cms permissions', async () => {
@@ -57,11 +60,14 @@ describe('Governor Message API', () => {
     });
 
     it('expect to not create governor message with an invalid fields', async () => {
-      const res = await apiCreateGovernorMessage({ governorMessage: 'message', governorName: 'n' });
+      const res = await apiCreateGovernorMessage({
+        governorMessage: 'message',
+        governorName: 'n',
+      });
       expect(res.body.errors).toEqual([
         'Governor name must be two(2)  characters minimum',
         'Governor message must be twenty(20)  characters minimum',
-      ])
+      ]);
     });
 
     it('expect to not create governor message with an empty field', async () => {
@@ -69,7 +75,7 @@ describe('Governor Message API', () => {
       expect(res.body.errors).toEqual([
         'Governor name is required',
         'Governor message is required',
-      ])
+      ]);
     });
 
     it('should fail if user is not authorized', async () => {
@@ -80,7 +86,8 @@ describe('Governor Message API', () => {
   });
 
   describe('update governor message', () => {
-    let existingMessage, newData;
+    let existingMessage;
+    let newData;
 
     beforeEach(async () => {
       await removeAllModels(GovernorMessage);
@@ -91,17 +98,26 @@ describe('Governor Message API', () => {
     });
 
     it('expect to update governor message by id', async () => {
-      const updated = (await apiUpdateGovernorMessage(existingMessage._id, newData)).body.item;
+      const updated = (await apiUpdateGovernorMessage(
+        existingMessage._id,
+        newData,
+      )).body.item;
       expect(updated).toMatchObject(newData);
     });
 
     it('should update with full about or cms permission', async () => {
       await app.loginRandom(['cms.about.*']);
-      expect((await apiUpdateGovernorMessage(existingMessage._id, newData)).status).toBe(200);
+      expect(
+        (await apiUpdateGovernorMessage(existingMessage._id, newData)).status,
+      ).toBe(200);
       await app.loginRandom(['cms.update']);
-      expect((await apiUpdateGovernorMessage(existingMessage._id, newData)).status).toBe(200);
+      expect(
+        (await apiUpdateGovernorMessage(existingMessage._id, newData)).status,
+      ).toBe(200);
       await app.loginRandom(['cms.*']);
-      expect((await apiUpdateGovernorMessage(existingMessage._id, newData)).status).toBe(200);
+      expect(
+        (await apiUpdateGovernorMessage(existingMessage._id, newData)).status,
+      ).toBe(200);
     });
 
     it('expect to not update governor message with an invalid id', async () => {
@@ -138,11 +154,17 @@ describe('Governor Message API', () => {
 
     it('should retrieve with full about or cms permission', async () => {
       await app.loginRandom(['cms.about.*']);
-      expect((await apiGetGovernorMessage(existingMessage._id)).status).toBe(200);
+      expect((await apiGetGovernorMessage(existingMessage._id)).status).toBe(
+        200,
+      );
       await app.loginRandom(['cms.view']);
-      expect((await apiGetGovernorMessage(existingMessage._id)).status).toBe(200);
+      expect((await apiGetGovernorMessage(existingMessage._id)).status).toBe(
+        200,
+      );
       await app.loginRandom(['cms.*']);
-      expect((await apiGetGovernorMessage(existingMessage._id)).status).toBe(200);
+      expect((await apiGetGovernorMessage(existingMessage._id)).status).toBe(
+        200,
+      );
     });
 
     it('expect to not retrieve governor message with an invalid id', async () => {
@@ -163,16 +185,14 @@ describe('Governor Message API', () => {
       await removeAllModels(GovernorMessage);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
-      for (let i = 0; i < 5; i++) {
-        await createGovernorMessage();
-      }
+      await Promise.all([...Array(5)].map(() => createGovernorMessage()));
     });
 
     it('expect to retrieve the list governor messages', async () => {
       const messages = await GovernorMessage.model.find({});
       const res = await apiListGovernorMessage();
       expect(res.status).toBe(200);
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 5; i += 1) {
         expect(res.body.items[i]).toMatchObject({
           governorName: messages[i].governorName,
           governorMessage: messages[i].governorMessage,
@@ -214,11 +234,17 @@ describe('Governor Message API', () => {
 
     it('should archive with full full about or cms permission', async () => {
       await app.loginRandom(['cms.about.*']);
-      expect((await apiArchiveGovernorMessage(existingMessage._id)).status).toBe(200);
+      expect(
+        (await apiArchiveGovernorMessage(existingMessage._id)).status,
+      ).toBe(200);
       await app.loginRandom(['cms.archive']);
-      expect((await apiArchiveGovernorMessage(existingMessage._id)).status).toBe(200);
+      expect(
+        (await apiArchiveGovernorMessage(existingMessage._id)).status,
+      ).toBe(200);
       await app.loginRandom(['cms.*']);
-      expect((await apiArchiveGovernorMessage(existingMessage._id)).status).toBe(200);
+      expect(
+        (await apiArchiveGovernorMessage(existingMessage._id)).status,
+      ).toBe(200);
     });
 
     it('expect to not archive the governor messages with an invalid id', async () => {

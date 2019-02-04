@@ -16,8 +16,7 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
             <Image className="brand__logo" circular src={logo} />
           </div>
           <div className="brand__name float-left">
-          The Managing Migration through
-          Development Programme
+            The Managing Migration through Development Programme
           </div>
         </div>
       </div>
@@ -25,7 +24,10 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
       <div className="ui accordion">
         <TitleContent
           title="Thematic Pillars"
-          items={[{ name: 'Pillar 1', path: '/pillar-1' }, { name: 'pillar-2' }]}
+          items={[
+            { name: 'Pillar 1', path: '/pillar-1' },
+            { name: 'pillar-2' },
+          ]}
           active={activeIndex === 0}
           onClick={() => handleClick(0)}
         />
@@ -52,7 +54,10 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
         />
         <TitleContent
           title="Resources"
-          items={[{ name: 'Resource 1', path: '/resource-1' }, { name: 'Report', path: '/resources/report/add' }]}
+          items={[
+            { name: 'Resource 1', path: '/resource-1' },
+            { name: 'Report', path: '/resources/report/add' },
+          ]}
           active={activeIndex === 3}
           onClick={() => handleClick(3)}
         />

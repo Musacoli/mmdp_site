@@ -8,15 +8,16 @@ toastr.options = {
   positionClass: 'toast-top-center',
   preventDuplicates: true,
 };
-const apiRequest = (url, data) => axios
-  .post(url, data)
-  .then(response => response.data)
-  .catch((error) => {
-    if (error.response) {
-      const response = error.response.data;
-      return response;
-    }
-  });
+const apiRequest = (url, data) =>
+  axios
+    .post(url, data)
+    .then((response) => response.data)
+    .catch((error) => {
+      if (error.response) {
+        const response = error.response.data;
+        return response;
+      }
+    });
 
 export function* loginuser(action) {
   try {

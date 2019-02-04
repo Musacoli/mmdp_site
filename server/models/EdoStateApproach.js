@@ -19,7 +19,6 @@ EdoStateApproach.add({
   archived: { type: Boolean, default: false },
 });
 
-
 EdoStateApproach.defaultColumns = 'theEdoStateApproach, background';
 EdoStateApproach.register();
 

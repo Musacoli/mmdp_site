@@ -1,23 +1,27 @@
-
 import Coordination from '../../models/Coordination';
 import Highlight from '../../models/Highlight';
 
 export const create = (req, res) => {
+  // eslint-disable-next-line new-cap
   const item = new Coordination.model();
 
-  const highlight = req.body.highlight.map(data => ({ name: data }));
-  Highlight.model.insertMany(highlight)
+  const highlight = req.body.highlight.map((data) => ({ name: data }));
+  Highlight.model
+    .insertMany(highlight)
     .then((result) => {
-      item.getUpdateHandler(req)
-        .process({
+      item.getUpdateHandler(req).process(
+        {
           ...req.body,
-          highlight: result.map(d => d._id),
-        }, (err) => {
+          // eslint-disable-next-line no-underscore-dangle
+          highlight: result.map((d) => d._id),
+        },
+        (err) => {
           if (err) return res.apiError('create error', err);
           res.apiResponse({
             item,
           });
-        });
+        },
+      );
     })
     .catch((err) => {
       res.status(500).json({ err });
@@ -29,9 +33,10 @@ export const update = (req, res) => {
     if (err) return res.apiError('database error', err);
     if (!item) return res.apiError('not found');
 
-    item.getUpdateHandler(req)
-      .process({ ...req.body, updatedAt: new Date() }, (err) => {
-        if (err) return res.apiError('update error', err);
+    item
+      .getUpdateHandler(req)
+      .process({ ...req.body, updatedAt: new Date() }, (error) => {
+        if (err) return res.apiError('update error', error);
 
         res.apiResponse({
           item,
@@ -44,14 +49,15 @@ export const list = (req, res) => {
   Coordination.model.find((err, items) => {
     if (err) return res.apiError('database error', err);
 
-    res.apiResponse({
+    return res.apiResponse({
       items,
     });
   });
 };
 
 export const get = (req, res) => {
-  Coordination.model.findById(req.params.id)
+  Coordination.model
+    .findById(req.params.id)
     .populate('highlight')
     .exec((err, item) => {
       if (err) return res.apiError('database error', err);
@@ -68,8 +74,8 @@ export const remove = (req, res) => {
     if (err) return res.apiError('database error', err);
     if (!item) return res.apiError('not found');
 
-    item.getUpdateHandler(req).process({ archived: true }, (err) => {
-      if (err) return res.apiError('remove error', err);
+    item.getUpdateHandler(req).process({ archived: true }, (error) => {
+      if (err) return res.apiError('remove error', error);
       res.apiResponse({
         item,
       });

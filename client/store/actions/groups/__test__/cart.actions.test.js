@@ -1,6 +1,14 @@
 /* eslint-env jest */
-import { ADD_GROUP_ITEM, ADD_ALL_GROUP_ITEM, REMOVE_ALL_GROUP_ITEM } from '../../../../constants';
-import { addGroupItem, addAllGroupsToCart, removeAllGroupsToCart } from '../cart';
+import {
+  ADD_GROUP_ITEM,
+  ADD_ALL_GROUP_ITEM,
+  REMOVE_ALL_GROUP_ITEM,
+} from '../../../../constants';
+import {
+  addGroupItem,
+  addAllGroupsToCart,
+  removeAllGroupsToCart,
+} from '../cart';
 
 describe('Group Cart Actions Creators', () => {
   it('should dispatch REMOVE_ALL_GROUP_ITEM', () => {
