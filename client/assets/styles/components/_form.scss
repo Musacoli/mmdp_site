@@ -1,0 +1,93 @@
+button, input, optgroup, select, textarea {
+	font-family: 'Muli', sans-serif;
+}
+.ui.form input[type=text], .ui.form input[type=file],
+.ui.form input[type=text]:focus, .ui.form input[type=file]:focus {
+	border-color: #cae7f0;
+}
+
+.form {
+  &__text-input {
+    .ui.input input{
+      padding: 14px;
+    }
+  }
+  &__radio-group {
+    font-size: 10px;
+    display: inline-block;
+  }
+  &__radio-input {
+    display: none;
+  } 
+  &__radio-label {
+    font-size: 1.4em;
+    position: relative;
+    cursor: pointer;
+    padding-left: 2em;
+  }
+  &__radio-button {
+    height: 1.6em;
+    width: 1.6em;
+    border: 2px solid $color-light-blue;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -.2em;
+
+    &::after {
+      content: "";
+      display: block;
+      height: 0.6em;
+      width: 0.6em;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $color-cool-blue;
+      opacity: 0;
+      transition: all .3s;
+    }
+  }
+  &__radio-input:checked ~ &__radio-label &__radio-button {
+    background-color: $color-light-blue;
+    border: none;
+  }
+  &__radio-input:checked ~ &__radio-label &__radio-button::after {
+    opacity: 1;
+  }
+  &__file-area {
+    position: relative;
+    padding: 1px;
+    font-size: 1em;
+    background: #fff;
+    border: 1px solid #cae7f0;
+    border-radius: .28571429rem;
+    -webkit-box-shadow: 0 0 0 0 transparent inset;
+    box-shadow: 0 0 0 0 transparent inset;
+    -webkit-transition: color .1s ease,border-color .1s ease;
+    transition: color .1s ease,border-color .1s ease;
+  }
+  &__file-input {
+    opacity: 0;
+  }
+  &__custom-file-input {
+    position: absolute;
+    top: 12px;
+    left: 15px;
+    color: #c7c7c7;
+  }
+  &__custom-file-filled {
+    color: #000000de;
+  }
+  .error &__file-area {
+    background: #fff6f6;
+    border: 1px solid #e0b4b4;
+  }
+  .error &__custom-file-input {
+    color: #e0b4b4;
+  }
+  // #c7c7c7
+  // #000000de;
+}

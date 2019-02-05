@@ -4,7 +4,8 @@ import Group from '../views/Group';
 import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
-import About from '../containers/About'
+import About from '../containers/About';
+import AddReport from '../views/Resources/Report/AddReport';
 
 
 const routes = [
@@ -44,7 +45,12 @@ const routes = [
     component: About,
     exact: false,
   },
+  {
+    path: '/resources/report/add',
+    name: 'Add Report',
+    component: AddReport,
+    exact: true,
+  },
 ];
 
 export default routes;
-

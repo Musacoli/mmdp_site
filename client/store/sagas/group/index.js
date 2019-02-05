@@ -1,33 +1,36 @@
 import {
   put, takeEvery, takeLatest, call,
 } from 'redux-saga/effects';
-import { api } from '../../utils/api';
-import { fetchGroups, groupCreatedSuccessfully } from '../../store/actions/groups';
+import { api } from '../../../utils/api';
+import { fetchGroups, groupCreatedSuccessfully } from '../../actions/groups';
 import {
   FETCHING_GROUPS,
   CREATE_GROUP,
   CREATE_GROUP_FAILURE,
   UPDATE_GROUP, TOGGLE_DELETE_GROUP,
   FETCH_GROUP, SET_GROUP,
-} from '../../constants';
+} from '../../../constants';
 
 export function* fetchGroupsAsync() {
   const groups = yield call(api.group.list);
-  yield put(fetchGroups(groups.data));
+  const data = groups !== undefined ? groups.data : {};
+  yield put(fetchGroups(data));
 }
 
 export function* fetchGroupAsync({ payload }) {
   const group = yield call(api.group.retrieve, payload.id);
+  const data = group !== undefined ? group.data : {};
   yield put({
     type: SET_GROUP,
-    payload: group.data,
+    payload: data,
   });
 }
 
 export function* createGroupsAsync({ payload }) {
   try {
     const group = yield call(api.group.create, payload);
-    yield put(groupCreatedSuccessfully(group.data));
+    const data = group !== undefined ? group.data : {};
+    yield put(groupCreatedSuccessfully(data));
   } catch (err) {
     yield put(({
       type: CREATE_GROUP_FAILURE,
@@ -41,8 +44,8 @@ export function* updateGroupsAsync({ payload }) {
     const { id } = payload;
     delete payload.id;
     const group = yield call(api.group.edit, id, payload);
-
-    yield put(groupCreatedSuccessfully(group.data));
+    const data = group !== undefined ? group.data : {};
+    yield put(groupCreatedSuccessfully(data));
   } catch (err) {
     yield put(({
       type: CREATE_GROUP_FAILURE,
@@ -59,7 +62,6 @@ export function* deleteGroupsAsync({ payload }) {
       type: FETCHING_GROUPS,
       payload: {},
     }));
-    // window.location.reload();
   } catch (err) {
     yield put(({
       type: 'DELETE_GROUP_FAILURE',
