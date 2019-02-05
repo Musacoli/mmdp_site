@@ -6,7 +6,6 @@ export const create = {
       email: 'user@mmdp.com',
       password: 'user',
       confirmed: false,
-      isAdmin: true,
     },
   ],
 };

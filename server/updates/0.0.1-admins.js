@@ -5,7 +5,6 @@ exports.create = {
       email: 'admin@mmdp.com',
       password: 'admin',
       confirmed: true,
-      isAdmin: true,
     },
   ],
 };

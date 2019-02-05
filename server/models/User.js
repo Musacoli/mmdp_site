@@ -1,5 +1,6 @@
 import keystone from 'keystone';
 import { hasPassword } from '../utils/validators';
+import {getUserPermissions} from "../utils/permissions";
 
 const { Types } = keystone.Field;
 
@@ -44,14 +45,22 @@ User.add(
       initial: true,
       default: hasPassword('P@ssword1'),
     },
-    confirmed: { type: Boolean, index: false },
-    groups: { type: Types.Relationship, ref: 'Group', many: true},
-  },
-  'Permissions',
-  {
-    isAdmin: { type: Boolean, label: 'Can access Keystone', index: false },
+    confirmed: {
+      type: Boolean,
+      index: false
+    },
+    groups: {
+      type: Types.Relationship,
+      ref: 'Group',
+      many: true,
+      default: []
+    },
   },
 );
+
+User.schema.virtual('permissions').get(function() {
+  return getUserPermissions(this);
+});
 
 User.defaultColumns = 'username, email';
 

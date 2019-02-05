@@ -3,7 +3,7 @@ import Group from "../models/Group";
 
 /**
  * Get all the permissions for an entity. For example passing 'x' will
- * return [ 'x.*', 'x.list', 'x.get', 'c.create', ..., ].
+ * return [ 'x.*', 'x.view', 'c.create', ..., ].
  *
  * @param item
  * @returns {string[]}
