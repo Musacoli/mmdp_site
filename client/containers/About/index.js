@@ -5,7 +5,6 @@ import { Switch, Route } from 'react-router-dom';
 import GovernorMessage from './GovernorMessage';
 import routes from './routes';
 import Template from '../../views/Templates';
-import './index.scss';
 
 const About = (props) => (
   <Template {...props} title="">

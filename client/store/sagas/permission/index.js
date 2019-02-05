@@ -1,9 +1,9 @@
 import {
   put, takeEvery, call,
 } from 'redux-saga/effects';
-import { api } from '../../utils/api';
-import { fetchPermissions } from '../../store/actions/permission';
-import { FETCHING_PERMISSIONS } from '../../constants';
+import { api } from '../../../utils/api';
+import { fetchPermissions } from '../../actions/permission';
+import { FETCHING_PERMISSIONS } from '../../../constants';
 
 export function* fetchPermissionAsync() {
   const permissions = yield call(api.permission.list);

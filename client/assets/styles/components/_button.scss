@@ -1,0 +1,13 @@
+.ui.button {
+  font-family: 'Muli', sans-serif;
+}
+.btn__upload {
+  .ui.button {
+    padding: 15px 45px;
+    border-radius: 3px;
+    background-color: $color-cool-blue;
+    color: $color-white;
+    font-size: 16px;
+    font-weight: normal;
+  }
+}

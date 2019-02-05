@@ -1,7 +1,7 @@
-import toastr from '../../utils/toastr';
+import toastr from '../../../utils/toastr';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import * as aboutApi from '../../api/about';
-import * as types from '../../constants/about';
+import * as aboutApi from '../../../api/about';
+import * as types from '../../../constants/about';
 
 
 
