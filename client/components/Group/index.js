@@ -13,10 +13,14 @@ const Group = ({
   confirmDeleteGroup,
 }) => (
 <<<<<<< HEAD
+<<<<<<< HEAD
   <Container className="main-content">
 =======
   <div className="main-content">
 >>>>>>> feat(documents): upload documents (frontend)
+=======
+  <Container className=",">
+>>>>>>> feat(about-mmdp-cms-frontend): Build Edo State Approach and Objectives Page.
     <Grid columns={2}>
       <Grid.Row>
         <Grid.Column width={12}>
