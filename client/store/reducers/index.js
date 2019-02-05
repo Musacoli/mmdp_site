@@ -18,6 +18,8 @@ import singleEvent from './events/singleEvent';
 import deleteEvent from './events/deleteEvent';
 import updateEvent from './events/updateEvent';
 import coordination from './about/coordination';
+import edoStateApproach from './about/edoStateApproach';
+import objectives from './about/objectives';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -39,6 +41,8 @@ const rootReducer = combineReducers({
   deleteEvent,
   updateEvent,
   coordination,
+  edoStateApproach,
+  objectives,
 });
 
 export default rootReducer;
