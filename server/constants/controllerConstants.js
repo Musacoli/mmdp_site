@@ -2,7 +2,6 @@ export const fields = {
   email: "*",
   id: "*",
   username: "*",
-  isAdmin: "*",
   confirmed: "*"
 };
 

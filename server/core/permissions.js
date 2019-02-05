@@ -2,8 +2,7 @@ export const userPermissions = {
   'user.*': 'Full users access',
   'user.create': 'Create users',
   'user.edit': 'Edit users',
-  'user.list': 'List users',
-  'user.view': 'View user details',
+  'user.view': 'View users',
   'user.delete': 'Delete users',
 };
 
@@ -11,8 +10,7 @@ export const groupPermissions = {
   'group.*': 'Full groups access',
   'group.create': 'Create groups',
   'group.edit': 'Edit groups',
-  'group.list': 'List groups',
-  'group.view': 'View group details',
+  'group.view': 'View groups',
   'group.delete': 'Delete groups',
 };
 
