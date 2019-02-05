@@ -6,14 +6,14 @@ import { GroupFormContainer, mapStateToProps } from '../../../containers/Group/G
 
 const func = jest.fn();
 const testText = 'name';
-const groups = {
+let groups = {
   groups: [{
     errors: {}, name: testText, users: [], permissions: [{ cms: 'cmss' }],
   }],
   isFetching: false,
   success: false,
   errors: 'adf',
-  group: {},
+  group: { name: testText, permissions: [] },
 };
 const state = {
   groups,
@@ -27,7 +27,7 @@ const props = {
     push: func,
   },
   groups,
-  match: { params: {} },
+  match: { params: { id: '2' } },
   getPermissions: func,
   addGroup: func,
   clearErrors: func,
@@ -49,11 +49,48 @@ describe('<GroupFormContainer /> Container', () => {
   });
 
   it('should render GroupFormContainer container without crashing', () => {
+    wrapper.find('#name').simulate(
+      'change',
+      {
+        target:
+           { name: 'name', value: 'q' },
+      },
+    );
     wrapper.instance().handleSubmit(event);
+    wrapper.find('#name').simulate(
+      'change',
+      {
+        target:
+           { name: 'name', value: testText },
+      },
+    );
     wrapper.instance().handleInputChange(event);
-    wrapper.instance().handleSelectChange([]);
+    wrapper.instance().handleSelectChange([{ value: testText }]);
+    wrapper.instance().handleSubmit(event);
     wrapper.instance().componentDidUpdate();
     wrapper.instance().componentWillUnmount();
     wrapper.instance().componentDidMount();
+  });
+  it('should render add a group', () => {
+    const match = { params: {} };
+    groups = { ...groups };
+    groups.success = true;
+    const wrapper2 = mount(
+      <GroupFormContainer
+        {...props}
+        groups={groups}
+        match={match}
+      />, ReactRouterOptions,
+    );
+    wrapper2.find('#name').simulate(
+      'change',
+      {
+        target:
+           { name: 'name', value: testText },
+      },
+    );
+    wrapper2.instance().handleInputChange(event);
+    wrapper2.instance().handleSelectChange([{ value: testText }]);
+    wrapper2.instance().handleSubmit(event);
   });
 });

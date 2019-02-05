@@ -62,5 +62,6 @@ describe('<GroupContainer /> Container', () => {
     wrapper.instance().handleCheckBoxChange({});
     wrapper.instance().bulkDeleteGroups();
     wrapper.instance().componentDidMount();
+    wrapper.instance().confirmDeleteGroup({});
   });
 });

@@ -1,23 +1,13 @@
 import axios from 'axios';
+import { baseAPI } from '../constants';
 
-export const authUserHeader = () => ({
-  Authorization: 'Bearer {token}',
-});
-
-const serverUrl = () => {
-  if (process.env.NODE_ENV === 'production') {
-    const SERVER_APP_API_URL = process.env.SERVER_APP_API_URL;
-    return SERVER_APP_API_URL;
-  }
-  if (process.env.NODE_ENV === 'development') {
-    const SERVER_APP_API_URL = process.env.DEV_SERVER_API_URL;
-    return SERVER_APP_API_URL;
-  }
+export const authUserHeader = () => {
+  const token = localStorage.getItem('userToken');
+  return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
-
 export const client = axios.create({
-  baseURL: serverUrl(),
+  baseURL: baseAPI,
   headers: {
     'Content-Type': 'application/json',
     ...authUserHeader(),

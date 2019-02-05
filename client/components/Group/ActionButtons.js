@@ -6,7 +6,7 @@ import ActionModal from './ActionModal';
 const ActionButtons = ({ bulkDeleteGroups }) => (
   <Grid columns={3}>
     <Grid.Row>
-      <Grid.Column width={4}>
+      <Grid.Column className="new-group" width={4}>
         <a className="no border raduis radiusless ui button cool-blue " href="/group">New Group</a>
       </Grid.Column>
       <Grid.Column width={8} />

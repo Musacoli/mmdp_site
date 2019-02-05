@@ -47,6 +47,16 @@ describe('Group saga', async () => {
     });
   });
 
+  describe('createGroupsAsync', async () => {
+    const it = sagaHelper(createGroupsAsync({ payload: null }));
+    it('should have called the mock api.group.create', (result) => {
+      expect(result).toEqual(call(api.group.create, null));
+    });
+    it('and then trigger a groupCreatedSuccessfully action', (result) => {
+      expect(result).toEqual(put(groupCreatedSuccessfully({})));
+    });
+  });
+
   describe('deleteGroupsAsync', async () => {
     const it = sagaHelper(deleteGroupsAsync({ payload }));
     it('should have called the mock api.group.delete', (result) => {

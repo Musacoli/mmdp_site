@@ -36,5 +36,14 @@
   
   .elipses-icon {
     font-size: 2em !important;
-    color: #4cb0cd !important;
+    color: #3faaca !important;
+    font-size: 2em !important;
+    .menu.transition.visible {
+      margin-left: -38px!important;
+    }
   }
+
+  .four.wide.column.new-group {
+    margin-top: .12em !important;
+}
+

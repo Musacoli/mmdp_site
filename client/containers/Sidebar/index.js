@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setActiveSidebarIndex } from '../../store/actions';
 import Sidebar from '../../components/Sidebar';
+import { sidebarItems } from './sidebarItems';
 
 export class SidebarContainer extends Component {
   static propTypes = {
@@ -22,17 +23,19 @@ export class SidebarContainer extends Component {
 
   goTo = (path, menuIndex) => {
     const { history } = this.props;
-    history.push(path);
+    if (path) history.push(path);
     this.handleClick(menuIndex);
   }
 
   render() {
     const { activeIndex } = this.props;
+
     return (
       <Sidebar
         activeIndex={activeIndex}
         goTo={this.goTo}
         handleClick={this.handleClick}
+        sidebarItems={sidebarItems}
       />
     );
   }
@@ -47,4 +50,3 @@ export const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);
-

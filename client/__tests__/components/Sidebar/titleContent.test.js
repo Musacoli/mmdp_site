@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { shallow } from 'enzyme';
-import TitleContent from '..';
+import TitleContent from '../../../components/Sidebar/TitleContent';
 
 const sidebarMenuItems = [
   { name: 'item 1', path: '/item-1' },

@@ -11,7 +11,7 @@ describe('Should test axios api requests', () => {
 
 
   it('should add authentication for logged in users header', () => {
-    expect(authUserHeader()).toHaveProperty('Authorization');
+    expect(authUserHeader()).toEqual({});
   });
 
   it('should test update user profile promise', () => {
