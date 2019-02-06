@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ResearchContainer />  renders the container without crashing 1`] = `
+<AddResearch
+  addResearch={[Function]}
+  history={
+    Object {
+      "push": [MockFunction] {
+        "calls": Array [
+          Array [
+            "/resources/research/list",
+          ],
+        ],
+        "results": Array [
+          Object {
+            "isThrow": false,
+            "value": undefined,
+          },
+        ],
+      },
+    }
+  }
+  loading={true}
+  payload={Object {}}
+  research={
+    Object {
+      "payload": Object {
+        "status": "success",
+      },
+    }
+  }
+>
+  <div>
+    <ResearchForm
+      fileName=""
+      loading={true}
+      onChange={[Function]}
+      onSubmit={[Function]}
+    >
+      <Form
+        as="form"
+        className="main-content"
+        loading={true}
+        onSubmit={[Function]}
+      >
+        <form
+          className="ui loading form main-content"
+          onSubmit={[Function]}
+        >
+          <FormGroup
+            widths="equal"
+          >
+            <div
+              className="equal width fields"
+            >
+              <FormField>
+                <div
+                  className="field"
+                >
+                  <FileInput
+                    className="test"
+                    id="researchFile"
+                    label="Upload file"
+                    name="researchFile"
+                    onChange={[Function]}
+                    placeholder="Select a file"
+                    value=""
+                  >
+                    <div
+                      className="field test"
+                    >
+                      <label
+                        htmlFor="researchFile"
+                      >
+                        Upload file
+                      </label>
+                      <div
+                        className="form__file-area"
+                      >
+                        <input
+                          className="form__file-input"
+                          id="researchFile"
+                          name="researchFile"
+                          onChange={[Function]}
+                          type="file"
+                        />
+                        <span
+                          className="form__custom-file-input"
+                        >
+                          Select a file
+                        </span>
+                      </div>
+                    </div>
+                  </FileInput>
+                </div>
+              </FormField>
+              <FormInput
+                as={[Function]}
+                className="form__text-input"
+                control={[Function]}
+                fluid={true}
+                label="Research title"
+                name="title"
+                onChange={[Function]}
+                placeholder="Research carried out last year"
+                type="text"
+              >
+                <FormField
+                  className="form__text-input"
+                  control={[Function]}
+                  fluid={true}
+                  label="Research title"
+                  name="title"
+                  onChange={[Function]}
+                  placeholder="Research carried out last year"
+                  type="text"
+                >
+                  <div
+                    className="field form__text-input"
+                  >
+                    <label>
+                      Research title
+                    </label>
+                    <Input
+                      fluid={true}
+                      name="title"
+                      onChange={[Function]}
+                      placeholder="Research carried out last year"
+                      type="text"
+                    >
+                      <div
+                        className="ui fluid input"
+                      >
+                        <input
+                          name="title"
+                          onChange={[Function]}
+                          placeholder="Research carried out last year"
+                          type="text"
+                        />
+                      </div>
+                    </Input>
+                  </div>
+                </FormField>
+              </FormInput>
+            </div>
+          </FormGroup>
+          <FormButton
+            as={[Function]}
+            className="btn__upload u-margin-top-medium"
+            control={[Function]}
+            type="submit"
+          >
+            <FormField
+              className="btn__upload u-margin-top-medium"
+              control={[Function]}
+              type="submit"
+            >
+              <div
+                className="field btn__upload u-margin-top-medium"
+              >
+                <Button
+                  as="button"
+                  type="submit"
+                >
+                  <button
+                    className="ui button"
+                    onClick={[Function]}
+                    type="submit"
+                  >
+                    Upload Research
+                  </button>
+                </Button>
+              </div>
+            </FormField>
+          </FormButton>
+        </form>
+      </Form>
+    </ResearchForm>
+  </div>
+</AddResearch>
+`;

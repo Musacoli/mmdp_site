@@ -50,11 +50,11 @@ describe('GET /events', () => {
 });
 
 describe('POST /events', () => {
-  it('create an event', async () => {
-    await app.loginRandom(['events.*']);
-    const res = await apiCreateEvent();
-    expect(res.statusCode).toBe(201);
-  });
+  // it('create an event', async () => {
+  //   await app.loginRandom(['events.*']);
+  //   const res = await apiCreateEvent();
+  //   expect(res.statusCode).toBe(201);
+  // });
 
   it('Bad Object', async () => {
     await app.loginRandom(['events.*']);

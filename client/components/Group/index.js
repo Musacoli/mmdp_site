@@ -12,7 +12,7 @@ const Group = ({
   handeMainCheckBoxChange,
   confirmDeleteGroup,
 }) => (
-  <Container className=",">
+  <Container className="main-content">
     <Grid columns={2}>
       <Grid.Row>
         <Grid.Column width={12}>
