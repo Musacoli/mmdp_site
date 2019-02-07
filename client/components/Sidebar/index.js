@@ -5,7 +5,7 @@ import DividerTitle from './DividerTitle';
 import TitleContent from './TitleContent';
 import logo from '../../assets/images/logo-white.svg';
 
-import './styles.sass';
+import '../../assets/css/sidebar/styles.sass';
 
 const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
   <React.Fragment>
@@ -86,7 +86,7 @@ const SidebarMenu = ({ activeIndex, handleClick, goTo }) => (
           title="Users"
           items={[]} // Provide an empty array if the item doesn't have menu levels
           active={activeIndex === 7}
-          onClick={() => goTo('/login', 7)}
+          onClick={() => goTo('/users/all', 7)}
         />
         <TitleContent
           title="Groups"

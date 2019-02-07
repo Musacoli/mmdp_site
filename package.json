@@ -48,16 +48,20 @@
     "node-sass-middleware": "^0.11.0",
     "nodemailer": "^5.1.1",
     "password-validator": "^4.1.1",
+    "path-to-regexp": "^3.0.0",
     "prettier": "^1.16.4",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
+    "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-select": "^2.3.0",
-    "redux": "^4.0.1",
+    "redux": "^3.1.0 || ^4.0.0",
+    "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.2",
+    "redux-saga-test-plan": "^3.7.0",
     "regenerator": "^0.13.3",
     "regenerator-runtime": "^0.13.1",
     "semantic-ui-react": "^0.84.0",
@@ -111,7 +115,7 @@
     "setupTestFrameworkScriptFile": "<rootDir>/client/__tests__/setup/setupEnzyme.js",
     "testPathIgnorePatterns": [
       "<rootDir>/client/__tests__/setup/",
-      "<rootDir>/client/middlewares/*",
+      "<rootDir>/client/middleware/*",
       "<rootDir>/server/"
     ],
     "transform": {
@@ -127,7 +131,7 @@
       "!client/store/index.js",
       "!client/store/reducer/index.js",
       "!client/index.js",
-      "!**/middlewares/**"
+      "!**/middleware/**"
     ],
     "coverageDirectory": "./client/coverage",
     "coverageReporters": [
