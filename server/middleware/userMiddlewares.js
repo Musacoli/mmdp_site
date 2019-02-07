@@ -1,7 +1,8 @@
+import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-
-import validator from 'validator';
+import validator, { isEmail } from 'validator';
 import User from '../models/User';
+import Group from '../models/Group';
 import {
   hasPassword,
   passwordvalidator,
@@ -16,10 +17,30 @@ const { FAIL } = status;
 export const checkEmail = async (req, res, next) => {
   const user = await User.model.findOne({ email: req.body.email });
   if (!user) {
-    next();
+    const groupIds = req.body.groups;
+    if (groupIds.length === 0) {
+      next();
+    } else {
+      for (let i = 0; i < groupIds.length; i++) {
+        if (!mongoose.Types.ObjectId.isValid(groupIds[i])) {
+          return res.status(422).json({
+            message: 'The request is invalid.',
+          });
+        }
+      }
+    }
+    const check = await Group.model.find({
+      _id: groupIds,
+    });
+    if (!check) {
+      res.status(400).json({
+        message: 'check group',
+      });
+    } else {
+      next();
+    }
   } else {
     res.status(400).json({
-      status: FAIL,
       message: resp.emailTaken,
     });
   }
@@ -27,8 +48,17 @@ export const checkEmail = async (req, res, next) => {
 
 export const parseRegistration = async (req, res, next) => {
   if (Object.keys(req.body).length === 0) {
-    res.status(400).json({ status: FAIL, message: resp.emailRequired });
-  } else if (!Object.keys(req.body).includes('email')) {
+    res.status(400).json({ message: resp.emailRequired });
+  }
+  if (!req.body.email || !req.body.groups) {
+    res.status(400).json({
+      message: 'only email and groups fields are required!',
+    });
+  }
+  if (
+    !Object.keys(req.body).includes('email') &&
+    !Object.keys(req.body).includes('groups')
+  ) {
     res.status(400).json({ status: FAIL, message: resp.onlyEmail });
   } else if (!validator.isEmail(req.body.email)) {
     res.status(400).json({ status: FAIL, message: resp.passwordRequired });
@@ -38,17 +68,28 @@ export const parseRegistration = async (req, res, next) => {
 };
 // velidates  email
 export const validateEmail = (req, res, next) => {
-  if (
-    Object.keys(req.body).length === 0 ||
-    Object.keys(req.body).length !== 2
-  ) {
+  const email = Object.keys(req.body).includes('email');
+  const fields =
+    Object.keys(req.body).includes('newEmail') ||
+    Object.keys(req.body).includes('groups');
+  if (!email) {
     res.status(400).json({
       status: FAIL,
-      message: resp.newOldEmail,
+      message: resp.oldEmail,
     });
+  }
+  if (email) {
+    if (!fields) {
+      res.status(400).json({
+        status: FAIL,
+        message: 'new email, groups or both are required!',
+      });
+    } else {
+      next();
+    }
   } else if (
     !validator.isEmail(req.body.newEmail) ||
-    !validator.isEmail(req.body.oldEmail)
+    !validator.isEmail(req.body.email)
   ) {
     res.status(400).json({
       status: FAIL,
@@ -109,16 +150,14 @@ export const verifyAccount = (req, res, next) => {
               message: resp.usernameLength,
             });
           }
-          User.model
-            .findOne({ username: req.body.username })
-            .then((foundUser) => {
-              if (foundUser) {
-                return res.status(400).json({
-                  status: FAIL,
-                  message: resp.usernameDublicate,
-                });
-              }
-            });
+          User.model.findOne({ username: req.body.username }).then((user) => {
+            if (user) {
+              return res.status(400).json({
+                status: FAIL,
+                message: resp.usernameDublicate,
+              });
+            }
+          });
           User.model
             .findOneAndUpdate(
               { email: decoded.email },
@@ -147,18 +186,35 @@ export const verifyAccount = (req, res, next) => {
 
 // allows admin to update users emails
 export const updateDetails = async (req, res, next) => {
-  const { oldEmail, newEmail } = req.body;
-  const user = await User.model.findOne({ email: req.body.oldEmail });
+  const { email, newEmail } = req.body;
+  const user = await User.model.findOne({ email: req.body.email });
   const userWithEmailExists = await User.model.findOne({
     email: req.body.newEmail,
   });
   if (user) {
     if (!userWithEmailExists) {
-      await User.model.findOneAndUpdate(
-        { email: oldEmail },
-        { email: newEmail },
-      );
-      next();
+      const user = User.model;
+      delete req.body.email;
+      if (req.body.newEmail) {
+        if (!isEmail(newEmail)) {
+          return res.status(400).json({
+            status: FAIL,
+            message: 'provide a valid email',
+          });
+        }
+        next();
+      }
+
+      if (Object.keys(req.body).includes('newEmail')) {
+        const data = {};
+        data.email = req.body.newEmail;
+        data.groups = req.body.groups;
+        await user.findOneAndUpdate({ email }, data);
+        next();
+      } else {
+        await user.findOneAndUpdate({ email }, req.body);
+        next();
+      }
     } else {
       return res.status(404).json({
         status: FAIL,
@@ -174,59 +230,80 @@ export const updateDetails = async (req, res, next) => {
 };
 
 // verify the details provided when updating the user details
-export const verifyEdit = async (req, res, next) => {
+export const verifyEdit = (req, res, next) => {
+  // we are trying to edit the details of the user making the request
   const { email } = req.user;
   // check whether this user is activated
-  const user = await User.model.findOne({ email });
-  if (!user) {
-    return res.status(400).json({
-      status: FAIL,
-      message: resp.notFound,
-    });
-  }
-  if (!user.confirmed) {
-    //  At this point the user is not confirmed
-    return res.status(400).json({
-      status: FAIL,
-      message: resp.activateAcc,
-    });
-  }
-  if (!req.body.username) {
-    //  if username not provided try to update the password
-    if (!req.body.password) {
-      // at this point no details were provided
+  User.model.findOne({ email }).then((user) => {
+    if (!user) {
       return res.status(400).json({
         status: FAIL,
-        message: resp.allFieldsReq,
+        message: resp.notFound,
       });
     }
-    //  try to update password
-
-    if (!passwordvalidator(req.body.password)) {
-      return res
-        .status(400)
-        .json({ status: FAIL, message: passwordError.password });
-    }
-    await User.model.findOneAndUpdate(
-      { email },
-      {
-        password: hasPassword(req.body.password),
-      },
-    );
-    next();
-  } else {
-    if (req.body.password) {
-      if (!passwordvalidator(req.body.password)) {
-        return res.status(400).json({ error: passwordError.password });
-      }
-      const foundUser = await User.model.findOne({
-        username: req.body.username,
+    if (!user.confirmed) {
+      //  At this point the user is not confirmed
+      return res.status(400).json({
+        status: FAIL,
+        message: resp.activateAcc,
       });
-      if (foundUser) {
+    }
+    if (!req.body.username) {
+      //  if username not provided try to update the password
+      if (!req.body.password) {
+        // at this point no details were provided
         return res.status(400).json({
           status: FAIL,
-          message: resp.usernameTaken,
+          message: resp.allFieldsReq,
         });
+      }
+      //  try to update password
+
+      if (!passwordvalidator(req.body.password)) {
+        return res
+          .status(400)
+          .json({ status: FAIL, message: passwordError.password });
+      }
+      User.model
+        .findOneAndUpdate(
+          { email },
+          {
+            password: hasPassword(req.body.password),
+          },
+        )
+        .then(() => {
+          next();
+        });
+    } else {
+      if (req.body.password) {
+        if (!passwordvalidator(req.body.password)) {
+          return res.status(400).json({ error: passwordError.password });
+        }
+        User.model.findOne({ username: req.body.username }).then((user) => {
+          if (user) {
+            return res.status(400).json({
+              status: FAIL,
+              message: resp.usernameTaken,
+            });
+          }
+        });
+        if (usernamevalidator(req.body.username)) {
+          return res.status(400).json({
+            status: FAIL,
+            message: resp.usernameLength,
+          });
+        }
+        User.model
+          .findOneAndUpdate(
+            { email },
+            {
+              username: req.body.username,
+              password: hasPassword(req.body.password),
+            },
+          )
+          .then(() => {
+            next();
+          });
       }
       if (usernamevalidator(req.body.username)) {
         return res.status(400).json({
@@ -234,34 +311,24 @@ export const verifyEdit = async (req, res, next) => {
           message: resp.usernameLength,
         });
       }
-      await User.model.findOneAndUpdate(
-        { email },
-        {
-          username: req.body.username,
-          password: hasPassword(req.body.password),
-        },
-      );
-      return next();
-    }
-    if (usernamevalidator(req.body.username)) {
-      return res.status(400).json({
-        status: FAIL,
-        message: resp.usernameLength,
+      User.model.findOne({ username: req.body.username }).then((user) => {
+        if (user) {
+          return res.status(400).json({
+            status: FAIL,
+            message: resp.usernameTaken,
+          });
+        }
       });
+      User.model
+        .findOneAndUpdate(
+          { email },
+          {
+            username: req.body.username,
+          },
+        )
+        .then(() => {
+          next();
+        });
     }
-    const foundUser = await User.model.findOne({ username: req.body.username });
-    if (foundUser) {
-      return res.status(400).json({
-        status: FAIL,
-        message: resp.usernameTaken,
-      });
-    }
-    await User.model.findOneAndUpdate(
-      { email },
-      {
-        username: req.body.username,
-      },
-    );
-    return next();
-  }
+  });
 };

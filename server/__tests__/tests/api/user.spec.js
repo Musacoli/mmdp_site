@@ -1,12 +1,14 @@
+/* eslint-disable  no-underscore-dangle */
 import chai from 'chai';
 import {
   app,
   createUser,
   removeAllGroupsAndUsers,
+  createGroup,
 } from '../../helpers/commons/base';
 import response, {
-  status,
   passwordError,
+  status,
 } from '../../../constants/controllerConstants';
 import errorresp from '../../../constants/middlewareConstants';
 import token from '../../../utils/tokenGenerator';
@@ -34,15 +36,23 @@ describe('Users', () => {
     });
 
     it('should create a user successfully', async () => {
-      const res = await app.post(data.postUrl).send({ email: data.email });
+      const group = await createGroup();
+      const res = await app.post(data.postUrl).send({
+        email: data.email,
+        groups: [group._id],
+      });
       res.status.should.equal(201);
       res.body.message.should.equal(response.accountCreated);
       res.body.status.should.equal(status.SUCCESS);
     });
 
     it('should create successfully with full users permission', async () => {
+      const group = await createGroup();
       await app.loginRandom(fullUserPermission);
-      const res = await app.post(data.postUrl).send({ email: data.email });
+      const res = await app.post(data.postUrl).send({
+        email: data.email,
+        groups: [group._id],
+      });
       res.status.should.equal(201);
       res.body.message.should.equal(response.accountCreated);
       res.body.status.should.equal(status.SUCCESS);
@@ -52,20 +62,22 @@ describe('Users', () => {
       const res = await app.post(data.postUrl).send();
       res.status.should.equal(400);
       res.body.message.should.equal(data.emailRequired);
-      res.body.status.should.equal(status.FAIL);
     });
 
-    it('should return an error if other fields are provided other than email', async () => {
+    it('should return an error if email and groups are not provided', async () => {
       const res = await app.post(data.postUrl).send(data.oldEmail);
       res.status.should.equal(400);
-      res.body.message.should.equal(errorresp.onlyEmail);
-      res.body.status.should.equal(status.FAIL);
+      res.body.message.should.equal(
+        'only email and groups fields are required!',
+      );
     });
 
     it('should return raise an error when registering with an invalid email', async () => {
-      const res = await app
-        .post(data.postUrl)
-        .send({ email: data.invalidEmail });
+      const group = createGroup();
+      const res = await app.post(data.postUrl).send({
+        email: data.invalidEmail,
+        groups: [group._id],
+      });
       res.status.should.equal(400);
       res.body.message.should.equal(data.validEmailRequired);
       res.body.status.should.equal(status.FAIL);
@@ -113,7 +125,7 @@ describe('Users', () => {
     it('should update user details', async () => {
       await createUser([], { email: data.email });
       const res = await app.put(data.getAllUrl).send({
-        oldEmail: data.email,
+        email: data.email,
         newEmail: data.newEmail,
       });
       res.status.should.equal(200);
@@ -124,7 +136,7 @@ describe('Users', () => {
       await app.loginRandom(fullUserPermission);
       await createUser([], { email: data.email });
       const res = await app.put(data.getAllUrl).send({
-        oldEmail: data.email,
+        email: data.email,
         newEmail: data.newEmail,
       });
       res.status.should.equal(200);
@@ -133,7 +145,7 @@ describe('Users', () => {
 
     it('should not update with un-existing email', async () => {
       const res = await app.put(data.getAllUrl).send({
-        oldEmail: 'mmdp@mail.com',
+        email: 'mmdp@mail.com',
         newEmail: data.newEmail,
       });
       res.status.should.equal(404);
@@ -144,7 +156,7 @@ describe('Users', () => {
       await createUser([], { email: data.email });
       await createUser([], { email: data.newEmail });
       const res = await app.put(data.getAllUrl).send({
-        oldEmail: data.email,
+        email: data.email,
         newEmail: data.newEmail,
       });
       res.status.should.equal(404);
@@ -155,10 +167,10 @@ describe('Users', () => {
       await createUser([], { email: data.email });
       await createUser([], { email: data.newEmail });
       const res = await app.put(data.getAllUrl).send({
-        oldEmail: data.invalidEmail,
+        email: data.invalidEmail,
         newEmail: data.newEmail,
       });
-      res.status.should.equal(400);
+      res.status.should.equal(404);
       res.body.status.should.equal(status.FAIL);
     });
 
