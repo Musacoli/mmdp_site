@@ -9,34 +9,25 @@ describe('Edo State Approach reducer test', () => {
 
   it('should update store', () => {
     expect(
-      edoStateApproachReducer(
-        initialState,
-        {
-          type: types.EDO_STATE_APPROACH_SUCCESS,
-        },
-      ).loading,
+      edoStateApproachReducer(initialState, {
+        type: types.EDO_STATE_APPROACH_SUCCESS,
+      }).loading,
     ).toEqual(false);
   });
 
   it('should update store', () => {
     expect(
-      edoStateApproachReducer(
-        initialState,
-        {
-          type: types.EDO_STATE_APPROACH_LOADING,
-        },
-      ).loading,
+      edoStateApproachReducer(initialState, {
+        type: types.EDO_STATE_APPROACH_LOADING,
+      }).loading,
     ).toEqual(true);
   });
 
   it('should update store', () => {
     expect(
-      edoStateApproachReducer(
-        initialState,
-        {
-          type: types.EDO_STATE_APPROACH_FAILURE,
-        },
-      ).loading,
+      edoStateApproachReducer(initialState, {
+        type: types.EDO_STATE_APPROACH_FAILURE,
+      }).loading,
     ).toEqual(false);
   });
 });

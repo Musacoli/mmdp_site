@@ -1,4 +1,3 @@
-
 import * as edoStateApproachAPI from '../../../../utils/about/edoStateApproach';
 
 describe('Should test axios api requests', () => {
@@ -24,10 +23,8 @@ describe('Should test axios api requests', () => {
       });
   });
   it('should test get object', () => {
-    edoStateApproachAPI
-      .getEdoStateApproach()
-      .then((response) => {
-        expect(response).toEqual(Promise({}));
-      });
+    edoStateApproachAPI.getEdoStateApproach().then((response) => {
+      expect(response).toEqual(Promise({}));
+    });
   });
 });

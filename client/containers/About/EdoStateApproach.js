@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import toastr from '../../utils/toastr';
 import * as edoStateApproachRequest from '../../store/actions/about/edoStateApproach';
 import MarkdownEditor from '../../components/common/MarkdownEditor';
-import Label from '../../components/About/Label';
-import SectionTitle from '../../components/About/SectionTitle';
-import AboutTemplate from '../../views/About';
-import './common/style.scss';
-
+import Label from '../../components/common/Label';
+import Button from '../../components/common/Button';
+import '../../assets/styles/About/common/style.scss';
 
 export class EdoStateApproach extends Component {
   state = {
@@ -21,7 +19,8 @@ export class EdoStateApproach extends Component {
   };
 
   componentDidMount() {
-    this.props.getEdoStateApproach();
+    const { getEdoStateApproach } = this.props;
+    getEdoStateApproach();
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -40,14 +39,15 @@ export class EdoStateApproach extends Component {
 
   handleEditorChange = (name, val) => {
     this.setState({ [name]: val });
-  }
+  };
 
   submit = (e) => {
     e.preventDefault();
     const data = this.state;
+    const { loading } = this.state;
     const { updateEdoStateApproach, createEdoStateApproach } = this.props;
 
-    if (this.state.loading || !this.isValidData(this.state)) return;
+    if (loading || !this.isValidData(this.state)) return;
 
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
@@ -59,59 +59,74 @@ export class EdoStateApproach extends Component {
     } else {
       createEdoStateApproach(formData);
     }
+  };
+
+  isValidData = (data) => {
+    let errors = [];
+
+    if (
+      !data.theEdoStateApproach ||
+      data.theEdoStateApproach.trim().length < 20
+    ) {
+      errors = [
+        ...errors,
+        '"The Edo State Approach" must have twenty(20) characters minimum',
+      ];
+    }
+
+    if (!data.background || data.background.trim().length < 20) {
+      errors = [
+        ...errors,
+        '"Background" must have twenty(20) characters minimum',
+      ];
+    }
+
+    if (errors.length) {
+      errors.reverse().forEach((err) => toastr.error(err));
+      return false;
+    }
+    return true;
+  };
+
+  render() {
+    const { theEdoStateApproach, background, loading } = this.state;
+    return (
+      <React.Fragment>
+        <form className="about__section" onSubmit={this.submit}>
+          <div className="markdown__area">
+            <Label label="The Edo State Approach" htmlFor="about-markdown" />
+            <div className="markdown">
+              <MarkdownEditor
+                value={theEdoStateApproach}
+                handleEditorChange={(val) =>
+                  this.handleEditorChange('theEdoStateApproach', val)
+                }
+              />
+            </div>
+          </div>
+          <div className="markdown__area">
+            <Label label="Background" htmlFor="background-markdown" />
+            <div className="markdown">
+              <MarkdownEditor
+                value={background}
+                handleEditorChange={(val) =>
+                  this.handleEditorChange('background', val)
+                }
+              />
+            </div>
+          </div>
+          <div className="button__area">
+            <Button
+              loading={loading}
+              type="submit"
+              classNames="save__btn"
+              name="Save"
+            />
+          </div>
+        </form>
+      </React.Fragment>
+    );
   }
-
-    isValidData = (data) => {
-      let errors = [];
-
-      if (!data.theEdoStateApproach || data.theEdoStateApproach.trim().length < 20) {
-        errors = [...errors, '"The Edo State Approach" must have twenty(20) characters minimum'];
-      }
-
-      if (!data.background || data.background.trim().length < 20) {
-        errors = [...errors, '"Background" must have twenty(20) characters minimum'];
-      }
-
-      if (errors.length) {
-        errors.reverse().forEach(err => toastr.error(err));
-        return false;
-      }
-      return true;
-    }
-
-    render() {
-      const { theEdoStateApproach, background, loading } = this.state;
-      return (
-        <React.Fragment>
-          <SectionTitle title="The Edo State Approach" />
-          <AboutTemplate>
-            <form onSubmit={this.submit}>
-              <div className="markdown__area">
-                <Label label="The Edo State Approach" />
-                <div className="markdown">
-                  <MarkdownEditor
-                    value={theEdoStateApproach}
-                    handleEditorChange={val => this.handleEditorChange('theEdoStateApproach', val)}
-                  />
-                </div>
-              </div>
-              <div className="markdown__area">
-                <Label label="Background" />
-                <div className="markdown">
-                  <MarkdownEditor
-                    value={background}
-                    handleEditorChange={val => this.handleEditorChange('background', val)}
-                  />
-                </div>
-              </div>
-              <div className="button__area">
-                <button disabled={loading} type="submit">Save</button>
-              </div>
-            </form>
-          </AboutTemplate>
-        </React.Fragment>
-      );
-    }
 }
 
 EdoStateApproach.propTypes = {
@@ -120,7 +135,7 @@ EdoStateApproach.propTypes = {
   getEdoStateApproach: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   edoStateApproach: state.edoStateApproach,
 });
 
@@ -130,4 +145,7 @@ const mapDispatchToProps = {
   getEdoStateApproach: edoStateApproachRequest.getEdoStateApproach,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EdoStateApproach);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EdoStateApproach);

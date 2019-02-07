@@ -26,8 +26,16 @@ export const sidebarItems = [
         path: '/about/about-mmdp',
       },
       {
+        name: 'The Edo State Approach',
+        path: '/about/edo-state-approach',
+      },
+      {
         name: 'Coordination',
         path: '/about/coordination',
+      },
+      {
+        name: 'Objectives',
+        path: '/about/objectives',
       },
     ],
   },

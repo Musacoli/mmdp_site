@@ -1,4 +1,3 @@
-
 import * as objectivesAPI from '../../../../utils/about/objectives';
 
 describe('Should test axios api requests', () => {
@@ -22,10 +21,8 @@ describe('Should test axios api requests', () => {
       });
   });
   it('should test get object', () => {
-    objectivesAPI
-      .getObjectives()
-      .then((response) => {
-        expect(response).toEqual(Promise({}));
-      });
+    objectivesAPI.getObjectives().then((response) => {
+      expect(response).toEqual(Promise({}));
+    });
   });
 });

@@ -1,9 +1,8 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import ReactRouterEnzymeContext from 'react-router-enzyme-context';
-import { Objectives } from '../../containers/About/Objectives';
 import toJson from 'enzyme-to-json';
-import store from '../../store';
+import { Objectives } from '../../containers/About/Objectives';
 
 const func = jest.fn();
 
@@ -19,8 +18,19 @@ const props = {
   getObjectives: () => {},
   createObjectives: () => {},
 };
+
+const validData = {
+  objectives: ' provided information to give you context on the about section',
+};
+
 const component = (
-  <Objectives {...props} isValidData={func} change={func} submit={func} handleEditorChange={func} />
+  <Objectives
+    {...props}
+    isValidData={func}
+    change={func}
+    submit={func}
+    handleEditorChange={func}
+  />
 );
 
 const wrapper = mount(component, new ReactRouterEnzymeContext());
@@ -34,14 +44,29 @@ describe('Objectives', () => {
   it('renders Objectives component without crashing', () => {
     wrapper.setState({ objectives: 'objectives' });
     wrapper.state('objectives');
-    wrapper.find('MarkdownEditor').at(0).prop('handleEditorChange')('value');
-    wrapper.find('MarkdownEditor').at(0).simulate('change');
-    wrapper.setState({ objectives: 'objectives', id: '1234', updateMode: true });
+    wrapper
+      .find('MarkdownEditor')
+      .at(0)
+      .prop('handleEditorChange')('value');
+    wrapper
+      .find('MarkdownEditor')
+      .at(0)
+      .simulate('change');
+    wrapper.setState({
+      objectives: 'objectives',
+      id: '1234',
+      updateMode: true,
+    });
     wrapper.find('form').simulate('submit');
-    wrapper.find('button').simulate('click');
-    wrapper.find('SectionTitle').simulate('click');
+    wrapper.find('Button').simulate('click');
     wrapper.instance().submit({ preventDefault: func });
     wrapper.instance().handleEditorChange('objectives', 'objectives');
-    wrapper.instance().handleEditorChange('objectives', 'this is an objectives information');
+    wrapper
+      .instance()
+      .handleEditorChange('objectives', 'this is an objectives information');
   });
+  wrapper.instance().setState({ ...validData, updateMode: true });
+  expect(wrapper.instance().isValidData(props.objectives)).toBe(false);
+  expect(wrapper.instance().isValidData(validData)).toBe(true);
+  wrapper.instance().submit({ preventDefault: func });
 });

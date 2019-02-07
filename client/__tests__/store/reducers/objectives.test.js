@@ -9,34 +9,25 @@ describe('Objetcives reducer test', () => {
 
   it('should update store', () => {
     expect(
-      objectivesReducer(
-        initialState,
-        {
-          type: types.OBJECTIVES_SUCCESS,
-        },
-      ).loading,
+      objectivesReducer(initialState, {
+        type: types.OBJECTIVES_SUCCESS,
+      }).loading,
     ).toEqual(false);
   });
 
   it('should update store', () => {
     expect(
-      objectivesReducer(
-        initialState,
-        {
-          type: types.OBJECTIVES_LOADING,
-        },
-      ).loading,
+      objectivesReducer(initialState, {
+        type: types.OBJECTIVES_LOADING,
+      }).loading,
     ).toEqual(true);
   });
 
   it('should update store', () => {
     expect(
-      objectivesReducer(
-        initialState,
-        {
-          type: types.OBJECTIVES_FAILURE,
-        },
-      ).loading,
+      objectivesReducer(initialState, {
+        type: types.OBJECTIVES_FAILURE,
+      }).loading,
     ).toEqual(false);
   });
 });
