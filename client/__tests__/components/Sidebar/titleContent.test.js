@@ -10,10 +10,24 @@ const sidebarMenuItems = [
 const onClick = () => {};
 describe('<TitleContent /> ', () => {
   it('renders TitleContent component without crashing', () => {
-    shallow(<TitleContent title="title" items={sidebarMenuItems} active onClick={onClick} />);
+    shallow(
+      <TitleContent
+        title="title"
+        items={sidebarMenuItems}
+        active
+        onClick={onClick}
+      />,
+    );
   });
 
   it('renders TitleContent with inactive sidebar crashing', () => {
-    shallow(<TitleContent title="title" items={sidebarMenuItems} active={false} onClick={onClick} />);
+    shallow(
+      <TitleContent
+        title="title"
+        items={sidebarMenuItems}
+        active={false}
+        onClick={onClick}
+      />,
+    );
   });
 });

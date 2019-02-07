@@ -8,4 +8,3 @@ describe('<DashboardView /> ', () => {
     shallow(<DashboardView />);
   });
 });
-

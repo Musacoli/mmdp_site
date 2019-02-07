@@ -2,7 +2,11 @@ import keystone from 'keystone';
 
 const importPolicies = keystone.importer(__dirname);
 
-const generateActionCallback = (actions, actionKey) => async (req, res, next) => {
+const generateActionCallback = (actions, actionKey) => async (
+  req,
+  res,
+  next,
+) => {
   if (actions[actionKey](await req.user.permissions)) {
     next();
   } else {

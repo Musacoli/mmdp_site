@@ -3,7 +3,6 @@ import helpers from '../../../utils/helpers';
 
 const { expect } = chai;
 
-
 describe('Helpers', () => {
   it('expect to validate helper functions', (done) => {
     const a = undefined;

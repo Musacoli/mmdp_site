@@ -12,7 +12,6 @@ const props = {
   confirmDeleteGroup: testFunc,
 };
 
-
 const wrapper = mount(
   <table>
     <tbody>
@@ -23,7 +22,13 @@ const wrapper = mount(
 
 describe('<GroupItem /> ', () => {
   it('renders GroupItem component without crashing', () => {
-    wrapper.find('.groupItem-main-checkbox').at(1).simulate('change');
-    wrapper.find('.group-item-edit-dropdown').at(1).simulate('click');
+    wrapper
+      .find('.groupItem-main-checkbox')
+      .at(1)
+      .simulate('change');
+    wrapper
+      .find('.group-item-edit-dropdown')
+      .at(1)
+      .simulate('click');
   });
 });

@@ -2,16 +2,22 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import {mockReq, mockRes} from 'sinon-express-mock';
-import {createUser, removeAllGroupsAndUsers} from "../../helpers/commons/base";
-import {generateToken, generateInvalidToken} from '../../helpers/commons/jwt';
+import { mockReq, mockRes } from 'sinon-express-mock';
+import {
+  createUser,
+  removeAllGroupsAndUsers,
+} from '../../helpers/commons/base';
+import { generateToken, generateInvalidToken } from '../../helpers/commons/jwt';
 import authenticate from '../../../middleware/authenticate';
 
 chai.use(sinonChai);
 
-const {expect} = chai;
+const { expect } = chai;
 
-let next, res, validAuthReq, invalidAuthReq;
+let next;
+let res;
+let validAuthReq;
+let invalidAuthReq;
 
 const payload = {
   username: 'tester',
@@ -46,7 +52,9 @@ describe('Authorization middleware', () => {
 
   it('should set decoded user data on the request and call the next method when auth token is valid', async () => {
     await authenticate(validAuthReq, res, next);
-    expect(validAuthReq).to.have.property('user').be.a('Object');
+    expect(validAuthReq)
+      .to.have.property('user')
+      .be.a('Object');
     expect(next).to.be.calledOn();
     expect(res.json.called).to.be.false;
   });

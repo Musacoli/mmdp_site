@@ -4,41 +4,47 @@ import { Button, Form, Message } from 'semantic-ui-react';
 import Select from 'react-select';
 
 const GroupForm = ({
-  options, name, selectedOption, groupId,
-  handleSelectChange, handleInputChange, busy,
-  handleSubmit, errors, serverError, success,
+  options,
+  name,
+  selectedOption,
+  handleSelectChange,
+  handleInputChange,
+  busy,
+  handleSubmit,
+  errors,
+  serverError,
+  success,
+  groupId,
 }) => (
   <div>
-    {serverError
-      && (
+    {serverError && (
       <Message warning>
         <Message.Header>{serverError}</Message.Header>
       </Message>
-      )
-      }
-    {success
-    && (
-    <Message success>
-      <Message.Header>
-Group
-        {' '}
-        {groupId && <span>updated</span>}
-        {!groupId && <span>created</span>}
-        {' '}
-successfully
-      </Message.Header>
-    </Message>
-    )
-        }
+    )}
+    {success && (
+      <Message success>
+        <Message.Header>
+          Group {groupId && <span>updated</span>}
+          {!groupId && <span>created</span>} successfully
+        </Message.Header>
+      </Message>
+    )}
 
     <Form loading={busy}>
       <Form.Field>
-
         <label htmlFor="name">Group Name</label>
-        <input id="name" name="name" type="text" value={name} onChange={handleInputChange} placeholder="Group Name" />
-        {errors.name
-            && <div className="ui pointing red basic label">{errors.name}</div>
-      }
+        <input
+          id="name"
+          name="name"
+          type="text"
+          value={name}
+          onChange={handleInputChange}
+          placeholder="Group Name"
+        />
+        {errors.name && (
+          <div className="ui pointing red basic label">{errors.name}</div>
+        )}
       </Form.Field>
       <Form.Field>
         <label htmlFor="selectedOption">Select Permissions</label>
@@ -51,7 +57,13 @@ successfully
           isMulti
         />
       </Form.Field>
-      <Button onClick={handleSubmit} className="primary borderless color-blue" type="submit">Submit</Button>
+      <Button
+        onClick={handleSubmit}
+        className="primary borderless color-blue"
+        type="submit"
+      >
+        Submit
+      </Button>
     </Form>
   </div>
 );

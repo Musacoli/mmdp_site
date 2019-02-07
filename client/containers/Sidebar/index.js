@@ -10,25 +10,27 @@ export class SidebarContainer extends Component {
     activateSidebarMenu: PropTypes.func.isRequired,
     activeIndex: PropTypes.number.isRequired,
     history: PropTypes.shape({}).isRequired,
-  }
+    children: PropTypes.node.isRequired,
+    title: PropTypes.string.isRequired,
+  };
 
-  state = {}
+  state = {};
 
   handleClick = (menuIndex) => {
     const { activateSidebarMenu, activeIndex } = this.props;
     const newIndex = activeIndex === menuIndex ? -1 : menuIndex;
 
     activateSidebarMenu({ activeIndex: newIndex });
-  }
+  };
 
   goTo = (path, menuIndex) => {
     const { history } = this.props;
     if (path) history.push(path);
     this.handleClick(menuIndex);
-  }
+  };
 
   render() {
-    const { activeIndex } = this.props;
+    const { activeIndex, children, title } = this.props;
 
     return (
       <Sidebar
@@ -36,12 +38,15 @@ export class SidebarContainer extends Component {
         goTo={this.goTo}
         handleClick={this.handleClick}
         sidebarItems={sidebarItems}
-      />
+        title={title}
+      >
+        {children}
+      </Sidebar>
     );
   }
 }
 
-export const mapStateToProps = state => ({
+export const mapStateToProps = (state) => ({
   activeIndex: state.sidebar.activeIndex,
 });
 
@@ -49,4 +54,7 @@ export const mapDispatchToProps = {
   activateSidebarMenu: setActiveSidebarIndex,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SidebarContainer);

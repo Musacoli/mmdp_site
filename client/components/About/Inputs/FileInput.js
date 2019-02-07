@@ -3,25 +3,32 @@ import PropTypes from 'prop-types';
 import Label from '../Label';
 import './index.scss';
 
-export const FileInput = (props) => (
-  <div className={`flex__item ${props.classNames || ''}`}>
-    <Label label={props.inputLabel || ''} />
+export const FileInput = ({
+  id,
+  name,
+  value,
+  classNames,
+  change,
+  inputLabel,
+  placeholder,
+}) => (
+  <div className={`flex__item ${classNames || ''}`}>
+    <Label htmlFor={id} label={inputLabel || ''} />
     <span className="block file__wrapper">
-      <input 
+      <input
         className="input"
-        type="file" 
-        id={props.id || ''}
-        name={props.name || ''}
-        value={props.value || ''}
-        onChange={props.change}
+        type="file"
+        id={id || ''}
+        name={name || ''}
+        value={value || ''}
+        onChange={change}
       />
-      <label className="file__label" htmlFor={props.id || ''}>
-        {props.placeholder || ''}
+      <label className="file__label" htmlFor={id || ''}>
+        {placeholder || ''}
       </label>
     </span>
   </div>
 );
-
 
 FileInput.propTypes = {
   classNames: PropTypes.string,
@@ -33,4 +40,4 @@ FileInput.propTypes = {
   change: PropTypes.func.isRequired,
 };
 
-
+export default FileInput;

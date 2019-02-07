@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const RadioButton = ({
-  name, value, label, onChange, className, checked, ...restProps
+  name,
+  value,
+  label,
+  onChange,
+  className,
+  checked,
+  ...restProps
 }) => (
   <div className={`form__radio-group ${className}`}>
     <input
@@ -17,7 +23,7 @@ const RadioButton = ({
     />
     <label htmlFor={value} className="form__radio-label">
       <span className="form__radio-button" />
-      { label }
+      {label}
     </label>
   </div>
 );

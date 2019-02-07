@@ -9,7 +9,10 @@ import {
   updateGroupsAsync,
   deleteGroupsAsync,
 } from '../../../../store/sagas/group';
-import { fetchGroups, groupCreatedSuccessfully } from '../../../../store/actions/groups';
+import {
+  fetchGroups,
+  groupCreatedSuccessfully,
+} from '../../../../store/actions/groups';
 
 const id = 1;
 const payload = { id };
@@ -30,10 +33,12 @@ describe('Group saga', async () => {
       expect(result).toEqual(call(api.group.retrieve, id));
     });
     it('and then trigger a fetchGroups action', (result) => {
-      expect(result).toEqual(put({
-        type: SET_GROUP,
-        payload: {},
-      }));
+      expect(result).toEqual(
+        put({
+          type: SET_GROUP,
+          payload: {},
+        }),
+      );
     });
   });
 
@@ -63,10 +68,12 @@ describe('Group saga', async () => {
       expect(result).toEqual(call(api.group.delete, undefined));
     });
     it('and then trigger a FETCHING_GROUPS action', (result) => {
-      expect(result).toEqual(put({
-        type: FETCHING_GROUPS,
-        payload: {},
-      }));
+      expect(result).toEqual(
+        put({
+          type: FETCHING_GROUPS,
+          payload: {},
+        }),
+      );
     });
   });
 

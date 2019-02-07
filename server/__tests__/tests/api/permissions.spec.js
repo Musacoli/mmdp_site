@@ -1,13 +1,16 @@
-import {app, removeAllGroupsAndUsers} from "../../helpers/commons/base";
-import expect from "expect";
-import permissions from "../../../core/permissions";
-import {allPermissionsFor, getPermissionsMapArray} from "../../../utils/permissions";
+import expect from 'expect';
+import { app, removeAllGroupsAndUsers } from '../../helpers/commons/base';
+import permissions from '../../../core/permissions';
+import {
+  allPermissionsFor,
+  getPermissionsMapArray,
+} from '../../../utils/permissions';
 
 const apiGetPermissions = () => {
   return app.get('/api/permissions').send();
 };
 
-describe('Permissions', function () {
+describe('Permissions', () => {
   describe('List (GET) permissions', () => {
     beforeEach(async () => {
       await removeAllGroupsAndUsers();
@@ -15,11 +18,13 @@ describe('Permissions', function () {
 
     it('should list permissions successfully for user with any group permission', async () => {
       const groupPermissions = allPermissionsFor('group');
-      for (let i = 0; i < groupPermissions.length; i++) {
-        await app.loginRandom([groupPermissions[i]]);
-        const permissionsResp = await apiGetPermissions();
-        expect(permissionsResp.status).toBe(200);
-      }
+      await Promise.all(
+        [...Array(groupPermissions.length)].map(async (item, key) => {
+          await app.loginRandom([groupPermissions[key]]);
+          const permissionsResp = await apiGetPermissions();
+          expect(permissionsResp.status).toBe(200);
+        }),
+      );
     });
 
     it('should list all system permissions', async () => {

@@ -1,7 +1,12 @@
+/* eslint-disable no-underscore-dangle */
 import expect from 'expect';
-import {app, removeAllGroupsAndUsers, removeAllModels} from "../../../helpers/commons/base";
+import {
+  app,
+  removeAllGroupsAndUsers,
+  removeAllModels,
+} from '../../../helpers/commons/base';
 import About from '../../../../models/About';
-import {createAbout, makeAbout} from "../../../helpers/about";
+import { createAbout, makeAbout } from '../../../helpers/about';
 
 const data = {
   about: 'about must at least be twenty characters in number',
@@ -10,25 +15,18 @@ const data = {
 
 const aboutPath = '/api/v1/about/about-mmdp';
 
-const apiCreateAbout = async (data)  => {
-  return await app.post(`${aboutPath}/create`).send(data);
-};
+const apiCreateAbout = async (payload) =>
+  app.post(`${aboutPath}/create`).send(payload);
 
-const apiUpdateAbout = async (id, data)  => {
-  return await app.put(`${aboutPath}/${id}/update`).send(data)
-};
+const apiUpdateAbout = async (id, payload) =>
+  app.put(`${aboutPath}/${id}/update`).send(payload);
 
-const apiGetAbout = async (id)  => {
-  return await app.get(`${aboutPath}/${id}`).send();
-};
+const apiGetAbout = async (id) => app.get(`${aboutPath}/${id}`).send();
 
-const apiListAbout = async ()  => {
-  return await app.get(`${aboutPath}/list`).send();
-};
+const apiListAbout = async () => app.get(`${aboutPath}/list`).send();
 
-const apiArchiveAbout = async (id)  => {
-  return await app.delete(`${aboutPath}/${id}/remove`).send();
-};
+const apiArchiveAbout = async (id) =>
+  app.delete(`${aboutPath}/${id}/remove`).send();
 
 describe('About message API', () => {
   describe('Create About message', () => {
@@ -44,7 +42,7 @@ describe('About message API', () => {
       expect(res.body.item).toMatchObject({
         about: data.about,
         background: data.background,
-      })
+      });
     });
 
     it('should create with full about or cms permissions', async () => {
@@ -57,11 +55,14 @@ describe('About message API', () => {
     });
 
     it('should not create About message with invalid fields', async () => {
-      const res = await apiCreateAbout({about: 'worng words', background: 'nothing'});
+      const res = await apiCreateAbout({
+        about: 'worng words',
+        background: 'nothing',
+      });
       expect(res.body.errors).toEqual([
         'About must be twenty(20)  characters minimum',
         'Background text must be twenty(20)  characters minimum',
-      ])
+      ]);
     });
 
     it('should not create About message with empty fields', async () => {
@@ -69,7 +70,7 @@ describe('About message API', () => {
       expect(res.body.errors).toEqual([
         'About is required',
         'Background information is required',
-      ])
+      ]);
     });
 
     it('should fail if user is not authorized', async () => {
@@ -80,7 +81,8 @@ describe('About message API', () => {
   });
 
   describe('Update About message', () => {
-    let existingAbout, newData;
+    let existingAbout;
+    let newData;
 
     beforeEach(async () => {
       await removeAllModels(About);
@@ -91,17 +93,24 @@ describe('About message API', () => {
     });
 
     it('should update About message by id', async () => {
-      const updated = (await apiUpdateAbout(existingAbout._id, newData)).body.item;
+      const updated = (await apiUpdateAbout(existingAbout._id, newData)).body
+        .item;
       expect(updated).toMatchObject(newData);
     });
 
     it('should update with full about or cms permission', async () => {
       await app.loginRandom(['cms.about.*']);
-      expect((await apiUpdateAbout(existingAbout._id, newData)).status).toBe(200);
+      expect((await apiUpdateAbout(existingAbout._id, newData)).status).toBe(
+        200,
+      );
       await app.loginRandom(['cms.update']);
-      expect((await apiUpdateAbout(existingAbout._id, newData)).status).toBe(200);
+      expect((await apiUpdateAbout(existingAbout._id, newData)).status).toBe(
+        200,
+      );
       await app.loginRandom(['cms.*']);
-      expect((await apiUpdateAbout(existingAbout._id, newData)).status).toBe(200);
+      expect((await apiUpdateAbout(existingAbout._id, newData)).status).toBe(
+        200,
+      );
     });
 
     it('should not update About message with an invalid id', async () => {
@@ -163,16 +172,14 @@ describe('About message API', () => {
       await removeAllModels(About);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
-      for (let i = 0; i < 5; i++) {
-        await createAbout();
-      }
+      await Promise.all([...Array(5)].map(() => createAbout()));
     });
 
     it('should retrieve the list of Abouts', async () => {
       const abouts = await About.model.find({});
       const res = await apiListAbout();
       expect(res.status).toBe(200);
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 5; i += 1) {
         expect(res.body.items[i]).toMatchObject({
           about: abouts[i].about,
           background: abouts[i].background,

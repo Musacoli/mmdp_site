@@ -11,7 +11,6 @@ import { watchAddReport } from './resources/report';
 import { watchFetchingPermissions } from './permission';
 import * as aboutWatcher from './about';
 
-
 export default function* root() {
   yield all([
     fork(watchFetchingGroups),

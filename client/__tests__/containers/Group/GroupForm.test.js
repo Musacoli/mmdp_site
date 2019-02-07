@@ -1,15 +1,23 @@
 /* eslint-env jest */
 import React from 'react';
 import { mount } from 'enzyme';
-import { ReactRouterOptions } from '../../../constants';
-import { GroupFormContainer, mapStateToProps } from '../../../containers/Group/GroupForm';
+import ReactRouterEnzymeContext from 'react-router-enzyme-context';
+import {
+  GroupFormContainer,
+  mapStateToProps,
+} from '../../../containers/Group/GroupForm';
 
 const func = jest.fn();
 const testText = 'name';
 let groups = {
-  groups: [{
-    errors: {}, name: testText, users: [], permissions: [{ cms: 'cmss' }],
-  }],
+  groups: [
+    {
+      errors: {},
+      name: testText,
+      users: [],
+      permissions: [{ cms: 'cmss' }],
+    },
+  ],
   isFetching: false,
   success: false,
   errors: 'adf',
@@ -35,7 +43,10 @@ const props = {
   removeGroup: func,
   editGroup: func,
 };
-const wrapper = mount(<GroupFormContainer {...props} />, ReactRouterOptions);
+const wrapper = mount(
+  <GroupFormContainer {...props} />,
+  new ReactRouterEnzymeContext(),
+);
 
 const event = {
   preventDefault: func,
@@ -49,21 +60,13 @@ describe('<GroupFormContainer /> Container', () => {
   });
 
   it('should render GroupFormContainer container without crashing', () => {
-    wrapper.find('#name').simulate(
-      'change',
-      {
-        target:
-           { name: 'name', value: 'q' },
-      },
-    );
+    wrapper.find('#name').simulate('change', {
+      target: { name: 'name', value: 'q' },
+    });
     wrapper.instance().handleSubmit(event);
-    wrapper.find('#name').simulate(
-      'change',
-      {
-        target:
-           { name: 'name', value: testText },
-      },
-    );
+    wrapper.find('#name').simulate('change', {
+      target: { name: 'name', value: testText },
+    });
     wrapper.instance().handleInputChange(event);
     wrapper.instance().handleSelectChange([{ value: testText }]);
     wrapper.instance().handleSubmit(event);
@@ -76,19 +79,12 @@ describe('<GroupFormContainer /> Container', () => {
     groups = { ...groups };
     groups.success = true;
     const wrapper2 = mount(
-      <GroupFormContainer
-        {...props}
-        groups={groups}
-        match={match}
-      />, ReactRouterOptions,
+      <GroupFormContainer {...props} groups={groups} match={match} />,
+      new ReactRouterEnzymeContext(),
     );
-    wrapper2.find('#name').simulate(
-      'change',
-      {
-        target:
-           { name: 'name', value: testText },
-      },
-    );
+    wrapper2.find('#name').simulate('change', {
+      target: { name: 'name', value: testText },
+    });
     wrapper2.instance().handleInputChange(event);
     wrapper2.instance().handleSelectChange([{ value: testText }]);
     wrapper2.instance().handleSubmit(event);

@@ -7,7 +7,6 @@ import Login from '../containers/Login';
 import About from '../containers/About';
 import AddReport from '../views/Resources/Report/AddReport';
 
-
 const routes = [
   {
     path: '/',

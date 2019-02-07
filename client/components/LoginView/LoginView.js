@@ -44,7 +44,11 @@ export const LoginView = ({ onSubmit, onChange }) => (
           />
         </div>
         <div className="login__container">
-          <button type="submit" className="ui button form__input" id="login__btn">
+          <button
+            type="submit"
+            className="ui button form__input"
+            id="login__btn"
+          >
             <span id="sign__text">Sign in</span>
           </button>
           <div id="forgot__password__container">

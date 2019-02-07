@@ -3,13 +3,31 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 const FileInput = ({
-  name, label, placeholder, value, onChange, className, ...restProps
+  name,
+  label,
+  placeholder,
+  value,
+  onChange,
+  className,
+  ...restProps
 }) => (
   <div className={`field ${className}`}>
-    <label htmlFor={name}>{ label }</label>
+    <label htmlFor={name}>{label}</label>
     <div className="form__file-area">
-      <input name={name} className="form__file-input" type="file" onChange={onChange} {...restProps} />
-      <span className={classnames('form__custom-file-input', { 'form__custom-file-filled': value.length })}>{ value && value.length ? value : placeholder }</span>
+      <input
+        name={name}
+        className="form__file-input"
+        type="file"
+        onChange={onChange}
+        {...restProps}
+      />
+      <span
+        className={classnames('form__custom-file-input', {
+          'form__custom-file-filled': value.length,
+        })}
+      >
+        {value && value.length ? value : placeholder}
+      </span>
     </div>
   </div>
 );

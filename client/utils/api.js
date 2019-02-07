@@ -16,11 +16,11 @@ export const client = axios.create({
 
 export const api = {
   group: {
-    create: data => client.post('api/groups/', data),
+    create: (data) => client.post('api/groups/', data),
     list: () => client.get('api/groups/'),
     edit: (id, data) => client.put(`api/groups/${id}/`, data),
-    delete: id => client.delete(`api/groups/${id}/`),
-    retrieve: id => client.get(`api/groups/${id}/`),
+    delete: (id) => client.delete(`api/groups/${id}/`),
+    retrieve: (id) => client.get(`api/groups/${id}/`),
   },
   permission: {
     list: () => client.get('api/permissions'),

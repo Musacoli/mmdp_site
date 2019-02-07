@@ -1,29 +1,44 @@
-import {hasAnyPermission} from "../../../../utils/permissions";
+import { hasAnyPermission } from '../../../../utils/permissions';
 
 export default {
   list: (userPermissions) => {
     return hasAnyPermission(userPermissions, [
-      'cms.*', 'cms.view', 'cms.about.*', 'cms.about.view'
+      'cms.*',
+      'cms.view',
+      'cms.about.*',
+      'cms.about.view',
     ]);
   },
   get: (userPermissions) => {
     return hasAnyPermission(userPermissions, [
-      'cms.*', 'cms.view', 'cms.about.*', 'cms.about.view'
+      'cms.*',
+      'cms.view',
+      'cms.about.*',
+      'cms.about.view',
     ]);
   },
   create: (userPermissions) => {
     return hasAnyPermission(userPermissions, [
-      'cms.*', 'cms.create', 'cms.about.*', 'cms.about.create'
+      'cms.*',
+      'cms.create',
+      'cms.about.*',
+      'cms.about.create',
     ]);
   },
   update: (userPermissions) => {
     return hasAnyPermission(userPermissions, [
-      'cms.*', 'cms.update', 'cms.about.*', 'cms.about.update'
+      'cms.*',
+      'cms.update',
+      'cms.about.*',
+      'cms.about.update',
     ]);
   },
   delete: (userPermissions) => {
     return hasAnyPermission(userPermissions, [
-      'cms.*', 'cms.archive', 'cms.about.*', 'cms.about.archive'
+      'cms.*',
+      'cms.archive',
+      'cms.about.*',
+      'cms.about.archive',
     ]);
   },
 };

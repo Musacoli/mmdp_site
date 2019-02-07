@@ -4,7 +4,9 @@ import { mount } from 'enzyme';
 import ActionModal from '../../../components/Group/ActionModal';
 
 const content = 'confirm delete';
-const wrapper = mount(<ActionModal triggerText={content} header={content} content={content} />);
+const wrapper = mount(
+  <ActionModal triggerText={content} header={content} content={content} />,
+);
 
 describe('<ActionModal /> ', () => {
   it('renders ActionModal component without crashing', () => {

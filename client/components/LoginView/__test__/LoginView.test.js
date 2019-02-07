@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import LoginView from '../LoginView';
+import Login from '../LoginView';
 
 describe('<LoginView /> ', () => {
   it('renders LoginView component without crashing', () => {
-    shallow(<LoginView />);
+    shallow(<Login />);
   });
 });

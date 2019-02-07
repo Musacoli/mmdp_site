@@ -1,13 +1,12 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
-const generateJWT = email => {
-  return jwt.sign(
+const generateJWT = (email) =>
+  jwt.sign(
     {
-      email: email,
-      confirmed: false
+      email,
+      confirmed: false,
     },
-    process.env.JWT_SECRET
+    process.env.JWT_SECRET,
   );
-};
 
 export default generateJWT;

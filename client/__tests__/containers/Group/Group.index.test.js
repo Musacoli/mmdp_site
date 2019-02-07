@@ -1,15 +1,21 @@
-/* eslint-env jest */
 import React from 'react';
 import { mount } from 'enzyme';
-import { ReactRouterOptions } from '../../../constants';
+import ReactRouterEnzymeContext from 'react-router-enzyme-context';
 import { GroupContainer, mapStateToProps } from '../../../containers/Group';
 
 const func = jest.fn();
 const testText = 'name';
+const ReactRouterOptions = new ReactRouterEnzymeContext();
+
 const groups = {
-  groups: [{
-    errors: {}, name: testText, users: [], permissions: [{ cms: 'cmss' }],
-  }],
+  groups: [
+    {
+      errors: {},
+      name: testText,
+      users: [],
+      permissions: [{ cms: 'cmss' }],
+    },
+  ],
   isFetching: false,
   success: false,
   errors: 'adf',

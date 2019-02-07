@@ -18,7 +18,8 @@ const apiResponse = (req, res, next) => {
       return res.status(statusCode).end();
     }
 
-    const statusText = statusCode >= 400 && statusCode < 500 ? status.FAIL : status.ERROR;
+    const statusText =
+      statusCode >= 400 && statusCode < 500 ? status.FAIL : status.ERROR;
     return res.status(statusCode).json({
       status: statusText,
       message,

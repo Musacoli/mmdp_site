@@ -1,14 +1,14 @@
-import {
-  put, takeEvery, takeLatest, call,
-} from 'redux-saga/effects';
+import { put, takeEvery, takeLatest, call } from 'redux-saga/effects';
 import { api } from '../../../utils/api';
 import { fetchGroups, groupCreatedSuccessfully } from '../../actions/groups';
 import {
   FETCHING_GROUPS,
   CREATE_GROUP,
   CREATE_GROUP_FAILURE,
-  UPDATE_GROUP, TOGGLE_DELETE_GROUP,
-  FETCH_GROUP, SET_GROUP,
+  UPDATE_GROUP,
+  TOGGLE_DELETE_GROUP,
+  FETCH_GROUP,
+  SET_GROUP,
 } from '../../../constants';
 
 export function* fetchGroupsAsync() {
@@ -32,25 +32,26 @@ export function* createGroupsAsync({ payload }) {
     const data = group !== undefined ? group.data : {};
     yield put(groupCreatedSuccessfully(data));
   } catch (err) {
-    yield put(({
+    yield put({
       type: CREATE_GROUP_FAILURE,
       payload: { errors: err.response.data.message },
-    }));
+    });
   }
 }
 
-export function* updateGroupsAsync({ payload }) {
+export function* updateGroupsAsync(action) {
   try {
+    const { payload } = action;
     const { id } = payload;
     delete payload.id;
     const group = yield call(api.group.edit, id, payload);
     const data = group !== undefined ? group.data : {};
     yield put(groupCreatedSuccessfully(data));
   } catch (err) {
-    yield put(({
+    yield put({
       type: CREATE_GROUP_FAILURE,
       payload: { errors: err.response.data.message },
-    }));
+    });
   }
 }
 
@@ -58,15 +59,15 @@ export function* deleteGroupsAsync({ payload }) {
   try {
     const { _id } = payload;
     yield call(api.group.delete, _id);
-    yield put(({
+    yield put({
       type: FETCHING_GROUPS,
       payload: {},
-    }));
+    });
   } catch (err) {
-    yield put(({
+    yield put({
       type: 'DELETE_GROUP_FAILURE',
       payload: { errors: err.response.data.message },
-    }));
+    });
   }
 }
 
@@ -80,13 +81,13 @@ export function* watchFetchingGroup() {
 }
 
 export function* watchCreateGroup() {
-  yield (takeLatest(CREATE_GROUP, createGroupsAsync));
+  yield takeLatest(CREATE_GROUP, createGroupsAsync);
 }
 
 export function* watchUpdateGroup() {
-  yield (takeLatest(UPDATE_GROUP, updateGroupsAsync));
+  yield takeLatest(UPDATE_GROUP, updateGroupsAsync);
 }
 
 export function* watchDeleteGroup() {
-  yield (takeLatest(TOGGLE_DELETE_GROUP, deleteGroupsAsync));
+  yield takeLatest(TOGGLE_DELETE_GROUP, deleteGroupsAsync);
 }

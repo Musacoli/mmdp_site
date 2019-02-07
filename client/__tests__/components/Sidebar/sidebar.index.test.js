@@ -5,7 +5,18 @@ import Sidebar from '../../../components/Sidebar';
 import { sidebarItems } from '../../../containers/Sidebar/sidebarItems';
 
 const func = () => {};
-const wrapper = mount(<Sidebar goTo={func} sidebarItems={sidebarItems} activeIndex={1} />);
+const props = {
+  goTo: func,
+  title: 'hello',
+  sidebarItems,
+  activeIndex: 1,
+  children: <div>hello</div>,
+};
+const wrapper = mount(
+  <Sidebar {...props}>
+    <div>Hello world</div>
+  </Sidebar>,
+);
 
 describe('<Sidebar /> ', () => {
   it('renders Sidebar component without crashing', () => {

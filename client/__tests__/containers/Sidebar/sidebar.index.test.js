@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { mount } from 'enzyme';
-import { ReactRouterOptions } from '../../../constants';
+import ReactRouterEnzymeContext from 'react-router-enzyme-context';
 import { SidebarContainer, mapStateToProps } from '../../../containers/Sidebar';
 
 const func = jest.fn();
@@ -17,7 +17,10 @@ const props = {
     push: func,
   },
 };
-const wrapper = mount(<SidebarContainer {...props} />, ReactRouterOptions);
+const wrapper = mount(
+  <SidebarContainer {...props} />,
+  new ReactRouterEnzymeContext(),
+);
 
 describe('<Sidebar /> Container', () => {
   it('should map sidebar view state to props', () => {

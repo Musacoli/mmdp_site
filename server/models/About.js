@@ -19,7 +19,6 @@ About.add({
   archived: { type: Boolean, default: false },
 });
 
-
 About.defaultColumns = 'about, background';
 About.register();
 

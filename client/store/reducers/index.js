@@ -8,7 +8,6 @@ import governorMessage from './about/governorMessage';
 import aboutMMDP from './about/aboutMMDP';
 import report from './resources/report';
 
-
 const rootReducer = combineReducers({
   sidebar,
   groups,

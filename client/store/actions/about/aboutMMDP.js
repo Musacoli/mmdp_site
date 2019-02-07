@@ -13,4 +13,3 @@ export const updateAboutMMDP = (payload) => ({
   type: types.UPDATE_ABOUT_MMDP_REQUEST,
   payload,
 });
-

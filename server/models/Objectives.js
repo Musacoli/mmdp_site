@@ -18,7 +18,6 @@ Objectives.add({
   archived: { type: Boolean, default: false },
 });
 
-
 Objectives.defaultColumns = 'Objectives';
 Objectives.register();
 

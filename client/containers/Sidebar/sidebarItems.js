@@ -16,8 +16,7 @@ export const sidebarItems = [
   },
   {
     title: 'About',
-    menuItems:
-    [
+    menuItems: [
       {
         name: 'Message from the governor',
         path: '/about/governor-message',
@@ -27,7 +26,6 @@ export const sidebarItems = [
         path: '/about/about-mmdp',
       },
     ],
-
   },
   {
     title: 'Events',
@@ -36,7 +34,10 @@ export const sidebarItems = [
   },
   {
     title: 'Resources',
-    menuItems: [{ name: 'Resource 1', path: '/resource-1' }, { name: 'Report', path: '/resources/report/add' }],
+    menuItems: [
+      { name: 'Resource 1', path: '/resource-1' },
+      { name: 'Report', path: '/resources/report/add' },
+    ],
     dividerTitle: 'COORDINATION MATRIX',
   },
   {

@@ -1,8 +1,4 @@
-import ReactRouterEnzymeContext from 'react-router-enzyme-context';
-
-export {
-  SET_ACTIVE_SIDEBAR_INDEX,
-} from './sidebar';
+export { SET_ACTIVE_SIDEBAR_INDEX, ACTIVE_SIDEBAR_INDEX_KEY } from './sidebar';
 export {
   FETCH_GROUPS,
   CREATE_GROUP,
@@ -24,8 +20,5 @@ export {
   TOGGLE_DELETE_GROUP,
   DELETE_GROUP,
 } from './group';
-export {
-  FETCHING_PERMISSIONS, FETCH_PERMISSIONS,
-} from './permissions';
+export { FETCHING_PERMISSIONS, FETCH_PERMISSIONS } from './permissions';
 export * from './auth';
-export const ReactRouterOptions = new ReactRouterEnzymeContext();
