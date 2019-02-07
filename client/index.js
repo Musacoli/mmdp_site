@@ -11,8 +11,13 @@ const app = (
   <Provider store={store}>
     <Router>
       <Switch>
-        {routes.map(route => (
-          <Route exact={route.exact} path={route.path} component={route.component} key={route.path} />
+        {routes.map((route) => (
+          <Route
+            exact={route.exact}
+            path={route.path}
+            component={route.component}
+            key={route.path}
+          />
         ))}
       </Switch>
     </Router>

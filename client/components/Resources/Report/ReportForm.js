@@ -57,7 +57,9 @@ const ReportForm = ({
         />
       </Form.Field>
     </Form.Group>
-    <Form.Button type="submit" className="btn__upload u-margin-top-medium">Upload Report</Form.Button>
+    <Form.Button type="submit" className="btn__upload u-margin-top-medium">
+      Upload Report
+    </Form.Button>
   </Form>
 );
 

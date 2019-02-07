@@ -14,7 +14,11 @@ export function* addReport(action) {
     let error;
     if (err.message === 'Network Error') {
       error = 'Unable to connect to the server! Please check your connection.';
-    } else if (err.response && (err.response.status === 400 || err.response.data.status === 'Validation error')) {
+    } else if (
+      err.response &&
+      (err.response.status === 400 ||
+        err.response.data.status === 'Validation error')
+    ) {
       const { error: errors } = err.response.data;
       const firstError = Object.keys(errors)[0];
       error = errors[firstError];

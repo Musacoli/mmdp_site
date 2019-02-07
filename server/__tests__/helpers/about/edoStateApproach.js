@@ -1,14 +1,13 @@
-import {faker} from "../commons/base";
+import { faker } from '../commons/base';
 import EdoStateApproach from '../../../models/EdoStateApproach';
 
 export const makeEdoStateApproach = (overrides = {}) => {
   return {
     theEdoStateApproach: faker.lorem.paragraph(30),
     background: faker.lorem.sentence(25),
-    ...overrides
-  }
+    ...overrides,
+  };
 };
 
-export const createEdoStateApproach = async (overrides = {}) => {
-  return await EdoStateApproach.model.create(makeEdoStateApproach(overrides));
-};
+export const createEdoStateApproach = async (overrides = {}) =>
+  EdoStateApproach.model.create(makeEdoStateApproach(overrides));

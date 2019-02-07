@@ -1,5 +1,4 @@
-import {getPermissionsMapArray} from "../../utils/permissions";
+import { getPermissionsMapArray } from '../../utils/permissions';
 
-export const list = (req, res) => {
-  return res.json( getPermissionsMapArray());
-};
+// eslint-disable-next-line import/prefer-default-export
+export const list = (req, res) => res.json(getPermissionsMapArray());

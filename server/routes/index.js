@@ -51,7 +51,12 @@ const App = (app) => {
 
   app.post(
     `${aboutPath}/governor-message/create`,
-    [authenticate, authorize.cms.about.create, keystone.middleware.api, aboutValidator.governorMessage],
+    [
+      authenticate,
+      authorize.cms.about.create,
+      keystone.middleware.api,
+      aboutValidator.governorMessage,
+    ],
     routes.api.governorMessage.create,
   );
 
@@ -63,7 +68,12 @@ const App = (app) => {
 
   app.put(
     `${aboutPath}/governor-message/:id/update`,
-    [authenticate, authorize.cms.about.update, keystone.middleware.api, aboutValidator.governorMessage],
+    [
+      authenticate,
+      authorize.cms.about.update,
+      keystone.middleware.api,
+      aboutValidator.governorMessage,
+    ],
     routes.api.governorMessage.update,
   );
 
@@ -81,7 +91,12 @@ const App = (app) => {
 
   app.post(
     `${aboutPath}/edo-state-approach/create`,
-    [authenticate, authorize.cms.about.create, keystone.middleware.api, aboutValidator.edoStateApproach],
+    [
+      authenticate,
+      authorize.cms.about.create,
+      keystone.middleware.api,
+      aboutValidator.edoStateApproach,
+    ],
     routes.api.edoStateApproach.create,
   );
 
@@ -93,7 +108,12 @@ const App = (app) => {
 
   app.put(
     `${aboutPath}/edo-state-approach/:id/update`,
-    [authenticate, authorize.cms.about.update, keystone.middleware.api, aboutValidator.edoStateApproach],
+    [
+      authenticate,
+      authorize.cms.about.update,
+      keystone.middleware.api,
+      aboutValidator.edoStateApproach,
+    ],
     routes.api.edoStateApproach.update,
   );
 
@@ -143,7 +163,12 @@ const App = (app) => {
 
   app.post(
     `${aboutPath}/coordination/create`,
-    [authenticate, authorize.cms.about.create, keystone.middleware.api, aboutValidator.coordination],
+    [
+      authenticate,
+      authorize.cms.about.create,
+      keystone.middleware.api,
+      aboutValidator.coordination,
+    ],
     routes.api.coordination.create,
   );
 
@@ -155,7 +180,12 @@ const App = (app) => {
 
   app.put(
     `${aboutPath}/coordination/:id/update`,
-    [authenticate, authorize.cms.about.update, keystone.middleware.api, aboutValidator.coordination],
+    [
+      authenticate,
+      authorize.cms.about.update,
+      keystone.middleware.api,
+      aboutValidator.coordination,
+    ],
     routes.api.coordination.update,
   );
 
@@ -173,7 +203,12 @@ const App = (app) => {
 
   app.post(
     `${aboutPath}/about-mmdp/create`,
-    [authenticate, authorize.cms.about.create, keystone.middleware.api, aboutValidator.about],
+    [
+      authenticate,
+      authorize.cms.about.create,
+      keystone.middleware.api,
+      aboutValidator.about,
+    ],
     routes.api.about.create,
   );
 
@@ -185,7 +220,12 @@ const App = (app) => {
 
   app.put(
     `${aboutPath}/about-mmdp/:id/update`,
-    [authenticate, authorize.cms.about.update, keystone.middleware.api, aboutValidator.about],
+    [
+      authenticate,
+      authorize.cms.about.update,
+      keystone.middleware.api,
+      aboutValidator.about,
+    ],
     routes.api.about.update,
   );
 
@@ -209,37 +249,34 @@ const App = (app) => {
   app.post(
     `${baseUrl}/users`,
     [authenticate, authorize.user.create, parseRegistration, checkEmail],
-    routes.api.Users.createUser
+    routes.api.Users.createUser,
   );
   // the confirmation route is accessible by guests
   app.put(
     `${baseUrl}/users/confirmation`,
     verifyAccount,
-    routes.api.Users.confirmed
+    routes.api.Users.confirmed,
   );
   app.put(
     `${baseUrl}/users/`,
     [authenticate, authorize.user.update, validateEmail, updateDetails],
-    routes.api.Users.updateEmail
+    routes.api.Users.updateEmail,
   );
-  app.delete(
-    `${baseUrl}/users/:id`,
-    routes.api.Users.deleteUser
-  );
+  app.delete(`${baseUrl}/users/:id`, routes.api.Users.deleteUser);
   app.get(
     `${baseUrl}/users/:id`,
     [authenticate, authorize.user.get],
-    routes.api.Users.fetchUser
+    routes.api.Users.fetchUser,
   );
   app.get(
     `${baseUrl}/users`,
     [authenticate, authorize.user.list],
-    routes.api.Users.fetchAllUsers
+    routes.api.Users.fetchAllUsers,
   );
   app.put(
     `${baseUrl}/users/edit`,
     [authenticate, verifyEdit],
-    routes.api.Users.edited
+    routes.api.Users.edited,
   );
 
   // groups
@@ -255,12 +292,17 @@ const App = (app) => {
   );
   app.post(
     '/api/groups/',
-    [authenticate, authorize.group.create, validateGroupCreate],
+    [authenticate, validateGroupCreate, authorize.group.create],
     routes.api.group.create,
   );
   app.put(
     '/api/groups/:id',
-    [authenticate, authorize.group.update, paramGroupExists, validateGroupUpdate],
+    [
+      authenticate,
+      authorize.group.update,
+      paramGroupExists,
+      validateGroupUpdate,
+    ],
     routes.api.group.update,
   );
   app.delete(
@@ -269,7 +311,7 @@ const App = (app) => {
     routes.api.group.remove,
   );
 
-  //permissions
+  // permissions
   app.get(
     '/api/permissions',
     [authenticate, authorize.permission.list],

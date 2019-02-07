@@ -18,18 +18,13 @@ const props = {
   success: true,
 };
 
-
 const wrapper = mount(<GroupForm {...props} />);
 
 describe('<GroupForm /> ', () => {
   it('renders GroupForm component without crashing', () => {
-    let node = wrapper.find('#name').simulate(
-      'change',
-      {
-        target:
-           { name: 'name', value: testText },
-      },
-    );
+    let node = wrapper.find('#name').simulate('change', {
+      target: { name: 'name', value: testText },
+    });
     expect(node.instance().value).toEqual(testText);
     node = wrapper.find('.primary .color-blue');
     node.simulate('click');

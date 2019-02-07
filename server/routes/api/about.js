@@ -1,7 +1,7 @@
-
 import About from '../../models/About';
 
 export const create = (req, res) => {
+  // eslint-disable-next-line new-cap
   const item = new About.model();
 
   item.getUpdateHandler(req).process(req.body, (err) => {
@@ -17,11 +17,12 @@ export const update = (req, res) => {
     if (err) return res.apiError('database error', err);
     if (!item) return res.apiError('not found');
 
-    item.getUpdateHandler(req)
-      .process({ ...req.body, updatedAt: new Date() }, (err) => {
-        if (err) return res.apiError('update error', err);
+    item
+      .getUpdateHandler(req)
+      .process({ ...req.body, updatedAt: new Date() }, (error) => {
+        if (error) return res.apiError('update error', err);
 
-        res.apiResponse({
+        return res.apiResponse({
           item,
         });
       });
@@ -32,7 +33,7 @@ export const list = (req, res) => {
   About.model.find((err, items) => {
     if (err) return res.apiError('database error', err);
 
-    res.apiResponse({
+    return res.apiResponse({
       items,
     });
   });
@@ -54,9 +55,9 @@ export const remove = (req, res) => {
     if (err) return res.apiError('database error', err);
     if (!item) return res.apiError('not found');
 
-    item.getUpdateHandler(req).process({ archived: true }, (err) => {
-      if (err) return res.apiError('remove error', err);
-      res.apiResponse({
+    item.getUpdateHandler(req).process({ archived: true }, (error) => {
+      if (error) return res.apiError('remove error', err);
+      return res.apiResponse({
         item,
       });
     });

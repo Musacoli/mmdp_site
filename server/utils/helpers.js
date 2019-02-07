@@ -1,7 +1,6 @@
 export default {
   isNullOrUndefined(data) {
-    return (typeof data === 'undefined'
-      || !data && typeof data === 'object');
+    return typeof data === 'undefined' || (!data && typeof data === 'object');
   },
   isString(data) {
     return typeof data === 'string';

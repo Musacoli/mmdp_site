@@ -1,6 +1,7 @@
 import GovernorMessage from '../../models/GovernorMessage';
 
 export const create = (req, res) => {
+  // eslint-disable-next-line new-cap
   const item = new GovernorMessage.model();
 
   item.getUpdateHandler(req).process(req.body, (err) => {
@@ -16,9 +17,10 @@ export const update = (req, res) => {
     if (err) return res.apiError('database error', err);
     if (!item) return res.apiError('not found');
 
-    item.getUpdateHandler(req)
-      .process({ ...req.body, updatedAt: new Date() }, (err) => {
-        if (err) return res.apiError('update error', err);
+    item
+      .getUpdateHandler(req)
+      .process({ ...req.body, updatedAt: new Date() }, (error) => {
+        if (err) return res.apiError('update error', error);
 
         res.apiResponse({
           item,
@@ -31,7 +33,7 @@ export const list = (req, res) => {
   GovernorMessage.model.find((err, items) => {
     if (err) return res.apiError('database error', err);
 
-    res.apiResponse({
+    return res.apiResponse({
       items,
     });
   });
@@ -53,8 +55,8 @@ export const remove = (req, res) => {
     if (err) return res.apiError('database error', err);
     if (!item) return res.apiError('not found');
 
-    item.getUpdateHandler(req).process({ archived: true }, (err) => {
-      if (err) return res.apiError('remove error', err);
+    item.getUpdateHandler(req).process({ archived: true }, (error) => {
+      if (err) return res.apiError('remove error', error);
       res.apiResponse({
         item,
       });

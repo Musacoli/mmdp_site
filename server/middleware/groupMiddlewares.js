@@ -1,15 +1,15 @@
-import Group from "../models/Group";
-import mongoose from "mongoose";
-import permissions from "../core/permissions";
-import Joi from "joi";
+import mongoose from 'mongoose';
+import Joi from 'joi';
+import Group from '../models/Group';
+import permissions from '../core/permissions';
 
 export const paramGroupExists = async (req, res, next) => {
   const errorResp = {
-    status: "error",
-    message: "The group does not exist.",
+    status: 'error',
+    message: 'The group does not exist.',
   };
 
-  const id = req.params.id;
+  const { id } = req.params;
 
   if (mongoose.Types.ObjectId.isValid(id)) {
     await Group.model.findById(id).exec((err, group) => {
@@ -27,21 +27,24 @@ export const paramGroupExists = async (req, res, next) => {
 
 const validate = (schema, req, res, next) => {
   const allPermissions = Object.keys(permissions);
+  const newSchema = schema;
+  newSchema.permissions = Joi.array().items(
+    Joi.string().valid(...allPermissions),
+  );
 
-  schema.permissions = Joi.array().items(Joi.string().valid(...allPermissions));
-
-  const {error} = Joi.validate(req.body, schema);
+  const { error } = Joi.validate(req.body, newSchema);
 
   if (error) {
     return res.status(400).json(error);
-  } else {
-    next();
   }
+  next();
 };
 
 export const validateGroupCreate = (req, res, next) => {
   const schema = {
-    name: Joi.string().min(3).required(),
+    name: Joi.string()
+      .min(3)
+      .required(),
   };
 
   return validate(schema, req, res, next);

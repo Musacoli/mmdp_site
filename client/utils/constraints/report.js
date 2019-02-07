@@ -18,7 +18,8 @@ const addReportConstraint = {
     },
     inclusion: {
       within: ['quarterly', 'annual'],
-      message: '^Report type can only be a quarterly report or an annual report',
+      message:
+        '^Report type can only be a quarterly report or an annual report',
     },
   },
 };

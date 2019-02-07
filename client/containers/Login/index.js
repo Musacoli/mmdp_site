@@ -16,6 +16,7 @@ export class Login extends Component {
   };
 
   validateEmail = (email) => {
+    // eslint-disable-next-line no-useless-escape
     const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return EMAIL_REGEX.test(email);
   };
@@ -36,12 +37,10 @@ export class Login extends Component {
     }
   };
 
-  handleEditorChange = (value) => {
-    this.setState({ editorValue: value });
-  }
-
   render() {
-    return <LoginViewForm onSubmit={this.onFormSubmit} onChange={this.onChange} />;
+    return (
+      <LoginViewForm onSubmit={this.onFormSubmit} onChange={this.onChange} />
+    );
   }
 }
 
@@ -49,7 +48,7 @@ Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   Login: state.response,
 });
 
@@ -61,4 +60,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(Login);
-

@@ -14,9 +14,7 @@ const TemplateDefault = ({ children, title, ...props }) => (
         <Grid.Column widescreen="12">
           <Container className="main-content">
             <Header as="h1">{title}</Header>
-            <div className="content-container">
-              {children}
-            </div>
+            <div className="content-container">{children}</div>
           </Container>
         </Grid.Column>
       </Grid.Row>

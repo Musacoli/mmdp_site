@@ -1,15 +1,20 @@
 /* eslint-env jest */
 import React from 'react';
 import { mount } from 'enzyme';
-import { ReactRouterOptions } from '../../../constants';
+import ReactRouterEnzymeContext from 'react-router-enzyme-context';
 import { GroupFormContainer, mapStateToProps } from '../GroupForm';
 
 const func = jest.fn();
 const testText = 'name';
 const groups = {
-  groups: [{
-    errors: {}, name: testText, users: [], permissions: [{ cms: 'cmss' }],
-  }],
+  groups: [
+    {
+      errors: {},
+      name: testText,
+      users: [],
+      permissions: [{ cms: 'cmss' }],
+    },
+  ],
   isFetching: false,
   success: false,
   errors: 'adf',
@@ -35,7 +40,10 @@ const props = {
   removeGroup: func,
   editGroup: func,
 };
-const wrapper = mount(<GroupFormContainer {...props} />, ReactRouterOptions);
+const wrapper = mount(
+  <GroupFormContainer {...props} />,
+  new ReactRouterEnzymeContext(),
+);
 
 const event = {
   preventDefault: func,

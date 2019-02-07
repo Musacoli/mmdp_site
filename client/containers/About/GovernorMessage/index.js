@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import toastr from '../../../utils/toastr';
 import * as governorMessageRequest from '../../../store/actions/about';
-import PropTypes from 'prop-types';
 import MarkdownEditor from '../../../components/common/MarkdownEditor';
-import { Grid } from 'Semantic-ui-react';
 import { FileInput, TextInput } from '../../../components/About/Inputs';
 import Label from '../../../components/About/Label';
 import SectionTitle from '../../../components/About/SectionTitle';
 import AboutTemplate from '../../../views/About';
 import '../common/style.scss';
 
-
-
 export class GovernorMessage extends Component {
-
   state = {
-    governorName: "",
-    governorPhoto: "",
-    governorMessage: "",
-    fileName: "",
+    governorName: '',
+    governorPhoto: '',
+    governorMessage: '',
+    fileName: '',
     error: null,
     id: null,
     loading: false,
@@ -27,103 +23,105 @@ export class GovernorMessage extends Component {
   };
 
   componentDidMount() {
-    this.props.getGovernorMessage();
+    const { getGovernorMessage } = this.props;
+    getGovernorMessage();
   }
 
   static getDerivedStateFromProps(props, state) {
-    let { governorPhoto, ...rest } = props.message;
-
-    if(!governorPhoto || typeof governorPhoto.filename !== 'string') {
-      governorPhoto = '';
-    } else if(governorPhoto.filename && typeof governorPhoto.filename === 'string') {
-      governorPhoto = governorPhoto.filename;
-    } 
-
-    if(!state.updateMode) {
-      return { 
-        ...rest, 
-        fileName: state.fileName || governorPhoto,
-        updateMode: !!rest.governorName,
-        id: rest._id 
-      };
-    } else {
-      return {
-        loading: rest.loading,
-      }
+    const { governorPhoto, ...rest } = props.message;
+    let photo;
+    if (!governorPhoto || typeof governorPhoto.filename !== 'string') {
+      photo = '';
+    } else if (
+      governorPhoto.filename &&
+      typeof governorPhoto.filename === 'string'
+    ) {
+      photo = governorPhoto.filename;
     }
+
+    if (!state.updateMode) {
+      return {
+        ...rest,
+        fileName: state.fileName || photo,
+        updateMode: !!rest.governorName,
+        // eslint-disable-next-line no-underscore-dangle
+        id: rest._id,
+      };
+    }
+    return {
+      loading: rest.loading,
+    };
   }
 
   change = (e) => {
-    if(e.target.name === 'governorPhoto' && e.target.files.length) {
+    if (e.target.name === 'governorPhoto' && e.target.files.length) {
       const file = e.target.files[0];
-      this.setState({ 
-        fileName: file.name || '', 
-        governorPhoto: file 
+      this.setState({
+        fileName: file.name || '',
+        governorPhoto: file,
       });
     } else {
       this.setState({ [e.target.name]: e.target.value });
     }
-  }
+  };
 
   handleEditorChange = (val) => {
     this.setState({ governorMessage: val });
-  }
+  };
 
   submit = (e) => {
     e.preventDefault();
-    const data = this.state
+    const data = this.state;
+    const { loading } = this.state;
     const { updateGovernorMessage, createGovernorMessage } = this.props;
-    if(this.state.loading || !this.isValidData(this.state)) return;
+    if (loading || !this.isValidData(this.state)) return;
     const formData = new FormData();
-    Object.keys(data).forEach(key => {
-      if(key === 'governorPhoto' && typeof data[key] !== 'string'){
+    Object.keys(data).forEach((key) => {
+      if (key === 'governorPhoto' && typeof data[key] !== 'string') {
         formData.append(key, data[key]);
       }
-      if(key !== 'governorPhoto'){
+      if (key !== 'governorPhoto') {
         formData.append(key, data[key]);
       }
     });
 
-    if(data.updateMode){
-      updateGovernorMessage({id: data.id, formData});
+    if (data.updateMode) {
+      updateGovernorMessage({ id: data.id, formData });
     } else {
       createGovernorMessage(formData);
     }
-  }
+  };
 
   isValidData = (data) => {
     let errors = [];
 
-    if(!data.fileName.trim().length) {
+    if (!data.fileName.trim().length) {
+      errors = [...errors, '"Governor Photo" is required'];
+    }
+
+    if (data.governorName.trim().length < 2) {
       errors = [
-        ...errors, 
-        '"Governor Photo" is required'
+        ...errors,
+        '"Governor Name" must have two(2) characters minimum',
       ];
     }
 
-    if(data.governorName.trim().length < 2) {
+    if (data.governorMessage.trim().length < 20) {
       errors = [
-        ...errors, 
-        '"Governor Name" must have two(2) characters minimum'
+        ...errors,
+        '"Governor Message" must have twenty(20) characters minimum',
       ];
     }
 
-    if(data.governorMessage.trim().length < 20) {
-      errors = [
-        ...errors, 
-        '"Governor Message" must have twenty(20) characters minimum'
-      ];
-    }
-
-    if(errors.length){
-      errors.reverse().forEach(err => toastr.error(err));
+    if (errors.length) {
+      errors.reverse().forEach((err) => toastr.error(err));
       return false;
-    };
+    }
     return true;
-  }
+  };
 
   render() {
-    const { governorName, governorMessage, governorPhoto, fileName, loading } = this.state;
+    const { governorName, governorMessage, fileName, loading } = this.state;
     return (
       <React.Fragment>
         <SectionTitle title="Message from the governor" />
@@ -131,7 +129,7 @@ export class GovernorMessage extends Component {
           <form onSubmit={this.submit}>
             <div className="input__area">
               <div className="flex">
-                <TextInput 
+                <TextInput
                   inputLabel="Set Governor Name"
                   placeholder="Governor name"
                   value={governorName}
@@ -150,7 +148,10 @@ export class GovernorMessage extends Component {
               </div>
             </div>
             <div className="markdown__area">
-              <Label label="Message from the governor" />
+              <Label
+                htmlFor="governor-message-markdown"
+                label="Message from the governor"
+              />
               <div className="markdown">
                 <MarkdownEditor
                   value={governorMessage}
@@ -159,7 +160,9 @@ export class GovernorMessage extends Component {
               </div>
             </div>
             <div className="button__area">
-              <button disabled={loading} type="submit">Save</button>
+              <button disabled={loading} type="submit">
+                Save
+              </button>
             </div>
           </form>
         </AboutTemplate>
@@ -169,6 +172,9 @@ export class GovernorMessage extends Component {
 }
 
 GovernorMessage.propTypes = {
+  message: PropTypes.shape({
+    governorPhoto: PropTypes.shape({}),
+  }),
   createGovernorMessage: PropTypes.func.isRequired,
   updateGovernorMessage: PropTypes.func.isRequired,
   getGovernorMessage: PropTypes.func.isRequired,
@@ -176,7 +182,7 @@ GovernorMessage.propTypes = {
 
 const mapStateToProps = (state) => ({
   message: state.governorMessage,
-})
+});
 
 const mapDispatchToProps = {
   createGovernorMessage: governorMessageRequest.createGovernorMessage,
@@ -184,5 +190,7 @@ const mapDispatchToProps = {
   getGovernorMessage: governorMessageRequest.getGovernorMessage,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GovernorMessage);
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(GovernorMessage);

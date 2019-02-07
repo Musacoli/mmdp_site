@@ -1,9 +1,10 @@
-import keystone from ".";
+/* eslint-disable no-underscore-dangle */
 import faker from 'faker';
+import supertest from 'supertest';
+import keystone from '.';
 import Group from '../../../models/Group';
-import {User} from '../../../models/User';
-import supertest from "supertest";
-import {generateToken} from "./jwt";
+import User from '../../../models/User';
+import { generateToken } from './jwt';
 
 faker.seed(5711);
 
@@ -14,7 +15,7 @@ faker.seed(5711);
  * of duplicate data. This can break tests in an unpredictable fashion
  * which is hard to debug.
  */
-export {faker};
+export { faker };
 
 /**
  * Create randomly generated group details. Provide permissions that the group
@@ -28,9 +29,9 @@ export {faker};
 export const makeGroup = (permissions = [], overrides = {}) => {
   return {
     name: `${faker.random.uuid()}-${faker.name.jobTitle()}`, // unique
-    permissions: permissions,
-    ...overrides
-  }
+    permissions,
+    ...overrides,
+  };
 };
 
 /**
@@ -42,9 +43,8 @@ export const makeGroup = (permissions = [], overrides = {}) => {
  * @param overrides
  * @returns {Promise<*>}
  */
-export const createGroup = async (permissions = [], overrides = {}) => {
-  return await Group.model.create(makeGroup(permissions, overrides));
-};
+export const createGroup = async (permissions = [], overrides = {}) =>
+  Group.model.create(makeGroup(permissions, overrides));
 
 /**
  * Create randomly generated user details. Provide permissions that the user
@@ -61,7 +61,7 @@ export const makeUser = async (permissions = [], overrides = {}) => {
   const data = {
     first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
-    username: `${faker.random.uuid()}-${faker.internet.userName()}`, //unique
+    username: `${faker.random.uuid()}-${faker.internet.userName()}`, // unique
     phone: faker.phone.phoneNumber('07########'),
     email: `${faker.random.uuid()}-${faker.internet.userName()}@mmdp.com`, // unique
     password: faker.internet.password(),
@@ -69,7 +69,7 @@ export const makeUser = async (permissions = [], overrides = {}) => {
     groups: group ? [group._id] : [],
   };
 
-  return {...data, ...overrides};
+  return { ...data, ...overrides };
 };
 
 /**
@@ -81,9 +81,8 @@ export const makeUser = async (permissions = [], overrides = {}) => {
  * @param overrides
  * @returns {Promise<*>}
  */
-export const createUser = async (permissions = [], overrides = {}) => {
-  return await User.model.create(await makeUser(permissions, overrides));
-};
+export const createUser = async (permissions = [], overrides = {}) =>
+  User.model.create(await makeUser(permissions, overrides));
 
 /**
  * Removes all instances of specified model created by tests. This is to ensure
@@ -123,8 +122,9 @@ export class app {
    * @param permissions
    * @returns {Promise<void>}
    */
-  static async login(user, permissions = []) {
+  static async login(userData, permissions = []) {
     const group = await createGroup(permissions);
+    const user = userData;
     user.groups = [group._id];
     user.save();
     this.token = generateToken(user.toObject());
@@ -162,7 +162,7 @@ export class app {
     const request = this.app.get(url);
 
     if (this.token) {
-      return request.set('authorization', `Bearer ${this.token}`)
+      return request.set('authorization', `Bearer ${this.token}`);
     }
     return request;
   }

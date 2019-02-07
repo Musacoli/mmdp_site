@@ -13,4 +13,3 @@ export const updateGovernorMessage = (payload) => ({
   type: types.UPDATE_GOVERNOR_MESSAGE_REQUEST,
   payload,
 });
-

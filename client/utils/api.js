@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-export const authUserHeader = () => ({
-  Authorization: 'Bearer {token}',
-});
+export const authUserHeader = () => {
+  const token = localStorage.getItem('userToken');
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
 
 const serverUrl = () => {
   if (process.env.NODE_ENV === 'production') {
-    const SERVER_APP_API_URL = process.env.SERVER_APP_API_URL;
+    const { SERVER_APP_API_URL } = process.env;
     return SERVER_APP_API_URL;
   }
   if (process.env.NODE_ENV === 'development') {
-    const SERVER_APP_API_URL = process.env.DEV_SERVER_API_URL;
+    const { DEV_SERVER_API_URL: SERVER_APP_API_URL } = process.env;
     return SERVER_APP_API_URL;
   }
 };
-
 
 export const client = axios.create({
   baseURL: serverUrl(),
@@ -26,11 +26,11 @@ export const client = axios.create({
 
 export const api = {
   group: {
-    create: data => client.post('api/groups/', data),
+    create: (data) => client.post('api/groups/', data),
     list: () => client.get('api/groups/'),
     edit: (id, data) => client.put(`api/groups/${id}/`, data),
-    delete: id => client.delete(`api/groups/${id}/`),
-    retrieve: id => client.get(`api/groups/${id}/`),
+    delete: (id) => client.delete(`api/groups/${id}/`),
+    retrieve: (id) => client.get(`api/groups/${id}/`),
   },
   permission: {
     list: () => client.get('api/permissions'),

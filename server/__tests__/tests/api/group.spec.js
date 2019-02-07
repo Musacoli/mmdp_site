@@ -1,6 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 import expect from 'expect';
 import {
-  app, createGroup, createUser, removeAllGroupsAndUsers,
+  app,
+  createGroup,
+  createUser,
+  removeAllGroupsAndUsers,
 } from '../../helpers/commons/base';
 import { getPermissionsMapArray } from '../../../utils/permissions';
 
@@ -9,11 +13,7 @@ const fullGroupPermission = ['group.*'];
 
 const groupData = {
   name: 'Security Admin',
-  permissions: [
-    'user.*',
-    'group.*',
-    'cms.*',
-  ],
+  permissions: ['user.*', 'group.*', 'cms.*'],
 };
 
 const validUpdateData = {
@@ -28,9 +28,9 @@ const apiUpdateGroup = (id, data) => app.put(`/api/groups/${id}`).send(data);
 
 const apiListGroups = () => app.get('/api/groups').send();
 
-const apiGetGroup = id => app.get(`/api/groups/${id}`).send();
+const apiGetGroup = (id) => app.get(`/api/groups/${id}`).send();
 
-const apiDeleteGroup = id => app.delete(`/api/groups/${id}`).send();
+const apiDeleteGroup = (id) => app.delete(`/api/groups/${id}`).send();
 
 describe('Groups', () => {
   describe('Create group (POST)', () => {
@@ -43,7 +43,9 @@ describe('Groups', () => {
       const res = await apiCreateGroup();
       expect(res.status).toBe(201);
       expect(res.body.group).toMatchObject({ name: groupData.name });
-      expect(res.body.message).toBe(`The ${groupData.name} group was created successfully.`);
+      expect(res.body.message).toBe(
+        `The ${groupData.name} group was created successfully.`,
+      );
     });
 
     it('should create successfully with full group permissions', async () => {
@@ -88,7 +90,9 @@ describe('Groups', () => {
       // try adding the same group again
       const res = await apiCreateGroup();
       expect(res.status).toBe(409);
-      expect(res.body.message).toBe(`A group named ${groupData.name} already exists.`);
+      expect(res.body.message).toBe(
+        `A group named ${groupData.name} already exists.`,
+      );
     });
 
     it('should fail if user is not authorized', async () => {
@@ -111,7 +115,9 @@ describe('Groups', () => {
       const res = await apiUpdateGroup(existingGroup._id, validUpdateData);
       expect(res.status).toBe(200);
       expect(res.body.group).toMatchObject({ name: validUpdateData.name });
-      expect(res.body.message).toBe(`The ${validUpdateData.name} group was updated successfully.`);
+      expect(res.body.message).toBe(
+        `The ${validUpdateData.name} group was updated successfully.`,
+      );
     });
 
     it('should update successfully with full groups permission', async () => {
@@ -119,7 +125,9 @@ describe('Groups', () => {
       const res = await apiUpdateGroup(existingGroup._id, validUpdateData);
       expect(res.status).toBe(200);
       expect(res.body.group).toMatchObject({ name: validUpdateData.name });
-      expect(res.body.message).toBe(`The ${validUpdateData.name} group was updated successfully.`);
+      expect(res.body.message).toBe(
+        `The ${validUpdateData.name} group was updated successfully.`,
+      );
     });
 
     it('should fail if the group does not exist', async () => {
@@ -173,11 +181,18 @@ describe('Groups', () => {
 
     it('should fail on attempt to rename group to existing group', async () => {
       // add a group named 'Super Admin'
-      const superAdmin = (await createGroup([], { name: 'Super Admin' })).toObject();
+      const superAdmin = (await createGroup([], {
+        name: 'Super Admin',
+      })).toObject();
       // try renaming 'Super Admin' to 'Security Admin' which exists (from groupData)
-      const res = await apiUpdateGroup(superAdmin._id, { ...groupData, name: 'Security Admin' });
+      const res = await apiUpdateGroup(superAdmin._id, {
+        ...groupData,
+        name: 'Security Admin',
+      });
       expect(res.status).toBe(409);
-      expect(res.body.message).toBe(`A group named ${groupData.name} already exists.`);
+      expect(res.body.message).toBe(
+        `A group named ${groupData.name} already exists.`,
+      );
     });
 
     it('should fail if user is not authorized', async () => {
@@ -191,9 +206,11 @@ describe('Groups', () => {
     beforeEach(async () => {
       await removeAllGroupsAndUsers();
       // populate some groups
-      for (let i = 0; i < 5; i++) {
-        await createGroup([], { ...groupData, name: `group_${i}` });
-      }
+      await Promise.all(
+        [...Array(5)].map((item, key) =>
+          createGroup([], { ...groupData, name: `group_${key}` }),
+        ),
+      );
       await app.loginRandom(['group.view']);
     });
 
@@ -213,8 +230,10 @@ describe('Groups', () => {
       const data = res.body.groups;
       // add one for the logged in user
       expect(data.length).toBe(5 + 1);
-      for (let i = 0; i < 5; i++) {
-        expect(data).toContainEqual(expect.objectContaining({ name: `group_${i}` }));
+      for (let i = 0; i < 5; i += 1) {
+        expect(data).toContainEqual(
+          expect.objectContaining({ name: `group_${i}` }),
+        );
       }
     });
 
@@ -272,14 +291,18 @@ describe('Groups', () => {
     it('should delete an existing group successfully', async () => {
       const res = await apiDeleteGroup(existingGroup._id);
       expect(res.status).toBe(200);
-      expect(res.body.message).toBe(`The ${existingGroup.name} group was removed successfully.`);
+      expect(res.body.message).toBe(
+        `The ${existingGroup.name} group was removed successfully.`,
+      );
     });
 
     it('should delete successfully with full group permission', async () => {
       await app.loginRandom(fullGroupPermission);
       const res = await apiDeleteGroup(existingGroup._id);
       expect(res.status).toBe(200);
-      expect(res.body.message).toBe(`The ${existingGroup.name} group was removed successfully.`);
+      expect(res.body.message).toBe(
+        `The ${existingGroup.name} group was removed successfully.`,
+      );
     });
 
     it('should fail if the group does not exist', async () => {
@@ -290,10 +313,12 @@ describe('Groups', () => {
 
     it('should fail if the group has dependants - users', async () => {
       const groupId = (await createGroup())._id;
-      const user = await createUser([], { groups: [groupId] });
+      await createUser([], { groups: [groupId] });
       const res = await apiDeleteGroup(groupId);
       expect(res.status).toBe(400);
-      expect(res.body.message).toBe('The group cannot be deleted as there are users that belong to it.');
+      expect(res.body.message).toBe(
+        'The group cannot be deleted as there are users that belong to it.',
+      );
     });
 
     it('should fail if user is not authorized', async () => {

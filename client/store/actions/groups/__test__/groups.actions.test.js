@@ -1,14 +1,31 @@
 /* eslint-env jest */
 import {
-  FETCH_GROUPS, FETCHING_GROUPS,
-  CREATE_GROUP, GROUP_CREATED_SUCCESS, UPDATE_GROUP,
-  CLEAR_GROUP_ERRORS, FETCH_GROUP, EDIT_GROUP, TOGGLE_DELETE_GROUP,
-  SET_GROUP, TOGGLE_SELECT_GROUPS, UNSELECT_ALL_GROUPS,
+  FETCH_GROUPS,
+  FETCHING_GROUPS,
+  CREATE_GROUP,
+  GROUP_CREATED_SUCCESS,
+  UPDATE_GROUP,
+  CLEAR_GROUP_ERRORS,
+  FETCH_GROUP,
+  EDIT_GROUP,
+  TOGGLE_DELETE_GROUP,
+  SET_GROUP,
+  TOGGLE_SELECT_GROUPS,
+  UNSELECT_ALL_GROUPS,
 } from '../../../../constants';
 import {
-  fetchGroups, fetchingGroups, createGroup, groupCreatedSuccessfully,
-  clearGroupErrors, fetchGroup, editGroup, updateGroup, toggleDeleteGroup,
-  setGroup, toggleSelectGroups, unSelectAllGroups,
+  fetchGroups,
+  fetchingGroups,
+  createGroup,
+  groupCreatedSuccessfully,
+  clearGroupErrors,
+  fetchGroup,
+  editGroup,
+  updateGroup,
+  toggleDeleteGroup,
+  setGroup,
+  toggleSelectGroups,
+  unSelectAllGroups,
 } from '..';
 
 describe('Group Actions Creators', () => {

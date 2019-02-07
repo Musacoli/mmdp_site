@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Grid, Input, Button, Container,
-} from 'semantic-ui-react';
+import { Grid, Input, Button, Container } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import ActionButtons from './ActionButtons';
 import GroupList from './GroupList';
@@ -9,9 +7,12 @@ import GroupList from './GroupList';
 import './styles.sass';
 
 const Group = ({
-  groups, redirectTo,
-  handleCheckBoxChange, bulkDeleteGroups,
-  handeMainCheckBoxChange, confirmDeleteGroup,
+  groups,
+  redirectTo,
+  handleCheckBoxChange,
+  bulkDeleteGroups,
+  handeMainCheckBoxChange,
+  confirmDeleteGroup,
 }) => (
   <Container>
     <Grid columns={2}>
@@ -20,7 +21,9 @@ const Group = ({
           <Input fluid icon="search" placeholder="Search groups" />
         </Grid.Column>
         <Grid.Column width={4}>
-          <Button fluid className="cool-blue">Search</Button>
+          <Button fluid className="cool-blue">
+            Search
+          </Button>
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -33,7 +36,6 @@ const Group = ({
       confirmDeleteGroup={confirmDeleteGroup}
     />
   </Container>
-
 );
 
 Group.propTypes = {

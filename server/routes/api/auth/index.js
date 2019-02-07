@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import responseMessage from '../../../constants/responseMessage';
 
-export const user = () => (keystone.list('User'));
+export const user = () => keystone.list('User');
 
 export const login = async (req, res) => {
   const { email, username, password } = req.body;
@@ -13,13 +13,16 @@ export const login = async (req, res) => {
   try {
     const userData = await user().model.findOne(query);
 
-    if (!userData) return res.sendError(responseMessage.INVALID_CREDENTIALS, 401);
+    if (!userData)
+      return res.sendError(responseMessage.INVALID_CREDENTIALS, 401);
 
-    if (!userData.confirmed) return res.sendError(responseMessage.UNCOMPLETED_ACCOUNT, 403);
+    if (!userData.confirmed)
+      return res.sendError(responseMessage.UNCOMPLETED_ACCOUNT, 403);
 
     const validPassword = await bcrypt.compare(password, userData.password);
 
-    if (!validPassword) return res.sendError(responseMessage.INVALID_CREDENTIALS, 401);
+    if (!validPassword)
+      return res.sendError(responseMessage.INVALID_CREDENTIALS, 401);
 
     const payload = {
       // eslint-disable-next-line no-underscore-dangle

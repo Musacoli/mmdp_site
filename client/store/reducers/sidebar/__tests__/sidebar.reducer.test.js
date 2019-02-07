@@ -7,10 +7,11 @@ describe('Sidebar Reducer', () => {
     expect(sidebarReducer(initialState, {})).toEqual(initialState);
   });
   it('should set active sidebar index', () => {
-    expect(sidebarReducer(null, {
-      type: SET_ACTIVE_SIDEBAR_INDEX,
-      payload: { activeIndex: 1 },
-    }).activeIndex).toEqual(1);
+    expect(
+      sidebarReducer(null, {
+        type: SET_ACTIVE_SIDEBAR_INDEX,
+        payload: { activeIndex: 1 },
+      }).activeIndex,
+    ).toEqual(1);
   });
 });
-

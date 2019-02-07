@@ -21,8 +21,8 @@ Coordination.add({
   archived: { type: Boolean, default: false },
 });
 
-
-Coordination.defaultColumns = 'Coordination, whatAreWeDoing, introToHighlights, highlight';
+Coordination.defaultColumns =
+  'Coordination, whatAreWeDoing, introToHighlights, highlight';
 Coordination.register();
 
 export default Coordination;
