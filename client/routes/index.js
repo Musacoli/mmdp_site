@@ -9,9 +9,9 @@ import AddDocument from '../views/Resources/Document/AddDocument';
 import EditDocument from '../views/Resources/Document/EditDocument';
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
-import CreateEvent from '../views/Events/AddEventView';
-import ListEvents from '../views/Events/ListEventsView';
-import EditEvents from '../views/Events/EditEvent';
+import CreateEvent from '../containers/events/event';
+import ListEvents from '../containers/events/eventsList';
+import EditEvents from '../containers/events/editEvents';
 import {
   GovernorMessage,
   AboutMMDP,
