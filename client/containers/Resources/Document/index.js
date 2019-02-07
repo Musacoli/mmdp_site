@@ -9,6 +9,7 @@ import {
   addDocument,
   fetchDocument,
   editDocument,
+  addDocumentFailure,
 } from '../../../store/actions/resources/document';
 
 export class AddDocument extends Component {
@@ -17,10 +18,12 @@ export class AddDocument extends Component {
     response: PropTypes.shape({}),
     history: PropTypes.shape({}).isRequired,
     loading: PropTypes.bool.isRequired,
+    success: PropTypes.bool.isRequired,
     match: PropTypes.shape({}).isRequired,
     singleDocument: PropTypes.shape({}).isRequired,
     getDocument: PropTypes.func.isRequired,
     updateDocument: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
   };
 
   state = {
@@ -43,8 +46,13 @@ export class AddDocument extends Component {
     }
   }
 
+  componentWillUnmount() {
+    const { clearErrors } = this.props;
+    clearErrors();
+  }
+
   componentDidUpdate = () => {
-    const { singleDocument } = this.props;
+    const { singleDocument, success, history } = this.props;
     const { title } = this.state;
 
     if (title === '' && singleDocument.title) {
@@ -52,6 +60,11 @@ export class AddDocument extends Component {
         title: singleDocument.title,
         document: singleDocument.document,
       });
+    }
+    if (success) {
+      setTimeout(() => {
+        history.push('/resources/documents');
+      }, 4000);
     }
   };
 
@@ -105,10 +118,7 @@ export class AddDocument extends Component {
 
   render() {
     const { reportType, document, errors, title } = this.state;
-    const { response, loading, history } = this.props;
-    if (response && response.status === 201) {
-      history.push('/resources/documents/list');
-    }
+    const { loading } = this.props;
     return (
       <DocumentForm
         loading={loading}
@@ -127,12 +137,14 @@ const mapStateToProps = (state) => ({
   response: state.documents.response,
   loading: state.documents.loading,
   singleDocument: state.documents.document,
+  success: state.documents.success,
 });
 
 const mapDispatchToProps = {
   submitDocument: addDocument,
   getDocument: fetchDocument,
   updateDocument: editDocument,
+  clearErrors: addDocumentFailure,
 };
 
 export default connect(

@@ -12,6 +12,7 @@ import {
 export const initialState = {
   loading: false,
   document: {},
+  success: false,
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -19,9 +20,9 @@ export default (state = initialState, { type, payload }) => {
     case ADD_DOCUMENT:
       return { ...state, loading: true, ...payload };
     case ADD_DOCUMENT_SUCCESS:
-      return { ...state, loading: false, ...payload };
+      return { ...state, loading: false, success: true, ...payload };
     case ADD_DOCUMENT_FAILURE:
-      return { ...state, loading: false, ...payload };
+      return { ...state, loading: false, success: false, ...payload };
     case FETCH_DOCUMENT:
       return { ...state, loading: true, ...payload };
     case FETCH_DOCUMENT_SUCCESS:
@@ -29,7 +30,7 @@ export default (state = initialState, { type, payload }) => {
     case EDIT_DOCUMENT:
       return { ...state, loading: true, ...payload };
     case EDIT_DOCUMENT_SUCCESS:
-      return { ...state, loading: false, ...payload };
+      return { ...state, loading: false, success: true, ...payload };
     case EDIT_DOCUMENT_FAILURE:
       return { ...state, loading: false, ...payload };
     default:
