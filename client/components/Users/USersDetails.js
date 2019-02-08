@@ -1,38 +1,34 @@
-import React, { Component } from "react";
-import { Table, Checkbox, Grid, Container } from "semantic-ui-react";
-import UserRows from "./Users";
-import ActionButtons from "../common/ActionButtons";
-import NoResults from "../common/TableRowLoading/NoResultsRow";
-import Loader from "../common/TableRowLoading";
-import DeleteUser from "./deleteUser";
-import * as PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { Table, Grid, Container } from 'semantic-ui-react';
+import * as PropTypes from 'prop-types';
+import ActionButtons from '../common/ActionButtons';
+import NoResults from '../common/TableRowLoading/NoResultsRow';
+import Loader from '../common/TableRowLoading';
+import DeleteUser from './deleteUser';
 
 class DisplayUsers extends Component {
   state = {
     deleteModalOpen: false,
-    selectedUser: null
+    selectedUser: null,
   };
 
-  showDeleteModal = user =>
+  showDeleteModal = (user) =>
     this.setState({
       deleteModalOpen: true,
-      selectedUser: user
+      selectedUser: user,
     });
-
 
   hideDeleteModal = () => this.setState({ deleteModalOpen: false });
 
-  hideViewUserModal = () => this.setState({ userModalOpen: false });
-
   handleDelete = () => {
     const { selectedUser } = this.state;
-    const { deleteUser , history} = this.props;
-    this.setState({ deleteModalOpen: false});
+    const { deleteUser, history } = this.props;
+    this.setState({ deleteModalOpen: false });
     deleteUser(selectedUser.username, history);
   };
 
   render() {
-    let { users, success} = this.props;
+    const { users, success } = this.props;
     const { deleteModalOpen } = this.state;
     return (
       <div className="main-content-wrapper">
@@ -56,19 +52,22 @@ class DisplayUsers extends Component {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {users.map(user => (
+                {users.map((user) => (
                   <Table.Row key={user.username}>
                     <Table.Cell>
-                      <span className="fullname">{user.first_name}</span>{" "}
+                      <span className="fullname">{user.first_name}</span>{' '}
                       {user.last_name}
                     </Table.Cell>
                     <Table.Cell>{user.username}</Table.Cell>
                     <Table.Cell>{user.email}</Table.Cell>
                     <Table.Cell>{user.phone}</Table.Cell>
                     <Table.Cell>
-                      {user.groups.length > 0 && user.groups.map(agroup => (
-                        <Table.Row className="user-group-name">{agroup.name}</Table.Row>
-                      ))}
+                      {user.groups.length > 0 &&
+                        user.groups.map((agroup) => (
+                          <Table.Row className="user-group-name">
+                            {agroup.name}
+                          </Table.Row>
+                        ))}
                     </Table.Cell>
                     <Table.Cell>
                       <ActionButtons
@@ -90,8 +89,10 @@ class DisplayUsers extends Component {
 }
 
 DisplayUsers.propTypes = {
-  users: PropTypes.any,
-  success: PropTypes.any
+  users: PropTypes.bool,
+  success: PropTypes.bool,
+  history: PropTypes.shape({}),
+  deleteUser: PropTypes.func,
 };
 
 export default DisplayUsers;
