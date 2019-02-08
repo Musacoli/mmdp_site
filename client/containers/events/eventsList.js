@@ -75,7 +75,6 @@ export class ListEvents extends Component {
 
     return events.length > 0 ? (
       <React.Fragment>
-        <SidebarMenu />
         <EventsList
           events={events}
           pages={pages}

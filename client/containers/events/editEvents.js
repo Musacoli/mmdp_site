@@ -8,7 +8,6 @@ import {
 } from '../../store/actions/events/event';
 import EditForm from '../../components/events/EventForm';
 import EmptyView from '../../components/common/InvalidPage';
-import SidebarMenu from '../Sidebar/index';
 
 export class EditEVent extends Component {
   componentWillMount() {
@@ -87,12 +86,10 @@ export class EditEVent extends Component {
     const { eventData, currentData, eventError, response } = this.props;
     return (
       <div>
-        <SidebarMenu />
         <div>
           {eventData.data && currentData.headerImage ? (
             <div>
               <EditForm
-                header="Edit Event"
                 eventDate={currentData.eventDate ? currentData.eventDate : ''}
                 handleInputChange={this.handleInputChange}
                 defaults={eventData.data}

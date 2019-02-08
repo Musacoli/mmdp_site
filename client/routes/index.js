@@ -10,7 +10,13 @@ import AddUserView, { EditUserView } from '../views/Users';
 import CreateEvent from '../containers/events/event';
 import ListEvents from '../containers/events/eventsList';
 import EditEvents from '../containers/events/editEvents';
-import { GovernorMessage, AboutMMDP, Coordination, Objectives, EdoStateApproach } from '../views/About';
+import {
+  GovernorMessage,
+  AboutMMDP,
+  Coordination,
+  Objectives,
+  EdoStateApproach,
+} from '../views/About';
 
 const routes = [
   {
