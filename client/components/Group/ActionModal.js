@@ -43,6 +43,7 @@ class ActionModal extends Component {
             No
           </Button>
           <Button
+            className="cool-blue"
             id="actionModal-yes-button"
             onClick={() => this.delete(group)}
             positive

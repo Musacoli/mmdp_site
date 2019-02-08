@@ -13,21 +13,24 @@ import {
 
 export function* fetchGroupsAsync() {
   const groups = yield call(api.group.list);
-  yield put(fetchGroups(groups.data));
+  const data = groups !== undefined ? groups.data : {};
+  yield put(fetchGroups(data));
 }
 
 export function* fetchGroupAsync({ payload }) {
   const group = yield call(api.group.retrieve, payload.id);
+  const data = group !== undefined ? group.data : {};
   yield put({
     type: SET_GROUP,
-    payload: group.data,
+    payload: data,
   });
 }
 
 export function* createGroupsAsync({ payload }) {
   try {
     const group = yield call(api.group.create, payload);
-    yield put(groupCreatedSuccessfully(group.data));
+    const data = group !== undefined ? group.data : {};
+    yield put(groupCreatedSuccessfully(data));
   } catch (err) {
     yield put({
       type: CREATE_GROUP_FAILURE,
@@ -42,8 +45,8 @@ export function* updateGroupsAsync(action) {
     const { id } = payload;
     delete payload.id;
     const group = yield call(api.group.edit, id, payload);
-
-    yield put(groupCreatedSuccessfully(group.data));
+    const data = group !== undefined ? group.data : {};
+    yield put(groupCreatedSuccessfully(data));
   } catch (err) {
     yield put({
       type: CREATE_GROUP_FAILURE,

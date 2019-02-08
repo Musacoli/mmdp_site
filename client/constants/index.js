@@ -1,4 +1,4 @@
-export { SET_ACTIVE_SIDEBAR_INDEX } from './sidebar';
+export { SET_ACTIVE_SIDEBAR_INDEX, ACTIVE_SIDEBAR_INDEX_KEY } from './sidebar';
 export {
   FETCH_GROUPS,
   CREATE_GROUP,

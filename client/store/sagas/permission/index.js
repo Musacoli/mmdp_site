@@ -5,7 +5,8 @@ import { FETCHING_PERMISSIONS } from '../../../constants';
 
 export function* fetchPermissionAsync() {
   const permissions = yield call(api.permission.list);
-  yield put(fetchPermissions(permissions.data));
+  const data = permissions !== undefined ? permissions.data : {};
+  yield put(fetchPermissions(data));
 }
 
 export function* watchFetchingPermissions() {

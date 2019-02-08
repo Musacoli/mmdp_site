@@ -13,6 +13,7 @@ export const permissionOptions = (permissions) => {
   );
   return options;
 };
+
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case FETCHING_PERMISSIONS:

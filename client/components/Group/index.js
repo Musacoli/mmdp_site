@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import ActionButtons from './ActionButtons';
 import GroupList from './GroupList';
 
-import './styles.sass';
-
 const Group = ({
   groups,
   redirectTo,

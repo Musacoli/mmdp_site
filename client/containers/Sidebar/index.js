@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setActiveSidebarIndex } from '../../store/actions';
 import Sidebar from '../../components/Sidebar';
+import { sidebarItems } from './sidebarItems';
 
 export class SidebarContainer extends Component {
   static propTypes = {
     activateSidebarMenu: PropTypes.func.isRequired,
     activeIndex: PropTypes.number.isRequired,
     history: PropTypes.shape({}).isRequired,
+    children: PropTypes.node.isRequired,
+    title: PropTypes.string.isRequired,
   };
 
   state = {};
@@ -22,18 +25,23 @@ export class SidebarContainer extends Component {
 
   goTo = (path, menuIndex) => {
     const { history } = this.props;
-    history.push(path);
+    if (path) history.push(path);
     this.handleClick(menuIndex);
   };
 
   render() {
-    const { activeIndex } = this.props;
+    const { activeIndex, children, title } = this.props;
+
     return (
       <Sidebar
         activeIndex={activeIndex}
         goTo={this.goTo}
         handleClick={this.handleClick}
-      />
+        sidebarItems={sidebarItems}
+        title={title}
+      >
+        {children}
+      </Sidebar>
     );
   }
 }

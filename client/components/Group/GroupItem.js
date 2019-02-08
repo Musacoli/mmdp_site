@@ -30,16 +30,15 @@ const GroupItem = ({
       ))}
     </Table.Cell>
     <Table.Cell>
-      <Dropdown pointing icon="ellipsis horizontal" className="linkitem">
+      <Dropdown pointing icon="ellipsis horizontal" className="elipses-icon">
         <Dropdown.Menu>
           <Dropdown.Item
             className="group-item-edit-dropdown"
-            // eslint-disable-next-line no-underscore-dangle
             onClick={() => redirectTo(group._id)}
           >
             Edit
           </Dropdown.Item>
-          <Dropdown.Item>
+          <Dropdown.Item className="ui color red">
             <ActionModal
               triggerText="Delete Group"
               header={`Delete ${group.name} Group`}

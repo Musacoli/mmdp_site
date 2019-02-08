@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, Message } from 'semantic-ui-react';
 import Select from 'react-select';
-import './styles.sass';
 
 const GroupForm = ({
   options,
@@ -15,6 +14,7 @@ const GroupForm = ({
   errors,
   serverError,
   success,
+  groupId,
 }) => (
   <div>
     {serverError && (
@@ -24,7 +24,10 @@ const GroupForm = ({
     )}
     {success && (
       <Message success>
-        <Message.Header>Group Submitted successfully</Message.Header>
+        <Message.Header>
+          Group {groupId && <span>updated</span>}
+          {!groupId && <span>created</span>} successfully
+        </Message.Header>
       </Message>
     )}
 
@@ -72,6 +75,7 @@ GroupForm.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  groupId: PropTypes.string.isRequired,
   errors: PropTypes.shape({}).isRequired,
   serverError: PropTypes.string.isRequired,
   success: PropTypes.bool.isRequired,
