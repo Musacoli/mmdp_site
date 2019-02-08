@@ -3,6 +3,7 @@ import keystone from 'keystone';
 import validate from 'express-validation';
 import aboutValidator from '../middleware/about';
 import apiResponse from '../middleware/apiResponse';
+import middleware from '../middleware/events';
 import validator from '../validation/validator';
 import errorHandler from '../middleware/errorHandler';
 import authorize from '../middleware/authorize';
@@ -321,6 +322,40 @@ const App = (app) => {
     `${baseUrl}/resources/report`,
     [appendFilesToBody, validate(validator.report)],
     routes.api.resources.report.create,
+  );
+
+  app.post(
+    '/api/v1/events',
+    [
+      authenticate,
+      authorize.events.create,
+      middleware.eventsMiddlewares,
+      keystone.middleware.api,
+    ],
+    routes.api.events.create,
+  );
+
+  app.get(
+    '/api/v1/events',
+    [authenticate, authorize.events.list, keystone.middleware.api],
+    routes.api.events.list,
+  );
+
+  app.get(
+    '/api/v1/events/:id',
+    [authenticate, authorize.events.get, keystone.middleware.api],
+    routes.api.events.get,
+  );
+  app.put(
+    '/api/v1/events/:id',
+    [authenticate, authorize.events.update, keystone.middleware.api],
+    routes.api.events.update,
+  );
+
+  app.delete(
+    '/api/v1/events/:id',
+    [authenticate, authorize.events.delete, keystone.middleware.api],
+    routes.api.events.remove,
   );
 
   app.use(errorHandler);

@@ -1,0 +1,250 @@
+$cool-blue: #3faaca;
+$ugly-blue: #296d81;
+$dark: #1a1f37;
+$pale-gray: #fafeff;
+
+body {
+
+  .events-header {
+    width: 1136px;
+    height: 72px;
+    background-color: white;
+    padding: 18px 0 19px 56px;
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: -0.8px;
+    float: right;
+  }
+
+  .events-container {
+    width: 1136px;
+    min-height: calc(100vh - 72px) !important;
+    background-color: #f8fdff;
+    padding-left: 56px;
+    padding-top: calc(112px - 72px);
+    padding-bottom: 80px;
+    float: right;
+
+    .form {
+      width: 920px;
+
+      .event-label {
+        font-size: 16px;
+        font-style: normal;
+        font-stretch: normal;
+        letter-spacing: -0.3px;
+        color: $dark;
+      }
+
+      .input-field::placeholder {
+        color: $dark !important;
+      }
+
+      .btn-save {
+        height: 50px;
+        border: 0;
+        border-radius: 3px;
+        background-color: $cool-blue;
+        width: 200px;
+        height: 50px;
+        font-size: 16px;
+        line-height: 1.81;
+        letter-spacing: -0.3px;
+        text-align: center;
+        color: white;
+        padding-top: 10px;
+        margin-bottom: 80px;
+      }
+    }
+  }
+}
+
+.search-box {
+  width: 620px;
+  height: 50px;
+  border-radius: 3px;
+  margin-right: 18px !important;
+}
+
+.btn-search,
+.btn-add {
+  color: white !important;
+  font-size: 16px;
+  border: 0;
+  border-radius: 3px;
+}
+
+.small {
+  height: 50px !important;
+  width: 184px !important;
+  margin-left: 4px !important;
+}
+
+.big {
+  width: 320px !important;
+  height: 50px !important;
+}
+
+.cool-blue {
+  background-color: $cool-blue !important;
+}
+
+.ugly-blue {
+  background-color: $ugly-blue !important;
+}
+
+input {
+  border: solid 1px #cae7f0 !important;
+}
+
+.search-box::placeholder {
+  color: $dark !important;
+}
+
+.list-body {
+  margin-top: 32px !important;
+}
+
+.event-card {
+  width: 200px !important;
+  margin-bottom: 64px;
+  margin-right: 72px;
+
+  .event-card__header {
+    height: 132px;
+    width: 200px !important;
+    background-position: center;
+  }
+
+  .event-card__body {
+    margin-top: 16px;
+    width: 200px !important;
+
+    .event-card__body-title {
+      font-size: 16px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.81;
+      letter-spacing: -0.3px;
+      color: $dark;
+      width: 200px;
+      height: 67px;
+    }
+
+    .event-card__body-date {
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2.07;
+      letter-spacing: -0.3px;
+      color: #616163;
+      font-size: 14px;
+    }
+  }
+
+  .card-footer {
+    margin-top: 8px;
+  }
+
+  .footer-btn {
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.07;
+    letter-spacing: -0.3px;
+    border: 0;
+    background-color: #f8fdff;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .txt-blue {
+    color: $cool-blue;
+  }
+
+  .txt-red {
+    color: #d3281f;
+  }
+
+  .no-padding {
+    padding-left: 0 !important;
+  }
+}
+
+.empty-view {
+  text-align: center;
+
+  .image-empty {
+    width: 112px;
+    height: 85px;
+    display: inline-block;
+    margin-top: 10%;
+  }
+}
+
+.events-pagination {
+  float: right;
+  margin-right: 64px !important;
+  height: 31px;
+  margin-bottom: 80px !important;
+
+  .page-number {
+    border: solid 1px $ugly-blue;
+    width: 40px;
+    height: 31px;
+    color: $ugly-blue;
+  }
+
+  .pg-btn {
+    width: 32px;
+    height: 31px;
+    cursor: pointer;
+    margin-left: 6px !important;
+  }
+
+  .icon-active {
+    border: solid 1px $ugly-blue;
+    color: $ugly-blue;
+    cursor: pointer;
+  }
+
+  .icon-inactive {
+    border: solid 1px #e0e0e0;
+    color: #e0e0e0;
+    background-color: $pale-gray;
+    cursor: default;
+  }
+
+  .pg-text,
+  .page-number {
+    padding-top: 5px !important;
+  }
+
+  .pg-buttons {
+    margin-left: 20px !important;
+  }
+}
+
+button:focus {
+  border: none;
+  outline: none;
+}
+
+.file-width {
+  width: 100% !important;
+}
+
+.file__label {
+  height: 60% !important;
+}
+
+.events-container .mce-tinymce iframe {
+  height: 438px !important;
+}
+
+.not-found-view {
+  text-align: center;
+  margin-top: 5%;
+}
