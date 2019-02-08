@@ -14,6 +14,11 @@ import { watchRegistration, watchUserEdit } from './users/AddUsersSaga';
 import { watchDeleteUser } from './users/deleteUser';
 import { watchFetchingUsers } from './users/fetchUsers';
 import { watchFetchingOneUser } from './users/fetchOneUser';
+import { watchAddEventWatcher } from './events/addEventSaga';
+import { watcherListEvent } from './events/listEventsSaga';
+import { singleEventWatcher } from './events/singleEventSaga';
+import { updateEventWatcher } from './events/editEventSaga';
+import { watcherDeleteEvent } from './events/deleteEventSaga';
 
 export default function* root() {
   yield all([
@@ -36,5 +41,10 @@ export default function* root() {
     fork(watchFetchingUsers),
     fork(watchDeleteUser),
     fork(watchFetchingOneUser),
+    fork(watchAddEventWatcher),
+    fork(watcherListEvent),
+    fork(singleEventWatcher),
+    fork(updateEventWatcher),
+    fork(watcherDeleteEvent),
   ]);
 }
