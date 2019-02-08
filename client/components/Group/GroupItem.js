@@ -34,12 +34,11 @@ const GroupItem = ({
         <Dropdown.Menu>
           <Dropdown.Item
             className="group-item-edit-dropdown"
-            // eslint-disable-next-line no-underscore-dangle
             onClick={() => redirectTo(group._id)}
           >
             Edit
           </Dropdown.Item>
-          <Dropdown.Item>
+          <Dropdown.Item className="ui color red">
             <ActionModal
               triggerText="Delete Group"
               header={`Delete ${group.name} Group`}

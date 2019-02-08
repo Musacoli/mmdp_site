@@ -25,8 +25,15 @@
     border: white;
     min-height: 71px !important;
 }
+.item.heading {
+    padding-top: 6px !important;
+}
+.item.ui.color.red {
+    color: red;
+}
 .sidebar-header {
     margin-left: 25px !important;
+    margin-top: 12px !important;
 }
 .sidebar .item i {
    font-size: 24px;

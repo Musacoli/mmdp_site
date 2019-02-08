@@ -4,8 +4,11 @@ import Group from '../views/Group';
 import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
-import About from '../containers/About';
 import AddReport from '../views/Resources/Report/AddReport';
+import About from '../containers/About';
+
+import editEmailView from '../views/Users/editEmailView';
+import AddUserView, { EditUserView } from '../views/Users';
 
 const routes = [
   {
@@ -48,6 +51,24 @@ const routes = [
     path: '/resources/report/add',
     name: 'Add Report',
     component: AddReport,
+    exact: true,
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: AddUserView,
+    exact: true,
+  },
+  {
+    path: '/users/edit/:email',
+    name: 'edit',
+    component: editEmailView,
+    exact: true,
+  },
+  {
+    path: '/users/all',
+    name: 'confirmation',
+    component: EditUserView,
     exact: true,
   },
 ];

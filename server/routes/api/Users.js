@@ -24,34 +24,33 @@ export const createUser = (req, res) => {
   });
 };
 
-export const confirmed = (req, res) =>
-  res.status(200).json({
+export const confirmed = (req, res) => {
+  return res.status(200).json({
     status: SUCCESS,
     message: resp.verified,
   });
+};
 
-export const updateEmail = (req, res) =>
-  res.json({
+export const updateEmail = (req, res) => {
+  return res.json({
     status: SUCCESS,
     message: resp.emailUpdated,
   });
+};
 
 export const deleteUser = async (req, res) => {
   await User.model.findOne({ username: req.params.id }).exec((err, user) => {
-    if (!user) {
+    if (!user)
       return res.status(404).json({
         status: ERROR,
         message: resp.notFound,
       });
-    }
-
-    user.remove((error) => {
-      if (error) {
+    user.remove((err) => {
+      if (err)
         return res.status(500).json({
           status: ERROR,
           message: resp.tryAgain,
         });
-      }
       return res.status(200).json({
         status: SUCCESS,
         message: resp.userDeleted,
@@ -68,13 +67,13 @@ export const fetchUser = async (req, res) => {
       },
       fields,
     )
+    .populate('groups')
     .exec((err, user) => {
-      if (!user) {
+      if (!user)
         return res.status(404).json({
           status: FAIL,
           message: resp.notFound,
         });
-      }
 
       return res.json({
         status: SUCCESS,
@@ -97,8 +96,9 @@ export const fetchAllUsers = async (req, res) => {
   });
 };
 
-export const edited = (req, res) =>
-  res.json({
+export const edited = (req, res) => {
+  return res.json({
     status: SUCCESS,
     message: resp.detailsUpdated,
   });
+};

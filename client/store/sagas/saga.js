@@ -10,6 +10,9 @@ import {
 import { watchAddReport } from './resources/report';
 import { watchFetchingPermissions } from './permission';
 import * as aboutWatcher from './about';
+import { watchRegistration, watchUserEdit } from './users/AddUsersSaga';
+import { watchDeleteUser } from './users/deleteUser';
+import { watchFetchingUsers } from './users/fetchUsers';
 
 export default function* root() {
   yield all([
@@ -27,5 +30,9 @@ export default function* root() {
     fork(aboutWatcher.updateAboutMMDPWatcher),
     fork(aboutWatcher.getAboutMMDPWatcher),
     fork(watchAddReport),
+    fork(watchRegistration),
+    fork(watchUserEdit),
+    fork(watchFetchingUsers),
+    fork(watchDeleteUser),
   ]);
 }

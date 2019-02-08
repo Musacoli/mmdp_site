@@ -8,7 +8,7 @@ const MainContent = ({ children, title }) => (
       <div className="item openbtn">
         <i className="icon content" />
       </div>
-      <div className="item">
+      <div className="item heading">
         <Container>
           <Header className="sidebar-header" as="h1">
             {title}

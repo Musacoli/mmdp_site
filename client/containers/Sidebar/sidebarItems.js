@@ -58,7 +58,7 @@ export const sidebarItems = [
   {
     title: 'Users',
     menuItems: [],
-    path: '/login',
+    path: '/users/all',
   },
   {
     title: 'Groups',
