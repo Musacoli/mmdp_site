@@ -83,7 +83,7 @@ export const fetchUser = async (req, res) => {
 };
 
 export const fetchAllUsers = async (req, res) => {
-  const user = await User.model.find({}, exclude);
+  const user = await User.model.find({}, exclude).populate('groups');
   if (!user) {
     return res.status(500).json({
       status: FAIL,

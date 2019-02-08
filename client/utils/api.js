@@ -29,6 +29,7 @@ export const api = {
     create: (data) => client.post('api/v1/users', data),
     edit: (data) => client.put('api/v1/users/', data),
     list: () => client.get('api/v1/users'),
+    getOne: (username) => client.get(`api/v1/users/${username}`),
     delete: (data) => client.delete(`api/v1/users/${data}`),
   },
 };

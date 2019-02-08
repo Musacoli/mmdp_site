@@ -9,7 +9,6 @@ import user from '../../../__mocks__/fetchUserData';
 
 const state = {
   Users: [],
-  deleteUser: [],
 };
 
 const props = {
@@ -21,7 +20,7 @@ const props = {
 const wrapper = mount(<ViewUsers {...props} />);
 describe('<ViewUsers />', () => {
   it('Maps state to props', () => {
-    expect(mapStateToProps(state).deleteUser).toEqual(state.Users);
+    expect(mapStateToProps(state).deleteUser).toEqual(state.deleteUser);
   });
 
   it('renders the ViewUsers component as expected', () => {

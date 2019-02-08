@@ -4,7 +4,7 @@ import routes from './routes';
 import Template from '../../views/Templates';
 
 const About = (props) => (
-  <Template {...props} title="About blah blah">
+  <Template {...props} title="">
     <div>
       {routes.map((route) => (
         <Route

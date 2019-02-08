@@ -60,7 +60,7 @@ const routes = [
     exact: true,
   },
   {
-    path: '/users/edit/:email',
+    path: '/users/edit/:email/:username',
     name: 'edit',
     component: editEmailView,
     exact: true,
