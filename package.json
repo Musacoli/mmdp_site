@@ -18,8 +18,6 @@
     "test:client": "jest -u --coverage",
     "test:client:watch": "jest -u --watch",
     "coverage:server": "nyc --reporter html --reporter text --report-dir ./server/coverage npm run test:server",
-    "pretest:server": "yarn lint",
-    "pretest:client": "yarn lint",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -38,7 +36,6 @@
     "dotenv": "^6.2.0",
     "expect": "^23.6.0",
     "express-validation": "^1.0.2",
-    "faker": "^4.1.0",
     "jest-mock-axios": "^2.1.11",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
@@ -73,8 +70,8 @@
     "sprintf-js": "^1.1.2",
     "toastr": "^2.1.4",
     "underscore": "^1.9.1",
-    "validate.js": "^0.12.0",
-    "validator": "^10.11.0"
+    "validator": "^10.11.0",
+    "validate.js": "^0.12.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -103,8 +100,10 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.11.0",
+    "faker": "^4.1.0",
     "jest": "^23.6.0",
     "jest-enzyme": "^7.0.1",
+    "jest-fetch-mock": "^2.1.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
     "nyc": "^13.1.0",
@@ -118,6 +117,10 @@
     "supertest": "^3.3.0"
   },
   "jest": {
+    "automock": false,
+    "setupFiles": [
+      "<rootDir>/client/__tests__/setup/setupJest.js"
+    ],
     "setupTestFrameworkScriptFile": "<rootDir>/client/__tests__/setup/setupEnzyme.js",
     "testPathIgnorePatterns": [
       "<rootDir>/client/__tests__/setup/",
@@ -135,9 +138,10 @@
       "client/**/*.{js,jsx}",
       "!**/coverage/**",
       "!client/store/index.js",
-      "!client/store/reducer/index.js",
+      "!client/store/reducers/index.js",
       "!client/index.js",
-      "!**/middleware/**"
+      "!**/middleware/**",
+      "!**/store/sagas/**"
     ],
     "coverageDirectory": "./client/coverage",
     "coverageReporters": [

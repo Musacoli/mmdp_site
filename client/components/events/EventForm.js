@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Grid, Form } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import MarkdownEditor from '../common/MarkdownEditor';
-import { FileInput } from '../About/Inputs';
+import { FileInput } from '../common/Inputs';
 import '../../assets/styles/events.scss';
 
 const EventForm = ({

@@ -99,6 +99,7 @@ describe('Coordination API', () => {
       await app.loginRandom(['cms.about.update']);
       existingCoordination = await createCoordination();
       newData = await makeCoordination();
+      newData = { ...newData, highlightIds: newData.highlight };
     });
 
     it('expect to update Coordination by id', async () => {

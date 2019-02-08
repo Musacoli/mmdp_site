@@ -1,0 +1,24 @@
+
+div.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+div.input__area {
+  margin-bottom: 30px;
+}
+
+div.markdown  {
+  height: auto;
+}
+
+div.input__area,
+div.markdown__area {
+  width: auto;
+}
+
+form.about__section {
+  margin-left: 10px;
+}
+

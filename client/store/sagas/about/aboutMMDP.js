@@ -1,7 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import toastr from '../../../utils/toastr';
-import * as aboutApi from '../../../api/about';
+import * as aboutApi from '../../../utils/about';
 import * as types from '../../../constants/about';
+import showErrorMessage from './showErrorMessage';
 
 export function* createAboutMMDP(action) {
   yield put({ type: types.ABOUT_MMDP_LOADING });
@@ -10,12 +11,10 @@ export function* createAboutMMDP(action) {
     const { data } = yield call(aboutApi.createAboutMMDP, action.payload);
     yield put({ type: types.ABOUT_MMDP_SUCCESS, payload: data.item });
     toastr.success('"About MMDP" created successfully');
-  } catch (error) {
-    yield put({
-      type: types.ABOUT_MMDP_FAILURE,
-      error: error.response.data.errors,
-    });
+  } catch (e) {
+    const error = showErrorMessage(e);
     error.reverse().forEach((err) => toastr.error(err));
+    yield put({ type: types.ABOUT_MMDP_FAILURE, error });
   }
 }
 
@@ -26,12 +25,10 @@ export function* updateAboutMMDP(action) {
     const { data } = yield call(aboutApi.updateAboutMMDP, action.payload);
     yield put({ type: types.ABOUT_MMDP_SUCCESS, payload: data.item });
     toastr.success('"About MMDP" updated successfully');
-  } catch (error) {
-    yield put({
-      type: types.ABOUT_MMDP_FAILURE,
-      error: error.response.data.errors,
-    });
+  } catch (e) {
+    const error = showErrorMessage(e);
     error.reverse().forEach((err) => toastr.error(err));
+    yield put({ type: types.ABOUT_MMDP_FAILURE, error });
   }
 }
 
@@ -40,11 +37,10 @@ export function* getAboutMMDP(action) {
   try {
     const { data } = yield call(aboutApi.getAboutMMDP, action);
     yield put({ type: types.ABOUT_MMDP_SUCCESS, payload: data.items[0] });
-  } catch (error) {
-    yield put({
-      type: types.ABOUT_MMDP_FAILURE,
-      error: error.response.data.errors,
-    });
+  } catch (e) {
+    const error = showErrorMessage(e);
+    error.reverse().forEach((err) => toastr.error(err));
+    yield put({ type: types.ABOUT_MMDP_FAILURE, error });
   }
 }
 

@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import toastr from '../../../utils/toastr';
 import * as aboutMMDPRequest from '../../../store/actions/about';
 import MarkdownEditor from '../../../components/common/MarkdownEditor';
-import Label from '../../../components/About/Label';
-import SectionTitle from '../../../components/About/SectionTitle';
-import AboutTemplate from '../../../views/About';
-import '../common/style.scss';
+import Label from '../../../components/common/Label';
+import Button from '../../../components/common/Button';
+import '../../../assets/styles/About/common/style.scss';
 
 export class AboutMMDP extends Component {
   state = {
@@ -88,38 +87,36 @@ export class AboutMMDP extends Component {
     const { about, background, loading } = this.state;
     return (
       <React.Fragment>
-        <SectionTitle title="About MMDP" />
-        <AboutTemplate>
-          <form onSubmit={this.submit}>
-            <div className="markdown__area">
-              <Label htmlFor="about-markdown" label="About" />
-              <div className="markdown">
-                <MarkdownEditor
-                  value={about}
-                  handleEditorChange={(val) =>
-                    this.handleEditorChange('about', val)
-                  }
-                />
-              </div>
+        <form className="about__section" onSubmit={this.submit}>
+          <div className="markdown__area">
+            <Label htmlFor="about-markdown" label="About" />
+            <div className="markdown">
+              <MarkdownEditor
+                value={about}
+                handleEditorChange={(val) =>
+                  this.handleEditorChange('about', val)
+                }
+              />
             </div>
-            <div className="markdown__area">
-              <Label htmlFor="backgound-markdown" label="Background" />
-              <div className="markdown">
-                <MarkdownEditor
-                  value={background}
-                  handleEditorChange={(val) =>
-                    this.handleEditorChange('background', val)
-                  }
-                />
-              </div>
+          </div>
+          <div className="markdown__area">
+            <Label htmlFor="backgound-markdown" label="Background" />
+            <div className="markdown">
+              <MarkdownEditor
+                value={background}
+                handleEditorChange={(val) =>
+                  this.handleEditorChange('background', val)
+                }
+              />
             </div>
-            <div className="button__area">
-              <button disabled={loading} type="submit">
-                Save
-              </button>
-            </div>
-          </form>
-        </AboutTemplate>
+          </div>
+          <Button
+            classNames="save__btn"
+            type="submit"
+            loading={loading}
+            name="Save"
+          />
+        </form>
       </React.Fragment>
     );
   }

@@ -2,6 +2,7 @@ import cors from 'cors';
 import keystone from 'keystone';
 import validate from 'express-validation';
 import aboutValidator from '../middleware/about';
+import fileUploadValidator from '../middleware/fileUpload';
 import apiResponse from '../middleware/apiResponse';
 import middleware from '../middleware/events';
 import validator from '../validation/validator';
@@ -28,7 +29,7 @@ const importRoutes = keystone.importer(__dirname);
 
 export const baseUrl = '/api/v1';
 
-const aboutPath = '/api/v1/about';
+const aboutPath = `${baseUrl}/about`;
 
 const App = (app) => {
   // Import Route Controllers
@@ -322,6 +323,11 @@ const App = (app) => {
     `${baseUrl}/resources/report`,
     [appendFilesToBody, validate(validator.report)],
     routes.api.resources.report.create,
+  );
+  app.post(
+    `${baseUrl}/file-upload`,
+    fileUploadValidator.fileUpload,
+    routes.api.fileUpload.create,
   );
 
   app.post(

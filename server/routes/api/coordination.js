@@ -9,16 +9,25 @@ export const create = (req, res) => {
   Highlight.model
     .insertMany(highlight)
     .then((result) => {
+      // eslint-disable-next-line
       item.getUpdateHandler(req).process(
         {
+          // eslint-disable-next-line no-underscore-dangle
+          creator: req.user._id,
           ...req.body,
           // eslint-disable-next-line no-underscore-dangle
           highlight: result.map((d) => d._id),
         },
         (err) => {
           if (err) return res.apiError('create error', err);
-          res.apiResponse({
-            item,
+
+          // eslint-disable-next-line
+          item.populate('highlight', (err, item) => {
+            // eslint-disable-next-line
+            if (err) return res.apiError('create error', err);
+            return res.apiResponse({
+              item,
+            });
           });
         },
       );
@@ -33,26 +42,59 @@ export const update = (req, res) => {
     if (err) return res.apiError('database error', err);
     if (!item) return res.apiError('not found');
 
-    item
-      .getUpdateHandler(req)
-      .process({ ...req.body, updatedAt: new Date() }, (error) => {
-        if (err) return res.apiError('update error', error);
+    const highlight = req.body.highlight.map((data) => ({ name: data }));
 
-        res.apiResponse({
-          item,
-        });
-      });
+    Highlight.model.deleteMany(
+      {
+        // eslint-disable-next-line no-underscore-dangle
+        _id: { $in: [...req.body.highlightIds] },
+      },
+      // eslint-disable-next-line
+      (err) => {
+        if (err) return res.apiError('update error', err);
+
+        Highlight.model
+          .insertMany(highlight)
+          .then((result) => {
+            // eslint-disable-next-line
+            item.getUpdateHandler(req).process(
+              {
+                ...req.body,
+                // eslint-disable-next-line no-underscore-dangle
+                highlight: result.map((d) => d._id),
+                updatedAt: new Date(),
+              },
+              // eslint-disable-next-line
+              (err) => {
+                if (err) return res.apiError('update error', err);
+                // eslint-disable-next-line
+                item.populate('highlight', (err, item) => {
+                  return res.apiResponse({
+                    item,
+                  });
+                });
+              },
+            );
+          }) // eslint-disable-next-line
+          .catch((err) => {
+            res.status(500).json({ err });
+          });
+      },
+    );
   });
 };
 
 export const list = (req, res) => {
-  Coordination.model.find((err, items) => {
-    if (err) return res.apiError('database error', err);
+  Coordination.model
+    .find()
+    .populate('highlight')
+    .exec((err, items) => {
+      if (err) return res.apiError('database error', err);
 
-    return res.apiResponse({
-      items,
+      return res.apiResponse({
+        items,
+      });
     });
-  });
 };
 
 export const get = (req, res) => {

@@ -15,9 +15,10 @@
       "jest": true
     },
     "rules": {
+      "new-cap": 0,
+      "import/prefer-default-export": "off",
       "prettier/prettier": "error",
       "import/no-unresolved": 0,
-      "no-shadow": 0,
       "no-plusplus": 0,
       "consistent-return": 0,
       "no-underscore-dangle": 0,
@@ -29,10 +30,10 @@
       "jsx-a11y/label-has-for": [ 2, {
         "components": [ "Label" ],
         "required": {
-            "some": [ "nesting", "id" ]
+          "some": [ "nesting", "id" ]
         },
         "allowChildren": false
-    }],
+      }],
       "react/react-in-jsx-scope": ["off"],
       "react/require-default-props": 0,
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]

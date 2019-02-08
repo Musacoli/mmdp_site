@@ -2,7 +2,7 @@ exports.create = {
   Group: [
     {
       name: 'Security Admin',
-      permissions: ['user.*', 'group.*'],
+      permissions: ['user.*', 'group.*', 'cms.*'],
     },
   ],
   // for testing purposes update the id on the groups

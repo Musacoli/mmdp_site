@@ -2,7 +2,7 @@ import { put, call, takeLatest } from 'redux-saga/effects';
 import toastr from 'toastr';
 import { ADD_REPORT } from '../../../constants/resources/report';
 import * as actions from '../../actions/resources/report';
-import * as request from '../../../api/resources/report';
+import * as request from '../../../utils/resources/report';
 
 export function* addReport(action) {
   try {
