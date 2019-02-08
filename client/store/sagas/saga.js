@@ -13,6 +13,7 @@ import * as aboutWatcher from './about';
 import { watchRegistration, watchUserEdit } from './users/AddUsersSaga';
 import { watchDeleteUser } from './users/deleteUser';
 import { watchFetchingUsers } from './users/fetchUsers';
+import { watchFetchingOneUser } from './users/fetchOneUser';
 
 export default function* root() {
   yield all([
@@ -34,5 +35,6 @@ export default function* root() {
     fork(watchUserEdit),
     fork(watchFetchingUsers),
     fork(watchDeleteUser),
+    fork(watchFetchingOneUser),
   ]);
 }

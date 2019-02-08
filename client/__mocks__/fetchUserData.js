@@ -8,6 +8,7 @@ const user = {
       username: 'john',
       last_name: 'John',
       first_name: 'Doe',
+      groups: [{ _id: 1, name: 'admin' }],
     },
     {
       email: 'smith@gmail.com',
@@ -16,6 +17,7 @@ const user = {
       username: 'smith',
       last_name: 'Smith',
       first_name: 'John',
+      groups: [{ _id: 1, name: 'admin' }],
     },
     {
       email: 'tom@gmail.com',
@@ -24,6 +26,7 @@ const user = {
       username: 'tom',
       last_name: 'Tom',
       first_name: 'Jack',
+      groups: [{ _id: 1, name: 'admin' }],
     },
   ],
 };

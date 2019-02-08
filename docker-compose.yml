@@ -10,7 +10,7 @@ services:
   web-app:
     build: .
     ports:
-      - "3000:3000" 
+      - "3000:3000"
     volumes:
       - /mmdp/node_modules
       - .:/mmdp
@@ -31,4 +31,3 @@ services:
       - "web-app"
 
 
-  
