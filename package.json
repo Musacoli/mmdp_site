@@ -15,8 +15,8 @@
     "run:server": "nodemon ./server/index.js --exec babel-node",
     "build:server": "babel ./server -d ./dist-server --copy-files",
     "test:server": "NODE_ENV=test mocha --recursive --require @babel/register ./server/__tests__/tests --reporter spec --timeout 10000 --exit",
-    "test:client": "jest -u --coverage",
-    "test:client:watch": "jest -u --watch",
+    "test:client": "jest \"-u\" --coverage",
+    "test:client:watch": "jest \"-u\" --watch",
     "coverage:server": "nyc --reporter html --reporter text --report-dir ./server/coverage npm run test:server",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"

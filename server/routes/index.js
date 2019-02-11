@@ -25,6 +25,8 @@ import {
   validateGroupUpdate,
 } from '../middleware/groupMiddlewares';
 
+import validators from '../middleware/pillar_middleware';
+
 const importRoutes = keystone.importer(__dirname);
 
 export const baseUrl = '/api/v1';
@@ -372,6 +374,48 @@ const App = (app) => {
     '/api/v1/events/:id',
     [authenticate, authorize.events.delete, keystone.middleware.api],
     routes.api.events.remove,
+  );
+  // Pillars
+  app.get(
+    '/api/v1/pillars/',
+    [authenticate, authorize.cms.pillar.list, keystone.middleware.api],
+    routes.api.pillar.list,
+  );
+  app.get(
+    '/api/v1/pillars/:id',
+    [authenticate, authorize.cms.pillar.get, keystone.middleware.api],
+    routes.api.pillar.get,
+  );
+  app.get(
+    '/api/v1/pillars/pillar-number/:id',
+    [authenticate, authorize.cms.pillar.get, keystone.middleware.api],
+    routes.api.pillar.getByPillarNumber,
+  );
+
+  app.post(
+    '/api/v1/pillars/',
+    [
+      authenticate,
+      authorize.cms.pillar.create,
+      validators.Pillar,
+      keystone.middleware.api,
+    ],
+    routes.api.pillar.create,
+  );
+  app.put(
+    '/api/v1/pillars/:id/update',
+    [
+      authenticate,
+      authorize.cms.pillar.update,
+      validators.Pillar,
+      keystone.middleware.api,
+    ],
+    routes.api.pillar.update,
+  );
+  app.delete(
+    '/api/v1/pillars/:id/delete',
+    [authenticate, authorize.cms.pillar.delete, keystone.middleware.api],
+    routes.api.pillar.remove,
   );
 
   app.use(errorHandler);

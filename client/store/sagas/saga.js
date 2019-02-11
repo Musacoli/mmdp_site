@@ -20,6 +20,7 @@ import { watcherListEvent } from './events/listEventsSaga';
 import { singleEventWatcher } from './events/singleEventSaga';
 import { updateEventWatcher } from './events/editEventSaga';
 import { watcherDeleteEvent } from './events/deleteEventSaga';
+import * as pillarWatcher from './pillar/pillarMiddleware';
 
 export default function* root() {
   yield all([
@@ -57,5 +58,19 @@ export default function* root() {
     fork(updateEventWatcher),
     fork(watcherDeleteEvent),
     fork(addUserResearchWatcher),
+    fork(pillarWatcher.createPillarWatcher1),
+    fork(pillarWatcher.createPillarWatcher2),
+    fork(pillarWatcher.createPillarWatcher3),
+    fork(pillarWatcher.createPillarWatcher4),
+
+    fork(pillarWatcher.getPillarWatcher1),
+    fork(pillarWatcher.getPillarWatcher2),
+    fork(pillarWatcher.getPillarWatcher3),
+    fork(pillarWatcher.getPillarWatcher4),
+
+    fork(pillarWatcher.updatePillarWatcher1),
+    fork(pillarWatcher.updatePillarWatcher2),
+    fork(pillarWatcher.updatePillarWatcher3),
+    fork(pillarWatcher.updatePillarWatcher4),
   ]);
 }

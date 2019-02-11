@@ -17,6 +17,10 @@ import {
   Objectives,
   EdoStateApproach,
 } from '../views/About';
+import PillarOneView from '../views/Pillar/pillarOne';
+import PillarTwoView from '../views/Pillar/pillarTwo';
+import PillarThreeView from '../views/Pillar/pillarThree';
+import PillarFourView from '../views/Pillar/pillarFour';
 import AddResearch from '../views/Resources/Research/AddResearch';
 
 const routes = [
@@ -151,6 +155,30 @@ const routes = [
     name: 'confirmation',
     component: EditUserView,
     exact: true,
+  },
+  {
+    path: '/pillar-1',
+    name: 'PillarOne',
+    component: PillarOneView,
+    exact: false,
+  },
+  {
+    path: '/pillar-2',
+    name: 'PillarTwo',
+    component: PillarTwoView,
+    exact: false,
+  },
+  {
+    path: '/pillar-3',
+    name: 'PillarThree',
+    component: PillarThreeView,
+    exact: false,
+  },
+  {
+    path: '/pillar-4',
+    name: 'PillarFour',
+    component: PillarFourView,
+    exact: false,
   },
 ];
 

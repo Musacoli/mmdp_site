@@ -12,7 +12,12 @@
 export const sidebarItems = [
   {
     title: 'Thematic Pillars',
-    menuItems: [{ name: 'Pillar 1', path: '/pillar-1' }, { name: 'pillar-2' }],
+    menuItems: [
+      { name: 'Pillar 1', path: '/pillar-1' },
+      { name: 'Pillar 2', path: '/pillar-2' },
+      { name: 'Pillar 3', path: '/pillar-3' },
+      { name: 'Pillar 4', path: '/pillar-4' },
+    ],
   },
   {
     title: 'About',
