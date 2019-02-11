@@ -35,6 +35,7 @@ import {
   watchFetchDocuments,
 } from './resources/document';
 import { watchDeleteMedia } from './resources/media';
+import { AddStakeholderWatcher } from './stakeholders/addStakeholder';
 
 export default function* root() {
   yield all([
@@ -96,5 +97,7 @@ export default function* root() {
     fork(deleteUserResearchWatcher),
     fork(archiveUserResearchWatcher),
     fork(watchDeleteMedia),
+
+    fork(AddStakeholderWatcher),
   ]);
 }

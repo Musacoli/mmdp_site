@@ -6,7 +6,7 @@ BeneficiaryService.add({
   serviceName: { type: String },
   targetAudience: { type: String },
   beneficiaryType: { type: String },
-  numberOfMaleBeneciaries: { type: Number },
+  numberOfMaleBeneficiaries: { type: Number },
   numberOfFemaleBeneciaries: { type: Number },
   frequency: { type: Number },
   duration: { type: String },

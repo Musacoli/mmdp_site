@@ -32,6 +32,9 @@ import UpdateResearch from '../views/Resources/Research/EditResearch';
 import AddMedia from '../views/Resources/Document/AddMedia';
 import ListResearch from '../views/Resources/Research/ListResearch';
 import MediaListView from '../views/Resources/Media/MediaList';
+import StakeholdersView from '../views/Stakeholders/stakeholderDirectory';
+import AddStakeholderView from '../views/Stakeholders/addBasicInfo';
+import BeneficiaryServicesView from '../views/Stakeholders/addBeneficiaryServices';
 
 const routes = [
   {
@@ -273,6 +276,23 @@ const routes = [
     path: '/resources/documents/edit/:id',
     name: 'Edit resources document',
     component: EditDocument,
+  },
+  {
+    path: '/stakeholder-directory',
+    name: 'stakeholder-directory',
+    component: StakeholdersView,
+    exact: true,
+  },
+  {
+    path: '/stakeholder-directory/add-basic-information',
+    name: 'add-stakeholder',
+    component: AddStakeholderView,
+    exact: true,
+  },
+  {
+    path: '/stakeholder-directory/add-beneficiary-services',
+    name: 'add-beneficiary-services',
+    component: BeneficiaryServicesView,
     exact: true,
     protected: true,
   },

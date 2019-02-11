@@ -59,6 +59,11 @@ export const sidebarItems = [
       { name: 'Media', path: '/resources/media' },
       { name: 'Documents', path: '/resources/documents' },
     ],
+  },
+  {
+    title: 'Stakeholder directory',
+    menuItems: [],
+    path: '/stakeholder-directory',
     dividerTitle: 'COORDINATION MATRIX',
   },
   {

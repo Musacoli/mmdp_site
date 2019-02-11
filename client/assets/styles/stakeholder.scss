@@ -1,0 +1,245 @@
+@import 'abstracts/theme_variables';
+
+.sh-title {
+  color: $color-dark;
+  font-size: 22px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+  line-height: 1.55;
+}
+
+.page-status {
+  margin-top: 11px;
+  margin-bottom: 11px;
+}
+
+.row-label {
+  margin-bottom: -16px !important;
+}
+
+.st-label {
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.81;
+  letter-spacing: -0.3px;
+  color: $color-dark;
+}
+
+.st-input {
+  height: 50px !important;
+  width: 440px;
+  border-radius: 3px;
+  background-color: $color-white;
+  padding-left: 15px;
+  font-size: 14px;
+  color: $color-dark;
+  border: solid 1px $lighter-blue !important;
+}
+
+.st-textarea {
+  width: 945px;
+  height: 150px;
+  border-radius: 3px;
+  border: solid 1px $lighter-blue !important;
+  padding: 24px;
+}
+
+.parallelogram {
+  width: 42px;
+  height: 7px;
+  transform: skew(168deg);
+  background: $color-cool-blue;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.in-active {
+  background: $lighter-blue;
+}
+
+.inline-block-display {
+  display: inline-block;
+}
+
+.btn-add-new {
+  width: 283px;
+  height: 50px;
+  border-radius: 3px;
+  background-color: $color-cool-blue;
+  border: 0;
+  color: $color-white;
+  cursor: pointer;
+}
+
+.btn-back {
+  width: 200px;
+  height: 50px;
+  border-radius: 3px;
+  background-color: $color-white;
+  color: $color-cool-blue;
+  border: solid 1px $lighter-blue;
+  cursor: pointer;
+}
+
+.m-r-16 {
+  margin-right: 16px;
+}
+
+.stakeholder-card {
+  width: 304px;
+  height: 250px;
+  background-color: #eff8fb;
+  padding: 18px 23px;
+  margin-top: 32px;
+  margin-right: 48px;
+
+  .stakeholder-card-title {
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.81;
+    letter-spacing: -0.3px;
+    color: $color-dark;
+    cursor: pointer;
+  }
+
+  .stakeholder-card-body {
+    width: 255px;
+    height: 116px;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.81;
+    letter-spacing: -0.3px;
+    color: $color-dark;
+    margin-bottom: 17px;
+  }
+
+  .footer-btn {
+    background-color: #eff8fb;
+    border: 0;
+    font-size: 14px;
+    font-stretch: normal;
+    font-style: normal;
+    font-weight: bold;
+    height: 29px;
+    letter-spacing: -0.3px;
+    line-height: 2.07;
+    margin-right: 22px;
+    width: 25px;
+  }
+
+  .txt-blue {
+    color: $color-cool-blue;
+  }
+
+  .txt-red {
+    color: $color-rusty-red;
+  }
+}
+
+.sh-modal {
+  width: 1260px !important;
+  height: 951px;
+  border-radius: 3px;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.09);
+  padding: 32px 40px;
+  background-image: url('../images/group-2.png') !important;
+  background-size: 538px;
+  background-repeat: no-repeat !important;
+  background-position-x: calc(100% - 28px) !important;
+  background-position-y: calc(100% - 87px) !important;
+
+  .sh-modal-header {
+    border: 0 !important;
+    padding: 0 !important;
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    line-height: 1.4 !important;
+    letter-spacing: -0.8px;
+    color: $color-dark !important;
+
+    .btn-cancel {
+      color: $color-ugly-blue;
+      border: 0;
+      cursor: pointer;
+      font-size: 25px;
+    }
+  }
+
+  .sh-hr {
+    width: 560px;
+    height: 6px;
+    border: 0;
+    margin-top: 8px;
+    margin-bottom: 35px;
+    background-image: linear-gradient(to right, #73d5e7, #f58634);
+  }
+
+  .column-title {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.81;
+    letter-spacing: -0.3px;
+    color: $color-dark;
+  }
+
+  .column-text {
+    font-size: 14px;
+    line-height: 2.07;
+    letter-spacing: -0.3px;
+    color: $color-dark;
+    width: 279px;
+  }
+}
+
+.sh-card-row {
+  height: 120px;
+
+  .pr-94 {
+    padding-right: 94px !important;
+  }
+}
+
+.stakeholder-container {
+  width: 1136px;
+  padding-top: 40px !important;
+
+  .search-box,
+  .btn-search,
+  .btn_add {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0;
+  }
+
+  .cool-blue-label {
+    color: $color-cool-blue;
+    font-weight: bold;
+    line-height: 1.81;
+    letter-spacing: -0.3px;
+  }
+
+  .ui.input {
+    width: 440px;
+    height: 50px;
+  }
+}
+
+.pr-25 {
+  padding-right: 0 !important;
+  margin-left: 15px;
+}
+
+.split-column {
+  width: 210px !important;
+  margin-right: 40px !important;
+}
+
+.search-box {
+  width: 620px !important;
+}
