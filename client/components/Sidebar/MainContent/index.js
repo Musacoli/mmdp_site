@@ -14,7 +14,7 @@ const MainContent = ({ children, title }) => (
         </Container>
       </div>
     </div>
-    <div className="content-container">{children}</div>
+    <div className="ui container main main-content">{children}</div>
   </div>
 );
 
