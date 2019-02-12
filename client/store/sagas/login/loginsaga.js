@@ -1,38 +1,22 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import toastr from 'toastr';
-import axios from 'axios';
-import API from '../../../utils/keys';
 import { LOGIN } from '../../../constants/auth';
 import { loginSuccessOrFail } from '../../actions/auth/login';
+import loginApiRequest from '../../../utils/login';
 
 toastr.options = {
   positionClass: 'toast-top-center',
   preventDuplicates: true,
 };
-const apiRequest = (url, data) =>
-  axios
-    .post(url, data)
-    .then((response) => response.data)
-    .catch((error) => {
-      if (error.response) {
-        const response = error.response.data;
-        return response;
-      }
-    });
 
 export function* loginuser(action) {
   try {
-    const LOGIN_URL = `${API}/api/v1/auth/login`;
-    const USERDETAILS = action.payload;
-    const response = yield call(apiRequest, LOGIN_URL, USERDETAILS);
+    const response = yield call(loginApiRequest, action.payload);
     yield put(loginSuccessOrFail(response));
     if (response.status === 'success') {
       const userToken = response.data.user.token;
       toastr.success(response.message);
       localStorage.setItem('userToken', userToken);
-      setTimeout(() => {
-        window.location.replace('/');
-      }, 1000);
     } else {
       toastr.warning(response.message);
     }

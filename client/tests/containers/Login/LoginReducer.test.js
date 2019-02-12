@@ -1,5 +1,9 @@
 import loginReducer from '../../../store/reducers/auth/login';
-import { LOGIN, LOGIN_SUCCESS_OR_FAILURE } from '../../../constants/auth';
+import {
+  LOGIN,
+  LOGOUT,
+  LOGIN_SUCCESS_OR_FAILURE,
+} from '../../../constants/auth';
 
 describe('Login reducer', () => {
   it('should return the initial state', () => {
@@ -33,6 +37,21 @@ describe('Login reducer', () => {
     expect(loginReducer({}, action)).toEqual({
       payload: {
         message: 'user login successful',
+      },
+    });
+  });
+
+  it('should return logout', () => {
+    const action = {
+      type: LOGOUT,
+      payload: {
+        status: 'logged out',
+      },
+    };
+
+    expect(loginReducer({}, action)).toEqual({
+      payload: {
+        status: 'logged out',
       },
     });
   });
