@@ -1,4 +1,4 @@
-import { createUser, faker, removeAllModels } from './commons/base';
+import { createUser, faker, removeAllCollections } from './commons/base';
 import Event from '../../models/EventsModel';
 
 export const makeEvent = async (overrides = {}, times = 1) => {
@@ -31,5 +31,5 @@ export const createEvent = async (overrides = {}, times = 1) => {
 };
 
 export const removeAllEvents = async () => {
-  await removeAllModels(Event);
+  await removeAllCollections(Event);
 };

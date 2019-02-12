@@ -5,15 +5,13 @@ import {
   LIST_EVENTS_FAILURE,
   UPDATE_EVENTS_LIST,
 } from '../../../constants/events';
+import { getPaginationData } from '../../../utils/helpers';
 
 export const initialState = {
   events: [],
+  pagination: {},
   fetching: false,
   error: null,
-  pages: 0,
-  currentPage: 0,
-  next: false,
-  previous: false,
 };
 
 const listEvents = (state = initialState, action = {}) => {
@@ -29,10 +27,7 @@ const listEvents = (state = initialState, action = {}) => {
         ...state,
         fetching: false,
         events: action.events.data.results,
-        pages: action.events.data.totalPages,
-        currentPage: action.events.data.currentPage,
-        next: action.events.data.next,
-        previous: action.events.data.previous,
+        pagination: getPaginationData(action.events.data),
       };
     case UPDATE_EVENTS_LIST: {
       const newEvents = state.events.filter(
@@ -47,7 +42,8 @@ const listEvents = (state = initialState, action = {}) => {
       return {
         ...state,
         fetching: false,
-        events: null,
+        events: [],
+        pagination: {},
         error: action.error,
       };
     default:

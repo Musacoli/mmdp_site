@@ -9,11 +9,15 @@ describe('<List Events /> ', () => {
     params: { pageNumber: 1 },
   };
 
+  const events = {
+    results: [{}, {}, {}],
+  };
+
   const wrapper = shallow(
     <ListEvents
       match={match}
       listEvents={jest.fn}
-      events={[]}
+      events={events}
       dispatch={jest.fn}
       pages={4}
       currentPage={2}
@@ -29,7 +33,7 @@ describe('<List Events /> ', () => {
     <ListEvents
       match={match}
       listEvents={jest.fn}
-      events={[{}, {}, {}]}
+      events={events}
       dispatch={jest.fn}
       pages={4}
       currentPage={2}
@@ -41,17 +45,8 @@ describe('<List Events /> ', () => {
     new ReactRouterEnzymeContext(),
   );
 
-  const event = {
-    preventDefault: jest.fn(),
-  };
-
-  it('renders Add Events conatiner without crashing', () => {
+  it('renders Add Events container without crashing', () => {
     expect(toJson(wrapper)).toMatchSnapshot();
     expect(toJson(ListWrapper)).toMatchSnapshot();
-  });
-
-  it('', () => {
-    wrapper.instance().handleNext(event);
-    wrapper.instance().handlePrevious(event);
   });
 });

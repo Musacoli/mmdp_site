@@ -3,7 +3,7 @@ import expect from 'expect';
 import {
   app,
   removeAllGroupsAndUsers,
-  removeAllModels,
+  removeAllCollections,
 } from '../../../helpers/commons/base';
 import GovernorMessage from '../../../../models/GovernorMessage';
 import {
@@ -36,7 +36,7 @@ const apiArchiveGovernorMessage = async (id) =>
 describe('Governor Message API', () => {
   describe('create governor message', () => {
     beforeEach(async () => {
-      await removeAllModels('GovernorMessage');
+      await removeAllCollections(GovernorMessage);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.create']);
     });
@@ -90,7 +90,7 @@ describe('Governor Message API', () => {
     let newData;
 
     beforeEach(async () => {
-      await removeAllModels('GovernorMessage');
+      await removeAllCollections(GovernorMessage);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.update']);
       existingMessage = await createGovernorMessage();
@@ -137,7 +137,7 @@ describe('Governor Message API', () => {
     let existingMessage;
 
     beforeEach(async () => {
-      await removeAllModels('GovernorMessage');
+      await removeAllCollections(GovernorMessage);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
       existingMessage = await createGovernorMessage();
@@ -182,7 +182,7 @@ describe('Governor Message API', () => {
 
   describe('list governor message', () => {
     beforeEach(async () => {
-      await removeAllModels('GovernorMessage');
+      await removeAllCollections(GovernorMessage);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
       await Promise.all([...Array(5)].map(() => createGovernorMessage()));
@@ -220,7 +220,7 @@ describe('Governor Message API', () => {
     let existingMessage;
 
     beforeEach(async () => {
-      await removeAllModels('GovernorMessage');
+      await removeAllCollections(GovernorMessage);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.archive']);
       existingMessage = await createGovernorMessage();

@@ -1,43 +1,44 @@
-.pagination-area {
-  color: $color-dark;
-  margin-top: 30px;
-  &__content {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+$cool-blue: #3faaca;
+$ugly-blue: #296d81;
+$dark: #1a1f37;
+$pale-gray: #fafeff;
+
+.app-pagination {
+  height: 31px;
+
+  .page-number {
+    border: solid 1px $ugly-blue;
+    width: 40px;
+    height: 31px;
+    color: $ugly-blue;
   }
-  &__item {
-    margin-left: 10px;
-    font-size: 16px;
-  }
-  &__navigator {
-    color: $color-ugly-blue;
-    font-weight: bold;
-    padding: 10px 18px;
-    border: 1px solid $color-ugly-blue;
-  }
-  a {
-    display: block;
-    &:hover {
-      color: $color-ugly-blue;
-    }
-  }
-  &__link {
+
+  .pg-btn {
+    width: 32px;
+    height: 31px;
     cursor: pointer;
-    &:hover {
-      background-color: $color-ugly-blue;
-      i.icon {
-        color: $color-white;
-      }
-    }
-    &--inactive {
-      cursor: not-allowed;
-      opacity: 0.4;
-    }
+    margin-left: 6px !important;
   }
-  i.icon {
-    display: inline;
-    margin: 0;
+
+  .icon-active {
+    border: solid 1px $ugly-blue;
+    color: $ugly-blue;
+    cursor: pointer;
+  }
+
+  .icon-inactive {
+    border: solid 1px #e0e0e0;
+    color: #e0e0e0;
+    background-color: $pale-gray;
+    cursor: default;
+  }
+
+  .pg-text,
+  .page-number {
+    padding-top: 5px !important;
+  }
+
+  .pg-buttons {
     padding: 0;
   }
 }

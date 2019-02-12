@@ -19,7 +19,7 @@ describe('Resources research API', () => {
   describe('Create  research', () => {
     const researchData = {
       title: 'yooo',
-      researchFile: '../../../../helpers/testUploads/blank.pdf',
+      researchFile: '../../../../helpers/files/blank.pdf',
     };
     beforeEach(async () => {
       await removeAllGroupsAndUsers();
@@ -41,10 +41,7 @@ describe('Resources research API', () => {
       const res = await app
         .post(route)
         .field('title', title)
-        .attach(
-          'researchFile',
-          './server/__tests__/helpers/testUploads/blank.pdf',
-        );
+        .attach('researchFile', './server/__tests__/helpers/files/blank.pdf');
 
       expect(res.status).toBe(201);
       expect(res.body.status).toBe('success');

@@ -3,7 +3,7 @@ import expect from 'expect';
 import {
   app,
   removeAllGroupsAndUsers,
-  removeAllModels,
+  removeAllCollections,
 } from '../../../helpers/commons/base';
 import Coordination from '../../../../models/Coordination';
 import {
@@ -38,7 +38,7 @@ const apiArchiveCoordination = async (id) =>
 describe('Coordination API', () => {
   describe('create coordination', () => {
     before(async () => {
-      await removeAllModels('Coordination');
+      await removeAllCollections(Coordination);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.create']);
     });
@@ -94,7 +94,7 @@ describe('Coordination API', () => {
     let newData;
 
     before(async () => {
-      await removeAllModels('Coordination');
+      await removeAllCollections(Coordination);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.update']);
       existingCoordination = await createCoordination();
@@ -147,7 +147,7 @@ describe('Coordination API', () => {
     let existingCoordination;
 
     beforeEach(async () => {
-      await removeAllModels('Coordination');
+      await removeAllCollections(Coordination);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
       existingCoordination = await createCoordination();
@@ -187,7 +187,7 @@ describe('Coordination API', () => {
 
   describe('list coordination', () => {
     beforeEach(async () => {
-      await removeAllModels('Coordination');
+      await removeAllCollections(Coordination);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
       await Promise.all([...Array(5)].map(() => createCoordination()));
@@ -217,7 +217,7 @@ describe('Coordination API', () => {
     let existingCoordination;
 
     beforeEach(async () => {
-      await removeAllModels('Coordination');
+      await removeAllCollections(Coordination);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.archive']);
       existingCoordination = await createCoordination();

@@ -6,6 +6,14 @@ import EventsList from '../../../components/events/EventsList';
 describe('Events list component', () => {
   it('should render correctly', () => {
     const events = [];
-    shallow(<EventsList events={events} handleDelete={jest.fn} />);
+
+    const props = {
+      events,
+      handleDelete: jest.fn(),
+      handleSearch: jest.fn(),
+      handleSearchChange: jest.fn(),
+    };
+
+    shallow(<EventsList {...props} />);
   });
 });

@@ -2,9 +2,9 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import toastr from '../../../utils/toastr';
 import { api } from '../../../utils/events';
 
-function* workerSaga(pageNumber) {
+function* workerSaga({ payload }) {
   try {
-    const response = yield call(api.list, pageNumber.payload);
+    const response = yield call(api.list, payload);
     const events = response.data;
     yield put({ type: 'LIST_EVENTS_SUCCESS', events });
   } catch (error) {

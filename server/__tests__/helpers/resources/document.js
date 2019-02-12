@@ -1,4 +1,4 @@
-import { faker, removeAllModels } from '../commons/base';
+import { faker, removeAllCollections } from '../commons/base';
 import Document from '../../../models/resources/Document';
 
 export const makeDocument = (overrides = {}, times = 1) => {
@@ -34,5 +34,5 @@ export const createDocument = async (overrides = {}, times = 1) => {
 };
 
 export const removeAllDocuments = async () => {
-  await removeAllModels('Document');
+  await removeAllCollections(Document);
 };

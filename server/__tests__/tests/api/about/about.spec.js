@@ -3,7 +3,7 @@ import expect from 'expect';
 import {
   app,
   removeAllGroupsAndUsers,
-  removeAllModels,
+  removeAllCollections,
 } from '../../../helpers/commons/base';
 import About from '../../../../models/About';
 import { createAbout, makeAbout } from '../../../helpers/about';
@@ -31,7 +31,7 @@ const apiArchiveAbout = async (id) =>
 describe('About message API', () => {
   describe('Create About message', () => {
     beforeEach(async () => {
-      await removeAllModels('About');
+      await removeAllCollections(About);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.create']);
     });
@@ -85,7 +85,7 @@ describe('About message API', () => {
     let newData;
 
     beforeEach(async () => {
-      await removeAllModels('About');
+      await removeAllCollections(About);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.update']);
       existingAbout = await createAbout();
@@ -130,7 +130,7 @@ describe('About message API', () => {
     let existingAbout;
 
     beforeEach(async () => {
-      await removeAllModels('About');
+      await removeAllCollections(About);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
       existingAbout = await createAbout();
@@ -169,7 +169,7 @@ describe('About message API', () => {
 
   describe('List About messages', () => {
     beforeEach(async () => {
-      await removeAllModels('About');
+      await removeAllCollections(About);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
       await Promise.all([...Array(5)].map(() => createAbout()));
@@ -206,7 +206,7 @@ describe('About message API', () => {
   describe('Archive About messages', () => {
     let existingAbout;
     beforeEach(async () => {
-      await removeAllModels('About');
+      await removeAllCollections(About);
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.archive']);
       existingAbout = await createAbout();
