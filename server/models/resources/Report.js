@@ -3,7 +3,9 @@ import keystoneS3Adapter from 'keystone-storage-adapter-s3';
 import S3Config from '../S3';
 
 const { Types } = keystone.Field;
-const Report = new keystone.List('Report');
+const Report = new keystone.List('Report', {
+  track: { createdAt: true, updatedAt: true },
+});
 S3Config.path = keystone.expandPath('/assets/documents');
 
 const reportStorage = new keystone.Storage({
@@ -27,6 +29,7 @@ Report.add({
     required: true,
   },
   reportType: { type: Types.Select, options: ['quarterly', 'annual'] },
+  archived: { type: Types.Boolean, default: false },
 });
 
 Report.register();

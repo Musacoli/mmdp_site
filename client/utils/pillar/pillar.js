@@ -1,15 +1,15 @@
-import baseAPI, { client } from '../keys';
+import baseAPI, { server } from '../keys';
 
 const API = `${baseAPI}/api/v1/pillars`;
 
 export const createPillar = (data) => {
-  return client.post(`${API}`, data);
+  return server.post(`${API}`, data);
 };
 
 export const updatePillar = (data) => {
-  return client.put(`${API}/${data.id}/update`, data.formData);
+  return server.put(`${API}/${data.id}/update`, data.formData);
 };
 
 export const getPillar = (data) => {
-  return client.get(`${API}/pillar-number/${data.pillarNumber}`);
+  return server.get(`${API}/pillar-number/${data.pillarNumber}`);
 };

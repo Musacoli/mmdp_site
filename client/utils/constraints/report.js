@@ -1,8 +1,12 @@
-const addReportConstraint = {
+const reportFormConstraint = {
   title: {
     presence: {
       allowEmpty: false,
       message: '^Enter the report title',
+    },
+    length: {
+      minimum: 4,
+      message: 'must be at least 4 characters',
     },
   },
   reportFile: {
@@ -24,5 +28,4 @@ const addReportConstraint = {
   },
 };
 
-// eslint-disable-next-line import/prefer-default-export
-export { addReportConstraint };
+export default reportFormConstraint;

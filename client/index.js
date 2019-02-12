@@ -9,7 +9,6 @@ import './assets/styles/index.scss';
 import './assets/css/users/index.scss';
 import './assets/css/users/containers/user-containers.scss';
 import './assets/styles/main.scss';
-import './assets/css/users/user-containers.scss';
 
 const app = (
   <Provider store={store}>

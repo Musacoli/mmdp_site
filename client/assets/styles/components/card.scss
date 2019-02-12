@@ -1,0 +1,38 @@
+.blue-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 16px;
+  padding-bottom: 25px;
+  background-color: $color-lighter-blue;
+  min-height: 150px;
+  &__header {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.81;
+    letter-spacing: -0.3px;
+    color: $color-dark;
+  }
+  &__meta {
+    color: $color-slate-grey;
+    line-height: 2.07;
+    letter-spacing: -0.3px;
+  }
+  &__action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+  &__action-link {
+    a {
+      color: $color-cool-blue;
+    }
+    &--danger {
+      a {
+        color: $color-rusty-red;
+      }
+    }
+  }
+}

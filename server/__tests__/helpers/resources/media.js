@@ -35,5 +35,5 @@ export const createMedia = async (overrides = {}, times = 1) => {
 };
 
 export const removeAllMedia = async () => {
-  await removeAllModels(Media);
+  await removeAllModels('Media');
 };

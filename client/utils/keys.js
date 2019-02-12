@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-export const authUserHeader = () => ({
-  Authorization: `Bearer ${localStorage.userToken}`,
-});
+export const authUserHeader = () => {
+  const token = localStorage.getItem('userToken');
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
 
 const serverUrl = () => {
   if (process.env.NODE_ENV === 'production') {
@@ -13,7 +14,7 @@ const serverUrl = () => {
   }
 };
 
-export const client = axios.create({
+export const server = axios.create({
   baseURL: serverUrl(),
   headers: {
     'Content-Type': 'application/json',

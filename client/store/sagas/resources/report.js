@@ -1,35 +1,118 @@
+import { delay } from 'redux-saga';
 import { put, call, takeLatest } from 'redux-saga/effects';
 import toastr from 'toastr';
-import { ADD_REPORT } from '../../../constants/resources/report';
+import {
+  ADD_REPORT,
+  EDIT_REPORT,
+  DELETE_REPORT,
+  FETCH_REPORT,
+  FETCH_REPORTS,
+  ARCHIVE_REPORT,
+} from '../../../constants/resources/report';
 import * as actions from '../../actions/resources/report';
 import * as request from '../../../utils/resources/report';
+import { deriveError } from '../../../utils/helper';
 
-export function* addReport(action) {
+export function* sendReport({ payload }) {
   try {
-    const response = yield call(request.createReport, action.payload);
-    toastr.success(response.data.message);
-    const res = { status: response.status };
-    yield put(actions.addReportSuccessful({ response: res }));
-  } catch (err) {
-    let error;
-    if (err.message === 'Network Error') {
-      error = 'Unable to connect to the server! Please check your connection.';
-    } else if (
-      err.response &&
-      (err.response.status === 400 ||
-        err.response.data.status === 'Validation error')
-    ) {
-      const { error: errors } = err.response.data;
-      const firstError = Object.keys(errors)[0];
-      error = errors[firstError];
+    const { id, formData, mode } = payload;
+    let response;
+    let successAction;
+    if (mode === 'edit') {
+      response = yield call(request.updateReport, id, formData);
+      successAction = actions.editReportSuccessful;
     } else {
-      error = err.response ? err.response.data.message : err.message;
+      response = yield call(request.createReport, formData);
+      successAction = actions.addReportSuccessful;
     }
+    toastr.success(response.data.message);
+    yield delay(500);
+    const res = {
+      statusCode: response.status,
+      report: response.data.data.report,
+    };
+    yield put(successAction({ response: res }));
+  } catch (err) {
+    const error = deriveError(err);
     toastr.warning(error);
     yield put(actions.addReportFailure({ error }));
   }
 }
 
-export function* watchAddReport() {
-  yield takeLatest(ADD_REPORT, addReport);
+export function* fetchReport({ payload }) {
+  try {
+    const res = yield call(request.fetchReport, payload);
+    const response = {
+      statusCode: res.status,
+      status: res.data.status,
+      report: res.data.data.report,
+    };
+    yield put(actions.fetchReportSuccessful({ response }));
+  } catch (err) {
+    const error = deriveError(err);
+    toastr.warning(error);
+    yield put(actions.fetchReportFailure(error));
+  }
+}
+
+export function* fetchReports({ payload }) {
+  try {
+    const res = yield call(request.fetchReports, payload);
+    const response = {
+      statusCode: res.status,
+      status: res.data.status,
+      reports: res.data.data.reports,
+      meta: res.data.data.meta,
+    };
+    yield delay(1000);
+    yield put(actions.fetchReportsSuccessful({ response }));
+  } catch (err) {
+    const error = deriveError(err);
+    toastr.warning(error);
+    yield put(actions.fetchReportsFailure(error));
+  }
+}
+
+export function* deleteReport({ payload }) {
+  try {
+    const { id } = payload;
+    const res = yield call(request.deleteReport, id);
+    toastr.success(res.data.message);
+    const response = {
+      statusCode: res.status,
+      status: res.data.status,
+    };
+    yield put(actions.deleteReportSuccessful({ response }));
+  } catch (err) {
+    const error = deriveError(err);
+    toastr.warning(error);
+    yield put(actions.deleteReportFailure(error));
+  }
+}
+
+export function* archiveReport({ payload }) {
+  try {
+    const { id, action } = payload;
+    const res = yield call(request.archiveReport, id, action);
+    toastr.success(res.data.message);
+    const response = {
+      statusCode: res.status,
+      status: res.data.status,
+      report: res.data.data.report,
+    };
+    yield put(actions.archiveReportSuccessful({ response }));
+  } catch (err) {
+    const error = deriveError(err);
+    toastr.warning(error);
+    yield put(actions.archiveReportFailure(error));
+  }
+}
+
+export function* watchReport() {
+  yield takeLatest(ADD_REPORT, sendReport);
+  yield takeLatest(EDIT_REPORT, sendReport);
+  yield takeLatest(DELETE_REPORT, deleteReport);
+  yield takeLatest(FETCH_REPORT, fetchReport);
+  yield takeLatest(FETCH_REPORTS, fetchReports);
+  yield takeLatest(ARCHIVE_REPORT, archiveReport);
 }

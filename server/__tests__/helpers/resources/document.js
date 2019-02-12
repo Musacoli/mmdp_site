@@ -34,5 +34,5 @@ export const createDocument = async (overrides = {}, times = 1) => {
 };
 
 export const removeAllDocuments = async () => {
-  await removeAllModels(Document);
+  await removeAllModels('Document');
 };

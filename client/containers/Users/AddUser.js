@@ -4,7 +4,7 @@ import { Form, Message } from 'semantic-ui-react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated';
 import PropTypes from 'prop-types';
-import groupOptions from '../../utils/mapGroups';
+import mapGroupOptions from '../../utils/mapGroups';
 import { fetchingGroups } from '../../store/actions/groups';
 import { startRegistration } from '../../store/sagas/users';
 
@@ -60,19 +60,14 @@ export class AddUser extends Component {
   };
 
   render() {
-    const { register } = this.props;
-    const { isRegistering } = register;
-    const { errors } = register;
-    const { user } = register;
+    const { register, groups: allGroups } = this.props;
+    const { isRegistering, errors, user } = register;
     const options = [];
-    /* eslint-disable react/destructuring-assignment */
-    /* eslint-disable prefer-destructuring */
-    const groups = this.props.groups.groups;
+    const { groups } = allGroups;
     if (groups.length > 0) {
-      groupOptions(groups, options);
+      mapGroupOptions(groups, options);
     }
-    const { status, success } = this.state;
-    const { selectedOption } = this.state;
+    const { status, success, selectedOption, email } = this.state;
     return (
       <div className="container">
         {status && <Message className="negative"> {errors.message} </Message>}
@@ -107,7 +102,7 @@ export class AddUser extends Component {
           <Form.Button
             className="add-user-submit save-user registration-submit"
             type="submit"
-            disabled={!this.state.email}
+            disabled={!email}
             onClick={this.onSubmit}
           >
             save user

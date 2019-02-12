@@ -2,10 +2,10 @@ import cors from 'cors';
 import keystone from 'keystone';
 import validate from 'express-validation';
 import aboutValidator from '../middleware/about';
-// import fileUploadValidator from '../middleware/fileUpload';
+import fileUploadValidator from '../middleware/fileUpload';
 import apiResponse from '../middleware/apiResponse';
 import middleware from '../middleware/events';
-import validator from '../validation/validator';
+import validator from '../validation';
 import errorHandler from '../middleware/errorHandler';
 import authorize from '../middleware/authorize';
 import authenticate from '../middleware/authenticate';
@@ -47,7 +47,7 @@ const App = (app) => {
 
   app.post(
     `${baseUrl}/auth/login`,
-    [validate(validator.login)],
+    validate(validator.login),
     routes.api.auth.index.login,
   );
 
@@ -324,33 +324,18 @@ const App = (app) => {
     routes.api.permission.list,
   );
   app.post(
-    `${baseUrl}/resources/report`,
-    [
-      authenticate,
-      authorize.cms.resources.create,
-      appendFilesToBody,
-      validate(validator.report),
-    ],
-    routes.api.resources.report.create,
-  );
-  app.post(
-    `${baseUrl}/resources/research`,
-    [
-      authenticate,
-      authorize.cms.resources.create,
-      appendFilesToBody,
-      validate(validator.research),
-    ],
-    routes.api.resources.research.create,
+    `${baseUrl}/file-upload`,
+    fileUploadValidator.fileUpload,
+    routes.api.fileUpload.create,
   );
 
   app.post(
     '/api/v1/events',
     [
       authenticate,
-      authorize.events.create,
-      middleware.eventsMiddlewares,
       keystone.middleware.api,
+      middleware.eventsMiddlewares,
+      authorize.events.create,
     ],
     routes.api.events.create,
   );
@@ -426,7 +411,7 @@ const App = (app) => {
       authenticate,
       authorize.cms.resources.create,
       appendFilesToBody,
-      validate(validator.media),
+      validate(validator.media.addMedia),
     ],
     routes.api.resources.media.create,
   );
@@ -449,7 +434,7 @@ const App = (app) => {
       authenticate,
       authorize.cms.resources.create,
       appendFilesToBody,
-      validate(validator.document),
+      validate(validator.document.addDocument),
     ],
     routes.api.resources.document.create,
   );
@@ -461,7 +446,7 @@ const App = (app) => {
       authorize.cms.resources.update,
       paramDocExists,
       appendFilesToBody,
-      validate(validator.documentEdit),
+      validate(validator.document.editDocument),
     ],
     routes.api.resources.document.update,
   );
@@ -546,6 +531,79 @@ const App = (app) => {
     `${baseUrl}/resources/repository/:id`,
     [authenticate, authorize.cms.resources.delete, checkIfDocument],
     routes.api.resources.deleteDocument.deleteDocument,
+  );
+
+  // resources report
+  app.post(
+    `${baseUrl}/resources/reports`,
+    [
+      authenticate,
+      authorize.cms.resources.create,
+      appendFilesToBody,
+      validate(validator.report.addReport),
+    ],
+    routes.api.resources.report.create,
+  );
+
+  // returns the list including archived reports. Strictly for admin
+  app.get(
+    `${baseUrl}/resources/reports/all`,
+    [authenticate, authorize.cms.resources.get],
+    routes.api.resources.report.list,
+  );
+
+  // returns the list without archived reports. Will be used for the website
+  app.get(
+    `${baseUrl}/resources/reports`,
+    [authenticate, authorize.cms.resources.get],
+    routes.api.resources.report.list,
+  );
+
+  app.get(
+    `${baseUrl}/resources/reports/:id`,
+    [authenticate, authorize.cms.resources.get],
+    routes.api.resources.report.get,
+  );
+
+  app.patch(
+    `${baseUrl}/resources/reports/:id/archive`,
+    [authenticate, authorize.cms.resources.archive],
+    routes.api.resources.report.archive,
+  );
+
+  app.patch(
+    `${baseUrl}/resources/reports/:id/unarchive`,
+    [authenticate, authorize.cms.resources.archive],
+    routes.api.resources.report.archive,
+  );
+
+  app.put(
+    `${baseUrl}/resources/reports/:id`,
+    [
+      authenticate,
+      authorize.cms.resources.update,
+      appendFilesToBody,
+      validate(validator.report.updateReport),
+    ],
+    routes.api.resources.report.update,
+  );
+
+  app.delete(
+    `${baseUrl}/resources/reports/:id`,
+    [authenticate, authorize.cms.resources.delete],
+    routes.api.resources.report.remove,
+  );
+
+  // resources research
+  app.post(
+    `${baseUrl}/resources/research`,
+    [
+      authenticate,
+      authorize.cms.resources.create,
+      appendFilesToBody,
+      validate(validator.research.addResearch),
+    ],
+    routes.api.resources.research.create,
   );
 
   app.use(errorHandler);

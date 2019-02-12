@@ -1,0 +1,43 @@
+.pagination-area {
+  color: $color-dark;
+  margin-top: 30px;
+  &__content {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  &__item {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+  &__navigator {
+    color: $color-ugly-blue;
+    font-weight: bold;
+    padding: 10px 18px;
+    border: 1px solid $color-ugly-blue;
+  }
+  a {
+    display: block;
+    &:hover {
+      color: $color-ugly-blue;
+    }
+  }
+  &__link {
+    cursor: pointer;
+    &:hover {
+      background-color: $color-ugly-blue;
+      i.icon {
+        color: $color-white;
+      }
+    }
+    &--inactive {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+  }
+  i.icon {
+    display: inline;
+    margin: 0;
+    padding: 0;
+  }
+}

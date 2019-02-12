@@ -32,7 +32,7 @@ export const update = async (req, res) => {
         document: updatedDoc,
       },
       200,
-      sprintf(responseMessage.RESOURCE_UPDATE, 'document'),
+      sprintf(responseMessage.RESOURCE_UPDATED, 'document'),
     );
   } catch (error) {
     return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
@@ -45,7 +45,7 @@ export const list = async (req, res) => {
       return res.sendSuccess(
         { documents },
         200,
-        sprintf(responseMessage.RESOURCE_FETCH, 'documents'),
+        sprintf(responseMessage.RESOURCE_FETCHED, 'documents'),
       );
     });
   } catch (error) {

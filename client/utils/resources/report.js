@@ -1,6 +1,19 @@
-import baseAPI, { client } from '../keys';
+import baseAPI, { server } from '../keys';
 
-const url = `${baseAPI}/api/v1`;
-// eslint-disable-next-line import/prefer-default-export
+const URL = `${baseAPI}/api/v1`;
+const PAGE_LIMIT = 20;
 export const createReport = (data) =>
-  client.post(`${url}/resources/report`, data);
+  server.post(`${URL}/resources/reports`, data);
+export const updateReport = (id, data) =>
+  server.put(`${URL}/resources/reports/${id}`, data);
+
+export const deleteReport = (id) =>
+  server.delete(`${URL}/resources/reports/${id}`);
+
+export const archiveReport = (id, archiveAction) =>
+  server.patch(`${URL}/resources/reports/${id}/${archiveAction}`);
+
+export const fetchReport = (id) => server.get(`${URL}/resources/reports/${id}`);
+
+export const fetchReports = (page = 1) =>
+  server.get(`${URL}/resources/reports/all?page=${page}&limit=${PAGE_LIMIT}`);
