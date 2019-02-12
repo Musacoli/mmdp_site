@@ -20,7 +20,7 @@ const EventForm = ({
   ImageName,
   loading,
 }) => (
-  <Form onSubmit={handleSubmit} loading={loading}>
+  <Form onSubmit={handleSubmit} loading={loading} className="event-form">
     <Grid columns={2}>
       <Grid.Column>
         <label className="event-label">Event name</label>
