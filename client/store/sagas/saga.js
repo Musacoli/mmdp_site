@@ -25,6 +25,7 @@ import {
   watchAddDocument,
   watchFetchDocument,
   watchEditDocument,
+  watchFetchDocuments,
 } from './resources/document';
 
 export default function* root() {
@@ -52,6 +53,7 @@ export default function* root() {
     fork(aboutWatcher.updateObjectivesWatcher),
     fork(aboutWatcher.getObjectivesWatcher),
     fork(watchReport),
+    fork(watchFetchDocuments),
     fork(watchRegistration),
     fork(watchUserEdit),
     fork(watchFetchingUsers),

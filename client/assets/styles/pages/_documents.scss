@@ -1,3 +1,5 @@
+@import '../abstracts/variables';
+
 .ui.button.upload-document {
     width: 200px;
     height: 50px;
@@ -8,3 +10,107 @@
         color: white;
     }
 }
+
+.common__button {
+    height: 42px;
+    border-radius: 3px !important;
+    background-color: $color-cool-blue !important;
+    &:hover {
+      width: 100% !important;
+      display: block;
+    }
+}
+
+.bg-ugly-blue {
+	background-color: $ugly-blue !important;
+	&:hover {
+		background-color: $color-cool-blue !important;
+	}
+}
+
+.bg-cool-blue {
+	background-color: $color-cool-blue !important;
+	&:hover {
+		background-color: $ugly-blue !important;
+	}
+}
+$fontSize: 14px;
+.title.bold {
+	font-weight: bold;
+	font-size: $fontSize;
+}
+
+
+.media_type {
+	font-size: $fontSize !important;
+	padding-top: 0px;
+	Label {
+		font-size: $fontSize !important;
+	}
+	.column.title {
+		padding-right: 0px !important;
+		width: 9.5%!important;
+	}
+}
+
+.mr-12 {
+    margin-right: 12px !important;
+    margin-top: 2px !important;
+}
+
+.ui.button.upload-document {
+	width: 200px;
+	height: 50px;
+	&:hover {
+			width: 200px
+	}
+	&:active {
+			color: white;
+	}
+} 
+
+.ui.card {
+	.content {
+		.header.media__heading {
+			min-height: 100px;
+			overflow: hidden;
+			font-family: Muli;
+			font-size: 16px;
+			font-weight: bold;
+			font-style: normal;
+			font-stretch: normal;
+			line-height: 1.81;
+			letter-spacing: -0.3px;
+			padding: 16px;
+	  }
+	}	
+}
+
+.ui.card.media {
+	background-color: $alice-blue;
+	margin-bottom: 41px;
+	.content.show {
+		border-top: none;
+	}
+	.ui.three.buttons {
+		border: none;
+		.ui.button {
+			border: none;
+			background-color: transparent;
+			font-size: 14px;
+  		font-weight: 400;
+  		font-style: normal;
+  		font-stretch: normal;
+  		line-height: 2.07;
+  		letter-spacing: -0.3px;
+			color: $color-cool-blue;
+			&.red {
+				color: $rusty-red;
+			}
+		}
+	}
+}
+
+
+
+

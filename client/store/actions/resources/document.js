@@ -7,7 +7,25 @@ import {
   EDIT_DOCUMENT_FAILURE,
   FETCH_DOCUMENT,
   FETCH_DOCUMENT_SUCCESS,
+  FETCH_DOCUMENTS,
+  FETCH_DOCUMENT_FAILURE,
 } from '../../../constants/resources/document';
+
+/** FETCH DOCUMENTS */
+export const fetchDocuments = (payload) => ({
+  type: FETCH_DOCUMENTS,
+  payload,
+});
+
+export const fetchDocumentFailure = (payload) => ({
+  type: FETCH_DOCUMENT_FAILURE,
+  payload,
+});
+
+export const fetchDocumentSuccess = (payload) => ({
+  type: FETCH_DOCUMENT_SUCCESS,
+  payload,
+});
 
 /** EDIT A DOCUMENT */
 export const editDocument = (payload) => ({
@@ -28,11 +46,6 @@ export const editDocumentFailure = (payload) => ({
 /** FETCH A DOCUEMNT  */
 export const fetchDocument = (payload) => ({
   type: FETCH_DOCUMENT,
-  payload,
-});
-
-export const fetchDocumentSuccess = (payload) => ({
-  type: FETCH_DOCUMENT_SUCCESS,
   payload,
 });
 

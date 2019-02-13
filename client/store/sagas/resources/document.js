@@ -1,10 +1,11 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { put, call, takeLatest, takeEvery } from 'redux-saga/effects';
 import toastr from 'toastr';
 import {
   ADD_DOCUMENT,
   FETCH_DOCUMENT,
   EDIT_DOCUMENT,
-} from '../../../constants';
+  FETCH_DOCUMENTS,
+} from '../../../constants/resources/document';
 import * as actions from '../../actions/resources/document';
 import { api } from '../../../utils/api';
 
@@ -26,8 +27,7 @@ export function* editDocument({ payload }) {
     );
     const message = response !== undefined ? response.data.message : {};
     toastr.success(message);
-    const data = response !== undefined ? response.data : {};
-    yield put(actions.editDocumentSuccess(data));
+    yield put(actions.editDocumentSuccess({}));
   } catch (err) {
     let error;
     if (
@@ -69,6 +69,22 @@ export function* addDocument(action) {
     toastr.warning(error);
     yield put(actions.addDocumentFailure({ error }));
   }
+}
+
+/** Fetch documents */
+export function* fetchDocumentsAsync() {
+  try {
+    const response = yield call(api.resources.document.list);
+    let data = response ? response.data.data.documents : {};
+    data = { results: data };
+    yield put(actions.fetchDocumentSuccess({ data, isFetching: false }));
+  } catch (error) {
+    yield put(actions.fetchDocumentFailure({}));
+  }
+}
+/** WATCHERS */
+export function* watchFetchDocuments() {
+  yield takeEvery(FETCH_DOCUMENTS, fetchDocumentsAsync);
 }
 
 /** WATCHERS */
