@@ -18,7 +18,7 @@ import {
   verifyAccount,
   verifyEdit,
 } from '../middleware/userMiddlewares';
-
+import { checkIfDocument } from '../middleware/repository/validateDocument';
 import {
   paramGroupExists,
   validateGroupCreate,
@@ -534,6 +534,18 @@ const App = (app) => {
     `${baseUrl}/resources/repository/document/:id`,
     [authenticate, authorize.cms.resources.get, paramDocExists],
     routes.api.resources.document.getOne,
+  );
+
+  app.patch(
+    `${baseUrl}/resources/repository/archive/:id`,
+    [authenticate, authorize.cms.resources.archive, checkIfDocument],
+    routes.api.resources.archiveDocument.archive,
+  );
+
+  app.delete(
+    `${baseUrl}/resources/repository/:id`,
+    [authenticate, authorize.cms.resources.delete, checkIfDocument],
+    routes.api.resources.deleteDocument.deleteDocument,
   );
 
   app.use(errorHandler);

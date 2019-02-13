@@ -201,6 +201,24 @@ export class app {
   }
 
   /**
+   * Make a patch request with the authorization header (token) set if a user is
+   * logged in.
+   *
+   * @param url
+   * @returns {*}
+   */
+
+  static patch(url) {
+    const request = this.app.patch(url);
+
+    if (this.token) {
+      return request.set('authorization', `Bearer ${this.token}`);
+    }
+
+    return request;
+  }
+
+  /**
    * Make a delete request with the authorization header (token) set if a user is
    * logged in.
    *
