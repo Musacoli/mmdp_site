@@ -50,8 +50,8 @@ export class AddUser extends Component {
   handleChange = (selectedOption) => {
     const selectedGroups = [];
     /* eslint-disable no-restricted-syntax */
-    for (const groupOptions of selectedOption) {
-      selectedGroups.push(groupOptions.value);
+    for (const groups of selectedOption) {
+      selectedGroups.push(groups.value);
     }
     this.setState({
       selectedOption,

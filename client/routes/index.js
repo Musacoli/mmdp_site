@@ -5,12 +5,19 @@ import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
 import AddReport from '../views/Resources/Report/AddReport';
+import DocumentList from '../views/Resources/Document/DocumentList';
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
 import CreateEvent from '../containers/events/event';
 import ListEvents from '../containers/events/eventsList';
 import EditEvents from '../containers/events/editEvents';
-import { GovernorMessage, AboutMMDP, Coordination, Objectives, EdoStateApproach } from '../views/About';
+import {
+  GovernorMessage,
+  AboutMMDP,
+  Coordination,
+  Objectives,
+  EdoStateApproach,
+} from '../views/About';
 
 const routes = [
   {
@@ -83,6 +90,12 @@ const routes = [
     path: '/resources/report/add',
     name: 'Add Report',
     component: AddReport,
+    exact: true,
+  },
+  {
+    path: '/resources/documents',
+    name: 'List Documents',
+    component: DocumentList,
     exact: true,
   },
   {

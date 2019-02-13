@@ -18,4 +18,9 @@ export const api = {
     getOne: (username) => client.get(`api/v1/users/${username}`),
     delete: (data) => client.delete(`api/v1/users/${data}`),
   },
+  resources: {
+    documents: {
+      list: () => client.get('api/v1/resources/repository/documents'),
+    },
+  },
 };

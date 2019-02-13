@@ -49,6 +49,7 @@ export const sidebarItems = [
     menuItems: [
       { name: 'Resource 1', path: '/resource-1' },
       { name: 'Report', path: '/resources/report/add' },
+      { name: 'Documents', path: '/resources/documents' },
     ],
     dividerTitle: 'COORDINATION MATRIX',
   },

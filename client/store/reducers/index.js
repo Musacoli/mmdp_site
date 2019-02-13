@@ -9,6 +9,7 @@ import permissions from './permission';
 import groupCart from './group/cart';
 import governorMessage from './about/governorMessage';
 import aboutMMDP from './about/aboutMMDP';
+import documents from './resources/document';
 import report from './resources/report';
 import Users from './users/fetchUsers';
 import deleteUser from './users/deleteUser';
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   governorMessage,
   aboutMMDP,
   report,
+  documents,
   register,
   userEdit,
   Users,
