@@ -10,7 +10,7 @@ import AddUserView, { EditUserView } from '../views/Users';
 import CreateEvent from '../containers/events/event';
 import ListEvents from '../containers/events/eventsList';
 import EditEvents from '../containers/events/editEvents';
-import { GovernorMessage, AboutMMDP, Coordination } from '../views/About';
+import { GovernorMessage, AboutMMDP, Coordination, Objectives, EdoStateApproach } from '../views/About';
 
 const routes = [
   {
@@ -65,6 +65,18 @@ const routes = [
     path: '/about/coordination',
     name: 'Coordination',
     component: Coordination,
+    exact: false,
+  },
+  {
+    path: '/about/edo-state-approach',
+    name: 'The Edo State Approach',
+    component: EdoStateApproach,
+    exact: false,
+  },
+  {
+    path: '/about/objectives',
+    name: 'Objectives',
+    component: Objectives,
     exact: false,
   },
   {
