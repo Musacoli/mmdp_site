@@ -36,7 +36,7 @@ export default (state = initialState, { type, payload }) => {
     case FETCH_DOCUMENT_SUCCESS:
       return { ...state, loading: false, ...payload };
     case EDIT_DOCUMENT:
-      return { ...state, loading: true, ...payload };
+      return { ...state, loading: true };
     case EDIT_DOCUMENT_SUCCESS:
       return { ...state, loading: false, success: true, ...payload };
     case EDIT_DOCUMENT_FAILURE:

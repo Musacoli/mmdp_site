@@ -9,6 +9,7 @@ import EditReport from '../views/Resources/Report/EditReport';
 import ListReport from '../views/Resources/Report/ListReport';
 import AddDocument from '../views/Resources/Document/AddDocument';
 import EditDocument from '../views/Resources/Document/EditDocument';
+import DocumentList from '../views/Resources/Document/DocumentList';
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
 import CreateEvent from '../views/Events/AddEventView';

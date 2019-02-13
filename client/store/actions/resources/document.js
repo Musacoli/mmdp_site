@@ -7,8 +7,28 @@ import {
   EDIT_DOCUMENT_FAILURE,
   FETCH_DOCUMENT,
   FETCH_DOCUMENT_SUCCESS,
+<<<<<<< HEAD
+=======
+  FETCH_DOCUMENTS,
+>>>>>>> feat(repository-documents): Implement a grid list of documents
   FETCH_DOCUMENT_FAILURE,
 } from '../../../constants/resources/document';
+
+/** FETCH DOCUMENTS */
+export const fetchDocuments = (payload) => ({
+  type: FETCH_DOCUMENTS,
+  payload,
+});
+
+export const fetchDocumentFailure = (payload) => ({
+  type: FETCH_DOCUMENT_FAILURE,
+  payload,
+});
+
+export const fetchDocumentSuccess = (payload) => ({
+  type: FETCH_DOCUMENT_SUCCESS,
+  payload,
+});
 
 /** EDIT A DOCUMENT */
 export const editDocument = (payload) => ({
@@ -32,6 +52,7 @@ export const fetchDocument = (payload) => ({
   payload,
 });
 
+<<<<<<< HEAD
 export const fetchDocumentFailure = (payload) => ({
   type: FETCH_DOCUMENT_FAILURE,
   payload,
@@ -42,6 +63,8 @@ export const fetchDocumentSuccess = (payload) => ({
   payload,
 });
 
+=======
+>>>>>>> feat(repository-documents): Implement a grid list of documents
 /** CREATE DOCUMENT */
 export const addDocument = (payload) => ({
   type: ADD_DOCUMENT,

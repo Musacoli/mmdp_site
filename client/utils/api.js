@@ -26,6 +26,7 @@ export const api = {
       create: (data) => server.post(documentsApiPrefix, data),
       update: (data, id) => server.put(`${documentsApiPrefix}/${id.id}`, data),
       retrieve: (id) => server.get(`${documentsApiPrefix}/${id}/`),
+      list: () => server.get(documentsApiPrefix),
     },
   },
   resources: {

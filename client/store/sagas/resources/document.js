@@ -5,7 +5,7 @@ import {
   FETCH_DOCUMENT,
   EDIT_DOCUMENT,
   FETCH_DOCUMENTS,
-} from '../../../constants';
+} from '../../../constants/resources/document';
 import * as actions from '../../actions/resources/document';
 import { api } from '../../../utils/api';
 
@@ -27,8 +27,7 @@ export function* editDocument({ payload }) {
     );
     const message = response !== undefined ? response.data.message : {};
     toastr.success(message);
-    const data = response !== undefined ? response.data : {};
-    yield put(actions.editDocumentSuccess(data));
+    yield put(actions.editDocumentSuccess({}));
   } catch (err) {
     let error;
     if (
@@ -72,6 +71,22 @@ export function* addDocument(action) {
   }
 }
 
+/** Fetch documents */
+export function* fetchDocumentsAsync() {
+  try {
+    const response = yield call(api.resources.document.list);
+    let data = response ? response.data.data.documents : {};
+    data = { results: data };
+    yield put(actions.fetchDocumentSuccess({ data, isFetching: false }));
+  } catch (error) {
+    yield put(actions.fetchDocumentFailure({}));
+  }
+}
+/** WATCHERS */
+export function* watchFetchDocuments() {
+  yield takeEvery(FETCH_DOCUMENTS, fetchDocumentsAsync);
+}
+
 /** WATCHERS */
 export function* watchAddDocument() {
   yield takeLatest(ADD_DOCUMENT, addDocument);
@@ -83,18 +98,4 @@ export function* watchFetchDocument() {
 
 export function* watchEditDocument() {
   yield takeLatest(EDIT_DOCUMENT, editDocument);
-}
-/** Fetch documents */
-export function* fetchDocumentsAsync() {
-  try {
-    const documents = yield call(api.resources.document.list);
-    const data = { results: documents.data.data.documents };
-    yield put(actions.fetchDocumentSuccess({ data, isFetching: false }));
-  } catch (error) {
-    yield put(actions.fetchDocumentFailure({}));
-  }
-}
-/** WATCHERS */
-export function* watchFetchDocuments() {
-  yield takeEvery(FETCH_DOCUMENTS, fetchDocumentsAsync);
 }
