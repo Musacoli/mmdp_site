@@ -5,7 +5,7 @@ const GroupButtons = () => (
   <Container>
     <Grid columns={3}>
       <Grid.Row className="group-btn">
-        <Grid.Column width={2}>
+        <Grid.Column width={3}>
           <a
             className="no border raduis radiusless ui button ugly-blue "
             href="/users"
@@ -13,7 +13,7 @@ const GroupButtons = () => (
             save user
           </a>
         </Grid.Column>
-        <Grid.Column width={14} className="actions-delete-edit">
+        <Grid.Column width={13} className="actions-delete-edit">
           <Button.Group
             basic
             className="right floated no border radius button-height group-btn btn-actions"
