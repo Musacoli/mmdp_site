@@ -19,6 +19,7 @@ const researchStorage = new keystone.Storage({
 
 Research.add({
   title: { type: Types.Text, required: true, initial: true },
+  Archived: { type: Boolean, default: false },
   researchFile: {
     type: Types.File,
     storage: researchStorage,
