@@ -17,7 +17,7 @@ export const TextInput = ({
     <Label htmlFor={id} label={inputLabel || ''} />
     <span className="block">
       <input
-        className="input"
+        className="input ui fluid"
         type={type || ''}
         id={id || ''}
         name={name || ''}

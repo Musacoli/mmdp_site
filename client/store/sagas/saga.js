@@ -9,6 +9,7 @@ import {
 } from './group';
 import { watchReport } from './resources/report';
 import { addUserResearchWatcher } from './resources/research';
+import { watchAddDocument } from './resources/document';
 import { watchFetchingPermissions } from './permission';
 import * as aboutWatcher from './about';
 import { watchRegistration, watchUserEdit } from './users/AddUsersSaga';
@@ -72,5 +73,6 @@ export default function* root() {
     fork(pillarWatcher.updatePillarWatcher2),
     fork(pillarWatcher.updatePillarWatcher3),
     fork(pillarWatcher.updatePillarWatcher4),
+    fork(watchAddDocument),
   ]);
 }
