@@ -78,7 +78,6 @@ export default function* root() {
     fork(pillarWatcher.updatePillarWatcher3),
     fork(pillarWatcher.updatePillarWatcher4),
     fork(watchAddDocument),
-    fork(watchAddDocument),
     fork(watchFetchDocument),
     fork(watchEditDocument),
   ]);

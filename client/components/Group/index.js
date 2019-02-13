@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Input, Button, Container } from 'semantic-ui-react';
+import { Grid, Input, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import ActionButtons from './ActionButtons';
 import GroupList from './GroupList';
@@ -12,15 +12,7 @@ const Group = ({
   handeMainCheckBoxChange,
   confirmDeleteGroup,
 }) => (
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <Container className="main-content">
-=======
   <div className="main-content">
->>>>>>> feat(documents): upload documents (frontend)
-=======
-  <Container className=",">
->>>>>>> feat(about-mmdp-cms-frontend): Build Edo State Approach and Objectives Page.
     <Grid columns={2}>
       <Grid.Row>
         <Grid.Column width={12}>
