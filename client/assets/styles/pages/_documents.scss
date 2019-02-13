@@ -1,0 +1,10 @@
+.ui.button.upload-document {
+    width: 200px;
+    height: 50px;
+    &:hover {
+        width: 200px
+    }
+    &:active {
+        color: white;
+    }
+}

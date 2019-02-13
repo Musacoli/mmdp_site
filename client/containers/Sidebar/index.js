@@ -39,6 +39,7 @@ export class SidebarContainer extends Component {
         handleClick={this.handleClick}
         sidebarItems={sidebarItems}
         title={title}
+        {...this.props}
       >
         {children}
       </Sidebar>

@@ -5,6 +5,7 @@ import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
 import AddReport from '../views/Resources/Report/AddReport';
+import AddDocument from '../views/Resources/Document/AddDocument';
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
 import CreateEvent from '../containers/events/event';
@@ -71,6 +72,18 @@ const routes = [
     path: '/resources/report/add',
     name: 'Add Report',
     component: AddReport,
+    exact: true,
+  },
+  {
+    path: '/resources/document/add',
+    name: 'Add Document',
+    component: AddDocument,
+    exact: true,
+  },
+  {
+    path: '/resources/report/media/add',
+    name: 'Add Media',
+    component: AddDocument,
     exact: true,
   },
   {

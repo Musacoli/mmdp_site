@@ -8,6 +8,7 @@ import {
   watchDeleteGroup,
 } from './group';
 import { watchAddReport } from './resources/report';
+import { watchAddDocument } from './resources/document';
 import { watchFetchingPermissions } from './permission';
 import * as aboutWatcher from './about';
 import { watchRegistration, watchUserEdit } from './users/AddUsersSaga';
@@ -49,5 +50,6 @@ export default function* root() {
     fork(singleEventWatcher),
     fork(updateEventWatcher),
     fork(watcherDeleteEvent),
+    fork(watchAddDocument),
   ]);
 }

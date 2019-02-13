@@ -12,7 +12,7 @@ const Group = ({
   handeMainCheckBoxChange,
   confirmDeleteGroup,
 }) => (
-  <Container>
+  <div className="main-content">
     <Grid columns={2}>
       <Grid.Row>
         <Grid.Column width={12}>
@@ -33,7 +33,7 @@ const Group = ({
       handeMainCheckBoxChange={handeMainCheckBoxChange}
       confirmDeleteGroup={confirmDeleteGroup}
     />
-  </Container>
+  </div>
 );
 
 Group.propTypes = {

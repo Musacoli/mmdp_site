@@ -124,7 +124,6 @@
     "setupTestFrameworkScriptFile": "<rootDir>/client/__tests__/setup/setupEnzyme.js",
     "testPathIgnorePatterns": [
       "<rootDir>/client/__tests__/setup/",
-      "<rootDir>/client/middleware/*",
       "<rootDir>/server/"
     ],
     "transform": {
@@ -139,9 +138,7 @@
       "!**/coverage/**",
       "!client/store/index.js",
       "!client/store/reducers/index.js",
-      "!client/index.js",
-      "!**/middleware/**",
-      "!**/store/sagas/**"
+      "!client/index.js"
     ],
     "coverageDirectory": "./client/coverage",
     "coverageReporters": [
