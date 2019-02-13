@@ -6,6 +6,8 @@ import {
   EDIT_DOCUMENT_SUCCESS,
   EDIT_DOCUMENT_FAILURE,
   FETCH_DOCUMENT,
+  FETCH_DOCUMENTS,
+  FETCH_DOCUMENT_FAILURE,
   FETCH_DOCUMENT_SUCCESS,
 } from '../../../constants/resources/document';
 
@@ -13,6 +15,12 @@ export const initialState = {
   loading: false,
   document: {},
   success: false,
+  data: {
+    results: [],
+    currentPage: 1,
+  },
+  isFetching: false,
+  errors: '',
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -33,6 +41,10 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, loading: false, success: true, ...payload };
     case EDIT_DOCUMENT_FAILURE:
       return { ...state, loading: false, ...payload };
+    case FETCH_DOCUMENTS:
+      return { ...state, ...payload, isFetching: true };
+    case FETCH_DOCUMENT_FAILURE:
+      return { ...state, ...payload, isDeleting: false };
     default:
       return state;
   }

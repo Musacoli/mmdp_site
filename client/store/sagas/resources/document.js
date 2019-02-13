@@ -1,9 +1,10 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { put, call, takeLatest, takeEvery } from 'redux-saga/effects';
 import toastr from 'toastr';
 import {
   ADD_DOCUMENT,
   FETCH_DOCUMENT,
   EDIT_DOCUMENT,
+  FETCH_DOCUMENTS,
 } from '../../../constants';
 import * as actions from '../../actions/resources/document';
 import { api } from '../../../utils/api';
@@ -82,4 +83,18 @@ export function* watchFetchDocument() {
 
 export function* watchEditDocument() {
   yield takeLatest(EDIT_DOCUMENT, editDocument);
+}
+/** Fetch documents */
+export function* fetchDocumentsAsync() {
+  try {
+    const documents = yield call(api.resources.document.list);
+    const data = { results: documents.data.data.documents };
+    yield put(actions.fetchDocumentSuccess({ data, isFetching: false }));
+  } catch (error) {
+    yield put(actions.fetchDocumentFailure({}));
+  }
+}
+/** WATCHERS */
+export function* watchFetchDocuments() {
+  yield takeEvery(FETCH_DOCUMENTS, fetchDocumentsAsync);
 }

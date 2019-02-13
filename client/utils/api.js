@@ -28,4 +28,9 @@ export const api = {
       retrieve: (id) => server.get(`${documentsApiPrefix}/${id}/`),
     },
   },
+  resources: {
+    documents: {
+      list: () => client.get('api/v1/resources/repository/documents'),
+    },
+  },
 };
