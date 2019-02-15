@@ -17,6 +17,7 @@ import {
   Objectives,
   EdoStateApproach,
 } from '../views/About';
+import AddResearch from '../views/Resources/Research/AddResearch';
 
 const routes = [
   {
@@ -92,19 +93,10 @@ const routes = [
     exact: true,
   },
   {
-    path: '/create-event',
-    name: 'create-event',
-    component: CreateEvent,
-  },
-  {
-    path: '/list-events',
-    name: 'list-events',
-    component: ListEvents,
-  },
-  {
-    path: '/edit-event/:id',
-    name: 'edit-event',
-    component: EditEvents,
+    path: '/resources/research/add',
+    name: 'Add Research',
+    component: AddResearch,
+    exact: true,
   },
   {
     path: '/create-event',
@@ -120,6 +112,27 @@ const routes = [
     path: '/edit-event/:id',
     name: 'edit-event',
     component: EditEvents,
+  },
+  {
+    path: '/create-event',
+    name: 'create-event',
+    component: CreateEvent,
+  },
+  {
+    path: '/list-events',
+    name: 'list-events',
+    component: ListEvents,
+  },
+  {
+    path: '/edit-event/:id',
+    name: 'edit-event',
+    component: EditEvents,
+  },
+  {
+    path: '/resources/research/add',
+    name: 'Add Report',
+    component: AddResearch,
+    exact: true,
   },
   {
     path: '/users',

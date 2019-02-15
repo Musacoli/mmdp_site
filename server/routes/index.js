@@ -2,7 +2,7 @@ import cors from 'cors';
 import keystone from 'keystone';
 import validate from 'express-validation';
 import aboutValidator from '../middleware/about';
-import fileUploadValidator from '../middleware/fileUpload';
+// import fileUploadValidator from '../middleware/fileUpload';
 import apiResponse from '../middleware/apiResponse';
 import middleware from '../middleware/events';
 import validator from '../validation/validator';
@@ -321,13 +321,23 @@ const App = (app) => {
   );
   app.post(
     `${baseUrl}/resources/report`,
-    [appendFilesToBody, validate(validator.report)],
+    [
+      authenticate,
+      authorize.cms.resources.create,
+      appendFilesToBody,
+      validate(validator.report),
+    ],
     routes.api.resources.report.create,
   );
   app.post(
-    `${baseUrl}/file-upload`,
-    fileUploadValidator.fileUpload,
-    routes.api.fileUpload.create,
+    `${baseUrl}/resources/research`,
+    [
+      authenticate,
+      authorize.cms.resources.create,
+      appendFilesToBody,
+      validate(validator.research),
+    ],
+    routes.api.resources.research.create,
   );
 
   app.post(

@@ -12,7 +12,7 @@ const ReportForm = ({
   loading,
   errors,
 }) => (
-  <Form loading={loading} onSubmit={onSubmit}>
+  <Form loading={loading} onSubmit={onSubmit} className="main-content">
     <Form.Group widths="equal">
       <Form.Field error={!!errors.reportFile}>
         <FileInput

@@ -41,13 +41,21 @@ export const sidebarItems = [
   },
   {
     title: 'Events',
-    menuItems: [],
-    path: '/list-events',
+    menuItems: [
+      {
+        name: 'Add Events',
+        path: '/create-event',
+      },
+      {
+        name: 'View Events',
+        path: '/list-events',
+      },
+    ],
   },
   {
     title: 'Resources',
     menuItems: [
-      { name: 'Resource 1', path: '/resource-1' },
+      { name: 'Research', path: '/resources/research/add' },
       { name: 'Report', path: '/resources/report/add' },
     ],
     dividerTitle: 'COORDINATION MATRIX',

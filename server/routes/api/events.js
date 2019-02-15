@@ -11,7 +11,8 @@ exports.create = (req, res) => {
       .exec((err, result) => {});
   }
 
-  const item = new Events.Model();
+  // eslint-disable-next-line new-cap
+  const item = new Events.model();
 
   item.getUpdateHandler(req).process(req.body, (err) => {
     if (err) {

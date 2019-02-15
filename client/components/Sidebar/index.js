@@ -8,7 +8,7 @@ import MainContent from './MainContent';
 
 const SidebarMenu = ({ children, title, activeIndex, goTo, sidebarItems }) => (
   <React.Fragment>
-    <Grid columns={2} divided>
+    <Grid columns={2}>
       <Grid.Row>
         <Grid.Column width={3}>
           <div className="ui sidebar vertical left menu overlay visible theme_primary">
