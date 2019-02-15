@@ -1,0 +1,91 @@
+#SearchResearch{
+  // background-color: blue;
+  width: 500px;
+  height: 50px;
+  border-radius: 3px;
+}
+
+#search__bar{
+  padding-block-end: 40px;
+}
+
+.Research__list{
+  width: 1000px;
+}
+
+
+#Search__button{
+  width: 184px;
+  height: 50px;
+  border-radius: 3px;
+  background-color:#3faaca;
+  // margin-right: 300px;
+}
+
+.research__details{
+  width: 219px;
+  height: 128px;
+  margin: 12px;
+  background-color: #eff8fb;
+}
+
+#research__edit__btn,#research__archive__btn{
+  width: 49px;
+  margin: 10px;
+  height: 29px;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.07;
+  letter-spacing: -0.3px;
+  color:#3faaca;
+}
+
+#newresearch__container{
+  padding-right:1px;
+  // margin-right: 10px;
+}
+#new__button{
+  width: 184px;
+  height: 50px;
+  border-radius: 3px;
+  // margin-left: 15px;
+  // margin-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.81;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color:fff;
+  background-color: #296d81;
+
+}
+
+
+#research__content{
+  margin: 0;
+  width: 184px;
+  height: 67px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.81;
+  letter-spacing: -0.3px;
+  color:#1a1f37;
+}
+
+#research__delete__btn{
+  color:#d3281f;
+  width: 41px;
+  height: 29px;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.07;
+  letter-spacing: -0.3px;
+}

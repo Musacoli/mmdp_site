@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ViewAllResearch />  renders the container without crashing 1`] = `
+<div>
+  <SimpleLoader
+    loading={false}
+  />
+  <ResearchList
+    results={
+      Array [
+        "Research one",
+      ]
+    }
+  />
+</div>
+`;

@@ -28,13 +28,18 @@ class Search extends Component {
   };
 
   render() {
-    const { placeholder, className } = this.props;
+    const {
+      placeholder,
+      className,
+      newButtonHandler,
+      newButtonName,
+    } = this.props;
 
     return (
       <React.Fragment>
         <form className={className}>
           <div className="ui grid">
-            <div className="twelve wide column">
+            <div className="nine wide column">
               <Input
                 type="text"
                 className="app-search-input"
@@ -42,9 +47,22 @@ class Search extends Component {
                 onChange={this.handleChange}
               />
             </div>
-            <div className="four wide column">
-              <Button className="app-search-button" onClick={this.handleSearch}>
+            <div className="three wide column">
+              <Button
+                className="app-search-button"
+                id="search_btn"
+                onClick={this.handleSearch}
+              >
                 Search
+              </Button>
+            </div>
+            <div className="three wide column">
+              <Button
+                className="app-search-input"
+                id="new__button"
+                onClick={newButtonHandler}
+              >
+                {newButtonName || 'New Research'}
               </Button>
             </div>
           </div>
@@ -56,7 +74,9 @@ class Search extends Component {
 
 Search.propTypes = {
   placeholder: PropTypes.string,
+  newButtonName: PropTypes.string,
   onChange: PropTypes.func,
+  newButtonHandler: PropTypes.func,
   onSearch: PropTypes.func,
   className: PropTypes.string,
 };

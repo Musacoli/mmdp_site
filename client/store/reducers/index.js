@@ -31,6 +31,7 @@ import {
 } from './pillar/pillar';
 import archive from './resources/archive';
 import deleteDoc from './resources/deleteDoc';
+import getResearch from './resources/getResearch';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
   archive,
   deleteDoc,
   editResearch,
+  getResearch,
 });
 
 export default rootReducer;

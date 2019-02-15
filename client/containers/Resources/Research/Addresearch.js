@@ -39,7 +39,7 @@ export class AddResearch extends Component {
     const { loading, history, research } = this.props;
     const { payload } = research;
     if (payload && payload.status === 'success') {
-      history.push('/resources/research/list');
+      history.push('/resources/research/all');
     }
 
     return (

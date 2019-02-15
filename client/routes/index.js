@@ -30,6 +30,7 @@ import PillarFourView from '../views/Pillar/pillarFour';
 import AddResearch from '../views/Resources/Research/AddResearch';
 import UpdateResearch from '../views/Resources/Research/EditResearch';
 import AddMedia from '../views/Resources/Document/AddMedia';
+import ViewAllResearch from '../views/Resources/Research/ViewAllResearch';
 
 const routes = [
   {
@@ -175,10 +176,17 @@ const routes = [
     component: AddResearch,
     exact: true,
   },
+
   {
     path: '/resources/research/edit/:id',
     name: 'Edit Research',
     component: UpdateResearch,
+  },
+  {
+    path: '/resources/research/all',
+    name: 'View All Research',
+    component: ViewAllResearch,
+    exact: true,
   },
   {
     path: '/users',
