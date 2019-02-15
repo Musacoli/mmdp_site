@@ -3,60 +3,23 @@ $ugly-blue: #296d81;
 $dark: #1a1f37;
 $pale-gray: #fafeff;
 
-body {
+.content-header {
+  width: 1136px;
+  height: 72px;
+  padding: 18px 0 19px 56px;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.8px;
+  float: right;
+}
 
-  .events-header {
-    width: 1136px;
-    height: 72px;
-    background-color: white;
-    padding: 18px 0 19px 56px;
-    font-size: 25px;
-    font-weight: 800;
-    line-height: 1.4;
-    letter-spacing: -0.8px;
-    float: right;
-  }
+.event-container {
+  width: 1136px;
+  padding: 40px 64px 80px 0px;
 
-  .events-container {
-    width: 1136px;
-    min-height: calc(100vh - 72px) !important;
-    background-color: #f8fdff;
-    padding-left: 56px;
-    padding-top: calc(112px - 72px);
-    padding-bottom: 80px;
-    float: right;
-
-    .form {
-      width: 920px;
-
-      .event-label {
-        font-size: 16px;
-        font-style: normal;
-        font-stretch: normal;
-        letter-spacing: -0.3px;
-        color: $dark;
-      }
-
-      .input-field::placeholder {
-        color: $dark !important;
-      }
-
-      .btn-save {
-        height: 50px;
-        border: 0;
-        border-radius: 3px;
-        background-color: $cool-blue;
-        width: 200px;
-        height: 50px;
-        font-size: 16px;
-        line-height: 1.81;
-        letter-spacing: -0.3px;
-        text-align: center;
-        color: white;
-        padding-top: 10px;
-        margin-bottom: 80px;
-      }
-    }
+  .input-field::placeholder {
+    color: $dark !important;
   }
 }
 
@@ -180,7 +143,7 @@ input {
     width: 112px;
     height: 85px;
     display: inline-block;
-    margin-top: 10%;
+    margin-top: 5%;
   }
 }
 
@@ -240,11 +203,35 @@ button:focus {
   height: 60% !important;
 }
 
-.events-container .mce-tinymce iframe {
-  height: 438px !important;
-}
-
 .not-found-view {
   text-align: center;
   margin-top: 5%;
+}
+
+.btn-save {
+  height: 50px;
+  border: 0;
+  border-radius: 3px;
+  background-color: $cool-blue;
+  width: 200px;
+  height: 50px;
+  font-size: 16px;
+  line-height: 1.81;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color: white;
+  padding-top: 10px;
+  margin-bottom: 80px;
+}
+
+.event-form {
+  width: 920px;
+
+  .event-label {
+    font-size: 16px;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: -0.3px;
+    color: $dark;
+  }
 }

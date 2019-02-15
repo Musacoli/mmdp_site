@@ -42,7 +42,7 @@ export const sidebarItems = [
   {
     title: 'Events',
     menuItems: [],
-    path: '/events',
+    path: '/list-events',
   },
   {
     title: 'Resources',

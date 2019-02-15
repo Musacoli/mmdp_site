@@ -12,17 +12,14 @@ const EventsList = ({ events, handleDelete }) => {
 
   return (
     <React.Fragment>
-      <div className="events-header">Events</div>
-      <div className="events-container">
-        <div className="ui grid">
-          <Input placeholder="Search events" className="search-box" />
-          <Button className="btn-search cool-blue small">Search</Button>
-          <Link to="/create-event">
-            <Button className="btn-add ugly-blue small">New event</Button>
-          </Link>
-        </div>
-        <div className="ui grid list-body">{showEvents}</div>
+      <div className="ui grid">
+        <Input placeholder="Search events" className="search-box" />
+        <Button className="btn-search cool-blue small">Search</Button>
+        <Link to="/create-event">
+          <Button className="btn-add ugly-blue small">New event</Button>
+        </Link>
       </div>
+      <div className="ui grid list-body">{showEvents}</div>
     </React.Fragment>
   );
 };

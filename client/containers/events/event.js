@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import EventForm from '../../components/events/EventForm';
 import { addEventRequest } from '../../store/actions/events/event';
-import SidebarMenu from '../Sidebar/index';
 
 export class CreateEvent extends Component {
   state = {
@@ -70,7 +69,6 @@ export class CreateEvent extends Component {
 
     return (
       <React.Fragment>
-        <SidebarMenu />
         <EventForm
           header="Add Event"
           handleInputChange={this.handleInputChange}

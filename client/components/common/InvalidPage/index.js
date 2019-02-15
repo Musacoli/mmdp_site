@@ -5,8 +5,7 @@ import emptybox from './img/empty-box@3x.png';
 
 const EmptyView = ({ errorMessage, errrorDescription, path, pathLabel }) => (
   <div>
-    <div className="header">Events</div>
-    <div className="events-container empty-view">
+    <div className="empty-view">
       <img
         className="image-empty"
         src={emptybox}

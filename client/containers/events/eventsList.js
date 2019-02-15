@@ -75,25 +75,26 @@ export class ListEvents extends Component {
 
     return events.length > 0 ? (
       <React.Fragment>
-        <SidebarMenu />
-        <EventsList
-          events={events}
-          pages={pages}
-          currentPage={currentPage}
-          handleDelete={this.handleDelete}
-          handleNext={this.handleNext}
-          handlePrevious={this.handlePrevious}
-        />
-        <div className=" ui grid floated right middle aligned events-pagination">
-          <span className="pg-text">Page</span>
-          <div className="page-number">{currentPage}</div>
-          <span className="pg-text">
-            of &nbsp;
-            {pages}
-          </span>
-          <div className="pg-buttons">
-            <span>{prevPage}</span>
-            <span>{nextPage}</span>
+        <div className="event-container">
+          <EventsList
+            events={events}
+            pages={pages}
+            currentPage={currentPage}
+            handleDelete={this.handleDelete}
+            handleNext={this.handleNext}
+            handlePrevious={this.handlePrevious}
+          />
+          <div className=" ui grid floated right middle aligned events-pagination">
+            <span className="pg-text">Page</span>
+            <div className="page-number">{currentPage}</div>
+            <span className="pg-text">
+              of &nbsp;
+              {pages}
+            </span>
+            <div className="pg-buttons">
+              <span>{prevPage}</span>
+              <span>{nextPage}</span>
+            </div>
           </div>
         </div>
       </React.Fragment>

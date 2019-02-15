@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Container } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 
 const MainContent = ({ children, title }) => (
   <div className="pusher">
@@ -8,15 +8,13 @@ const MainContent = ({ children, title }) => (
       <div className="item openbtn">
         <i className="icon content" />
       </div>
-      <div className="item heading">
+      <div>
         <Container>
-          <Header className="sidebar-header" as="h1">
-            {title}
-          </Header>
+          <div className="content-header">{title}</div>
         </Container>
       </div>
     </div>
-    <div className="ui container">{children}</div>
+    <div className="ui container main main-content">{children}</div>
   </div>
 );
 
