@@ -21,6 +21,12 @@ import coordination from './about/coordination';
 import edoStateApproach from './about/edoStateApproach';
 import objectives from './about/objectives';
 import research from './resources/research';
+import {
+  pillarOneReducer,
+  pillarTwoReducer,
+  pillarThreeReducer,
+  pillarFourReducer,
+} from './pillar/pillar';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -45,6 +51,10 @@ const rootReducer = combineReducers({
   edoStateApproach,
   objectives,
   research,
+  pillarOneReducer,
+  pillarTwoReducer,
+  pillarThreeReducer,
+  pillarFourReducer,
 });
 
 export default rootReducer;

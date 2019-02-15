@@ -10,7 +10,7 @@ describe('Should test axios api requests', () => {
   });
 
   it('should add authentication for logged in users header', () => {
-    expect(authUserHeader()).toEqual({'Authorization': 'Bearer undefined'});
+    expect(authUserHeader()).toEqual({ Authorization: 'Bearer undefined' });
   });
 
   it('should test update user profile promise', () => {
