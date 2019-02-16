@@ -9,7 +9,6 @@ import {
 } from './group';
 import { watchReport } from './resources/report';
 import { addUserResearchWatcher } from './resources/research';
-import { watchAddDocument } from './resources/document';
 import { watchFetchingPermissions } from './permission';
 import * as aboutWatcher from './about';
 import { watchRegistration, watchUserEdit } from './users/AddUsersSaga';
@@ -22,6 +21,11 @@ import { singleEventWatcher } from './events/singleEventSaga';
 import { updateEventWatcher } from './events/editEventSaga';
 import { watcherDeleteEvent } from './events/deleteEventSaga';
 import * as pillarWatcher from './pillar/pillarMiddleware';
+import {
+  watchAddDocument,
+  watchFetchDocument,
+  watchEditDocument,
+} from './resources/document';
 
 export default function* root() {
   yield all([
@@ -74,5 +78,8 @@ export default function* root() {
     fork(pillarWatcher.updatePillarWatcher3),
     fork(pillarWatcher.updatePillarWatcher4),
     fork(watchAddDocument),
+    fork(watchAddDocument),
+    fork(watchFetchDocument),
+    fork(watchEditDocument),
   ]);
 }

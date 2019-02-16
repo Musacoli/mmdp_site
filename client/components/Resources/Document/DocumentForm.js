@@ -9,6 +9,7 @@ const DocumentForm = ({
   onSubmit,
   loading,
   errors,
+  title,
 }) => (
   <Form loading={loading} onSubmit={onSubmit}>
     <Form.Group widths="equal">
@@ -29,6 +30,7 @@ const DocumentForm = ({
         fluid
         label="Report title"
         type="text"
+        value={title}
         placeholder="Research carried out last year"
         onChange={onChange}
         error={!!errors.title}
@@ -55,6 +57,11 @@ DocumentForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   reportFileName: PropTypes.string.isRequired,
+  title: PropTypes.string,
+};
+
+DocumentForm.defaultProps = {
+  title: '',
 };
 
 export default DocumentForm;

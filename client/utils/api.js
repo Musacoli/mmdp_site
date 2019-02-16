@@ -1,5 +1,8 @@
 import { server } from './keys';
 
+const apiVersion = 'api/v1/';
+const documentsApiPrefix = `${apiVersion}resources/repository/document`;
+
 export const api = {
   group: {
     create: (data) => server.post('api/groups/', data),
@@ -26,8 +29,9 @@ export const api = {
   },
   resources: {
     document: {
-      create: (data) =>
-        client.post('api/v1/resources/repository/document', data),
+      create: (data) => client.post(documentsApiPrefix, data),
+      update: (data, id) => client.put(`${documentsApiPrefix}/${id.id}`, data),
+      retrieve: (id) => client.get(`${documentsApiPrefix}/${id}/`),
     },
   },
 };
