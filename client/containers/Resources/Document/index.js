@@ -11,6 +11,7 @@ import {
   editDocument,
   addDocumentFailure,
 } from '../../../store/actions/resources/document';
+import { addReportConstraint } from '../../../utils/constraints/report';
 
 export class AddDocument extends Component {
   static propTypes = {

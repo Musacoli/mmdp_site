@@ -45,6 +45,7 @@ export function* editDocument({ payload }) {
     yield put(actions.editDocumentFailure({ error }));
   }
 }
+
 export function* addDocument(action) {
   try {
     const response = yield call(api.resources.document.create, action.payload);
