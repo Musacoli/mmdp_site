@@ -24,4 +24,10 @@ export const api = {
         server.post('api/v1/resources/repository/document', data),
     },
   },
+  resources: {
+    document: {
+      create: (data) =>
+        client.post('api/v1/resources/repository/document', data),
+    },
+  },
 };
