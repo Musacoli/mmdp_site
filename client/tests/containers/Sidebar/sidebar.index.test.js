@@ -18,7 +18,9 @@ const props = {
   },
 };
 const wrapper = mount(
-  <SidebarContainer {...props} />,
+  <SidebarContainer {...props}>
+    <span>Hello world</span>
+  </SidebarContainer>,
   new ReactRouterEnzymeContext(),
 );
 

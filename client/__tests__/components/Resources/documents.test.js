@@ -25,6 +25,10 @@ describe.only('AddDocument', () => {
       submitDocument: jest.fn(),
       loading: false,
       history: { push: jest.fn() },
+      match: { params: {} },
+      singleDocument: {},
+      updateDocument: jest.fn(),
+      getDocument: jest.fn(),
     };
     wrapper = mount(<AddDocument {...props} />);
   });
@@ -76,5 +80,22 @@ describe.only('AddDocument', () => {
     wrapper.find('DocumentForm').prop('onSubmit')(event);
     expect(event.preventDefault).toBeCalled();
     expect(wrapper.prop('submitDocument')).toBeCalled();
+  });
+  it('should submit update with valid input fields', () => {
+    const match = { params: { id: 1 } };
+    props = { ...props, match };
+    wrapper = mount(<AddDocument {...props} />);
+    const event = {
+      preventDefault: jest.fn(),
+    };
+    wrapper.setState({
+      title: 'A valid title',
+      document: {
+        name: 'blank.pdf',
+      },
+    });
+    wrapper.find('DocumentForm').prop('onSubmit')(event);
+    expect(event.preventDefault).toBeCalled();
+    expect(wrapper.prop('updateDocument')).toBeCalled();
   });
 });
