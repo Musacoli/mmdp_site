@@ -22,3 +22,4 @@ export {
 } from './group';
 export { FETCHING_PERMISSIONS, FETCH_PERMISSIONS } from './permissions';
 export * from './auth';
+export * from './resources/document';

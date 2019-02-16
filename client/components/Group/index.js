@@ -12,7 +12,11 @@ const Group = ({
   handeMainCheckBoxChange,
   confirmDeleteGroup,
 }) => (
+<<<<<<< HEAD
   <Container className="main-content">
+=======
+  <div className="main-content">
+>>>>>>> feat(documents): upload documents (frontend)
     <Grid columns={2}>
       <Grid.Row>
         <Grid.Column width={12}>
@@ -33,7 +37,7 @@ const Group = ({
       handeMainCheckBoxChange={handeMainCheckBoxChange}
       confirmDeleteGroup={confirmDeleteGroup}
     />
-  </Container>
+  </div>
 );
 
 Group.propTypes = {

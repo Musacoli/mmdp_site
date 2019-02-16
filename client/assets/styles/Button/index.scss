@@ -1,3 +1,4 @@
+@import '../abstracts/variables';
 
 div.button__area {
 
@@ -16,5 +17,15 @@ div.button__area {
     text-align: center;
     color: #fff;
     cursor: pointer;
+  }
+}
+
+.common__button {
+  height: 42px;
+  border-radius: 3px !important;
+  background-color: $color-cool-blue !important;
+  &:hover {
+    width: 100% !important;
+    display: block;
   }
 }
