@@ -4,7 +4,7 @@ import Templates from '../../Templates';
 import AddDocument from '../../../containers/Resources/Document';
 
 const AddReportView = ({ ...props }) => (
-  <Templates {...props} title="Add Document">
+  <Templates {...props} title="Edit Document">
     <AddDocument {...props} />
   </Templates>
 );

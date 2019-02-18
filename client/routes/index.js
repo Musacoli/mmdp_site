@@ -8,11 +8,12 @@ import AddReport from '../views/Resources/Report/AddReport';
 import EditReport from '../views/Resources/Report/EditReport';
 import ListReport from '../views/Resources/Report/ListReport';
 import AddDocument from '../views/Resources/Document/AddDocument';
+import EditDocument from '../views/Resources/Document/EditDocument';
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
-import CreateEvent from '../views/Events/AddEventView';
-import ListEvents from '../views/Events/ListEventsView';
-import EditEvents from '../views/Events/EditEvent';
+import CreateEvent from '../containers/events/event';
+import ListEvents from '../containers/events/eventsList';
+import EditEvents from '../containers/events/editEvents';
 import {
   GovernorMessage,
   AboutMMDP,
@@ -199,6 +200,12 @@ const routes = [
     name: 'PillarFour',
     component: PillarFourView,
     exact: false,
+  },
+  {
+    path: '/resources/documents/edit/:id',
+    name: 'Edit resources document',
+    component: EditDocument,
+    exact: true,
   },
 ];
 
