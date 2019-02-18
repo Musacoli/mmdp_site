@@ -39,7 +39,7 @@ export const updateEmail = (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-  await User.model.findOne({ username: req.params.id }).exec((err, user) => {
+  await User.model.findOne({ username: req.params.id }).exec((error, user) => {
     if (!user)
       return res.status(404).json({
         status: ERROR,

@@ -1,15 +1,15 @@
-import baseAPI, { client } from '../keys';
+import baseAPI, { server } from '../keys';
 
 const API = `${baseAPI}/api/v1/about/coordination`;
 
 export const createCoordination = (data) => {
-  return client.post(`${API}/create`, data);
+  return server.post(`${API}/create`, data);
 };
 
 export const updateCoordination = (data) => {
-  return client.put(`${API}/${data.id}/update`, data.data);
+  return server.put(`${API}/${data.id}/update`, data.data);
 };
 
 export const getCoordination = () => {
-  return client.get(`${API}/list`);
+  return server.get(`${API}/list`);
 };

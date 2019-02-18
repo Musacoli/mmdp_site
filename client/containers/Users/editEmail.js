@@ -7,7 +7,7 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated';
 import { startEditing, fetchingOne } from '../../store/sagas/users';
 import { fetchingGroups } from '../../store/actions/groups';
-import groupOptions from '../../utils/mapGroups';
+import mapGroupOptions from '../../utils/mapGroups';
 
 export class EditEmail extends Component {
   state = {
@@ -21,11 +21,9 @@ export class EditEmail extends Component {
   };
 
   componentWillMount() {
-    /* eslint-disable react/destructuring-assignment */
-    const { allGroups } = this.props;
-    const { fetchedUser } = this.props;
+    const { fetchedUser, allGroups, match } = this.props;
     allGroups();
-    fetchedUser(this.props.match.params.username);
+    fetchedUser(match.params.username);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -122,13 +120,13 @@ export class EditEmail extends Component {
   };
 
   render() {
-    const { isEditing, errors, user } = this.props.userEdit;
-    const { selectedOption } = this.state;
+    const { match, userEdit, groups: allGroups } = this.props;
+    const { isEditing, errors, user } = userEdit;
+    const { selectedOption, email } = this.state;
     const options = [];
-    /* eslint-disable-next-line */
-    const groups = this.props.groups.groups;
+    const { groups } = allGroups;
     if (groups.length > 0) {
-      groupOptions(groups, options);
+      mapGroupOptions(groups, options);
     }
     const { status, success } = this.state;
     return (
@@ -152,7 +150,7 @@ export class EditEmail extends Component {
               type="email"
               name="oldEmail"
               className="update-form-fields"
-              value={this.props.match.params.email}
+              value={match.params.email}
               disabled
               onChange={this.onChange}
             />
@@ -185,9 +183,7 @@ export class EditEmail extends Component {
           </Form.Field>
           <Button
             className={
-              this.state.email
-                ? 'save_user update-btn'
-                : 'b update-btn btn_disabled'
+              email ? 'save_user update-btn' : 'b update-btn btn_disabled'
             }
             type="submit"
             onClick={this.onSubmit}
@@ -208,9 +204,6 @@ EditEmail.propTypes = {
       username: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  isEditing: PropTypes.bool,
-  errors: PropTypes.shape(),
-  user: PropTypes.shape(),
   userEdit: PropTypes.shape({
     isEditing: PropTypes.bool,
     errors: PropTypes.string,

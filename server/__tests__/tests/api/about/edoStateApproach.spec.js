@@ -10,7 +10,6 @@ import {
   makeEdoStateApproach,
   createEdoStateApproach,
 } from '../../../helpers/about/edoStateApproach';
-import GovernorMessage from '../../../../models/GovernorMessage';
 
 const edoStateApproachPath = '/api/v1/about/edo-state-approach';
 
@@ -38,7 +37,7 @@ const apiArchiveEdoStateApproach = async (id) =>
 describe('Edo State Approach API', () => {
   describe('Create Edo State Approach', () => {
     beforeEach(async () => {
-      await removeAllModels(GovernorMessage);
+      await removeAllModels('GovernorMessage');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.create']);
     });
@@ -92,7 +91,7 @@ describe('Edo State Approach API', () => {
     let newData;
 
     beforeEach(async () => {
-      await removeAllModels(EdoStateApproach);
+      await removeAllModels('EdoStateApproach');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.update']);
       existingApproach = await createEdoStateApproach();
@@ -142,7 +141,7 @@ describe('Edo State Approach API', () => {
     let existingApproach;
 
     beforeEach(async () => {
-      await removeAllModels(EdoStateApproach);
+      await removeAllModels('EdoStateApproach');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
       existingApproach = await createEdoStateApproach();
@@ -187,7 +186,7 @@ describe('Edo State Approach API', () => {
 
   describe('List Edo State Approach', () => {
     beforeEach(async () => {
-      await removeAllModels(EdoStateApproach);
+      await removeAllModels('EdoStateApproach');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
       await Promise.all([...Array(5)].map(() => createEdoStateApproach()));
@@ -225,7 +224,7 @@ describe('Edo State Approach API', () => {
     let existingApproach;
 
     beforeEach(async () => {
-      await removeAllModels(EdoStateApproach);
+      await removeAllModels('EdoStateApproach');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.archive']);
       existingApproach = await createEdoStateApproach();

@@ -92,8 +92,9 @@ export const createUser = async (permissions = [], overrides = {}) =>
  * @param model
  * @returns {Promise<void>}
  */
-export const removeAllModels = async (model) => {
-  await model.model.remove({});
+export const removeAllModels = async (modelName) => {
+  const Model = keystone.list(modelName);
+  await Model.model.remove({});
 };
 
 /**
@@ -106,8 +107,8 @@ export const removeAllModels = async (model) => {
  * @returns {Promise<void>}
  */
 export const removeAllGroupsAndUsers = async () => {
-  await removeAllModels(Group);
-  await removeAllModels(User);
+  await removeAllModels('Group');
+  await removeAllModels('User');
 };
 
 export class app {

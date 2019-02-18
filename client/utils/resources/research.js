@@ -1,6 +1,6 @@
-import baseAPI, { client } from '../keys';
+import baseAPI, { server } from '../keys';
 
 const url = `${baseAPI}/api/v1`;
 export const createResearch = {
-  create: (data) => client.post(`${url}/resources/research`, data),
+  create: (data) => server.post(`${url}/resources/research`, data),
 };

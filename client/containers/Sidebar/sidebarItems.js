@@ -46,22 +46,14 @@ export const sidebarItems = [
   },
   {
     title: 'Events',
-    menuItems: [
-      {
-        name: 'Add Events',
-        path: '/create-event',
-      },
-      {
-        name: 'View Events',
-        path: '/list-events',
-      },
-    ],
+    menuItems: [],
+    path: '/list-events',
   },
   {
     title: 'Resources',
     menuItems: [
       { name: 'Research', path: '/resources/research/add' },
-      { name: 'Report', path: '/resources/report/add' },
+      { name: 'Report', path: '/resources/reports/add' },
     ],
     dividerTitle: 'COORDINATION MATRIX',
   },

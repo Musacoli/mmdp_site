@@ -1,4 +1,4 @@
-import {faker, removeAllModels} from './commons/base';
+import { faker, removeAllModels } from './commons/base';
 import Document from '../../models/resources/Document';
 
 /**

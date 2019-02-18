@@ -1,16 +1,16 @@
 /* eslint-env jest */
-import { client, authUserHeader } from '../../utils/keys';
+import { server, authUserHeader } from '../../utils/keys';
 import { api } from '../../utils/api';
 
-describe('Should test axios api requests', () => {
+describe.only('Should test axios api requests', () => {
   it('should test get object', () => {
-    client({ url: '/', method: 'get' }).then((response) => {
+    server({ url: '/', method: 'get' }).then((response) => {
       expect(response).toEqual(Promise({}));
     });
   });
 
   it('should add authentication for logged in users header', () => {
-    expect(authUserHeader()).toEqual({ Authorization: 'Bearer undefined' });
+    expect(authUserHeader()).toEqual({});
   });
 
   it('should test update user profile promise', () => {

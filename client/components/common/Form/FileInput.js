@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 const FileInput = ({
   name,
@@ -22,7 +22,7 @@ const FileInput = ({
         {...restProps}
       />
       <span
-        className={classnames('form__custom-file-input', {
+        className={classNames('form__custom-file-input', {
           'form__custom-file-filled': value.length,
         })}
       >

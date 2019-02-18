@@ -7,6 +7,7 @@ import FileInput from '../../common/Form/FileInput';
 const ReportForm = ({
   reportFileName,
   reportType,
+  title,
   onChange,
   onSubmit,
   loading,
@@ -32,6 +33,7 @@ const ReportForm = ({
         label="Report title"
         type="text"
         placeholder="Research carried out last year"
+        value={title}
         onChange={onChange}
         error={!!errors.title}
       />
@@ -71,6 +73,7 @@ ReportForm.defaultProps = {
 ReportForm.propTypes = {
   errors: PropTypes.shape({}),
   loading: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
   reportType: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,

@@ -1,8 +1,9 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 import Events from '../../models/EventsModel';
+import modelHelper from '../../helpers/modelHelper';
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   const { mainEvent } = req.body;
 
   if (mainEvent && mainEvent === true) {
@@ -14,15 +15,15 @@ exports.create = (req, res) => {
   // eslint-disable-next-line new-cap
   const item = new Events.model();
 
-  item.getUpdateHandler(req).process(req.body, (err) => {
-    if (err) {
-      return res.apiError({ err });
-    }
-    res.status(201).send({
+  try {
+    const newEvent = await modelHelper.process(item, req);
+    return res.status(201).send({
       status: 'success',
-      data: item,
+      data: newEvent,
     });
-  });
+  } catch (error) {
+    return res.apiError({ error });
+  }
 };
 
 exports.get = (req, res) => {

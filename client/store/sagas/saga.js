@@ -7,7 +7,7 @@ import {
   watchUpdateGroup,
   watchDeleteGroup,
 } from './group';
-import { watchAddReport } from './resources/report';
+import { watchReport } from './resources/report';
 import { addUserResearchWatcher } from './resources/research';
 import { watchFetchingPermissions } from './permission';
 import * as aboutWatcher from './about';
@@ -46,7 +46,7 @@ export default function* root() {
     fork(aboutWatcher.createObjectivesWatcher),
     fork(aboutWatcher.updateObjectivesWatcher),
     fork(aboutWatcher.getObjectivesWatcher),
-    fork(watchAddReport),
+    fork(watchReport),
     fork(watchRegistration),
     fork(watchUserEdit),
     fork(watchFetchingUsers),

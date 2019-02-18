@@ -8,7 +8,6 @@ import Label from '../../components/common/Label';
 import Button from '../../components/common/Button';
 import '../../assets/styles/About/common/style.scss';
 
-
 export class Objectives extends Component {
   state = {
     objectives: '',

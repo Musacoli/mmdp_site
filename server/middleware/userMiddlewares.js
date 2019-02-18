@@ -124,14 +124,14 @@ export const verifyAccount = (req, res, next) => {
           });
         }
         // If user is confirmed abort this operation
-        User.model.findOne({ email: decoded.email }).then((user) => {
-          if (!user) {
+        User.model.findOne({ email: decoded.email }).then((foundUser) => {
+          if (!foundUser) {
             return res.status(400).json({
               status: FAIL,
               message: resp.notFound,
             });
           }
-          if (user.confirmed) {
+          if (foundUser.confirmed) {
             //  Already confirmed
             return res.status(400).json({
               status: FAIL,
@@ -187,11 +187,11 @@ export const verifyAccount = (req, res, next) => {
 // allows admin to update users emails
 export const updateDetails = async (req, res, next) => {
   const { email, newEmail } = req.body;
-  const user = await User.model.findOne({ email: req.body.email });
+  const foundUser = await User.model.findOne({ email: req.body.email });
   const userWithEmailExists = await User.model.findOne({
     email: req.body.newEmail,
   });
-  if (user) {
+  if (foundUser) {
     if (!userWithEmailExists) {
       const user = User.model;
       delete req.body.email;
@@ -234,14 +234,14 @@ export const verifyEdit = (req, res, next) => {
   // we are trying to edit the details of the user making the request
   const { email } = req.user;
   // check whether this user is activated
-  User.model.findOne({ email }).then((user) => {
-    if (!user) {
+  User.model.findOne({ email }).then((foundUser) => {
+    if (!foundUser) {
       return res.status(400).json({
         status: FAIL,
         message: resp.notFound,
       });
     }
-    if (!user.confirmed) {
+    if (!foundUser.confirmed) {
       //  At this point the user is not confirmed
       return res.status(400).json({
         status: FAIL,

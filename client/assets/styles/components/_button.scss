@@ -1,13 +1,25 @@
 .ui.button {
   font-family: 'Muli', sans-serif;
+  &.confirm-modal__positive {
+    background-color: $color-cool-blue;
+    color: $color-white;
+  }
 }
 .btn__upload {
   .ui.button {
-    width: 200px;
     border-radius: 3px;
     background-color: $color-cool-blue;
     color: $color-white;
-    font-size: 16px;
     font-weight: normal;
+  }
+}
+.btn__add {
+  button.ui.button {
+    border-radius: 3px;
+    color: $color-white;
+    background-color: $color-ugly-blue;
+  }
+  button.ui.button:hover {
+    background-color: inherit;
   }
 }

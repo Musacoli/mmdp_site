@@ -5,6 +5,8 @@ import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
 import AddReport from '../views/Resources/Report/AddReport';
+import EditReport from '../views/Resources/Report/EditReport';
+import ListReport from '../views/Resources/Report/ListReport';
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
 import CreateEvent from '../views/Events/AddEventView';
@@ -91,9 +93,21 @@ const routes = [
     exact: false,
   },
   {
-    path: '/resources/report/add',
+    path: '/resources/reports/add',
     name: 'Add Report',
     component: AddReport,
+    exact: true,
+  },
+  {
+    path: '/resources/reports/:id/edit',
+    name: 'Edit Report',
+    component: EditReport,
+    exact: true,
+  },
+  {
+    path: '/resources/reports',
+    name: 'Reports',
+    component: ListReport,
     exact: true,
   },
   {
@@ -131,12 +145,6 @@ const routes = [
     path: '/edit-event/:id',
     name: 'edit-event',
     component: EditEvents,
-  },
-  {
-    path: '/resources/research/add',
-    name: 'Add Report',
-    component: AddResearch,
-    exact: true,
   },
   {
     path: '/users',

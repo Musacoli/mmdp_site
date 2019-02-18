@@ -5,7 +5,7 @@ import {
   removeAllGroupsAndUsers,
   removeAllModels,
 } from '../../../helpers/commons/base';
-import Objective from '../../../../models/Objectives';
+import Objectives from '../../../../models/Objectives';
 import {
   makeObjective,
   createObjective,
@@ -33,7 +33,7 @@ const apiArchiveObjective = async (id) =>
 describe('Objectives API', () => {
   describe('create objectives', () => {
     beforeEach(async () => {
-      await removeAllModels(Objective);
+      await removeAllModels('Objectives');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.create']);
     });
@@ -73,7 +73,7 @@ describe('Objectives API', () => {
     let newData;
 
     beforeEach(async () => {
-      await removeAllModels(Objective);
+      await removeAllModels('Objectives');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.update']);
       existingObjective = await createObjective();
@@ -119,7 +119,7 @@ describe('Objectives API', () => {
     let existingMessage;
 
     beforeEach(async () => {
-      await removeAllModels(Objective);
+      await removeAllModels('Objectives');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
       existingMessage = await createObjective();
@@ -157,14 +157,14 @@ describe('Objectives API', () => {
 
   describe('list objectives', () => {
     beforeEach(async () => {
-      await removeAllModels(Objective);
+      await removeAllModels('Objectives');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.view']);
       await Promise.all([...Array(5)].map(() => createObjective()));
     });
 
     it('expect to retrieve the list of Objectives', async () => {
-      const objectives = await Objective.model.find({});
+      const objectives = await Objectives.model.find({});
       const res = await apiListObjectives();
       expect(res.status).toBe(200);
       for (let i = 0; i < 5; i += 1) {
@@ -194,7 +194,7 @@ describe('Objectives API', () => {
     let existingObjectives;
 
     beforeEach(async () => {
-      await removeAllModels(Objective);
+      await removeAllModels('Objectives');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.about.archive']);
       existingObjectives = await createObjective();

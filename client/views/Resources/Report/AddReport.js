@@ -1,10 +1,10 @@
 import React from 'react';
 import Templates from '../../Templates';
-import AddReportContainer from '../../../containers/Resources/Report/AddReport';
+import ReportFormContainer from '../../../containers/Resources/Report/ReportForm';
 
 const AddReportView = ({ ...props }) => (
   <Templates {...props} title="Add Report">
-    <AddReportContainer {...props} />
+    <ReportFormContainer mode="add" {...props} />
   </Templates>
 );
 

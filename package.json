@@ -19,6 +19,8 @@
     "test:client:watch": "jest \"-u\" --watch",
     "coverage:server": "nyc --reporter html --reporter text --report-dir ./server/coverage npm run test:server",
     "lint": "eslint .",
+    "pretest:server": "yarn lint",
+    "pretest:client": "yarn lint",
     "lint:fix": "eslint . --fix"
   },
   "author": "MMDP",
@@ -71,8 +73,8 @@
     "sprintf-js": "^1.1.2",
     "toastr": "^2.1.4",
     "underscore": "^1.9.1",
-    "validator": "^10.11.0",
-    "validate.js": "^0.12.0"
+    "validate.js": "^0.12.0",
+    "validator": "^10.11.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

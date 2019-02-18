@@ -37,7 +37,6 @@ Events.add({
   archived: { type: Boolean, default: false },
 });
 
-Events.defaultColumns = 'Events';
 Events.register();
 
 export default Events;

@@ -34,7 +34,7 @@ const apiListPillars = async () => app.get(`${pillarPath}`).send();
 describe('Pillar API', () => {
   describe('create pillar message', () => {
     beforeEach(async () => {
-      await removeAllModels(Pillar);
+      await removeAllModels('Pillar');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.pillars.create']);
     });
@@ -79,7 +79,7 @@ describe('Pillar API', () => {
     let newData;
 
     beforeEach(async () => {
-      await removeAllModels(Pillar);
+      await removeAllModels('Pillar');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.pillars.update']);
       existingPillar = await createThematicPillar();
@@ -124,7 +124,7 @@ describe('Pillar API', () => {
     let existingPillar;
 
     beforeEach(async () => {
-      await removeAllModels(Pillar);
+      await removeAllModels('Pillar');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.pillars.view']);
       existingPillar = await createThematicPillar();
@@ -159,7 +159,7 @@ describe('Pillar API', () => {
 
   describe('list all thematic pillars', () => {
     beforeEach(async () => {
-      await removeAllModels(Pillar);
+      await removeAllModels('Pillar');
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.pillars.view']);
       await Promise.all([...Array(5)].map(() => createThematicPillar()));
