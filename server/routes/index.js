@@ -18,7 +18,7 @@ import {
   verifyAccount,
   verifyEdit,
 } from '../middleware/userMiddlewares';
-
+import { checkIfDocument } from '../middleware/repository/validateDocument';
 import {
   paramGroupExists,
   validateGroupCreate,
@@ -476,6 +476,76 @@ const App = (app) => {
     `${baseUrl}/resources/repository/document/:id`,
     [authenticate, authorize.cms.resources.get, paramDocExists],
     routes.api.resources.document.getOne,
+  );
+
+  app.post(
+    `${baseUrl}/resources/repository/media`,
+    [
+      authenticate,
+      authorize.cms.resources.create,
+      appendFilesToBody,
+      validate(validator.media),
+    ],
+    routes.api.resources.media.create,
+  );
+
+  app.get(
+    `${baseUrl}/resources/repository/media`,
+    [authenticate, authorize.cms.resources.list],
+    routes.api.resources.media.list,
+  );
+
+  app.get(
+    `${baseUrl}/resources/repository/media/:id`,
+    [authenticate, authorize.cms.resources.get, paramMediaExists],
+    routes.api.resources.media.getOne,
+  );
+
+  app.post(
+    `${baseUrl}/resources/repository/document`,
+    [
+      authenticate,
+      authorize.cms.resources.create,
+      appendFilesToBody,
+      validate(validator.document),
+    ],
+    routes.api.resources.document.create,
+  );
+
+  app.put(
+    `${baseUrl}/resources/repository/document/:id`,
+    [
+      authenticate,
+      authorize.cms.resources.update,
+      paramDocExists,
+      appendFilesToBody,
+      validate(validator.document),
+    ],
+    routes.api.resources.document.update,
+  );
+
+  app.get(
+    `${baseUrl}/resources/repository/documents`,
+    [authenticate, authorize.cms.resources.get],
+    routes.api.resources.document.list,
+  );
+
+  app.get(
+    `${baseUrl}/resources/repository/document/:id`,
+    [authenticate, authorize.cms.resources.get, paramDocExists],
+    routes.api.resources.document.getOne,
+  );
+
+  app.patch(
+    `${baseUrl}/resources/repository/archive/:id`,
+    [authenticate, authorize.cms.resources.archive, checkIfDocument],
+    routes.api.resources.archiveDocument.archive,
+  );
+
+  app.delete(
+    `${baseUrl}/resources/repository/:id`,
+    [authenticate, authorize.cms.resources.delete, checkIfDocument],
+    routes.api.resources.deleteDocument.deleteDocument,
   );
 
   app.use(errorHandler);

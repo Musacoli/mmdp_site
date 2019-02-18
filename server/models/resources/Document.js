@@ -19,6 +19,7 @@ const repositoryStorage = new keystone.Storage({
 
 Document.add({
   title: { type: Types.Text, required: true, initial: true },
+  archived: { type: Types.Boolean, initial: false },
   document: {
     type: Types.File,
     storage: repositoryStorage,

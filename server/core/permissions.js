@@ -52,6 +52,7 @@ export const resourcesPagePermissions = {
   'cms.resources.edit': 'Edit resources content',
   'cms.resources.view': 'View resources content',
   'cms.resources.archive': 'Archive resources content',
+  'cms.resources.delete': 'Delete resources content',
 };
 
 export default {
