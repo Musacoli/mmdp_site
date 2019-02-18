@@ -22,6 +22,7 @@ import coordination from './about/coordination';
 import edoStateApproach from './about/edoStateApproach';
 import objectives from './about/objectives';
 import research from './resources/research';
+import editResearch from './resources/editResearch';
 import {
   pillarOneReducer,
   pillarTwoReducer,
@@ -57,6 +58,7 @@ const rootReducer = combineReducers({
   pillarTwoReducer,
   pillarThreeReducer,
   pillarFourReducer,
+  editResearch,
 });
 
 export default rootReducer;

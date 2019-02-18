@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import emptybox from './img/empty-box@3x.png';
 
-const EmptyView = ({ errorMessage, errrorDescription, path, pathLabel }) => (
+const EmptyView = ({ errorMessage, errorDescription, path, pathLabel }) => (
   <div>
     <div className="events-container empty-view">
       <img
@@ -14,7 +14,7 @@ const EmptyView = ({ errorMessage, errrorDescription, path, pathLabel }) => (
         id="empty_box_img"
       />
       <h1>{errorMessage}</h1>
-      <p>{errrorDescription}</p>
+      <p>{errorDescription}</p>
       <br />
       <Link to={path}>
         <button className="btn-add cool-blue big" type="button">
@@ -27,7 +27,7 @@ const EmptyView = ({ errorMessage, errrorDescription, path, pathLabel }) => (
 
 EmptyView.propTypes = {
   errorMessage: PropTypes.string.isRequired,
-  errrorDescription: PropTypes.string.isRequired,
+  errorDescription: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   pathLabel: PropTypes.string.isRequired,
 };

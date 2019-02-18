@@ -98,43 +98,51 @@ exports[`<ResearchContainer />  renders the container without crashing 1`] = `
                 as={[Function]}
                 className="form__text-input"
                 control={[Function]}
+                defaultValue=""
                 fluid={true}
                 label="Research title"
                 name="title"
                 onChange={[Function]}
                 placeholder="Research carried out last year"
+                required={true}
                 type="text"
               >
                 <FormField
                   className="form__text-input"
                   control={[Function]}
+                  defaultValue=""
                   fluid={true}
                   label="Research title"
                   name="title"
                   onChange={[Function]}
                   placeholder="Research carried out last year"
+                  required={true}
                   type="text"
                 >
                   <div
-                    className="field form__text-input"
+                    className="required field form__text-input"
                   >
                     <label>
                       Research title
                     </label>
                     <Input
+                      defaultValue=""
                       fluid={true}
                       name="title"
                       onChange={[Function]}
                       placeholder="Research carried out last year"
+                      required={true}
                       type="text"
                     >
                       <div
                         className="ui fluid input"
                       >
                         <input
+                          defaultValue=""
                           name="title"
                           onChange={[Function]}
                           placeholder="Research carried out last year"
+                          required={true}
                           type="text"
                         />
                       </div>

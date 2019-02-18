@@ -28,6 +28,7 @@ import PillarTwoView from '../views/Pillar/pillarTwo';
 import PillarThreeView from '../views/Pillar/pillarThree';
 import PillarFourView from '../views/Pillar/pillarFour';
 import AddResearch from '../views/Resources/Research/AddResearch';
+import UpdateResearch from '../views/Resources/Research/EditResearch';
 
 const routes = [
   {
@@ -171,6 +172,17 @@ const routes = [
     path: '/edit-event/:id',
     name: 'edit-event',
     component: EditEvents,
+  },
+  {
+    path: '/resources/research/add',
+    name: 'Add Report',
+    component: AddResearch,
+    exact: true,
+  },
+  {
+    path: '/resources/research/edit/:id',
+    name: 'Edit Research',
+    component: UpdateResearch,
   },
   {
     path: '/users',

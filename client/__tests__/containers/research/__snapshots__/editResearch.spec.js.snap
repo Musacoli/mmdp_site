@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Edit Research Container />  renders Edit Research conatiner without crashing 1`] = `
+<div>
+  <div>
+    <span />
+  </div>
+</div>
+`;

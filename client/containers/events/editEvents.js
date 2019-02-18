@@ -111,7 +111,7 @@ export class EditEVent extends Component {
               {eventError.message ? (
                 <EmptyView
                   errorMessage="Event Not Found"
-                  errrorDecription="The Event you are trying to Edit Does not Exist"
+                  errrorDescription="The Event you are trying to Edit Does not Exist"
                   path="/list-events/1"
                   pathLabel="View Events"
                 />
