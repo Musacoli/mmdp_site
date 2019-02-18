@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import validate from 'validate.js';
 import DocumentForm from '../../../components/Resources/Document/DocumentForm';
 import { addDocument } from '../../../store/actions/resources/document';
-import { addReportConstraint } from '../../../utils/constraints/report';
+import documentFormConstraint from '../../../utils/constraints/document';
 
 export class AddDocument extends Component {
   state = {
@@ -19,10 +19,10 @@ export class AddDocument extends Component {
     const { submitDocument } = this.props;
     const formData = new FormData();
     const formDetails = this.state;
-    delete addReportConstraint.reportType;
+    delete documentFormConstraint.reportType;
     const addDocumentConstraint = {
-      ...addReportConstraint,
-      document: addReportConstraint.reportFile,
+      ...documentFormConstraint,
+      document: documentFormConstraint.reportFile,
     };
     delete addDocumentConstraint.reportFile;
     const errors = validate(formDetails, addDocumentConstraint);

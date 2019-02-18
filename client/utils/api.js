@@ -21,7 +21,7 @@ export const api = {
   resources: {
     document: {
       create: (data) =>
-        client.post('api/v1/resources/repository/document', data),
+        server.post('api/v1/resources/repository/document', data),
     },
   },
 };
