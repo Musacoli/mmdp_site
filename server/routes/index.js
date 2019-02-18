@@ -24,6 +24,8 @@ import {
   validateGroupCreate,
   validateGroupUpdate,
 } from '../middleware/groupMiddlewares';
+import { paramDocExists } from '../middleware/documents';
+import { paramMediaExists } from '../middleware/media';
 
 import validators from '../middleware/pillar_middleware';
 
@@ -416,6 +418,64 @@ const App = (app) => {
     '/api/v1/pillars/:id/delete',
     [authenticate, authorize.cms.pillar.delete, keystone.middleware.api],
     routes.api.pillar.remove,
+  );
+
+  app.post(
+    `${baseUrl}/resources/repository/media`,
+    [
+      authenticate,
+      authorize.cms.resources.create,
+      appendFilesToBody,
+      validate(validator.media),
+    ],
+    routes.api.resources.media.create,
+  );
+
+  app.get(
+    `${baseUrl}/resources/repository/media`,
+    [authenticate, authorize.cms.resources.list],
+    routes.api.resources.media.list,
+  );
+
+  app.get(
+    `${baseUrl}/resources/repository/media/:id`,
+    [authenticate, authorize.cms.resources.get, paramMediaExists],
+    routes.api.resources.media.getOne,
+  );
+
+  app.post(
+    `${baseUrl}/resources/repository/document`,
+    [
+      authenticate,
+      authorize.cms.resources.create,
+      appendFilesToBody,
+      validate(validator.document),
+    ],
+    routes.api.resources.document.create,
+  );
+
+  app.put(
+    `${baseUrl}/resources/repository/document/:id`,
+    [
+      authenticate,
+      authorize.cms.resources.update,
+      paramDocExists,
+      appendFilesToBody,
+      validate(validator.documentEdit),
+    ],
+    routes.api.resources.document.update,
+  );
+
+  app.get(
+    `${baseUrl}/resources/repository/document`,
+    [authenticate, authorize.cms.resources.get],
+    routes.api.resources.document.list,
+  );
+
+  app.get(
+    `${baseUrl}/resources/repository/document/:id`,
+    [authenticate, authorize.cms.resources.get, paramDocExists],
+    routes.api.resources.document.getOne,
   );
 
   app.use(errorHandler);
