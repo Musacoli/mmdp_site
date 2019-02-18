@@ -16,7 +16,7 @@ const GroupForm = ({
   success,
   groupId,
 }) => (
-  <div>
+  <div className="main-content">
     {serverError && (
       <Message warning>
         <Message.Header>{serverError}</Message.Header>

@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Muli:400,600,700');
+@import '../abstracts/variables';
 
 *, *::before, *::after {
   margin: 0;
@@ -15,4 +16,49 @@ body {
 
 .ui.form .field>label {
 	font-size: 16px;
+}
+
+.cool-blue {
+	background-color: #3faaca !important;
+	color: white !important;
+	font-weight: 400 !important;
+}
+
+.show .content {
+	display: block !important;
+	height: auto !important;
+	opacity: 1 !important;
+	padding: 12px !important;
+}
+
+.bg-ugly-blue {
+	background-color: $ugly-blue !important;
+	&:hover {
+		background-color: $color-cool-blue !important;
+	}
+}
+
+.bg-cool-blue {
+	background-color: $color-cool-blue !important;
+	&:hover {
+		background-color: $ugly-blue !important;
+	}
+}
+$fontSize: 14px;
+.title.bold {
+	font-weight: bold;
+	font-size: $fontSize;
+}
+
+
+.media_type {
+	font-size: $fontSize !important;
+	padding-top: 0px;
+	Label {
+		font-size: $fontSize !important;
+	}
+	.column.title {
+		padding-right: 0px !important;
+		width: 9.5%!important;
+	}
 }

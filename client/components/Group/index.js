@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Input, Button, Container } from 'semantic-ui-react';
+import { Grid, Input, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import ActionButtons from './ActionButtons';
 import GroupList from './GroupList';
@@ -12,7 +12,7 @@ const Group = ({
   handeMainCheckBoxChange,
   confirmDeleteGroup,
 }) => (
-  <Container className="main-content">
+  <div className="main-content">
     <Grid columns={2}>
       <Grid.Row>
         <Grid.Column width={12}>
@@ -33,7 +33,7 @@ const Group = ({
       handeMainCheckBoxChange={handeMainCheckBoxChange}
       confirmDeleteGroup={confirmDeleteGroup}
     />
-  </Container>
+  </div>
 );
 
 Group.propTypes = {

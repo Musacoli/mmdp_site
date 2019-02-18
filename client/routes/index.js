@@ -7,6 +7,7 @@ import Login from '../containers/Login';
 import AddReport from '../views/Resources/Report/AddReport';
 import EditReport from '../views/Resources/Report/EditReport';
 import ListReport from '../views/Resources/Report/ListReport';
+import AddDocument from '../views/Resources/Document/AddDocument';
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
 import CreateEvent from '../views/Events/AddEventView';
@@ -114,6 +115,17 @@ const routes = [
     path: '/resources/research/add',
     name: 'Add Research',
     component: AddResearch,
+  },
+  {
+    path: '/resources/document/add',
+    name: 'Add Document',
+    component: AddDocument,
+    exact: true,
+  },
+  {
+    path: '/resources/report/media/add',
+    name: 'Add Media',
+    component: AddDocument,
     exact: true,
   },
   {
