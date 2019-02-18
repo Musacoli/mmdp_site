@@ -84,6 +84,11 @@ export const sidebarItems = [
     menuItems: [],
     path: '/group/list',
   },
+  {
+    title: 'Log out',
+    menuItems: [],
+    path: '/logout',
+  },
 ];
 
 export default sidebarItems;

@@ -1,4 +1,8 @@
-import { LOGIN, LOGIN_SUCCESS_OR_FAILURE } from '../../../constants/auth';
+import {
+  LOGIN,
+  LOGIN_SUCCESS_OR_FAILURE,
+  LOGOUT,
+} from '../../../constants/auth';
 
 /**
  * @param {Object} state - Default application state
@@ -10,6 +14,11 @@ const initialState = {};
 const loginReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case LOGIN:
+      return {
+        ...state,
+        payload: action.payload,
+      };
+    case LOGOUT:
       return {
         ...state,
         payload: action.payload,

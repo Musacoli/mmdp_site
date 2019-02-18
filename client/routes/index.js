@@ -4,6 +4,7 @@ import Group from '../views/Group';
 import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
+import Logout from '../containers/Login/logout';
 import AddReport from '../views/Resources/Report/AddReport';
 import EditReport from '../views/Resources/Report/EditReport';
 import ListReport from '../views/Resources/Report/ListReport';
@@ -57,6 +58,12 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+    exact: false,
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: Logout,
     exact: false,
   },
   {

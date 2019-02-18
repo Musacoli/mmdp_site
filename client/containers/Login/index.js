@@ -38,18 +38,29 @@ export class Login extends Component {
   };
 
   render() {
+    const { history, LoginStatus } = this.props;
+    const { payload } = LoginStatus;
+    if (payload && payload.status === 'success') {
+      history.push('/');
+    }
     return (
-      <LoginViewForm onSubmit={this.onFormSubmit} onChange={this.onChange} />
+      <LoginViewForm
+        onSubmit={this.onFormSubmit}
+        onChange={this.onChange}
+        {...this.props}
+      />
     );
   }
 }
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({}).isRequired,
+  LoginStatus: PropTypes.shape({}).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  Login: state.response,
+  LoginStatus: state.loginReducer,
 });
 
 const mapDispatchToProps = {
