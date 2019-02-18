@@ -5,30 +5,22 @@ import { api } from '../../../../utils/api';
 import * as actions from '../../../../store/actions/resources/document';
 import { addDocument } from '../../../../store/sagas/resources/document';
 
-const payload = { status: {} };
-api.resources.document.create = jest.fn(() => Promise.resolve(payload));
+const payload = { payload: {}, data: {}, mediaType: 'file' };
 describe('Document Saga', () => {
-  describe('addDocuemnt', async () => {
+  describe('addDocument', async () => {
     const it = sagaHelper(addDocument({ payload }));
     it('should have yield list resources', (result) => {
-      expect(result).toEqual(call(api.resources.document.create, payload));
+      expect(result).toEqual(call(api.resources.media.create, {}));
     });
-
     it('and then yield dispatch addDocumentSuccessful', (result) => {
-      expect(result).toEqual(put(actions.addDocumentSuccessful({ payload })));
-    });
-  });
-  describe('addDocuemnt unresolved', async () => {
-    api.resources.document.create = jest.fn(() => Promise.reject());
-    const it = sagaHelper(addDocument());
-
-    it('and then yield dispatch addDocumentFailure', (result) => {
       expect(result).toEqual(
-        put(
-          actions.addDocumentFailure({
-            error: "Cannot read property 'payload' of undefined",
-          }),
-        ),
+        put(actions.addDocumentSuccessful({ payload: { status: {} } })),
+      );
+      return new Error('Some error');
+    });
+    it('should raise an exception', (result) => {
+      expect(result).toEqual(
+        put(actions.addDocumentFailure({ error: 'Some error' })),
       );
     });
   });

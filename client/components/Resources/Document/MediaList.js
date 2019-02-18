@@ -15,7 +15,7 @@ const MediaList = ({ loading, documents, goTo }) => (
       <InvalidPage
         pathLabel="Add a document"
         errorMessage="No documents to display"
-        errrorDescription="Please add documents"
+        errorDescription="Please add documents"
         path="/resources/document/add"
       />
     )}

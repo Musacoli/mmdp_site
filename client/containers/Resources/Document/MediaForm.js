@@ -4,15 +4,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validate from 'validate.js';
 import DocumentForm from '../../../components/Resources/Document/DocumentForm';
-import documentFormConstraint from '../../../utils/constraints/document';
 import {
   addDocument,
-  fetchDocument,
   editDocument,
   addDocumentFailure,
 } from '../../../store/actions/resources/document';
+import documentFormConstraint from '../../../utils/constraints/report';
 
-export class AddDocument extends Component {
+export class MediaForm extends Component {
   static propTypes = {
     submitDocument: PropTypes.func.isRequired,
     response: PropTypes.shape({}),
@@ -21,30 +20,16 @@ export class AddDocument extends Component {
     success: PropTypes.bool.isRequired,
     match: PropTypes.shape({}).isRequired,
     singleDocument: PropTypes.shape({}).isRequired,
-    getDocument: PropTypes.func.isRequired,
-    updateDocument: PropTypes.func.isRequired,
     clearErrors: PropTypes.func.isRequired,
   };
 
   state = {
     title: '',
     document: {},
-    mediaType: 'document',
+    mediaType: 'file',
     id: '',
     errors: {},
   };
-
-  componentDidMount() {
-    const {
-      match: { params },
-      getDocument,
-    } = this.props;
-    if (params.id) {
-      const id = { id: params.id };
-      this.setState({ id });
-      getDocument(id);
-    }
-  }
 
   componentWillUnmount() {
     const { clearErrors } = this.props;
@@ -63,26 +48,26 @@ export class AddDocument extends Component {
     }
     if (success) {
       setTimeout(() => {
-        history.push('/resources/documents');
+        history.push('/resources/media');
       }, 4000);
     }
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { submitDocument, updateDocument } = this.props;
+    const { submitDocument } = this.props;
+    const { mediaType } = this.state;
     const formData = new FormData();
-    const formDetails = { ...this.state };
+    const formDetails = this.state;
+    formDetails.mediaFile = formDetails.document;
     delete documentFormConstraint.reportType;
     const addDocumentConstraint = {
       ...documentFormConstraint,
       document: documentFormConstraint.reportFile,
     };
     delete addDocumentConstraint.reportFile;
-    if (formDetails.document.url) {
-      delete addDocumentConstraint.document;
-      delete formDetails.document;
-    }
+    delete addDocumentConstraint.title;
+    if (formDetails.mediaFile.url) delete addDocumentConstraint.mediaFile;
     const errors = validate(formDetails, addDocumentConstraint);
     if (errors) {
       this.setState({
@@ -92,11 +77,7 @@ export class AddDocument extends Component {
       Object.keys(formDetails).forEach((field) => {
         formData.append(field, formDetails[field]);
       });
-      if (formDetails.id) {
-        updateDocument({ data: formData, id: formDetails.id });
-        return true;
-      }
-      submitDocument({ data: formData });
+      submitDocument({ data: formData, mediaType });
     }
   };
 
@@ -104,8 +85,6 @@ export class AddDocument extends Component {
     let value;
     if (event.target.files) {
       [value] = event.target.files;
-    } else {
-      ({ value } = event.target);
     }
     const { errors: currentErrors } = this.state;
     const errors = Object.assign({}, currentErrors);
@@ -120,17 +99,17 @@ export class AddDocument extends Component {
   };
 
   render() {
-    const { reportType, document, errors, title } = this.state;
+    const { document, errors, title, mediaType } = this.state;
     const { loading } = this.props;
     return (
       <DocumentForm
         loading={loading}
-        reportType={reportType}
         title={title}
         reportFileName={document.name || ''}
         onChange={this.handleChange}
         onSubmit={this.handleSubmit}
         errors={errors}
+        mediaLabel={mediaType}
       />
     );
   }
@@ -145,7 +124,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   submitDocument: addDocument,
-  getDocument: fetchDocument,
   updateDocument: editDocument,
   clearErrors: addDocumentFailure,
 };
@@ -153,4 +131,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(AddDocument);
+)(MediaForm);

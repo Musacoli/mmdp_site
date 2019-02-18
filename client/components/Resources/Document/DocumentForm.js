@@ -10,13 +10,14 @@ const DocumentForm = ({
   loading,
   errors,
   title,
+  mediaLabel,
 }) => (
   <Form loading={loading} onSubmit={onSubmit}>
-    <Form.Group widths="equal">
+    <Form.Group widths={mediaLabel === 'document' ? 'equal' : '16'}>
       <Form.Field error={!!errors.reportFile}>
         <FileInput
           name="document"
-          label="Upload file"
+          label={`Upload ${mediaLabel}`}
           placeholder="Select a file"
           value={reportFileName}
           className="test"
@@ -24,24 +25,26 @@ const DocumentForm = ({
           onChange={onChange}
         />
       </Form.Field>
-      <Form.Input
-        name="title"
-        className="form__text-input"
-        fluid
-        label="Report title"
-        type="text"
-        value={title}
-        placeholder="Research carried out last year"
-        onChange={onChange}
-        error={!!errors.title}
-      />
+      {mediaLabel === 'document' && (
+        <Form.Input
+          name="title"
+          className="form__text-input"
+          fluid={false}
+          label="Report title"
+          type="text"
+          value={title}
+          placeholder="Research carried out last year"
+          onChange={onChange}
+          error={!!errors.title}
+        />
+      )}
     </Form.Group>
     <Form.Field>
       <Button
         type="submit"
         className="common-button upload-document bg-cool-blue"
       >
-        Upload Document
+        Add {mediaLabel}
       </Button>
     </Form.Field>
   </Form>
@@ -58,10 +61,12 @@ DocumentForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   reportFileName: PropTypes.string.isRequired,
   title: PropTypes.string,
+  mediaLabel: PropTypes.string,
 };
 
 DocumentForm.defaultProps = {
   title: '',
+  mediaLabel: 'document',
 };
 
 export default DocumentForm;

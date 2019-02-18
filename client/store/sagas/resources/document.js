@@ -45,10 +45,15 @@ export function* editDocument({ payload }) {
     yield put(actions.editDocumentFailure({ error }));
   }
 }
-
-export function* addDocument(action) {
+export function* addDocument({ payload }) {
   try {
-    const response = yield call(api.resources.document.create, action.payload);
+    let response;
+
+    if (payload.mediaType) {
+      response = yield call(api.resources.media.create, payload.data);
+    } else {
+      response = yield call(api.resources.document.create, payload.data);
+    }
     const message = response !== undefined ? response.data.message : {};
     toastr.success(message);
     const status = response ? response.status : {};

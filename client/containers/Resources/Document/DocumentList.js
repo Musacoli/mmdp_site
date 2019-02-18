@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchDocuments } from '../../../store/actions/resources/document';
-import DocumentComponent from '../../../components/Resources/Document/DocumentComponent';
+import DocumentComponent from '../../../components/Resources/Document/Document';
 
 export class DocumentList extends Component {
   static propTypes = {

@@ -29,6 +29,7 @@ import PillarThreeView from '../views/Pillar/pillarThree';
 import PillarFourView from '../views/Pillar/pillarFour';
 import AddResearch from '../views/Resources/Research/AddResearch';
 import UpdateResearch from '../views/Resources/Research/EditResearch';
+import AddMedia from '../views/Resources/Document/AddMedia';
 
 const routes = [
   {
@@ -133,11 +134,6 @@ const routes = [
     exact: true,
   },
   {
-    path: '/resources/media/add',
-    name: 'Add Media',
-    component: AddDocument,
-  },
-  {
     path: '/resources/documents',
     name: 'List Documents',
     component: DocumentList,
@@ -230,6 +226,18 @@ const routes = [
     path: '/resources/documents/edit/:id',
     name: 'Edit resources document',
     component: EditDocument,
+    exact: true,
+  },
+  {
+    path: '/resources/media/edit/:id',
+    name: 'Edit resources media',
+    component: EditDocument,
+    exact: true,
+  },
+  {
+    path: '/resources/media/add',
+    name: 'Add resources media',
+    component: AddMedia,
     exact: true,
   },
 ];
