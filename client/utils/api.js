@@ -23,15 +23,9 @@ export const api = {
   },
   resources: {
     document: {
-      create: (data) =>
-        server.post('api/v1/resources/repository/document', data),
-    },
-  },
-  resources: {
-    document: {
-      create: (data) => client.post(documentsApiPrefix, data),
-      update: (data, id) => client.put(`${documentsApiPrefix}/${id.id}`, data),
-      retrieve: (id) => client.get(`${documentsApiPrefix}/${id}/`),
+      create: (data) => server.post(documentsApiPrefix, data),
+      update: (data, id) => server.put(`${documentsApiPrefix}/${id.id}`, data),
+      retrieve: (id) => server.get(`${documentsApiPrefix}/${id}/`),
     },
   },
 };
