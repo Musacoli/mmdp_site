@@ -82,12 +82,12 @@ export function* fetchDocumentsAsync() {
     yield put(actions.fetchDocumentFailure({}));
   }
 }
+
 /** WATCHERS */
 export function* watchFetchDocuments() {
   yield takeEvery(FETCH_DOCUMENTS, fetchDocumentsAsync);
 }
 
-/** WATCHERS */
 export function* watchAddDocument() {
   yield takeLatest(ADD_DOCUMENT, addDocument);
 }

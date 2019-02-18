@@ -19,6 +19,7 @@ export const initialState = {
     results: [],
     currentPage: 1,
   },
+  isFetching: false,
   errors: '',
 };
 
@@ -42,6 +43,7 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, loading: false, ...payload };
     case FETCH_DOCUMENTS:
       return { ...state, ...payload, isFetching: true };
+
     case FETCH_DOCUMENT_FAILURE:
       return { ...state, ...payload, isDeleting: false };
     default:
