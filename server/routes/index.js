@@ -606,6 +606,28 @@ const App = (app) => {
     routes.api.resources.research.create,
   );
 
+  app.get(
+    `${baseUrl}/resources/research`,
+    [authenticate, authorize.cms.resources.list],
+    routes.api.resources.research.list,
+  );
+
+  app.get(
+    `${baseUrl}/resources/research/:id`,
+    [authenticate, authorize.cms.resources.get],
+    routes.api.resources.research.retrieve,
+  );
+  app.put(
+    `${baseUrl}/resources/research/:id`,
+    [authenticate, authorize.cms.resources.update],
+    routes.api.resources.research.update,
+  );
+  app.delete(
+    `${baseUrl}/resources/research/:id`,
+    [authenticate, authorize.cms.resources.delete],
+    routes.api.resources.research.remove,
+  );
+
   app.use(errorHandler);
 };
 
