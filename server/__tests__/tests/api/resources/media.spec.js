@@ -19,6 +19,10 @@ const apiGetMedia = (id) => {
   return app.get(`${route}/${id}`).send();
 };
 
+const apiDeleteMedia = (id) => {
+  return app.delete(`${route}/${id}`);
+};
+
 describe('Media route', () => {
   let stub;
 
@@ -132,6 +136,31 @@ describe('Media route', () => {
     it('should fail if user is not authorized', async () => {
       await app.loginRandom();
       expect((await apiGetMedia(existingMedia._id)).status).toBe(403);
+    });
+  });
+
+  describe('Delete Media', () => {
+    let existingMedia;
+
+    beforeEach(async () => {
+      await app.loginRandom(['cms.resources.delete']);
+      const createdAt = { created_at: new Date() };
+      existingMedia = await createMedia(createdAt);
+    });
+
+    it('should delete media', async () => {
+      const res = await apiDeleteMedia(existingMedia._id);
+      expect(res.status).toBe(200);
+      expect(res.body.data).toMatchObject({
+        deleted: {
+          _id: existingMedia.id,
+          mediaFile: existingMedia.mediaFile,
+        },
+      });
+    });
+    it('should fail when the doc does not exist', async () => {
+      const res = await apiDeleteMedia('5x5x5x5x');
+      expect(res.status).toBe(404);
     });
   });
 });

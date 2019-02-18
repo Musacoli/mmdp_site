@@ -486,6 +486,12 @@ const App = (app) => {
     routes.api.resources.media.getOne,
   );
 
+  app.delete(
+    `${baseUrl}/resources/repository/media/:id`,
+    [authenticate, authorize.cms.resources.delete, paramMediaExists],
+    routes.api.resources.media.deleteMedia,
+  );
+
   app.post(
     `${baseUrl}/resources/repository/document`,
     [
