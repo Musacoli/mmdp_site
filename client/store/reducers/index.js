@@ -9,11 +9,6 @@ import permissions from './permission';
 import groupCart from './group/cart';
 import governorMessage from './about/governorMessage';
 import aboutMMDP from './about/aboutMMDP';
-<<<<<<< HEAD
-import documents from './resources/document';
-import report from './resources/report';
-=======
->>>>>>> feat(repository-documents): Implement a grid list of documents
 import documents from './resources/document';
 import report from './resources/report';
 import Users from './users/fetchUsers';

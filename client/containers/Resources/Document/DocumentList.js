@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-<<<<<<< HEAD
-import { fetchDocument } from '../../../store/actions/resources/document';
-=======
 import { fetchDocuments } from '../../../store/actions/resources/document';
->>>>>>> feat(repository-documents): Implement a grid list of documents
 import DocumentComponent from '../../../components/Resources/Document/DocumentComponent';
 
 export class DocumentList extends Component {
@@ -42,19 +38,11 @@ export class DocumentList extends Component {
 
 const mapStateToProps = (state) => ({
   documents: state.documents.data,
-<<<<<<< HEAD
-  loading: state.documents.isFetching,
-});
-
-const mapDispatchToProps = {
-  getDocuments: fetchDocument,
-=======
   loading: state.documents.loading,
 });
 
 const mapDispatchToProps = {
   getDocuments: fetchDocuments,
->>>>>>> feat(repository-documents): Implement a grid list of documents
 };
 
 export default connect(

@@ -29,9 +29,4 @@ export const api = {
       list: () => server.get(documentsApiPrefix),
     },
   },
-  resources: {
-    documents: {
-      list: () => client.get('api/v1/resources/repository/documents'),
-    },
-  },
 };

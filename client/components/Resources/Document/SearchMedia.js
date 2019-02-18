@@ -14,11 +14,7 @@ const SearchMedia = () => {
           </Button>
         </Grid.Column>
         <Grid.Column width={3}>
-<<<<<<< HEAD
-          <a href="/resources/report/document/add">
-=======
           <a href="/resources/document/add">
->>>>>>> feat(repository-documents): Implement a grid list of documents
             <Button className="common__button bg-ugly-blue" fluid>
               Add Media
             </Button>
