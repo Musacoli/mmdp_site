@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Grid, Button } from 'semantic-ui-react';
-import Archiver from '../../../containers/Resources/Document/Archive';
+import Archiver from '../../../containers/Resources/Document/ArchiveDocument';
 import DeleteDocument from '../../../containers/Resources/Document/DeleteDocument';
 
 const MediaCard = ({ item, goTo }) => (

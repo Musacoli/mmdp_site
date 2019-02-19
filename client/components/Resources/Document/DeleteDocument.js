@@ -11,12 +11,14 @@ const DeleteDocument = ({ closeModal, open, handleDelete }) => {
           <p>Are you sure you want to delete this document ?</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button negative onClick={closeModal}>
-            No
-          </Button>
-          <Button positive onClick={handleDelete}>
-            Yes
-          </Button>
+          <Button negative onClick={closeModal} content="No" />
+          <Button
+            className="cool-blue"
+            icon="checkmark"
+            labelPosition="right"
+            content="Yes"
+            onClick={handleDelete}
+          />
         </Modal.Actions>
       </Modal>
     </div>

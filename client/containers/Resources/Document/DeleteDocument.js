@@ -24,6 +24,7 @@ export class DeleteDoc extends Component {
   render() {
     const { deleteModalOpen } = this.state;
     const { loading, id, _id } = this.props;
+    const activeCard = _id === id;
     return (
       <React.Fragment>
         <DeleteDocument
@@ -34,8 +35,8 @@ export class DeleteDoc extends Component {
         <Button
           onClick={() => this.showDeleteModal()}
           className="archive-doc delete-doc red"
-          loading={id === _id && loading}
-          disabled={id === _id && loading}
+          loading={activeCard && loading}
+          disabled={activeCard && loading}
         >
           Delete
         </Button>

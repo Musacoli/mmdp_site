@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 import { archiveDoc } from '../../../store/actions/resources/document';
 
-export class Archive extends Component {
+export class ArchiveDocument extends Component {
   handleArchive = () => {
     const { archive, id } = this.props;
     archive(id);
@@ -12,12 +12,13 @@ export class Archive extends Component {
 
   render() {
     const { loading, archived, _id, id } = this.props;
+    const activeCard = _id === id;
     return (
       <Button
         onClick={this.handleArchive}
         className="archive-doc"
-        loading={_id === id && loading}
-        disabled={_id === id && loading}
+        loading={activeCard && loading}
+        disabled={activeCard && loading}
       >
         {archived ? 'Unarchive' : 'Archive'}
       </Button>
@@ -31,7 +32,7 @@ export const mapDispatchToProps = {
   archive: archiveDoc,
 };
 
-Archive.propTypes = {
+ArchiveDocument.propTypes = {
   archive: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   archived: PropTypes.bool,
@@ -42,4 +43,4 @@ Archive.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Archive);
+)(ArchiveDocument);

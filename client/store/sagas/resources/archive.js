@@ -1,6 +1,9 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { api } from '../../../utils/api';
-import { ARCHIVE,FETCH_DOCUMENTS } from '../../../constants/resources/document';
+import {
+  ARCHIVE,
+  FETCH_DOCUMENTS,
+} from '../../../constants/resources/document';
 
 import {
   archiveFailed,

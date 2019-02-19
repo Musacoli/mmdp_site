@@ -1,8 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import ReactRouterEnzymeContext from 'react-router-enzyme-context';
+import { Provider } from 'react-redux';
 import { DocumentList } from '../../../containers/Resources/Document/DocumentList';
 import { initialState } from '../../../store/reducers/resources/document';
+import { store } from '../../../store';
 
 describe.only('DocumentList', () => {
   let wrapper;
@@ -17,8 +19,12 @@ describe.only('DocumentList', () => {
       history: { push: jest.fn() },
       documents: documents.data,
     };
+
     wrapper = mount(
-      <DocumentList {...props} />,
+      <Provider store={store}>
+        <DocumentList {...props} />
+      </Provider>,
+
       new ReactRouterEnzymeContext(),
     );
   });
