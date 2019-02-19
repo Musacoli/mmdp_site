@@ -442,7 +442,7 @@ const App = (app) => {
       authenticate,
       authorize.cms.resources.create,
       appendFilesToBody,
-      validate(validator.document),
+      validate(validator.document.addDocument),
     ],
     routes.api.resources.document.create,
   );

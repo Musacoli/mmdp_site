@@ -31,6 +31,7 @@ import AddResearch from '../views/Resources/Research/AddResearch';
 import UpdateResearch from '../views/Resources/Research/EditResearch';
 import AddMedia from '../views/Resources/Document/AddMedia';
 import ViewAllResearch from '../views/Resources/Research/ViewAllResearch';
+import MediaListView from '../views/Resources/Media/MediaList';
 import ViewStakeholders from '../views/Resources/Stakeholders/ViewStakeholders';
 
 const routes = [
@@ -247,6 +248,11 @@ const routes = [
     path: '/resources/media/add',
     name: 'Add resources media',
     component: AddMedia,
+  },
+  {
+    path: '/resources/media',
+    name: 'List Media',
+    component: MediaListView,
     exact: true,
   },
   {

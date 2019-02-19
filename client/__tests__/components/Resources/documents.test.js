@@ -35,11 +35,11 @@ describe.only('AddDocument', () => {
     wrapper = mount(<AddDocument {...props} />);
   });
   it('should mount AddDocument without crashing', () => {
-    expect(wrapper.find('DocumentForm').length).toEqual(1);
+    expect(wrapper.find('AddEditDocument').length).toEqual(1);
     expect(wrapper.find(Form.Input).length).toEqual(1);
   });
   it('should set state for the title field when onChange method is called with an event target name of title', () => {
-    wrapper.find('DocumentForm').prop('onChange')(
+    wrapper.find('AddEditDocument').prop('onChange')(
       createFormEvent('title', title),
     );
     expect(wrapper.state('title')).toEqual(title);
@@ -51,7 +51,7 @@ describe.only('AddDocument', () => {
         document: ['Select a document file to upload'],
       },
     });
-    wrapper.find('DocumentForm').prop('onChange')(
+    wrapper.find('AddEditDocument').prop('onChange')(
       createFormEvent('title', title),
     );
     expect(wrapper.state('title')).toEqual(title);
@@ -65,7 +65,7 @@ describe.only('AddDocument', () => {
       title,
       document: {},
     });
-    wrapper.find('DocumentForm').prop('onSubmit')(event);
+    wrapper.find('AddEditDocument').prop('onSubmit')(event);
     expect(event.preventDefault).toBeCalled();
     expect(wrapper.prop('submitDocument')).not.toBeCalled();
   });
@@ -79,7 +79,7 @@ describe.only('AddDocument', () => {
         name: 'blank.pdf',
       },
     });
-    wrapper.find('DocumentForm').prop('onSubmit')(event);
+    wrapper.find('AddEditDocument').prop('onSubmit')(event);
     expect(event.preventDefault).toBeCalled();
     expect(wrapper.prop('submitDocument')).toBeCalled();
   });
@@ -96,7 +96,7 @@ describe.only('AddDocument', () => {
         name: 'blank.pdf',
       },
     });
-    wrapper.find('DocumentForm').prop('onSubmit')(event);
+    wrapper.find('AddEditDocument').prop('onSubmit')(event);
     expect(event.preventDefault).toBeCalled();
     expect(wrapper.prop('updateDocument')).toBeCalled();
   });

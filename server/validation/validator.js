@@ -50,7 +50,7 @@ export default {
   },
   document: {
     body: {
-      title: Joi.string(),
+      title: Joi.string().required(),
       files: {
         document: Joi.object({
           fieldname: Joi.string().required(),
