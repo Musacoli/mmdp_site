@@ -29,3 +29,15 @@ div.button__area {
     display: block;
   }
 }
+
+button.ui.button.archive-doc {
+  padding-left: 0;
+}
+
+button.ui.button.archive-doc.delete-doc.red {
+  padding-right: 0;
+}
+
+button#document_edit_btn {
+  padding-left: .2px;
+}

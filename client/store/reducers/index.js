@@ -29,6 +29,8 @@ import {
   pillarThreeReducer,
   pillarFourReducer,
 } from './pillar/pillar';
+import archive from './resources/archive';
+import deleteDoc from './resources/deleteDoc';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -58,6 +60,8 @@ const rootReducer = combineReducers({
   pillarTwoReducer,
   pillarThreeReducer,
   pillarFourReducer,
+  archive,
+  deleteDoc,
   editResearch,
 });
 

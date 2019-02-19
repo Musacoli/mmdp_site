@@ -9,6 +9,12 @@ import {
   FETCH_DOCUMENT_SUCCESS,
   FETCH_DOCUMENTS,
   FETCH_DOCUMENT_FAILURE,
+  ARCHIVE,
+  ARCHIVE_SUCCESS,
+  ARCHIVE_FAILURE,
+  DELETE,
+  DELETE_SUCCESS,
+  DELETE_FAILURE,
 } from '../../../constants/resources/document';
 
 /** FETCH DOCUMENTS */
@@ -62,5 +68,34 @@ export const addDocumentSuccessful = (payload) => ({
 
 export const addDocumentFailure = (payload) => ({
   type: ADD_DOCUMENT_FAILURE,
+  payload,
+});
+export const archiveDoc = (payload) => ({
+  type: ARCHIVE,
+  payload,
+});
+
+export const archiveSuccess = (payload) => ({
+  type: ARCHIVE_SUCCESS,
+  payload,
+});
+
+export const archiveFailed = (payload) => ({
+  type: ARCHIVE_FAILURE,
+  payload,
+});
+
+export const startDelete = (payload) => ({
+  type: DELETE,
+  payload,
+});
+
+export const deleteSuccess = (payload) => ({
+  type: DELETE_SUCCESS,
+  payload,
+});
+
+export const deleteFailed = (payload) => ({
+  type: DELETE_FAILURE,
   payload,
 });
