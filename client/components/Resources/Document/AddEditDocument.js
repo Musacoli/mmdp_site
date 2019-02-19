@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Button } from 'semantic-ui-react';
 import FileInput from '../../common/Form/FileInput';
 
-const DocumentForm = ({
+const AddEditDocument = ({
   reportFileName,
   onChange,
   onSubmit,
@@ -30,7 +30,7 @@ const DocumentForm = ({
           name="title"
           className="form__text-input"
           fluid={false}
-          label="Report title"
+          label="Document title"
           type="text"
           value={title}
           placeholder="Research carried out last year"
@@ -50,11 +50,11 @@ const DocumentForm = ({
   </Form>
 );
 
-DocumentForm.defaultProps = {
+AddEditDocument.defaultProps = {
   errors: {},
 };
 
-DocumentForm.propTypes = {
+AddEditDocument.propTypes = {
   errors: PropTypes.shape({}),
   loading: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -64,9 +64,9 @@ DocumentForm.propTypes = {
   mediaLabel: PropTypes.string,
 };
 
-DocumentForm.defaultProps = {
+AddEditDocument.defaultProps = {
   title: '',
   mediaLabel: 'document',
 };
 
-export default DocumentForm;
+export default AddEditDocument;

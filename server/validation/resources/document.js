@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const addDocument = {
   body: {
-    title: Joi.string(),
+    title: Joi.string().required(),
     files: {
       document: Joi.object({
         fieldname: Joi.string().required(),

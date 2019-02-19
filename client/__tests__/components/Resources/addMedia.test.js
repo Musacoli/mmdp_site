@@ -32,7 +32,7 @@ describe.only('MediaForm', () => {
     wrapper = mount(<MediaForm {...props} />);
   });
   it('should mount MediaForm without crashing', () => {
-    expect(wrapper.find('DocumentForm').length).toEqual(1);
+    expect(wrapper.find('AddEditDocument').length).toEqual(1);
   });
 
   it('should clear error for a particular input field when onChange method is called by the input field', () => {
@@ -49,7 +49,7 @@ describe.only('MediaForm', () => {
     wrapper.setState({
       document: {},
     });
-    wrapper.find('DocumentForm').prop('onSubmit')(event);
+    wrapper.find('AddEditDocument').prop('onSubmit')(event);
     expect(event.preventDefault).toBeCalled();
     expect(wrapper.prop('submitDocument')).not.toBeCalled();
   });
@@ -62,10 +62,10 @@ describe.only('MediaForm', () => {
         name: 'blank.pdf',
       },
     });
-    wrapper.find('DocumentForm').prop('onChange')(
+    wrapper.find('AddEditDocument').prop('onChange')(
       createFormEvent('title', 'title'),
     );
-    wrapper.find('DocumentForm').prop('onSubmit')(event);
+    wrapper.find('AddEditDocument').prop('onSubmit')(event);
     expect(event.preventDefault).toBeCalled();
     expect(wrapper.prop('submitDocument')).toBeCalled();
   });
