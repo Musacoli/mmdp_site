@@ -21,4 +21,51 @@ export default {
     const { offset, limit } = pageQuery;
     return model.find(filter, fields, { skip: offset, limit });
   },
+  update: (model, id, data, fields = []) => {
+    return new Promise((resolve, reject) => {
+      model
+        .update({ _id: id }, { $set: data })
+        .populate(fields)
+        .exec((err, result) => {
+          if (err) return reject(err);
+          return resolve(result);
+        });
+    });
+  },
+  findAll: (model, fields = []) => {
+    return new Promise((resolve, reject) => {
+      model
+        .find({})
+        .populate(fields)
+        .exec((err, result) => {
+          if (err) return reject(err);
+          return resolve(result);
+        });
+    });
+  },
+  find: (model, id, fields = []) => {
+    return new Promise((resolve, reject) => {
+      model
+        .findOne({ _id: id })
+        .populate(fields)
+        .exec((err, result) => {
+          if (err) return reject(err);
+          return resolve(result);
+        });
+    });
+  },
+  populate: (model, fields = []) => {
+    return new Promise((resolve, reject) => {
+      model.populate(fields, (err, result) => {
+        if (err) return reject(err);
+        return resolve(result);
+      });
+    });
+  },
+  deleteOne: (model, id) => {
+    return model.deleteOne({ _id: id });
+  },
+  deleteMany: (model, ids) => {
+    return model.deleteMany({ _id: { $in: ids } });
+  },
 };

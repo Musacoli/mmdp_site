@@ -28,12 +28,14 @@ import { paramDocExists } from '../middleware/documents';
 import { paramMediaExists } from '../middleware/media';
 
 import validators from '../middleware/pillar_middleware';
+import stakeholdersDirectoryValidator from '../middleware/stakeholdersDirectory';
 
 const importRoutes = keystone.importer(__dirname);
 
 export const baseUrl = '/api/v1';
 
 const aboutPath = `${baseUrl}/about`;
+const stakeholdersPath = `${baseUrl}/stakeholders-directory`;
 
 const App = (app) => {
   // Import Route Controllers
@@ -627,6 +629,50 @@ const App = (app) => {
     [authenticate, authorize.cms.resources.delete],
     routes.api.resources.research.remove,
   );
+
+  /* ---------- Stakeholders Directory ----------- */
+  app.post(
+    `${stakeholdersPath}/create`,
+    authenticate,
+    authorize.cms.stakeholders.create,
+    stakeholdersDirectoryValidator,
+    keystone.middleware.api,
+    routes.api.stakeholdersDirectory.create,
+  );
+
+  app.get(
+    `${stakeholdersPath}/list`,
+    authenticate,
+    authorize.cms.stakeholders.list,
+    keystone.middleware.api,
+    routes.api.stakeholdersDirectory.list,
+  );
+
+  app.put(
+    `${stakeholdersPath}/:id/update`,
+    authenticate,
+    authorize.cms.stakeholders.update,
+    keystone.middleware.api,
+    stakeholdersDirectoryValidator,
+    routes.api.stakeholdersDirectory.update,
+  );
+
+  app.get(
+    `${stakeholdersPath}/:id`,
+    authenticate,
+    authorize.cms.stakeholders.get,
+    keystone.middleware.api,
+    routes.api.stakeholdersDirectory.get,
+  );
+
+  app.delete(
+    `${stakeholdersPath}/:id/remove`,
+    authenticate,
+    authorize.cms.stakeholders.delete,
+    keystone.middleware.api,
+    routes.api.stakeholdersDirectory.remove,
+  );
+  /* ---------- Stakeholders Directory ----------- */
 
   app.use(errorHandler);
 };
