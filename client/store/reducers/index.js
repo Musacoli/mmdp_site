@@ -23,6 +23,7 @@ import edoStateApproach from './about/edoStateApproach';
 import objectives from './about/objectives';
 import research from './resources/research';
 import editResearch from './resources/editResearch';
+import stakeholdersDirectory from './resources/Stakeholders';
 import {
   pillarOneReducer,
   pillarTwoReducer,
@@ -65,6 +66,7 @@ const rootReducer = combineReducers({
   deleteDoc,
   editResearch,
   getResearch,
+  stakeholdersDirectory,
 });
 
 export default rootReducer;
