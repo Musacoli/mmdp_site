@@ -71,7 +71,7 @@ export const filterModel = (model, req) =>
  * returns keystone-paginated results. It will find 'John' when the search parameter
  * value is 'hn' To finally execute the query and get the results call the exec()
  * method e.g.
- * filterAndPaginate(User, req).exec(err, results => {...handle error or results});
+ * filterAndPaginate(User, req).exec((err, results) => {...handle error or results});
  *
  * @param model
  * @param req

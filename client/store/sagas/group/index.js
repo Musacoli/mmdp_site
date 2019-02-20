@@ -11,8 +11,8 @@ import {
   SET_GROUP,
 } from '../../../constants';
 
-export function* fetchGroupsAsync() {
-  const groups = yield call(api.group.list);
+export function* fetchGroupsAsync({ payload }) {
+  const groups = yield call(api.group.list, payload);
   const data = groups !== undefined ? groups.data : {};
   yield put(fetchGroups(data));
 }
@@ -61,7 +61,10 @@ export function* deleteGroupsAsync({ payload }) {
     yield call(api.group.delete, _id);
     yield put({
       type: FETCHING_GROUPS,
-      payload: {},
+      payload: {
+        page: 1,
+        search: '',
+      },
     });
   } catch (err) {
     yield put({

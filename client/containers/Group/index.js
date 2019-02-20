@@ -31,13 +31,36 @@ export class GroupContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      search: '',
+    };
   }
 
   componentDidMount() {
-    const { getGroups } = this.props;
-    getGroups({});
+    this.fetchGroups();
   }
+
+  fetchGroups = (page = 1, searchStr = null) => {
+    const { getGroups } = this.props;
+    const { search } = this.state;
+
+    const query = searchStr !== null ? searchStr : search;
+
+    getGroups({ page, search: query });
+  };
+
+  handleSearchChange = (search) => {
+    if (!search) {
+      this.setState({ search });
+      this.fetchGroups(1, search);
+    }
+  };
+
+  handleSearch = (search) => {
+    this.setState({ search });
+
+    this.fetchGroups(1, search);
+  };
 
   redirectTo = (_id) => {
     const { history } = this.props;
@@ -88,6 +111,9 @@ export class GroupContainer extends Component {
         confirmDeleteGroup={this.confirmDeleteGroup}
         bulkDeleteGroups={this.bulkDeleteGroups}
         redirectTo={this.redirectTo}
+        handleSearchChange={this.handleSearchChange}
+        handleSearch={this.handleSearch}
+        handleChangePage={this.fetchGroups}
       />
     );
   }

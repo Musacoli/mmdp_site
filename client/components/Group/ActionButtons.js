@@ -25,7 +25,7 @@ const ActionButtons = ({ bulkDeleteGroups }) => (
             <ActionModal
               triggerText="Delete"
               header="Delete Selected Group"
-              content="Are you sure you want to selected group?"
+              content="Are you sure you want to delete selected group(s)?"
               confirmDeleteGroup={bulkDeleteGroups}
             />
           </Button>

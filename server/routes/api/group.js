@@ -1,6 +1,7 @@
 import keystone from 'keystone';
 import Group from '../../models/Group';
 import { getPermissionsMapArray } from '../../utils/permissions';
+import { filterAndPaginate, getPaginationData } from '../../utils/search';
 
 // view helper methods
 /**
@@ -36,15 +37,15 @@ const presentData = (groupData) =>
   });
 
 export const list = (req, res) => {
-  Group.model
-    .find()
+  filterAndPaginate(Group, req)
     .sort('-createdAt')
-    .exec(async (err, groups) =>
+    .exec(async (err, data) => {
       res.json({
         status: 'success',
-        groups: await presentData(groups),
-      }),
-    );
+        groups: await presentData(data.results),
+        pagination: getPaginationData(data),
+      });
+    });
 };
 
 export const get = async (req, res) => {

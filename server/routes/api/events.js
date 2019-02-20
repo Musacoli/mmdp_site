@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import Events from '../../models/EventsModel';
 import modelHelper from '../../helpers/modelHelper';
-import { filterAndPaginate } from '../../utils/search';
+import { filterAndPaginate, getPaginationData } from '../../utils/search';
 
 export const create = (req, res) => {
   const { mainEvent } = req.body;
@@ -48,11 +48,11 @@ export const get = (req, res) => {
 export const list = (req, res) => {
   filterAndPaginate(Events, req)
     .sort('-dateCreated')
-    .populate('')
-    .exec((err, results) => {
+    .exec((err, data) => {
       res.status(200).send({
         status: 'success',
-        data: results,
+        data: data.results,
+        pagination: getPaginationData(data),
       });
     });
 };

@@ -1,4 +1,5 @@
 import { server } from './keys';
+import { formatObjectToParams } from './helpers';
 
 const apiVersion = 'api/v1/';
 const documentsApiPrefix = `${apiVersion}resources/repository/document`;
@@ -6,7 +7,16 @@ const documentsApiPrefix = `${apiVersion}resources/repository/document`;
 export const api = {
   group: {
     create: (data) => server.post('api/groups/', data),
-    list: () => server.get('api/groups/'),
+    list: (payload) => {
+      if (payload) {
+        const { page, search } = payload;
+        return server.get(
+          `api/groups?${formatObjectToParams({ page, name: search })}`,
+        );
+      } else {
+        return server.get('api/groups');
+      }
+    },
     edit: (id, data) => server.put(`api/groups/${id}/`, data),
     delete: (id) => server.delete(`api/groups/${id}/`),
     retrieve: (id) => server.get(`api/groups/${id}/`),

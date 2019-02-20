@@ -16,12 +16,13 @@ import {
 
 const id = 1;
 const payload = { id };
+const filters = { page: 1, search: '' };
 
 describe('Group saga', async () => {
   describe('fetchGroupsAsync', async () => {
-    const it = sagaHelper(fetchGroupsAsync());
+    const it = sagaHelper(fetchGroupsAsync({ payload: filters }));
     it('should have called api list group', (result) => {
-      expect(result).toEqual(call(api.group.list));
+      expect(result).toEqual(call(api.group.list, filters));
     });
     it('and then trigger an fetchGroups', (result) => {
       expect(result).toEqual(put(fetchGroups({})));
@@ -71,7 +72,7 @@ describe('Group saga', async () => {
       expect(result).toEqual(
         put({
           type: FETCHING_GROUPS,
-          payload: {},
+          payload: filters,
         }),
       );
     });

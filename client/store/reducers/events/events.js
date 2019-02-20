@@ -5,7 +5,6 @@ import {
   LIST_EVENTS_FAILURE,
   UPDATE_EVENTS_LIST,
 } from '../../../constants/events';
-import { getPaginationData } from '../../../utils/helpers';
 
 export const initialState = {
   events: [],
@@ -26,8 +25,8 @@ const listEvents = (state = initialState, action = {}) => {
       return {
         ...state,
         fetching: false,
-        events: action.events.data.results,
-        pagination: getPaginationData(action.events.data),
+        events: action.events.data,
+        pagination: action.events.pagination,
       };
     case UPDATE_EVENTS_LIST: {
       const newEvents = state.events.filter(
