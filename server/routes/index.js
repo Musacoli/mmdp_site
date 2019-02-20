@@ -335,33 +335,33 @@ const App = (app) => {
     '/api/v1/events',
     [
       authenticate,
-      keystone.middleware.api,
+      authorize.cms.events.create,
       middleware.eventsMiddlewares,
-      authorize.events.create,
+      keystone.middleware.api,
     ],
     routes.api.events.create,
   );
 
   app.get(
     '/api/v1/events',
-    [authenticate, authorize.events.list, keystone.middleware.api],
+    [authenticate, authorize.cms.events.list, keystone.middleware.api],
     routes.api.events.list,
   );
 
   app.get(
     '/api/v1/events/:id',
-    [authenticate, authorize.events.get, keystone.middleware.api],
+    [authenticate, authorize.cms.events.get, keystone.middleware.api],
     routes.api.events.get,
   );
   app.put(
     '/api/v1/events/:id',
-    [authenticate, authorize.events.update, keystone.middleware.api],
+    [authenticate, authorize.cms.events.update, keystone.middleware.api],
     routes.api.events.update,
   );
 
   app.delete(
     '/api/v1/events/:id',
-    [authenticate, authorize.events.delete, keystone.middleware.api],
+    [authenticate, authorize.cms.events.delete, keystone.middleware.api],
     routes.api.events.remove,
   );
   // Pillars

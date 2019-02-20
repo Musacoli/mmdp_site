@@ -20,81 +20,131 @@ export { faker };
 /**
  * Create randomly generated group details. Provide permissions that the group
  * should have. Use the overrides object to override any of the randomly
- * generated fields.
+ * generated fields. The times argument defines the number of group
+ * data objects to be created.
  *
  * @param permissions
  * @param overrides
+ * @param times
  * @returns {{permissions: Array, name: *}}
  */
-export const makeGroup = (permissions = [], overrides = {}) => {
-  return {
-    name: `${faker.random.uuid()}-${faker.name.jobTitle()}`, // unique
-    permissions,
-    ...overrides,
-  };
+export const makeGroup = (permissions = [], overrides = {}, times = 1) => {
+  const groupData = [];
+
+  for (let i = 0; i < times; i++) {
+    groupData.push({
+      name: `${faker.random.uuid()}-${faker.name.jobTitle()}`, // unique
+      permissions,
+      ...overrides,
+    });
+  }
+  return times === 1 ? groupData[0] : groupData;
 };
 
 /**
- * Create a group with randomly generated details. Provide permissions that
- * the group should have. Use the overrides object to override any of the randomly
- * generated fields.
+ * Create a group with randomly generated details. Provide permissions that the
+ * group should have. Use the overrides object to override any of the randomly
+ * generated fields. The times argument defines the number of group objects
+ * to be created.
  *
  * @param permissions
  * @param overrides
+ * @param times
  * @returns {Promise<*>}
  */
-export const createGroup = async (permissions = [], overrides = {}) =>
-  Group.model.create(makeGroup(permissions, overrides));
+export const createGroup = async (
+  permissions = [],
+  overrides = {},
+  times = 1,
+) => {
+  const groups = [];
+  for (let i = 0; i < times; i++) {
+    // eslint-disable-next-line no-await-in-loop
+    groups.push(await Group.model.create(makeGroup(permissions, overrides)));
+  }
+  return times === 1 ? groups[0] : groups;
+};
 
 /**
  * Create randomly generated user details. Provide permissions that the user
  * should have. Use the overrides object to override any of the randomly
- * generated fields.
+ * generated fields. The times argument defines the number of user
+ * data objects to be created.
  *
  * @param permissions
  * @param overrides
+ * @param times
  * @returns {Promise<{user details}>}
  */
-export const makeUser = async (permissions = [], overrides = {}) => {
+export const makeUser = async (permissions = [], overrides = {}, times = 1) => {
+  const userData = [];
   const group = await createGroup(permissions);
+  for (let i = 0; i < times; i++) {
+    userData.push({
+      first_name: faker.name.firstName(),
+      last_name: faker.name.lastName(),
+      username: `${faker.random.uuid()}-${faker.internet.userName()}`, // unique
+      phone: faker.phone.phoneNumber('07########'),
+      email: `${faker.random.uuid()}-${faker.internet.userName()}@mmdp.com`, // unique
+      password: faker.internet.password(),
+      confirmed: faker.random.boolean(),
+      groups: group ? [group._id] : [],
+      ...overrides,
+    });
+  }
 
-  const data = {
-    first_name: faker.name.firstName(),
-    last_name: faker.name.lastName(),
-    username: `${faker.random.uuid()}-${faker.internet.userName()}`, // unique
-    phone: faker.phone.phoneNumber('07########'),
-    email: `${faker.random.uuid()}-${faker.internet.userName()}@mmdp.com`, // unique
-    password: faker.internet.password(),
-    confirmed: faker.random.boolean(),
-    groups: group ? [group._id] : [],
-  };
-
-  return { ...data, ...overrides };
+  return times === 1 ? userData[0] : userData;
 };
 
 /**
  * Create a user with randomly generated details. Provide permissions that the
  * user should have. Use the overrides object to override any of the randomly
- * generated fields.
+ * generated fields. The times argument defines the number of user objects
+ * to be created.
  *
  * @param permissions
  * @param overrides
+ * @param times
  * @returns {Promise<*>}
  */
-export const createUser = async (permissions = [], overrides = {}) =>
-  User.model.create(await makeUser(permissions, overrides));
+export const createUser = async (
+  permissions = [],
+  overrides = {},
+  times = 1,
+) => {
+  const users = [];
+  for (let i = 0; i < times; i++) {
+    // eslint-disable-next-line no-await-in-loop
+    users.push(await User.model.create(await makeUser(permissions, overrides)));
+  }
+  return times === 1 ? users[0] : users;
+};
 
 /**
- * Removes all instances of specified model created by tests. This is to ensure
+ * Converts a collection or an array of collections to the respective
+ * object representation.
+ *
+ * @param data
+ * @returns {*}
+ */
+export const collectionToObject = (data) => {
+  if (Array.isArray(data)) {
+    return data.map((item) => item.toObject());
+  }
+
+  return data.toObject();
+};
+
+/**
+ * Removes all collections of specified model created by tests. This is to ensure
  * a test can be run without worrying about duplication or other likely
  * database inconsistencies.
  *
  * @param model
  * @returns {Promise<void>}
  */
-export const removeAllModels = async (modelName) => {
-  const Model = keystone.list(modelName);
-  await Model.model.remove({});
+export const removeAllCollections = async (model) => {
+  await model.model.remove({});
 };
 
 /**
@@ -107,8 +157,8 @@ export const removeAllModels = async (modelName) => {
  * @returns {Promise<void>}
  */
 export const removeAllGroupsAndUsers = async () => {
-  await removeAllModels('Group');
-  await removeAllModels('User');
+  await removeAllCollections(Group);
+  await removeAllCollections(User);
 };
 
 export class app {
@@ -123,12 +173,12 @@ export class app {
    * @param permissions
    * @returns {Promise<void>}
    */
-  static async login(userData, permissions = []) {
+  static async login(user, permissions = []) {
     const group = await createGroup(permissions);
-    const user = userData;
-    user.groups = [group._id];
-    user.save();
-    this.token = generateToken(user.toObject());
+    const userToLogin = user;
+    userToLogin.groups = [group._id];
+    userToLogin.save();
+    this.token = generateToken(userToLogin.toObject());
   }
 
   /**
@@ -153,6 +203,18 @@ export class app {
   static app = supertest(keystone.app);
 
   /**
+   * Add authorization header to the specified supertest request object.
+   * @param request
+   * @returns {*}
+   * @private
+   */
+  static __addAuthorization(request) {
+    return this.token
+      ? request.set('authorization', `Bearer ${this.token}`)
+      : request;
+  }
+
+  /**
    * Make a get request with the authorization header (token) set if a user is
    * logged in.
    *
@@ -162,10 +224,7 @@ export class app {
   static get(url) {
     const request = this.app.get(url);
 
-    if (this.token) {
-      return request.set('authorization', `Bearer ${this.token}`);
-    }
-    return request;
+    return app.__addAuthorization(request);
   }
 
   /**
@@ -178,10 +237,7 @@ export class app {
   static post(url) {
     const request = this.app.post(url);
 
-    if (this.token) {
-      return request.set('authorization', `Bearer ${this.token}`);
-    }
-    return request;
+    return app.__addAuthorization(request);
   }
 
   /**
@@ -194,29 +250,7 @@ export class app {
   static put(url) {
     const request = this.app.put(url);
 
-    if (this.token) {
-      return request.set('authorization', `Bearer ${this.token}`);
-    }
-
-    return request;
-  }
-
-  /**
-   * Make a patch request with the authorization header (token) set if a user is
-   * logged in.
-   *
-   * @param url
-   * @returns {*}
-   */
-
-  static patch(url) {
-    const request = this.app.patch(url);
-
-    if (this.token) {
-      return request.set('authorization', `Bearer ${this.token}`);
-    }
-
-    return request;
+    return app.__addAuthorization(request);
   }
 
   /**
@@ -229,10 +263,12 @@ export class app {
   static delete(url) {
     const request = this.app.delete(url);
 
-    if (this.token) {
-      return request.set('authorization', `Bearer ${this.token}`);
-    }
+    return app.__addAuthorization(request);
+  }
 
-    return request;
+  static patch(url) {
+    const request = this.app.patch(url);
+
+    return app.__addAuthorization(request);
   }
 }

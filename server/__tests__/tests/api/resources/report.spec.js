@@ -2,7 +2,7 @@ import chai from 'chai';
 import sinon from 'sinon';
 import {
   app,
-  removeAllModels,
+  removeAllCollections,
   removeAllGroupsAndUsers,
 } from '../../../helpers/commons/base';
 import {
@@ -10,6 +10,7 @@ import {
   createArchivedReport,
 } from '../../../helpers/resources/report';
 import modelHelper from '../../../../helpers/modelHelper';
+import Report from '../../../../models/resources/Report';
 
 const { expect } = chai;
 
@@ -44,7 +45,7 @@ describe('Report route', () => {
     await removeAllGroupsAndUsers();
   });
   beforeEach(async () => {
-    await removeAllModels('Report');
+    await removeAllCollections(Report);
   });
   describe(`POST ${route}`, () => {
     it('should return a 400 status when title and or reportFile is not provided', async () => {
@@ -81,10 +82,7 @@ describe('Report route', () => {
         .post(route)
         .field('title', title)
         .field('reportType', reportType)
-        .attach(
-          'reportFile',
-          './server/__tests__/helpers/testUploads/blank.pdf',
-        );
+        .attach('reportFile', './server/__tests__/helpers/files/blank.pdf');
       expect(res.status).to.equal(201);
       expect(res.body).not.to.have.property('error');
       expect(res.body).to.have.property('message');

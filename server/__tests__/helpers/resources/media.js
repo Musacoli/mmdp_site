@@ -1,5 +1,5 @@
 import faker from 'faker';
-import { removeAllModels } from '../commons/base';
+import { removeAllCollections } from '../commons/base';
 import Media from '../../../models/resources/Media';
 
 const makeMedia = (overrides = {}, times = 1) => {
@@ -35,5 +35,5 @@ export const createMedia = async (overrides = {}, times = 1) => {
 };
 
 export const removeAllMedia = async () => {
-  await removeAllModels('Media');
+  await removeAllCollections(Media);
 };

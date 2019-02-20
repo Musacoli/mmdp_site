@@ -1,7 +1,7 @@
 import expect from 'expect';
 import sinon from 'sinon';
 import { app, removeAllGroupsAndUsers } from '../../../helpers/commons/base';
-import { createMedia } from '../../../helpers/repository/documents';
+import { createDocument } from '../../../helpers/resources/document';
 import { Document } from '../../../../middleware/repository/validateDocument';
 
 const url = '/api/v1/resources/repository';
@@ -21,7 +21,7 @@ describe('Document Api', () => {
     beforeEach(async () => {
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.resources.archive']);
-      existingDocument = await createMedia();
+      existingDocument = await createDocument();
     });
 
     it('should archive document', async () => {
@@ -41,7 +41,7 @@ describe('Document Api', () => {
     });
 
     it('should restore document', async () => {
-      existingDocument = await createMedia({
+      existingDocument = await createDocument({
         mediaType: 'document',
         archived: true,
       });
@@ -83,7 +83,7 @@ describe('Document Api', () => {
     beforeEach(async () => {
       await removeAllGroupsAndUsers();
       await app.loginRandom(['cms.resources.delete']);
-      existingDocument = await createMedia({ mediaType: 'document' });
+      existingDocument = await createDocument({ mediaType: 'document' });
     });
 
     it('should delete document', async () => {
@@ -95,10 +95,10 @@ describe('Document Api', () => {
     it('should delete with all other relevant permissions', async () => {
       await app.loginRandom(['cms.resources.*']);
       expect((await deleteDocument(existingDocument._id)).status).toBe(200);
-      existingDocument = await createMedia({ mediaType: 'document' });
+      existingDocument = await createDocument({ mediaType: 'document' });
       await app.loginRandom(['cms.*']);
       expect((await deleteDocument(existingDocument._id)).status).toBe(200);
-      existingDocument = await createMedia({ mediaType: 'document' });
+      existingDocument = await createDocument({ mediaType: 'document' });
       await app.loginRandom(['cms.delete']);
       expect((await deleteDocument(existingDocument._id)).status).toBe(200);
     });

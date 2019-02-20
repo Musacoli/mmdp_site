@@ -28,7 +28,7 @@ User.add({
     default: 'new@User',
   },
   phone: {
-    type: Types.Number,
+    type: String,
     index: true,
   },
   email: {

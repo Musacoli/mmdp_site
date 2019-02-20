@@ -2,8 +2,9 @@
 /* eslint-disable no-unused-vars */
 import Events from '../../models/EventsModel';
 import modelHelper from '../../helpers/modelHelper';
+import { filterAndPaginate } from '../../utils/search';
 
-exports.create = async (req, res) => {
+export const create = (req, res) => {
   const { mainEvent } = req.body;
 
   if (mainEvent && mainEvent === true) {
@@ -15,18 +16,20 @@ exports.create = async (req, res) => {
   // eslint-disable-next-line new-cap
   const item = new Events.model();
 
-  try {
-    const newEvent = await modelHelper.process(item, req);
-    return res.status(201).send({
-      status: 'success',
-      data: newEvent,
+  modelHelper
+    .process(item, req)
+    .then(() => {
+      res.status(201).send({
+        status: 'success',
+        data: item,
+      });
+    })
+    .catch((err) => {
+      return res.apiError({ err });
     });
-  } catch (error) {
-    return res.apiError({ error });
-  }
 };
 
-exports.get = (req, res) => {
+export const get = (req, res) => {
   Events.model.findById(req.params.id).exec((err, item) => {
     if (!item) {
       return res.status(404).send({
@@ -42,12 +45,8 @@ exports.get = (req, res) => {
   });
 };
 
-exports.list = (req, res) => {
-  Events.paginate({
-    page: req.query.page || 1,
-    perPage: 8,
-    maxPages: 10,
-  })
+export const list = (req, res) => {
+  filterAndPaginate(Events, req)
     .sort('-dateCreated')
     .populate('')
     .exec((err, results) => {
@@ -58,7 +57,7 @@ exports.list = (req, res) => {
     });
 };
 
-exports.update = (req, res) => {
+export const update = (req, res) => {
   Events.model.findById(req.params.id).exec((err, item) => {
     if (!item) {
       return res.status(404).send({
@@ -88,7 +87,7 @@ exports.update = (req, res) => {
   });
 };
 
-exports.remove = (req, res) => {
+export const remove = (req, res) => {
   Events.model.findById(req.params.id).exec((err, item) => {
     if (!item) {
       return res.status(404).send({
