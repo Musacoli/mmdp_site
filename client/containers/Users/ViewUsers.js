@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,7 +11,6 @@ import Pagination from '../../components/common/Pagination';
 
 export class ViewUsers extends Component {
   state = {
-    page: 1,
     search: '',
     selectedOption: '',
   };
@@ -24,18 +24,17 @@ export class ViewUsers extends Component {
     this.fetchUsersList();
   };
 
-  fetchUsersList = () => {
+  fetchUsersList = (pageNum = 1) => {
     const { fetchUsersList } = this.props;
     const { selectedOption } = this.state;
-    const { page } = this.state;
     const { search } = this.state;
 
-    fetchUsersList({ page, search, selectedOption });
+    fetchUsersList({ page: pageNum, search, selectedOption });
   };
 
   handleSearch = (ev) => {
     ev.preventDefault();
-    this.fetchUsersList();
+    this.fetchUsersList(1);
   };
 
   handleChange = (selectedOption) => {
@@ -48,13 +47,12 @@ export class ViewUsers extends Component {
   handleSearchChange = (ev) => {
     const { fetchUsersList } = this.props;
     const { selectedOption } = this.state;
-    const { page } = this.state;
     const search = ev.target.value;
 
     this.setState({ search });
 
-    if (search === '' || selectedOption === '') {
-      fetchUsersList({ page, search, selectedOption });
+    if (search !== '' || selectedOption !== '') {
+      fetchUsersList(1, { search, selectedOption });
     }
   };
 
@@ -104,14 +102,13 @@ ViewUsers.propTypes = {
   history: PropTypes.shape(),
   allGroups: PropTypes.func,
   groups: PropTypes.shape(),
-  pagination: PropTypes.shape(),
+  pagination: PropTypes.shape({}),
 };
 
-export const mapStateToProps = ({ Users, deleteUser, groups, pagination }) => ({
+export const mapStateToProps = ({ Users, deleteUser, groups }) => ({
   ...Users,
   deleteUser,
   groups,
-  pagination,
 });
 
 const mapDispatchToProps = {

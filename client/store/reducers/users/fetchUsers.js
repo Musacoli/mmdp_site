@@ -4,6 +4,8 @@ import {
   FETCHING_USERS_ERROR,
 } from '../../../constants/users';
 
+import { getPaginationData } from '../../../utils/helpers';
+
 const initialState = {
   users: [],
   pagination: {},
@@ -27,8 +29,8 @@ const fetchUsers = (state = initialState, action) => {
         ...state,
         success: true,
         error: false,
+        pagination: getPaginationData(action.payload.pagination),
         users: action.payload.users,
-        pagination: action.payload.pagination,
       };
     }
     case FETCHING_USERS_ERROR: {
@@ -36,6 +38,7 @@ const fetchUsers = (state = initialState, action) => {
         ...state,
         success: false,
         error: true,
+        pagination: {},
         errors: action.payload,
       };
     }

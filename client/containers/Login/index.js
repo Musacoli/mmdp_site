@@ -11,26 +11,15 @@ export class Login extends Component {
   };
 
   componentDidUpdate() {
-    const { LoginStatus } = this.props;
+    const { history, LoginStatus } = this.props;
     const { payload } = LoginStatus;
     if (payload && payload.status === 'success') {
       // allow the browser to set userToken
       setTimeout(() => {
-        window.location.assign('/');
+        history.push('/');
       }, 1000);
     }
   }
-
-  onChange = (e) => {
-    e.preventDefault();
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  validateEmail = (email) => {
-    // eslint-disable-next-line no-useless-escape
-    const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return EMAIL_REGEX.test(email);
-  };
 
   onFormSubmit = (e) => {
     e.preventDefault();
@@ -46,6 +35,17 @@ export class Login extends Component {
       const data = this.state;
       LoginUserAction(data);
     }
+  };
+
+  onChange = (e) => {
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  validateEmail = (email) => {
+    // eslint-disable-next-line no-useless-escape
+    const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return EMAIL_REGEX.test(email);
   };
 
   render() {

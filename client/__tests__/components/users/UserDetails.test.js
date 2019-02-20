@@ -17,7 +17,7 @@ const props = {
 let wrapper;
 
 describe('<UserDetails /> ', () => {
-  before(() => {
+  beforeEach(() => {
     wrapper = mount(
       <UserDetails users={user.fetchedUsersData} {...props} {...state} />,
     );
