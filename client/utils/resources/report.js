@@ -1,7 +1,7 @@
 import baseAPI, { server } from '../keys';
+import { formatObjectToParams } from '../helpers';
 
 const URL = `${baseAPI}/api/v1`;
-const PAGE_LIMIT = 20;
 export const createReport = (data) =>
   server.post(`${URL}/resources/reports`, data);
 export const updateReport = (id, data) =>
@@ -15,5 +15,7 @@ export const archiveReport = (id, archiveAction) =>
 
 export const fetchReport = (id) => server.get(`${URL}/resources/reports/${id}`);
 
-export const fetchReports = (page = 1) =>
-  server.get(`${URL}/resources/reports/all?page=${page}&limit=${PAGE_LIMIT}`);
+export const fetchReports = ({ page, search }) =>
+  server.get(
+    `${URL}/resources/reports?${formatObjectToParams({ page, title: search })}`,
+  );

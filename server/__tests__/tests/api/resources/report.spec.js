@@ -109,7 +109,7 @@ describe('Report route', () => {
       expect(res.body).to.have.property('data');
       expect(res.body.data).to.have.property('reports');
       expect(res.body.data.reports).to.be.a('Array');
-      expect(res.body.data.reports).to.have.lengthOf(3);
+      expect(res.body.data.reports).to.have.lengthOf(4);
     });
     it('should get all reports including archived reports', async () => {
       const res = await app.get(getAllRoute);

@@ -3,6 +3,7 @@ import keystone from 'keystone';
 import { sprintf } from 'sprintf-js';
 import modelHelper from '../../../helpers/modelHelper';
 import responseMessage from '../../../constants/responseMessage';
+import { filterAndPaginate, getPaginationData } from '../../../utils/search';
 
 export const Report = () => keystone.list('Report');
 // const MAX_REPORTS_PER_PAGE = 20;
@@ -38,25 +39,18 @@ export const get = async (req, res) => {
 };
 
 export const list = async (req, res) => {
-  const { path } = req.route;
-  let filter = { archived: false };
-  if (path.endsWith('reports/all')) {
-    filter = {};
-  }
+  const reportItem = Report();
   try {
-    const { offset, limit, page } = modelHelper.getPageInfo(req.query);
-    const [total, reports] = await Promise.all([
-      Report().model.count(filter),
-      modelHelper.paginate(Report().model, filter, { offset, limit }),
-    ]);
-    const totalPages = Math.ceil(total / limit);
-    const meta = {
-      currentPage: page + 1,
-      perPage: limit,
-      totalPages,
-      total,
-    };
-    return res.sendSuccess({ meta, reports });
+    filterAndPaginate(reportItem, req).exec((err, data) => {
+      return res.sendSuccess(
+        {
+          reports: data.results,
+          pagination: getPaginationData(data),
+        },
+        200,
+        sprintf(responseMessage.RESOURCE_FETCHED, 'reports'),
+      );
+    });
   } catch (error) {
     return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
   }

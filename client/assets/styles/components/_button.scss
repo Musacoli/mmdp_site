@@ -18,8 +18,10 @@
     border-radius: 3px;
     color: $color-white;
     background-color: $color-ugly-blue;
+    height: 3.45em;
+    width: 16em;
   }
   button.ui.button:hover {
-    background-color: inherit;
+    background-color: #81BDD4;
   }
 }

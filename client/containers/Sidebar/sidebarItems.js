@@ -53,7 +53,7 @@ export const sidebarItems = [
     title: 'Resources',
     menuItems: [
       { name: 'Research', path: '/resources/research/add' },
-      { name: 'Report', path: '/resources/reports/add' },
+      { name: 'Report', path: '/resources/reports' },
       { name: 'Media', path: '/resources/report/media' },
       { name: 'Documents', path: '/resources/documents' },
     ],
