@@ -83,3 +83,34 @@ export const filterAndPaginate = (model, req) =>
     maxPages: 10,
     filters: getSearchQuery(req),
   });
+
+/**
+ * Get all pagination data from the query result. This can be used to handle the result of
+ * running filterAndPaginate in order to separate results from pagination data e.g.
+ *
+ * filterAndPaginate(User, req).exec((err, data) => {
+ *   return res.json({
+ *     items: data.results,
+ *     pagination: getPaginationData(data),
+ *   })
+ * }
+ *
+ * This will reduce the effort required to introduce pagination where it was not previously
+ * implemented by the frontend.
+ *
+ * @param data
+ */
+export const getPaginationData = (data) => {
+  const {
+    total,
+    currentPage,
+    totalPages,
+    pages,
+    previous,
+    next,
+    first,
+    last,
+  } = data;
+
+  return { total, currentPage, totalPages, pages, previous, next, first, last };
+};

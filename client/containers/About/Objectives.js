@@ -63,7 +63,7 @@ export class Objectives extends Component {
   isValidData = (data) => {
     let errors = [];
 
-    if (data.objectives.trim().length < 20) {
+    if (!data.Objectives || data.Objectives.trim().length < 20) {
       errors = [
         ...errors,
         '"The Objectives" must have twenty(20) characters minimum',
@@ -78,7 +78,6 @@ export class Objectives extends Component {
   };
 
   render() {
-    // eslint-disable-next-line no-shadow
     const { Objectives, loading } = this.state;
     return (
       <React.Fragment>

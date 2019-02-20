@@ -4,14 +4,12 @@ import { FETCHING } from '../../../constants/users';
 import { FetchingComplete, fetchingUsers, fetchingError } from '.';
 import { api } from '../../../utils/api';
 
-export function* loadUsers() {
+export function* loadUsers({ payload }) {
   try {
     yield put(fetchingUsers());
-    const usersList = yield call(api.users.list);
-    const {
-      data: { users },
-    } = usersList;
-    yield put(FetchingComplete(users));
+    const usersList = yield call(api.users.list, payload);
+    const { data } = usersList;
+    yield put(FetchingComplete(data));
   } catch (error) {
     yield put(
       fetchingError(
