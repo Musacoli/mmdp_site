@@ -107,6 +107,7 @@
     "jest": "^23.6.0",
     "jest-enzyme": "^7.0.1",
     "jest-fetch-mock": "^2.1.0",
+    "lodash": "^4.17.11",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
     "nyc": "^13.1.0",

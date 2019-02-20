@@ -4,6 +4,7 @@ import responseMessage from '../../constants/responseMessage';
 import StakeholderDirectory from '../../models/stakeholdersDirectory';
 import BasicInformation from '../../models/stakeholdersDirectory/BasicInformation';
 import BeneficiaryService from '../../models/stakeholdersDirectory/BeneficiaryService';
+import { filterAndPaginate, getPaginationData } from '../../utils/search';
 
 const populateFields = [
   {
@@ -118,6 +119,7 @@ export const update = async (req, res) => {
 
 export const list = async (req, res) => {
   try {
+    // const stakeholderDirectory =
     const stakeholderDirectory = await modelHelper.findAll(
       StakeholderDirectory.model,
       populateFields,
@@ -191,4 +193,39 @@ export const remove = async (req, res) => {
   } catch (error) {
     return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
   }
+};
+
+// search functionlity for STAKEHOLDERS
+async function iterateDataset(dataset = []) {
+  const data = [];
+  await Promise.all(
+    dataset.map(async (item) => {
+      await StakeholderDirectory.model
+        .find()
+        .where('basicInformation', item._id)
+        .populate('basicInformation')
+        .populate('beneficiaryService')
+        .exec((error, stakeholders) => {
+          data.push(stakeholders);
+        });
+    }),
+  );
+
+  return data;
+}
+
+export const search = async (req, res) => {
+  await filterAndPaginate(BasicInformation, req)
+    .sort('-stakeholderName')
+    .populate('basicInformation')
+    .populate('beneficiaryService')
+    .exec(async (err, results) => {
+      await iterateDataset(results.results).then((data) => {
+        res.status(200).send({
+          status: 'success',
+          data,
+          pagination: getPaginationData(results),
+        });
+      });
+    });
 };

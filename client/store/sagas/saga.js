@@ -30,6 +30,7 @@ import {
   watchEditDocument,
   watchFetchDocuments,
 } from './resources/document';
+import { watchStakeholdersDirectory } from './resources/Stakeholders';
 
 export default function* root() {
   yield all([
@@ -88,5 +89,7 @@ export default function* root() {
     fork(watchArchive),
     fork(watchDelete),
     fork(getUserResearchWatcher),
+
+    fork(watchStakeholdersDirectory),
   ]);
 }

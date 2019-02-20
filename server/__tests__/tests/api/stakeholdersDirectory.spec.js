@@ -32,6 +32,13 @@ const apiListStakeholdersDirectory = () =>
 const apiDeleteStakeholdersDirectory = (id) =>
   app.delete(`${stakeholdersPath}/${id}/remove`).send();
 
+const apiSearchStakeholdersDirectory = (parameters = {}) => {
+  return app
+    .get(`${stakeholdersPath}/search`)
+    .query(parameters)
+    .send();
+};
+
 describe('StakeholdersDirectory API', () => {
   describe('create stakeholder', () => {
     before(async () => {
@@ -230,6 +237,11 @@ describe('StakeholdersDirectory API', () => {
       await app.loginRandom([]);
       const res = await apiListStakeholdersDirectory();
       expect(res.status).toBe(403);
+    });
+
+    it('should search stakeholders', async () => {
+      const res = await apiSearchStakeholdersDirectory({ stakeholderName: '' });
+      expect(res.status).toBe(200);
     });
   });
 

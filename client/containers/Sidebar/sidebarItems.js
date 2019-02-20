@@ -56,6 +56,7 @@ export const sidebarItems = [
       { name: 'Report', path: '/resources/reports' },
       { name: 'Media', path: '/resources/media' },
       { name: 'Documents', path: '/resources/documents' },
+      { name: 'Stakeholder directory', path: '/resources/stakeholders' },
     ],
   },
   {

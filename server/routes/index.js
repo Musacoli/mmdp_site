@@ -596,6 +596,12 @@ const App = (app) => {
     routes.api.stakeholdersDirectory.list,
   );
 
+  app.get(
+    `${stakeholdersPath}/search`,
+    [authenticate, authorize.cms.stakeholders.list, keystone.middleware.api],
+    routes.api.stakeholdersDirectory.search,
+  );
+
   app.put(
     `${stakeholdersPath}/:id/update`,
     authenticate,
