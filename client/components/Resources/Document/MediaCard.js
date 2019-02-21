@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Grid, Button } from 'semantic-ui-react';
+import Archiver from '../../../containers/Resources/Document/ArchiveDocument';
+import DeleteDocument from '../../../containers/Resources/Document/DeleteDocument';
 
 const MediaCard = ({ item, goTo }) => (
   <Grid.Column>
@@ -17,8 +19,8 @@ const MediaCard = ({ item, goTo }) => (
           >
             Edit
           </Button>
-          <Button>Archive</Button>
-          <Button className="red">Delete</Button>
+          <Archiver archived={item.archived} id={item._id} />
+          <DeleteDocument id={item._id} />
         </div>
       </Card.Content>
     </Card>
@@ -26,7 +28,7 @@ const MediaCard = ({ item, goTo }) => (
 );
 
 MediaCard.propTypes = {
-  item: PropTypes.shape({}).isRequired,
+  item: PropTypes.shape({ id: PropTypes.string }).isRequired,
   goTo: PropTypes.func.isRequired,
 };
 export default MediaCard;

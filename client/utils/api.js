@@ -27,6 +27,9 @@ export const api = {
       update: (data, id) => server.put(`${documentsApiPrefix}/${id.id}`, data),
       retrieve: (id) => server.get(`${documentsApiPrefix}/${id}/`),
       list: () => server.get(documentsApiPrefix),
+      archive: (id) =>
+        server.patch(`api/v1/resources/repository/archive/${id}`),
+      delete: (id) => server.delete(`api/v1/resources/repository/${id}`),
     },
   },
 };

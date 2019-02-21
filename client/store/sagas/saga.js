@@ -20,6 +20,8 @@ import { watcherListEvent } from './events/listEventsSaga';
 import { singleEventWatcher } from './events/singleEventSaga';
 import { updateEventWatcher } from './events/editEventSaga';
 import { watcherDeleteEvent } from './events/deleteEventSaga';
+import { watchArchive } from './resources/archive';
+import { watchDelete } from './resources/deleteDocument';
 import * as pillarWatcher from './pillar/pillarMiddleware';
 import {
   watchAddDocument,
@@ -82,5 +84,7 @@ export default function* root() {
     fork(watchAddDocument),
     fork(watchFetchDocument),
     fork(watchEditDocument),
+    fork(watchArchive),
+    fork(watchDelete),
   ]);
 }
