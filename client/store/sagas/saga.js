@@ -9,7 +9,11 @@ import {
 } from './group';
 import { watchReport } from './resources/report';
 import { addUserResearchWatcher } from './resources/research';
-import { getUserResearchWatcher } from './resources/getResearch';
+import {
+  getUserResearchWatcher,
+  deleteUserResearchWatcher,
+  archiveUserResearchWatcher,
+} from './resources/getResearch';
 import { watchFetchingPermissions } from './permission';
 import * as aboutWatcher from './about';
 import { watchRegistration, watchUserEdit } from './users/AddUsersSaga';
@@ -89,6 +93,8 @@ export default function* root() {
     fork(watchArchive),
     fork(watchDelete),
     fork(getUserResearchWatcher),
+    fork(deleteUserResearchWatcher),
+    fork(archiveUserResearchWatcher),
 
     fork(watchStakeholdersDirectory),
   ]);

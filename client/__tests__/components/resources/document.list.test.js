@@ -9,7 +9,6 @@ import { store } from '../../../store';
 describe.only('DocumentList', () => {
   let wrapper;
   let props;
-  let node;
   const data = { results: [{ _id: 'someId', title: 'someTitle' }] };
   const documents = { ...initialState, data };
   beforeEach(() => {
