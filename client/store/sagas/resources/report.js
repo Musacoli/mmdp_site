@@ -62,7 +62,7 @@ export function* fetchReports({ payload }) {
       statusCode: res.status,
       status: res.data.status,
       reports: res.data.data.reports,
-      meta: res.data.data.meta,
+      pagination: res.data.data.pagination,
     };
     yield delay(1000);
     yield put(actions.fetchReportsSuccessful({ response }));

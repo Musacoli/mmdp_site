@@ -14,37 +14,21 @@ export class ListReport extends Component {
   state = {
     isOpen: false,
     itemToModify: null,
-    currentPage: null,
+    search: '',
   };
 
   componentDidMount() {
-    const { getReports, location } = this.props;
-    const { search } = location;
-    const query = new URLSearchParams(search);
-    const page = parseInt(query.get('page') || 1, 10);
-    getReports(page);
+    this.fetchReports();
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { location } = nextProps;
-    const { search } = location;
-    const query = new URLSearchParams(search);
-    const page = parseInt(query.get('page') || 1, 10);
-    if (prevState.currentPage !== page) {
-      return {
-        currentPage: page,
-      };
-    }
-    return null;
-  }
+  fetchReports = (page = 1, searchStr = null) => {
+    const { getReports } = this.props;
+    const { search } = this.state;
 
-  componentDidUpdate(prevProps, prevState) {
-    const { currentPage } = this.state;
-    if (prevState.currentPage !== currentPage) {
-      const { getReports } = this.props;
-      getReports(currentPage);
-    }
-  }
+    const query = searchStr !== null ? searchStr : search;
+
+    getReports({ page, search: query });
+  };
 
   handleModalToggle = () => {
     this.setState((state) => ({
@@ -72,12 +56,23 @@ export class ListReport extends Component {
     this.handleModalToggle();
   };
 
+  handleSearch = (search) => {
+    this.setState({ search });
+    this.fetchReports(1, search);
+  };
+
+  handleSearchChange = (search) => {
+    if (!search) {
+      this.setState({ search });
+      this.fetchReports(1, search);
+    }
+  };
+
   render() {
     const { isOpen, modalAction } = this.state;
 
     const { response, loading } = this.props;
-    const { meta = {}, reports = [] } = response;
-    const { currentPage, totalPages } = meta;
+    const { pagination = {}, reports = [] } = response;
     return (
       <>
         <SimpleLoader loading={loading} />
@@ -88,10 +83,14 @@ export class ListReport extends Component {
           modalAction={modalAction}
           handleModalToggle={this.handleModalToggle}
           onConfirm={this.handleConfirmClick}
+          handleSearchChange={this.handleSearchChange}
+          handleSearch={this.handleSearch}
         />
-        {currentPage ? (
-          <Pagination currentPage={currentPage} totalPages={totalPages} />
-        ) : null}
+        <Pagination
+          data={pagination}
+          handlePageChange={this.fetchReports}
+          className="reports-pagination"
+        />
       </>
     );
   }

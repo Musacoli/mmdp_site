@@ -9,6 +9,7 @@ import {
   ARCHIVE_ACTION,
   UNARCHIVE_ACTION,
 } from '../../../utils/helper';
+import Search from '../../common/Search';
 
 const ListReport = ({
   reports,
@@ -17,6 +18,8 @@ const ListReport = ({
   showModal,
   handleModalToggle,
   onConfirm,
+  handleSearch,
+  handleSearchChange,
 }) => {
   let modalInfo;
   if (modalAction === 'delete') {
@@ -36,27 +39,42 @@ const ListReport = ({
   return (
     <>
       <Grid>
-        {/* Todo : search bar to be added here */}
-        <a href="/resources/reports/add" className="btn__add">
-          <Button className="btn__add">New Report</Button>
-        </a>
+        <Grid.Column width={12}>
+          <Search
+            onSearch={handleSearch}
+            onChange={handleSearchChange}
+            className="report-search"
+            placeholder="Search report"
+          />
+        </Grid.Column>
+        <Grid.Column>
+          <a href="/resources/reports/add" className="btn__add">
+            <Button className="btn__add">New Report</Button>
+          </a>
+        </Grid.Column>
       </Grid>
       <Grid relaxed>
-        {reports.map(({ _id: id, title, reportType, archived }) => {
-          return (
-            <Grid.Column key={id} mobile={8} tablet={8} computer={4}>
-              <BlueCard
-                title={title}
-                meta={ucFirstLetter(reportType)}
-                actionLinks={getActionLinks({
-                  id,
-                  archived,
-                  onClick: showModal,
-                })}
-              />
-            </Grid.Column>
-          );
-        })}
+        {reports.length > 0 ? (
+          reports.map(({ _id: id, title, reportType, archived }) => {
+            return (
+              <Grid.Column key={id} mobile={8} tablet={8} computer={4}>
+                <BlueCard
+                  title={title}
+                  meta={ucFirstLetter(reportType)}
+                  actionLinks={getActionLinks({
+                    id,
+                    archived,
+                    onClick: showModal,
+                  })}
+                />
+              </Grid.Column>
+            );
+          })
+        ) : (
+          <div className="ui info message no-reports">
+            <p>No reports found in the records.</p>
+          </div>
+        )}
         <ConfirmModal
           isOpen={isOpen}
           handleModalToggle={handleModalToggle}
@@ -75,6 +93,8 @@ ListReport.propTypes = {
   handleModalToggle: PropTypes.func.isRequired,
   reports: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onConfirm: PropTypes.func.isRequired,
+  handleSearchChange: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
 };
 
 export default ListReport;
