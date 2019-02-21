@@ -8,7 +8,7 @@ exports[`<ResearchContainer />  renders the container without crashing 1`] = `
       "push": [MockFunction] {
         "calls": Array [
           Array [
-            "/resources/research/list",
+            "/resources/research/all",
           ],
         ],
         "results": Array [

@@ -454,7 +454,7 @@ const App = (app) => {
       authorize.cms.resources.update,
       paramDocExists,
       appendFilesToBody,
-      validate(validator.documentEdit),
+      validate(validator.document.editDocument),
     ],
     routes.api.resources.document.update,
   );

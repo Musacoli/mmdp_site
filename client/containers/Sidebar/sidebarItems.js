@@ -57,6 +57,16 @@ export const sidebarItems = [
       { name: 'Media', path: '/resources/media' },
       { name: 'Documents', path: '/resources/documents' },
     ],
+  },
+  {
+    title: 'Research',
+    menuItems: [],
+    path: '/resources/research/all',
+  },
+  {
+    title: 'Report',
+    menuItems: [],
+    path: '/resources/reports',
     dividerTitle: 'COORDINATION MATRIX',
   },
   {

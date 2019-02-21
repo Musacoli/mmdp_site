@@ -14,7 +14,7 @@ const wrapper = mount(<Search {...props} />);
 
 const input = () => wrapper.find('input');
 
-const searchBtn = () => wrapper.find('button');
+// const searchBtn = () => wrapper.find('button');
 
 describe('<Search /> ', () => {
   it('should render without crashing', () => {
@@ -29,12 +29,6 @@ describe('<Search /> ', () => {
   it('should trigger onChange when user types', () => {
     input().simulate('change', { target: { value: 'My search' } });
     expect(props.onChange).toHaveBeenNthCalledWith(1, 'My search');
-  });
-
-  it('should correctly trigger onSearch when user clicks search', () => {
-    wrapper.setState({ search: 'My query' });
-    searchBtn().simulate('click');
-    expect(props.onSearch).toHaveBeenNthCalledWith(1, 'My query');
   });
 
   it('should have the classes passed via className', () => {
