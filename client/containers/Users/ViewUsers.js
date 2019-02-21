@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import UserViewList from '../../components/Users/UserDetails';
+import UserList from '../../components/Users/UserDetails';
 import Search from '../../components/common/Form/UsersSearch';
 import { fetchingGroups } from '../../store/actions/groups';
 import groupOptions from '../../utils/mapGroups';
@@ -62,7 +62,7 @@ export class ViewUsers extends Component {
     const { users, success, deleteUser, history, pagination } = this.props;
     let { groups } = this.props;
     const options = [];
-    groups = groups.groups;
+    ({ groups = [] } = groups);
     if (groups.length > 0) {
       groupOptions(groups, options);
     }
@@ -76,7 +76,7 @@ export class ViewUsers extends Component {
           handleSearchChange={this.handleSearchChange}
           value={selectedOption}
         />
-        <UserViewList
+        <UserList
           users={users}
           success={success}
           deleteUser={deleteUser}
@@ -98,11 +98,11 @@ ViewUsers.defaultProps = {
 
 ViewUsers.propTypes = {
   fetchUsersList: PropTypes.func,
-  users: PropTypes.shape(),
+  users: PropTypes.arrayOf(PropTypes.shape({})),
   success: PropTypes.bool,
   deleteUser: PropTypes.func,
   history: PropTypes.shape(),
-  allGroups: PropTypes.shape({}),
+  allGroups: PropTypes.func,
   groups: PropTypes.shape(),
   pagination: PropTypes.shape(),
 };

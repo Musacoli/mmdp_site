@@ -6,29 +6,6 @@ export const ucFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export const getActionLinks = ({ id, archived, onClick }) => {
-  const archiveAction = archived ? UNARCHIVE_ACTION : ARCHIVE_ACTION;
-  return [
-    {
-      link: `/resources/reports/${id}/edit`,
-      text: 'Edit',
-    },
-    {
-      onClick: (event) => {
-        onClick(event, { id, modalAction: archiveAction });
-      },
-      text: ucFirstLetter(archiveAction),
-    },
-    {
-      onClick: (event) => {
-        onClick(event, { id, modalAction: 'delete' });
-      },
-      text: 'Delete',
-      type: 'danger',
-    },
-  ];
-};
-
 export const deriveError = (err) => {
   let error;
   if (err.message === 'Network Error') {

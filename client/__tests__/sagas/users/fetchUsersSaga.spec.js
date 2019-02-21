@@ -37,6 +37,7 @@ describe('fetch users saga', () => {
       }),
     };
     await runSaga(fakeStore, loadUsers, {}).done;
+    await runSaga(fakeStore, loadUsers, { payload: {} }).done;
     expect(api.users.list.mock.calls.length).toBe(1);
     expect(dispatchedActions).toEqual([
       { type: 'FETCHING_STARTED' },
@@ -81,7 +82,7 @@ describe('fetch users saga', () => {
         isRegistering: false,
       }),
     };
-    await runSaga(fakeStore, loadUsers, {}).done;
+    await runSaga(fakeStore, loadUsers, { payload: {} }).done;
     expect(api.users.list.mock.calls.length).toBe(1);
     expect(dispatchedActions).toEqual([
       { type: 'FETCHING_STARTED' },

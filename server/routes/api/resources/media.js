@@ -29,7 +29,7 @@ export const list = async (req, res) => {
   try {
     Media.model
       .find((err, media) => {
-        const message = sprintf(responseMessage.RESOURCE_CREATED, 'media');
+        const message = sprintf(responseMessage.RESOURCE_FETCHED, 'media');
         return res.status(200).json({
           message,
           data: { media },

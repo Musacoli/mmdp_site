@@ -78,7 +78,7 @@ export class Objectives extends Component {
   };
 
   render() {
-    const { Objectives, loading } = this.state;
+    const { Objectives: ObjectivesValue, loading } = this.state;
     return (
       <React.Fragment>
         <form className="about__section" onSubmit={this.submit}>
@@ -86,7 +86,7 @@ export class Objectives extends Component {
             <Label label="Objectives" htmlFor="about-markdown" />
             <div className="markdown">
               <MarkdownEditor
-                value={Objectives}
+                value={ObjectivesValue}
                 handleEditorChange={(val) =>
                   this.handleEditorChange('Objectives', val)
                 }

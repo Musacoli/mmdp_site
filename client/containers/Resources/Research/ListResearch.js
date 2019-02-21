@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ListReportGrid from '../../../components/Resources/Report/ListReport';
+import ListResearchGrid from '../../../components/Resources/Research/ListResearch';
 import {
-  fetchReports,
-  deleteReport,
-  archiveReport,
-} from '../../../store/actions/resources/report';
+  getResearch as getResearchAction,
+  deleteResearch,
+  archiveResearch,
+} from '../../../store/actions/resources/getResearch';
 import SimpleLoader from '../../../components/common/Loader/SimpleLoader';
 import Pagination from '../../../components/common/Pagination';
 
-export class ListReport extends Component {
+export class ListResearch extends Component {
   state = {
     isOpen: false,
     itemToModify: null,
@@ -18,16 +18,16 @@ export class ListReport extends Component {
   };
 
   componentDidMount() {
-    this.fetchReports();
+    this.fetchResearch();
   }
 
-  fetchReports = (page = 1, searchStr = null) => {
-    const { getReports } = this.props;
+  fetchResearch = (page = 1, searchStr = null) => {
+    const { getResearch } = this.props;
     const { search } = this.state;
 
-    const query = searchStr !== null ? searchStr : search;
+    const searchQuery = searchStr !== null ? searchStr : search;
 
-    getReports({ page, search: query });
+    getResearch({ page, query: searchQuery });
   };
 
   handleModalToggle = () => {
@@ -47,37 +47,41 @@ export class ListReport extends Component {
 
   handleConfirmClick = () => {
     const { modalAction, itemToModify } = this.state;
-    const { removeReport, archiveReport: performArchive } = this.props;
+    const { removeResearch, archiveResearch: performArchive } = this.props;
     if (modalAction === 'delete') {
-      removeReport({ id: itemToModify });
+      removeResearch(itemToModify);
     } else if (modalAction === 'archive' || modalAction === 'unarchive') {
-      performArchive({ id: itemToModify, action: modalAction });
+      const data =
+        modalAction === 'unarchive' ? { archived: false } : { archived: true };
+      performArchive({ _id: itemToModify, data });
     }
     this.handleModalToggle();
   };
 
   handleSearch = (search) => {
-    this.setState({ search });
-    this.fetchReports(1, search);
+    this.fetchResearch(1, search);
   };
 
   handleSearchChange = (search) => {
     if (!search) {
-      this.setState({ search });
-      this.fetchReports(1, search);
+      this.fetchResearch(1, search);
     }
+    this.setState({ search });
   };
 
   render() {
+    let researchResults = {};
+    const { loading, research } = this.props;
+    if (research.results && research.results.data) {
+      researchResults = research.results.data;
+    }
     const { isOpen, modalAction } = this.state;
 
-    const { response, loading } = this.props;
-    const { pagination = {}, reports = [] } = response;
     return (
       <>
         <SimpleLoader loading={loading} />
-        <ListReportGrid
-          reports={reports}
+        <ListResearchGrid
+          results={researchResults}
           isOpen={isOpen}
           showModal={this.showModal}
           modalAction={modalAction}
@@ -88,8 +92,8 @@ export class ListReport extends Component {
           loading={loading}
         />
         <Pagination
-          data={pagination}
-          handlePageChange={this.fetchReports}
+          data={researchResults}
+          handlePageChange={this.fetchResearch}
           className="reports-pagination"
         />
       </>
@@ -97,27 +101,27 @@ export class ListReport extends Component {
   }
 }
 
-ListReport.propTypes = {
-  getReports: PropTypes.func.isRequired,
-  removeReport: PropTypes.func.isRequired,
-  archiveReport: PropTypes.func.isRequired,
-  response: PropTypes.shape({}).isRequired,
+ListResearch.propTypes = {
+  getResearch: PropTypes.func.isRequired,
+  removeResearch: PropTypes.func.isRequired,
+  archiveResearch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   location: PropTypes.shape({}).isRequired,
+  research: PropTypes.shape({}).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  response: state.report.response,
-  loading: state.report.loading,
+  research: state.getResearch,
+  loading: state.getResearch.loading,
 });
 
 const mapDispatchToProps = {
-  getReports: fetchReports,
-  removeReport: deleteReport,
-  archiveReport,
+  getResearch: getResearchAction,
+  removeResearch: deleteResearch,
+  archiveResearch,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListReport);
+)(ListResearch);

@@ -89,14 +89,14 @@ describe('Get Research reducer', () => {
   it('should return archive successfor research', () => {
     const action = {
       type: ARCHIVE_USER_RESEARCH_SUCCESS,
-      payload: { _id: 'sda21321', data: { Archived: false } },
+      payload: { _id: 'sda21321', data: { archived: false } },
     };
 
     expect(
       getResearchReducer(
         {
           results: {
-            data: { results: [{ _id: 'sda21321', Archived: false }] },
+            data: { results: [{ _id: 'sda21321', archived: false }] },
           },
         },
         action,
@@ -104,7 +104,7 @@ describe('Get Research reducer', () => {
     ).toEqual({
       loading: false,
       results: {
-        data: { results: [{ Archived: false, _id: 'sda21321' }] },
+        data: { results: [{ archived: false, _id: 'sda21321' }] },
         newResults: false,
       },
     });

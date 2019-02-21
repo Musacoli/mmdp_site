@@ -10,8 +10,8 @@ import {
 } from '../../../utils/helper';
 import Search from '../../common/Search';
 
-const ListReport = ({
-  reports,
+const ListResearch = ({
+  results,
   isOpen,
   modalAction,
   showModal,
@@ -21,20 +21,21 @@ const ListReport = ({
   handleSearchChange,
   loading,
 }) => {
-  const generateEditLink = (id) => `/resources/reports/${id}/edit`;
+  const generateEditLink = (id) => `/resources/research/edit/${id}`;
+  const researchResults = results.results;
   let modalInfo;
   if (modalAction === 'delete') {
     modalInfo = {
-      header: 'Delete report',
-      content: 'Are you sure you want to delete report?',
+      header: 'Delete research',
+      content: 'Are you sure you want to delete research?',
     };
   } else if (
     modalAction === ARCHIVE_ACTION ||
     modalAction === UNARCHIVE_ACTION
   ) {
     modalInfo = {
-      header: `${ucFirstLetter(modalAction)} report`,
-      content: `Are you sure you want to ${modalAction} report?`,
+      header: `${ucFirstLetter(modalAction)} research`,
+      content: `Are you sure you want to ${modalAction} research?`,
     };
   }
   return (
@@ -44,19 +45,19 @@ const ListReport = ({
           <Search
             onSearch={handleSearch}
             onChange={handleSearchChange}
-            className="report-search"
-            placeholder="Search report"
+            className="research-search"
+            placeholder="Search research"
           />
         </Grid.Column>
         <Grid.Column>
-          <a href="/resources/reports/add" className="btn__add">
-            <Button className="btn__add">New Report</Button>
+          <a href="/resources/research/add" className="btn__add">
+            <Button className="btn__add">New Research</Button>
           </a>
         </Grid.Column>
       </Grid>
       <Grid relaxed>
-        {reports.length
-          ? reports.map(({ _id: id, title, reportType, archived }) => {
+        {researchResults && researchResults.length
+          ? researchResults.map(({ _id: id, title, archived }) => {
               const archiveAction = archived
                 ? UNARCHIVE_ACTION
                 : ARCHIVE_ACTION;
@@ -71,7 +72,6 @@ const ListReport = ({
                     onDelete={(event) =>
                       showModal(event, { id, modalAction: 'delete' })
                     }
-                    meta={ucFirstLetter(reportType)}
                     editLink={generateEditLink(id)}
                   />
                 </Grid.Column>
@@ -79,7 +79,7 @@ const ListReport = ({
             })
           : !loading && (
               <div className="ui info message no-reports">
-                <p>No reports found in the records.</p>
+                <p>No research found in the records.</p>
               </div>
             )}
         <ConfirmModal
@@ -93,16 +93,16 @@ const ListReport = ({
   );
 };
 
-ListReport.propTypes = {
+ListResearch.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   modalAction: PropTypes.string,
   showModal: PropTypes.func.isRequired,
   handleModalToggle: PropTypes.func.isRequired,
-  reports: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  results: PropTypes.shape({}).isRequired,
   onConfirm: PropTypes.func.isRequired,
   handleSearchChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
-export default ListReport;
+export default ListResearch;

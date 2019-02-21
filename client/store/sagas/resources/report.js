@@ -13,6 +13,10 @@ import * as actions from '../../actions/resources/report';
 import * as request from '../../../utils/resources/report';
 import { deriveError } from '../../../utils/helper';
 
+toastr.options = {
+  preventDuplicates: true,
+};
+
 export function* sendReport({ payload }) {
   try {
     const { id, formData, mode } = payload;

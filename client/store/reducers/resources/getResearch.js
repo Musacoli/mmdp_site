@@ -23,7 +23,7 @@ const initialState = {
 
 function updateArchivedItem(arr, id, archiveStatus) {
   const archiveItem = _.findWhere(arr, { _id: id });
-  const archived = (archiveItem.Archived = archiveStatus);
+  const archived = (archiveItem.archived = archiveStatus);
   return archived;
 }
 
@@ -49,7 +49,7 @@ const getResearchReducer = (state = initialState, action = {}) => {
       const newResults = updateArchivedItem(
         resultsArray,
         action.payload._id,
-        action.payload.data.Archived,
+        action.payload.data.archived,
       );
       return {
         ...state,

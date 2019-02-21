@@ -63,7 +63,7 @@ export const list = async (req, res) => {
   const otherFilters = {};
 
   // don't show archived events for unauthenticated users
-  if (!req.user) otherFilters.Archived = false;
+  if (!req.user) otherFilters.archived = false;
 
   filterAndPaginate(Research(), req, {}, otherFilters).exec((err, results) => {
     if (err) {

@@ -41,7 +41,7 @@ const UsersSearch = ({
 UsersSearch.propTypes = {
   handleSearchChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
-  options: PropTypes.shape(),
+  options: PropTypes.arrayOf(PropTypes.shape({})),
   selectedOption: PropTypes.shape(),
   handleChange: PropTypes.func.isRequired,
 };
