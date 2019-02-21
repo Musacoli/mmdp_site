@@ -43,7 +43,13 @@ export const api = {
       create: (data) => server.post(documentsApiPrefix, data),
       update: (data, id) => server.put(`${documentsApiPrefix}/${id.id}`, data),
       retrieve: (id) => server.get(`${documentsApiPrefix}/${id}/`),
-      list: () => server.get(documentsApiPrefix),
+      list: ({ page, search }) =>
+        server.get(
+          `${documentsApiPrefix}?${formatObjectToParams({
+            page,
+            title: search,
+          })}`,
+        ),
       archive: (id) =>
         server.patch(`api/v1/resources/repository/archive/${id}`),
       delete: (id) => server.delete(`api/v1/resources/repository/${id}`),

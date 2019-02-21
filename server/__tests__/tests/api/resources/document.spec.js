@@ -127,7 +127,7 @@ describe('Document route', () => {
   describe('List documents', () => {
     beforeEach(async () => {
       await app.loginRandom(['cms.resources.view']);
-      await createDocument({}, 2);
+      await createDocument({ title: 'Foo' }, 2);
     });
 
     it('should list all document', async () => {
@@ -140,6 +140,18 @@ describe('Document route', () => {
       await removeAllDocuments();
       const res = await apiListDocuments();
       expect(res.body.data.documents.length).toBe(0);
+    });
+
+    it('should filter by GET parameters - no match', async () => {
+      const res = await apiListDocuments({ title: '1A2BVEFGG' });
+      expect(res.status).toBe(200);
+      expect(res.body.data.documents.length).toEqual(0);
+    });
+
+    it('should filter by GET parameters - match', async () => {
+      const res = await apiListDocuments({ title: 'Foo' });
+      expect(res.status).toBe(200);
+      expect(res.body.data.documents.length).toEqual(2);
     });
 
     it('should create for all other relevant permissions', async () => {
