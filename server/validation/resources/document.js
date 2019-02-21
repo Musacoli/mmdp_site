@@ -15,7 +15,20 @@ const addDocument = {
   },
 };
 
-const editDocument = addDocument;
+const editDocument = {
+  body: {
+    title: Joi.string().required(),
+    files: {
+      document: Joi.object({
+        fieldname: Joi.string().required(),
+        mimetype: Joi.string()
+          .valid(['application/pdf'])
+          .error(() => 'Document file must be a pdf'),
+        filename: Joi.string().required(),
+      }),
+    },
+  },
+};
 
 export default {
   addDocument,

@@ -11,44 +11,72 @@ export const create = async (req, res) => {
   try {
     const media = new Media.model();
     const newMedia = await modelHelper.process(media, req);
-    return res.sendSuccess(
-      {
-        media: newMedia,
-      },
-      201,
-      sprintf(responseMessage.RESOURCE_CREATED, 'media'),
-    );
+    const message = sprintf(responseMessage.RESOURCE_CREATED, 'media');
+    return res.status(201).json({
+      message,
+      data: { media: newMedia },
+    });
   } catch (error) {
-    return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
+    const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
+    return res.status(500).json({
+      errMessage,
+      error,
+    });
   }
 };
 
 export const list = async (req, res) => {
   try {
-    Media.model.find((err, media) => {
-      return res.sendSuccess(
-        { media },
-        200,
-        sprintf(responseMessage.RESOURCE_FETCH, 'media'),
-      );
-    });
+    Media.model
+      .find((err, media) => {
+        const message = sprintf(responseMessage.RESOURCE_CREATED, 'media');
+        return res.status(200).json({
+          message,
+          data: { media },
+        });
+      })
+      .sort({ created_at: 'descending' });
   } catch (error) {
-    return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
+    const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
+    return res.status(500).json({
+      errMessage,
+      error,
+    });
   }
 };
 
 export const getOne = async (req, res) => {
   try {
     const { med } = req;
-
-    return res.sendSuccess(
-      {
-        media: med,
-      },
-      200,
-      sprintf(responseMessage.RESOURCE_FETCH, 'media'),
-    );
+    const message = sprintf(responseMessage.RESOURCE_FETCHED, 'media');
+    return res.status(200).json({
+      message,
+      data: { media: med },
+    });
   } catch (error) {
-    return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
+    const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
+    return res.status(500).json({
+      errMessage,
+      error,
+    });
+  }
+};
+
+export const deleteMedia = async (req, res) => {
+  try {
+    const { med } = req;
+    Media.model.findByIdAndRemove(med.id, (err, deleted) => {
+      const message = sprintf(responseMessage.RESOURCE_DELETED, 'media');
+      return res.status(200).json({
+        message,
+        data: { deleted },
+      });
+    });
+  } catch (error) {
+    const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
+    return res.status(500).json({
+      errMessage,
+      error,
+    });
   }
 };

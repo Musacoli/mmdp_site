@@ -27,6 +27,7 @@ Document.add({
     initial: true,
     required: true,
   },
+  created_at: { type: Date, required: true, default: Date.now },
 });
 
 Document.register();

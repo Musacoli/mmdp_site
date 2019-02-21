@@ -9,15 +9,17 @@ export const create = async (req, res) => {
   try {
     const document = new Document.model();
     const newDocument = await modelHelper.process(document, req);
-    return res.sendSuccess(
-      {
-        document: newDocument,
-      },
-      201,
-      sprintf(responseMessage.RESOURCE_CREATED, 'document'),
-    );
+    const message = sprintf(responseMessage.RESOURCE_CREATED, 'document');
+    return res.status(201).json({
+      message,
+      data: { document: newDocument },
+    });
   } catch (error) {
-    return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
+    const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
+    return res.status(500).json({
+      errMessage,
+      error,
+    });
   }
 };
 
@@ -26,45 +28,53 @@ export const update = async (req, res) => {
     const { doc } = req;
 
     const updatedDoc = await modelHelper.process(doc, req);
-
-    return res.sendSuccess(
-      {
-        document: updatedDoc,
-      },
-      200,
-      sprintf(responseMessage.RESOURCE_UPDATED, 'document'),
-    );
+    const message = sprintf(responseMessage.RESOURCE_UPDATED, 'document');
+    return res.status(200).json({
+      message,
+      data: { document: updatedDoc },
+    });
   } catch (error) {
-    return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
+    const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
+    return res.status(500).json({
+      errMessage,
+      error,
+    });
   }
 };
 
 export const list = async (req, res) => {
   try {
-    Document.model.find((err, documents) => {
-      return res.sendSuccess(
-        { documents },
-        200,
-        sprintf(responseMessage.RESOURCE_FETCHED, 'documents'),
-      );
-    });
+    const message = sprintf(responseMessage.RESOURCE_FETCHED, 'documents');
+    Document.model
+      .find((err, documents) => {
+        return res.status(200).json({
+          message,
+          data: { documents },
+        });
+      })
+      .sort({ created_at: 'descending' });
   } catch (error) {
-    return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
+    const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
+    return res.status(500).json({
+      errMessage,
+      error,
+    });
   }
 };
 
 export const getOne = async (req, res) => {
   try {
     const { doc } = req;
-
-    return res.sendSuccess(
-      {
-        document: doc,
-      },
-      200,
-      sprintf(responseMessage.RESOURCE_FETCH, 'document'),
-    );
+    const message = sprintf(responseMessage.RESOURCE_FETCHED, 'document');
+    return res.status(200).json({
+      message,
+      data: { document: doc },
+    });
   } catch (error) {
-    return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
+    const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
+    return res.status(500).json({
+      errMessage,
+      error,
+    });
   }
 };
