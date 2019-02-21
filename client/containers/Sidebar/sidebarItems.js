@@ -52,21 +52,11 @@ export const sidebarItems = [
   {
     title: 'Resources',
     menuItems: [
-      { name: 'Research', path: '/resources/research/add' },
+      { name: 'Research', path: '/resources/research/all' },
       { name: 'Report', path: '/resources/reports' },
       { name: 'Media', path: '/resources/media' },
       { name: 'Documents', path: '/resources/documents' },
     ],
-  },
-  {
-    title: 'Research',
-    menuItems: [],
-    path: '/resources/research/all',
-  },
-  {
-    title: 'Report',
-    menuItems: [],
-    path: '/resources/reports',
     dividerTitle: 'COORDINATION MATRIX',
   },
   {

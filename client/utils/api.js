@@ -14,9 +14,8 @@ export const api = {
         return server.get(
           `api/groups?${formatObjectToParams({ page, name: search })}`,
         );
-      } else {
-        return server.get('api/groups');
       }
+      return server.get('api/groups');
     },
     edit: (id, data) => server.put(`api/groups/${id}/`, data),
     delete: (id) => server.delete(`api/groups/${id}/`),

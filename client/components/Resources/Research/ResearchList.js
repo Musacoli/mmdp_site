@@ -3,7 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import Details from './ResearchDetails';
 
-export const ResearchList = ({ results }) => {
+export const ResearchList = ({ results, onDelete, onArchive }) => {
   const researchResults = results.results;
   let researchDetails;
   if (researchResults) {
@@ -14,6 +14,8 @@ export const ResearchList = ({ results }) => {
           key={x._id}
           _id={x._id}
           Archived={x.Archived}
+          onDelete={onDelete}
+          onArchive={onArchive}
         />
       );
     });
@@ -28,6 +30,7 @@ export const ResearchList = ({ results }) => {
 export default ResearchList;
 
 ResearchList.propTypes = {
-  // results: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   results: PropTypes.shape({}).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
 };
