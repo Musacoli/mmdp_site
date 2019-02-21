@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
 import FileInput from '../../common/Form/FileInput';
 
-const ResearchForm = ({ fileName, onChange, onSubmit, loading }) => (
+const ResearchForm = ({ fileName, onChange, onSubmit, loading, title }) => (
   <Form onSubmit={onSubmit} loading={loading} className="main-content">
     <Form.Group widths="equal">
       <Form.Field>
@@ -23,8 +23,10 @@ const ResearchForm = ({ fileName, onChange, onSubmit, loading }) => (
         fluid
         label="Research title"
         type="text"
+        defaultValue={title || ''}
         placeholder="Research carried out last year"
         onChange={onChange}
+        required
       />
     </Form.Group>
     <Form.Button type="submit" className="btn__upload u-margin-top-medium">
@@ -38,6 +40,7 @@ ResearchForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   fileName: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
 
 export default ResearchForm;

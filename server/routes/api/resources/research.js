@@ -51,6 +51,7 @@ export const update = (req, res) => {
           return res.status(400).send({ message: 'update error', error });
 
         return res.status(200).send({
+          message: 'Research Successfully Updated',
           data: item,
         });
       });
