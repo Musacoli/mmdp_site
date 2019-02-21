@@ -2,6 +2,7 @@ import { server } from './keys';
 
 const apiVersion = 'api/v1/';
 const documentsApiPrefix = `${apiVersion}resources/repository/document`;
+const mediaApiPrefix = `${apiVersion}resources/repository/media`;
 
 export const api = {
   group: {
@@ -30,6 +31,11 @@ export const api = {
       archive: (id) =>
         server.patch(`api/v1/resources/repository/archive/${id}`),
       delete: (id) => server.delete(`api/v1/resources/repository/${id}`),
+    },
+    media: {
+      create: (data) => server.post(mediaApiPrefix, data),
+      update: (data, id) => server.put(`${mediaApiPrefix}/${id.id}`, data),
+      retrieve: (id) => server.get(`${mediaApiPrefix}/${id}/`),
     },
   },
 };

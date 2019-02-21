@@ -29,8 +29,6 @@ describe.only('DocumentList', () => {
     );
   });
   it('should mount without crashing', () => {
-    node = wrapper.find('#document_edit_btn').at(0);
-    node.simulate('click');
-    expect(wrapper.find('DocumentComponent').length).toEqual(1);
+    expect(wrapper.find('Document').length).toEqual(1);
   });
 });

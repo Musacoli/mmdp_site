@@ -1,10 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Form } from 'semantic-ui-react';
-import faker from 'faker';
-import { AddDocument } from '../../../containers/Resources/Document';
+import { MediaForm } from '../../../containers/Resources/Document/MediaForm';
 
-const title = faker.name.jobTitle();
 const createFormEvent = (name, value, withFile) => {
   const event = {
     target: {
@@ -17,7 +14,7 @@ const createFormEvent = (name, value, withFile) => {
   }
   return event;
 };
-describe.only('AddDocument', () => {
+describe.only('MediaForm', () => {
   let wrapper;
   let props;
   beforeEach(() => {
@@ -29,40 +26,27 @@ describe.only('AddDocument', () => {
       singleDocument: {},
       updateDocument: jest.fn(),
       getDocument: jest.fn(),
-      success: false,
+      success: true,
       clearErrors: jest.fn(),
     };
-    wrapper = mount(<AddDocument {...props} />);
+    wrapper = mount(<MediaForm {...props} />);
   });
-  it('should mount AddDocument without crashing', () => {
+  it('should mount MediaForm without crashing', () => {
     expect(wrapper.find('DocumentForm').length).toEqual(1);
-    expect(wrapper.find(Form.Input).length).toEqual(1);
   });
-  it('should set state for the title field when onChange method is called with an event target name of title', () => {
-    wrapper.find('DocumentForm').prop('onChange')(
-      createFormEvent('title', title),
-    );
-    expect(wrapper.state('title')).toEqual(title);
-  });
+
   it('should clear error for a particular input field when onChange method is called by the input field', () => {
     wrapper.setState({
       errors: {
-        title: [title],
         document: ['Select a document file to upload'],
       },
     });
-    wrapper.find('DocumentForm').prop('onChange')(
-      createFormEvent('title', title),
-    );
-    expect(wrapper.state('title')).toEqual(title);
-    expect(wrapper.state('errors').title).not.toBeDefined();
   });
   it('should not submit submitDocument with invalid input fields', () => {
     const event = {
       preventDefault: jest.fn(),
     };
     wrapper.setState({
-      title,
       document: {},
     });
     wrapper.find('DocumentForm').prop('onSubmit')(event);
@@ -74,30 +58,15 @@ describe.only('AddDocument', () => {
       preventDefault: jest.fn(),
     };
     wrapper.setState({
-      title: 'A valid title',
       document: {
         name: 'blank.pdf',
       },
     });
+    wrapper.find('DocumentForm').prop('onChange')(
+      createFormEvent('title', 'title'),
+    );
     wrapper.find('DocumentForm').prop('onSubmit')(event);
     expect(event.preventDefault).toBeCalled();
     expect(wrapper.prop('submitDocument')).toBeCalled();
-  });
-  it('should submit update with valid input fields', () => {
-    const match = { params: { id: 1 } };
-    props = { ...props, match };
-    wrapper = mount(<AddDocument {...props} />);
-    const event = {
-      preventDefault: jest.fn(),
-    };
-    wrapper.setState({
-      title: 'A valid title',
-      document: {
-        name: 'blank.pdf',
-      },
-    });
-    wrapper.find('DocumentForm').prop('onSubmit')(event);
-    expect(event.preventDefault).toBeCalled();
-    expect(wrapper.prop('updateDocument')).toBeCalled();
   });
 });

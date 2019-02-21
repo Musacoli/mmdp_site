@@ -2,7 +2,7 @@ import React from 'react';
 import SearchMedia from './SearchMedia';
 import MediaList from './MediaList';
 
-const DocumentComponent = (props) => {
+const Document = (props) => {
   return (
     <React.Fragment>
       <SearchMedia />
@@ -11,4 +11,4 @@ const DocumentComponent = (props) => {
   );
 };
 
-export default DocumentComponent;
+export default Document;
