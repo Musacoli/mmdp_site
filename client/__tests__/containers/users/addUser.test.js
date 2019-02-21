@@ -40,19 +40,6 @@ describe('<AddUser />', () => {
     expect(wrapper.find('Form').length).toBe(1);
   });
 
-  it('test componentWillReceiveProps', () => {
-    const spy = jest.spyOn(AddUser.prototype, 'componentWillReceiveProps');
-    wrapper.state({
-      email: '',
-      status: false,
-      success: false,
-      selectedOption: null,
-      selectedGroups: null,
-    });
-    wrapper.instance().componentWillReceiveProps(props);
-    expect(spy.mock.calls.length).toEqual(1);
-  });
-
   it('calls the onSubmit function', () => {
     const onSubmitSpy = jest.spyOn(wrapper.instance(), 'onSubmit');
     const e = { preventDefault: () => {} };
