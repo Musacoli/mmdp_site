@@ -15,6 +15,7 @@ import {
 
 export const initialState = {
   groups: [],
+  pagination: {},
   isFetching: false,
   success: false,
   errors: '',

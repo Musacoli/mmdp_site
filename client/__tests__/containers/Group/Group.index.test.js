@@ -16,6 +16,13 @@ const groups = {
       permissions: [{ cms: 'cmss' }],
     },
   ],
+  pagination: {
+    total: 1,
+    currentPage: 1,
+    totalPages: 1,
+    previous: false,
+    next: false,
+  },
   isFetching: false,
   success: false,
   errors: 'adf',

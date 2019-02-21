@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid, Input, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import ActionButtons from './ActionButtons';
 import GroupList from './GroupList';
+import Search from '../common/Search';
+import Pagination from '../common/Pagination';
 
 const Group = ({
   groups,
@@ -11,20 +12,12 @@ const Group = ({
   bulkDeleteGroups,
   handeMainCheckBoxChange,
   confirmDeleteGroup,
+  handleSearchChange,
+  handleSearch,
+  handleChangePage,
 }) => (
-  <div className="main-content">
-    <Grid columns={2}>
-      <Grid.Row>
-        <Grid.Column width={12}>
-          <Input fluid icon="search" placeholder="Search groups" />
-        </Grid.Column>
-        <Grid.Column width={4}>
-          <Button fluid className="cool-blue">
-            Search
-          </Button>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+  <div>
+    <Search onChange={handleSearchChange} onSearch={handleSearch} />
     <ActionButtons bulkDeleteGroups={bulkDeleteGroups} />
     <GroupList
       groups={groups}
@@ -32,6 +25,11 @@ const Group = ({
       handleCheckBoxChange={handleCheckBoxChange}
       handeMainCheckBoxChange={handeMainCheckBoxChange}
       confirmDeleteGroup={confirmDeleteGroup}
+    />
+    <Pagination
+      handlePageChange={handleChangePage}
+      data={groups.pagination}
+      className="right floated groups-pagination"
     />
   </div>
 );
@@ -43,6 +41,9 @@ Group.propTypes = {
   handleCheckBoxChange: PropTypes.func.isRequired,
   bulkDeleteGroups: PropTypes.func.isRequired,
   confirmDeleteGroup: PropTypes.func.isRequired,
+  handleSearchChange: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  handleChangePage: PropTypes.func.isRequired,
 };
 
 export default Group;

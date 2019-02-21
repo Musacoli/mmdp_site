@@ -26,7 +26,11 @@ const apiCreateGroup = (data = groupData) => app.post('/api/groups').send(data);
 
 const apiUpdateGroup = (id, data) => app.put(`/api/groups/${id}`).send(data);
 
-const apiListGroups = () => app.get('/api/groups').send();
+const apiListGroups = (parameters = {}) =>
+  app
+    .get('/api/groups')
+    .query(parameters)
+    .send();
 
 const apiGetGroup = (id) => app.get(`/api/groups/${id}`).send();
 
@@ -202,15 +206,13 @@ describe('Groups', () => {
     });
   });
 
-  describe('List group (GET)', async () => {
+  describe('List groups (GET)', async () => {
+    let existingGroups;
+
     beforeEach(async () => {
       await removeAllGroupsAndUsers();
       // populate some groups
-      await Promise.all(
-        [...Array(5)].map((item, key) =>
-          createGroup([], { ...groupData, name: `group_${key}` }),
-        ),
-      );
+      existingGroups = await createGroup([], {}, 3);
       await app.loginRandom(['group.view']);
     });
 
@@ -225,14 +227,29 @@ describe('Groups', () => {
       expect(res.status).toBe(200);
     });
 
+    it('should filter by GET parameters - no match', async () => {
+      const res = await apiListGroups({ title: '1A2b3C4d5E' });
+      expect(res.statusCode).toBe(200);
+      expect(res.body.groups.length).toBe(0);
+    });
+
+    it('should filter by GET parameters - match', async () => {
+      // create 3 groups
+      await createGroup([], {}, 3);
+      const res = await apiListGroups({ name: '' });
+      // expect more than 3 groups since existing users are most
+      // likely assigned to groups
+      expect(res.body.groups.length).toBeGreaterThan(3);
+    });
+
     it('should list all the existing groups', async () => {
       const res = await apiListGroups();
       const data = res.body.groups;
       // add one for the logged in user
-      expect(data.length).toBe(5 + 1);
-      for (let i = 0; i < 5; i += 1) {
+      expect(data.length).toBe(3 + 1);
+      for (let i = 0; i < 3; i++) {
         expect(data).toContainEqual(
-          expect.objectContaining({ name: `group_${i}` }),
+          expect.objectContaining({ name: existingGroups[i].name }),
         );
       }
     });

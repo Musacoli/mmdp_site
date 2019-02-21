@@ -65,7 +65,7 @@ describe('Events API', () => {
       // create 4 events with title 'Foo'
       await createEvent({ title: 'Foo' }, 4);
       const res = await apiListEvents({ title: 'Foo' });
-      expect(res.body.data.results.length).toBe(4);
+      expect(res.body.data.length).toBe(4);
     });
 
     it('should fail for unauthorized users', async () => {

@@ -42,7 +42,7 @@ const GroupItem = ({
             <ActionModal
               triggerText="Delete Group"
               header={`Delete ${group.name} Group`}
-              content="Are you sure you want to this group?"
+              content="Are you sure you want to delete this group?"
               confirmDeleteGroup={confirmDeleteGroup}
               group={group}
             />
