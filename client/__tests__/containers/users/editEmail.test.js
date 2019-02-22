@@ -47,12 +47,6 @@ describe('<EditEmail />', () => {
     expect(wrapper.find('Form').length).toBe(1);
   });
 
-  it('test componentWillReceiveProps', () => {
-    const spy = jest.spyOn(EditEmail.prototype, 'componentWillReceiveProps');
-    wrapper.instance().componentWillReceiveProps(props);
-    expect(spy.mock.calls.length).toEqual(1);
-  });
-
   it('calls the onSubmit function', () => {
     const onSubmitSpy = jest.spyOn(wrapper.instance(), 'onSubmit');
     const e = { preventDefault: () => {} };

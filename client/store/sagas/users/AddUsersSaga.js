@@ -9,6 +9,7 @@ import {
   editUserFailure,
 } from '.';
 import { api } from '../../../utils/api';
+import toastr from '../../../utils/toastr';
 
 export function* registerUser({ payload }) {
   try {
@@ -16,6 +17,7 @@ export function* registerUser({ payload }) {
     const user = yield call(api.users.create, payload);
     const { data } = user;
     yield put(registerUserSuccess(data));
+    toastr.success(data.message);
   } catch (error) {
     yield put(
       registerUserFailure(
@@ -26,6 +28,9 @@ export function* registerUser({ payload }) {
             },
       ),
     );
+    error.response
+      ? toastr.error(error.response.data.message)
+      : toastr.error('Something went wrong');
   }
 }
 
@@ -35,6 +40,7 @@ export function* editUser({ payload }) {
     const user = yield call(api.users.edit, payload);
     const { data } = user;
     yield put(editUserSuccess(data));
+    toastr.success('Details successfully updated');
   } catch (e) {
     yield put(
       editUserFailure(
@@ -45,6 +51,9 @@ export function* editUser({ payload }) {
             },
       ),
     );
+    e.response
+      ? toastr.error(e.response.data.message)
+      : toastr.error('Something went wrong');
   }
 }
 

@@ -13,7 +13,9 @@ describe('Add users saga', () => {
   it('should handle user registration in case of success', async () => {
     const dispatchedActions = [];
 
-    const payload = ['chariss', 'chali'];
+    const payload = {
+      data: { message: '' },
+    };
     api.users.create = jest.fn(() => Promise.resolve(payload));
 
     const fakeStore = {
@@ -27,10 +29,8 @@ describe('Add users saga', () => {
     await runSaga(fakeStore, registerUser, {}).done;
     expect(api.users.create.mock.calls.length).toBe(1);
     expect(dispatchedActions).toEqual([
-      {
-        type: 'REGISTER_USER',
-      },
-      { payload: undefined, type: 'REGISTER_SUCCESS' },
+      { type: 'REGISTER_USER' },
+      { payload: { message: '' }, type: 'REGISTER_SUCCESS' },
     ]);
   });
 

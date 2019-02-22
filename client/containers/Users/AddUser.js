@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Message } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated';
 import PropTypes from 'prop-types';
@@ -11,8 +11,6 @@ import { startRegistration } from '../../store/sagas/users';
 export class AddUser extends Component {
   state = {
     email: '',
-    status: false,
-    success: false,
     selectedOption: null,
     selectedGroups: null,
   };
@@ -22,15 +20,12 @@ export class AddUser extends Component {
     allGroups();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { status, success } = nextProps.register;
-    this.setState({ status, success });
-    setTimeout(() => {
-      this.setState({ status: false, success: false });
-      if (success) {
-        nextProps.history.push('/users/all');
-      }
-    }, 2000);
+  componentDidUpdate() {
+    const {
+      register: { success },
+      history,
+    } = this.props;
+    success && history.push('/users/all');
   }
 
   onChange = (event) => {
@@ -61,20 +56,15 @@ export class AddUser extends Component {
 
   render() {
     const { register, groups: allGroups } = this.props;
-    const { isRegistering, errors, user } = register;
+    const { isRegistering } = register;
     const options = [];
     const { groups } = allGroups;
     if (groups.length > 0) {
       mapGroupOptions(groups, options);
     }
-    const { status, success, selectedOption, email } = this.state;
+    const { selectedOption, email } = this.state;
     return (
       <div className="container">
-        {status && <Message className="negative"> {errors.message} </Message>}
-        {success && !status && (
-          <Message className="positive"> {user.message} </Message>
-        )}
-
         <Form loading={isRegistering}>
           <Form.Field>
             <label htmlFor="email">Email address</label>
