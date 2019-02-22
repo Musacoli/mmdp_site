@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import { MemoryRouter } from 'react-router-dom';
 import ResearchCardView from '../../../../components/Resources/Research/ResearchDetails';
 
 describe('<ResearchCard /> ', () => {
@@ -10,9 +11,16 @@ describe('<ResearchCard /> ', () => {
     DeleteHandler: () => {},
     ArchiveHandler: () => {},
   };
-  const wrapper = shallow(<ResearchCardView {...props} />);
+  const wrapper = mount(
+    <MemoryRouter>
+      <ResearchCardView {...props} />
+    </MemoryRouter>,
+  );
   it('renders the container without crashing', () => {
     const tree = toJson(wrapper);
     expect(tree).toMatchSnapshot();
   });
+  // it('simulates am archived click', () => {
+  //   expect(wrapper.find('#research__delete__btn')).to.have.lengthOf(1);
+  // });
 });
