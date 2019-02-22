@@ -26,7 +26,7 @@ export const initialState = {
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_DOCUMENT:
-      return { ...state, loading: true, ...payload };
+      return { ...state, loading: true };
     case ADD_DOCUMENT_SUCCESS:
       return { ...state, loading: false, success: true, ...payload };
     case ADD_DOCUMENT_FAILURE:

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchDocuments } from '../../../store/actions/resources/document';
-import DocumentComponent from '../../../components/Resources/Document/Document';
+import Document from '../../../components/Resources/Document/Document';
 
-export class DocumentList extends Component {
+export class MediaList extends Component {
   static propTypes = {
     getDocuments: PropTypes.func.isRequired,
     documents: PropTypes.shape({}).isRequired,
@@ -16,21 +16,19 @@ export class DocumentList extends Component {
 
   componentDidMount() {
     const { getDocuments } = this.props;
-    getDocuments({ MediaType: false });
+    getDocuments({ mediaType: 'media' });
   }
-
-  goTo = (path) => {
-    const { history } = this.props;
-    history.push(path);
-  };
 
   render() {
     const { loading, documents } = this.props;
     return (
-      <DocumentComponent
-        goTo={this.goTo}
+      <Document
+        goTo={() => {}}
         loading={loading}
         documents={documents}
+        instanceName="Media"
+        addMediaUrl="/resources/media/add"
+        isMedia
       />
     );
   }
@@ -48,4 +46,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(DocumentList);
+)(MediaList);

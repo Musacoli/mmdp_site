@@ -45,6 +45,7 @@ export const api = {
       create: (data) => server.post(mediaApiPrefix, data),
       update: (data, id) => server.put(`${mediaApiPrefix}/${id.id}`, data),
       retrieve: (id) => server.get(`${mediaApiPrefix}/${id}/`),
+      list: () => server.get(mediaApiPrefix),
     },
   },
 };

@@ -5,11 +5,41 @@ exports[`<ViewAllResearch />  renders the container without crashing 1`] = `
   <SimpleLoader
     loading={false}
   />
+  <Search />
   <ResearchList
     results={
-      Array [
-        "Research one",
-      ]
+      Object {
+        "next": true,
+        "previous": true,
+        "results": Array [
+          "Research one",
+        ],
+      }
+    }
+  />
+  <Pagination
+    className="right floated events-pagination"
+    data={
+      Object {
+        "next": true,
+        "previous": true,
+        "results": Array [
+          "Research one",
+        ],
+      }
+    }
+    handlePageChange={
+      [MockFunction] {
+        "calls": Array [
+          Array [],
+        ],
+        "results": Array [
+          Object {
+            "isThrow": false,
+            "value": undefined,
+          },
+        ],
+      }
     }
   />
 </div>
