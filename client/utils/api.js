@@ -27,7 +27,14 @@ export const api = {
   users: {
     create: (data) => server.post('api/v1/users', data),
     edit: (data) => server.put('api/v1/users/', data),
-    list: () => server.get('api/v1/users'),
+    list: ({ page, search, selectedOption }) =>
+      server.get(
+        `api/v1/users?${formatObjectToParams({
+          page,
+          groups: selectedOption,
+          username: search,
+        })}`,
+      ),
     getOne: (username) => server.get(`api/v1/users/${username}`),
     delete: (data) => server.delete(`api/v1/users/${data}`),
   },

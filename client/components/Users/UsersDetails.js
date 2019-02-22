@@ -5,6 +5,7 @@ import ActionButtons from '../common/ActionButtons';
 import NoResults from '../common/TableRowLoading/NoResultsRow';
 import Loader from '../common/TableRowLoading';
 import DeleteUser from './deleteUser';
+import Pagination from '../common/Pagination';
 
 class DisplayUsers extends Component {
   state = {
@@ -28,7 +29,7 @@ class DisplayUsers extends Component {
   };
 
   render() {
-    const { users, success } = this.props;
+    const { users, success, pagination, handlePageChange } = this.props;
     const { deleteModalOpen } = this.state;
     return (
       <div className="main-content-wrapper">
@@ -83,16 +84,27 @@ class DisplayUsers extends Component {
             </Table>
           </Grid.Row>
         </Container>
+        <Pagination
+          handlePageChange={handlePageChange}
+          data={pagination}
+          className="pagination"
+        />
       </div>
     );
   }
 }
+
+DisplayUsers.defaultProps = {
+  pagination: {},
+};
 
 DisplayUsers.propTypes = {
   users: PropTypes.bool,
   success: PropTypes.bool,
   history: PropTypes.shape({}),
   deleteUser: PropTypes.func,
+  pagination: PropTypes.shape(),
+  handlePageChange: PropTypes.func,
 };
 
 export default DisplayUsers;

@@ -6,6 +6,7 @@ import resp, {
   exclude,
   status,
 } from '../../constants/controllerConstants';
+import { getPaginationData, getSearchQuery } from '../../utils/search';
 
 const { SUCCESS, ERROR, FAIL } = status;
 
@@ -83,17 +84,37 @@ export const fetchUser = async (req, res) => {
 };
 
 export const fetchAllUsers = async (req, res) => {
-  const user = await User.model.find({}, exclude).populate('groups');
-  if (!user) {
-    return res.status(500).json({
-      status: FAIL,
-      message: resp.tryAgain,
+  const groupsQuery = req.query.groups;
+
+  delete req.query.groups;
+
+  const baseQuery = getSearchQuery(req);
+
+  const filters = groupsQuery
+    ? { $and: [baseQuery, { groups: groupsQuery }] }
+    : baseQuery;
+
+  User.paginate({
+    page: req.query.page || 1,
+    perPage: 8,
+    maxPages: 10,
+    filters,
+  })
+    .populate('groups', '-createdAt -__v -permissions')
+    .select(exclude)
+    .exec((err, data) => {
+      if (err)
+        return res.status(500).json({
+          status: FAIL,
+          message: resp.tryAgain,
+        });
+
+      return res.json({
+        status: SUCCESS,
+        users: data.results,
+        pagination: getPaginationData(data),
+      });
     });
-  }
-  return res.json({
-    status: SUCCESS,
-    users: user,
-  });
 };
 
 export const edited = (req, res) => {

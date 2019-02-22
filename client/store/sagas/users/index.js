@@ -45,8 +45,9 @@ export const FetchingComplete = (payload) => ({
   payload,
 });
 
-export const fetchingStarted = () => ({
+export const fetchingStarted = (payload) => ({
   type: FETCHING,
+  payload,
 });
 
 export const fetchingUsers = () => ({

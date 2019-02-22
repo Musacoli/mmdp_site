@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   users: [],
+  pagination: {},
   isFetching: false,
   success: false,
   error: false,
@@ -26,7 +27,8 @@ const fetchUsers = (state = initialState, action) => {
         ...state,
         success: true,
         error: false,
-        users: action.payload,
+        users: action.payload.users,
+        pagination: action.payload.pagination,
       };
     }
     case FETCHING_USERS_ERROR: {
