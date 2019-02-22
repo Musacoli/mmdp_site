@@ -11,7 +11,10 @@ export const login = async (req, res) => {
   const query = email ? { email } : { username };
 
   try {
-    const userData = await user().model.findOne(query);
+    const userData = await user()
+      .model.findOne(query)
+      .populate('groups')
+      .exec();
 
     if (!userData)
       return res.sendError(responseMessage.INVALID_CREDENTIALS, 401);
@@ -29,7 +32,7 @@ export const login = async (req, res) => {
       id: userData._id,
       username: userData.username,
       email: userData.email,
-      groups: userData.groups,
+      permissions: await userData.permissions,
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET);

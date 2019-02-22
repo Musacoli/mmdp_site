@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setActiveSidebarIndex } from '../../store/actions';
 import Sidebar from '../../components/Sidebar';
-import { sidebarItems } from './sidebarItems';
+import sidebarItems from './sidebarItems';
 
 export class SidebarContainer extends Component {
   static propTypes = {
@@ -37,7 +37,7 @@ export class SidebarContainer extends Component {
         activeIndex={activeIndex}
         goTo={this.goTo}
         handleClick={this.handleClick}
-        sidebarItems={sidebarItems}
+        sidebarItems={sidebarItems()}
         title={title}
         {...this.props}
       >

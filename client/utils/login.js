@@ -9,8 +9,7 @@ const apiRequest = (data) =>
     .then((response) => response.data)
     .catch((error) => {
       if (error.response) {
-        const response = error.response.data;
-        return response;
+        return error.response.data;
       }
     });
 

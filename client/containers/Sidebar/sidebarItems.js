@@ -9,7 +9,9 @@
  *  path(optional): String A path to redirect user if the menu doesn't dropdown
  *  dividerTitle(optional): String This places a divider text between menu items
  */
-export const sidebarItems = [
+import { hasAccess } from '../../utils/auth';
+
+const sidebarItems = [
   {
     title: 'Thematic Pillars',
     menuItems: [
@@ -83,16 +85,19 @@ export const sidebarItems = [
     title: 'Manage dropdowns',
     menuItems: [],
     dividerTitle: 'USERS & GROUPS',
+    permissions: ['user', 'group'],
   },
   {
     title: 'Users',
     menuItems: [],
     path: '/users/all',
+    permissions: ['user'],
   },
   {
     title: 'Groups',
     menuItems: [],
     path: '/group/list',
+    permissions: ['group'],
   },
   {
     title: 'Log out',
@@ -101,4 +106,7 @@ export const sidebarItems = [
   },
 ];
 
-export default sidebarItems;
+export default () =>
+  sidebarItems.filter((item) =>
+    item.permissions ? hasAccess(item.permissions) : true,
+  );
