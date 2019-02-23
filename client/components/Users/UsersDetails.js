@@ -6,7 +6,7 @@ import NoResults from '../common/TableRowLoading/NoResultsRow';
 import Loader from '../common/TableRowLoading';
 import DeleteUser from './deleteUser';
 
-class DisplayUsers extends Component {
+class UserViewList extends Component {
   state = {
     deleteModalOpen: false,
     selectedUser: null,
@@ -88,11 +88,11 @@ class DisplayUsers extends Component {
   }
 }
 
-DisplayUsers.propTypes = {
+UserViewList.propTypes = {
   users: PropTypes.bool,
   success: PropTypes.bool,
   history: PropTypes.shape({}),
   deleteUser: PropTypes.func,
 };
 
-export default DisplayUsers;
+export default UserViewList;
