@@ -44,3 +44,13 @@ export const searchStakeHoldersFailure = (payload) => ({
   type: types.FETCH_STAKEHOLDERS_FAILURE,
   payload,
 });
+
+export const filterSearchResults = (state) => ({
+  type: types.FILTER_SEARCH_RESULTS,
+  state,
+});
+
+export const filterSearchResultsUpdate = (state) => ({
+  type: types.FILTER_SEARCH_RESULTS_UPDATE,
+  filterStatus: state,
+});

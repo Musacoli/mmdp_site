@@ -1,8 +1,7 @@
 // Display a single stakeholder in a compact elementt
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Button } from 'semantic-ui-react';
-import DeleteDocument from '../../../containers/Resources/Document/DeleteDocument';
+import { Card } from 'semantic-ui-react';
 
 const StakeHoldersCard = (props) => {
   const { item } = props;
@@ -20,12 +19,7 @@ const StakeHoldersCard = (props) => {
         </div>
       </Card.Content>
       <Card.Content className="show">
-        <div className="ui two buttons">
-          <Button loading={false} id="document_edit_btn">
-            Edit
-          </Button>
-          <DeleteDocument id={item._id} />
-        </div>
+        <div className="ui two buttons" />
       </Card.Content>
     </Card>
   );

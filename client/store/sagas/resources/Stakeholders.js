@@ -44,7 +44,6 @@ export function* fetchStatesLGAs(states) {
 export function* searchStakeholders(payload) {
   try {
     const res = yield call(searchStakeHoldersDirectory, payload);
-    // debugger;
     const response = {
       status: res.status,
       stakeholders: res.data,
@@ -57,8 +56,13 @@ export function* searchStakeholders(payload) {
   }
 }
 
+export function* updateFilteringStatus(payload) {
+  yield put(actions.filterSearchResultsUpdate(payload.state));
+}
+
 export function* watchStakeholdersDirectory() {
   yield takeLatest(types.GET_ALL_NIGERIAN_STATES, fetchStates);
   yield takeLatest(types.GET_ALL_NIGERIAN_LGAS, fetchStatesLGAs);
   yield takeLatest(types.FETCH_STAKEHOLDERS, searchStakeholders);
+  yield takeLatest(types.FILTER_SEARCH_RESULTS, updateFilteringStatus);
 }

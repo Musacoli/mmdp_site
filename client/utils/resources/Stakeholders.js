@@ -34,8 +34,11 @@ export const fetchNigerianStatesLGAs = (states) => {
     }
 
     // else return LGAs for only the selected states
+    const temp = [];
+    temp.push(states.payload);
+
     const custom = [];
-    states.payload.forEach((value) => {
+    temp.forEach((value) => {
       const result = NigerianStates.filter((state) => {
         return state.state.name === value;
       });

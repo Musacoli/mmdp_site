@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dropdown, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { getNigerianStateLGAS } from '../../../store/actions/resources/Stakeholders';
+import {
+  getNigerianStateLGAS,
+  filterSearchResults,
+} from '../../../store/actions/resources/Stakeholders';
 
 class DropdownSearchQuery extends Component {
   constructor(props) {
@@ -10,39 +13,37 @@ class DropdownSearchQuery extends Component {
     this.state = {
       searchQuery: '',
       isFetching: false,
-      value: [],
-      isSecondary: false,
+      currentValue: '',
+      isSecondary: props.isSecondary,
     };
   }
 
-  componentDidMount() {
-    const { isSecondary } = this.props;
-    this.setState({ isSecondary });
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    const { value, isSecondary } = this.state;
+    const { currentValue, isSecondary } = this.state;
+    const { filterByState, filterByLGA, filterResults } = this.props;
     // isSecondary is a flag to determine whether the component updates state
     // or not with new values. If secondary, the component will only display
     // content else it will actually update the redux store on value change
-    if (prevState.value !== value && isSecondary === false) {
+    if (prevState.currentValue !== currentValue && isSecondary === false) {
       // if the search value has changed update the LGA's List'
       const { getLGAs } = this.props;
-      getLGAs(value);
+      filterResults(true);
+      getLGAs(currentValue);
+      filterByState(currentValue);
+    }
+    if (prevState.currentValue !== currentValue && isSecondary === true) {
+      filterResults(true);
+      filterByLGA(currentValue);
     }
   }
 
   handleChange = (e, { value }) => {
-    this.setState({ value });
+    this.setState({ currentValue: value });
     this.setState({ searchQuery: '' });
   };
 
-  handleSearchChange = (e, { searchQuery }) => {
-    this.setState({ searchQuery });
-  };
-
   render() {
-    const { isFetching, value, searchQuery } = this.state;
+    const { isFetching, currentValue, searchQuery } = this.state;
     const { placeHolder, options } = this.props;
 
     return (
@@ -50,19 +51,17 @@ class DropdownSearchQuery extends Component {
         <Header as="h4">
           <Header.Content>
             <Dropdown
-              multiple
+              clearable
               header={placeHolder}
               placeholder={placeHolder}
               scrolling
               onChange={this.handleChange}
-              onSearchChange={this.handleSearchChange}
               options={options}
-              search
               searchQuery={searchQuery}
               disabled={isFetching}
               loading={isFetching}
               upward={false}
-              value={value}
+              value={currentValue}
             />
           </Header.Content>
         </Header>
@@ -76,7 +75,10 @@ DropdownSearchQuery.propTypes = {
   options: PropTypes.instanceOf(Array),
   placeHolder: PropTypes.string.isRequired,
   getLGAs: PropTypes.func.isRequired,
+  filterResults: PropTypes.func.isRequired,
   isSecondary: PropTypes.bool.isRequired,
+  filterByState: PropTypes.func.isRequired,
+  filterByLGA: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -85,6 +87,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getLGAs: getNigerianStateLGAS,
+  filterResults: filterSearchResults,
 };
 
 export default connect(
