@@ -7,7 +7,7 @@ import {
 import fetchUsers from '../../../store/reducers/users/fetchUsers';
 import initialState from '../../../__mocks__/initialState';
 
-const action = { payload: {} };
+const action = { payload: { results: user.results } };
 
 describe('User Reducer test', () => {
   it('should return initial state when there is no action', () => {

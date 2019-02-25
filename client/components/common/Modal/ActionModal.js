@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal } from 'semantic-ui-react';
 
+const trigger = (triggerText, className, toggleModal) => {
+  return (
+    <span
+      role="presentation"
+      className={className}
+      onClick={() => toggleModal()}
+    >
+      {triggerText}
+    </span>
+  );
+};
 class ActionModal extends Component {
   state = { open: false };
 
@@ -17,17 +28,13 @@ class ActionModal extends Component {
   };
 
   render() {
-    const { triggerText, header, content, group } = this.props;
+    const { triggerText, header, content, group, className } = this.props;
     const { open } = this.state;
     return (
       <Modal
         open={open}
         size="mini"
-        trigger={
-          <span role="presentation" onClick={() => this.toggleModal()}>
-            {triggerText}
-          </span>
-        }
+        trigger={trigger(triggerText, className, this.toggleModal)}
         className="show"
       >
         <Modal.Header>{header}</Modal.Header>
@@ -46,7 +53,6 @@ class ActionModal extends Component {
             className="cool-blue"
             id="actionModal-yes-button"
             onClick={() => this.delete(group)}
-            positive
             icon="checkmark"
             labelPosition="right"
             content="Yes"
@@ -63,12 +69,14 @@ ActionModal.propTypes = {
   content: PropTypes.string.isRequired,
   confirmDeleteGroup: PropTypes.func,
   group: PropTypes.shape({}),
+  className: PropTypes.string,
 };
 
 ActionModal.defaultProps = {
   group: {},
   confirmDeleteGroup: () => {},
   triggerText: 'Open Modal',
+  className: '',
 };
 
 export default ActionModal;

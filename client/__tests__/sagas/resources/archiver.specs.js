@@ -9,6 +9,8 @@ describe('Archive document saga', () => {
     const payload = {
       data: {
         message: 'Document archived succesfully',
+        page: 1,
+        search: '',
       },
     };
     api.resources.document.archive = jest.fn(() => Promise.resolve(payload));
@@ -20,10 +22,17 @@ describe('Archive document saga', () => {
     expect(api.resources.document.archive.mock.calls.length).toBe(1);
     expect(dispatchedActions).toEqual([
       {
-        payload: { message: 'Document archived succesfully' },
+        payload: {
+          message: 'Document archived succesfully',
+          page: 1,
+          search: '',
+        },
         type: 'ARCHIVE_SUCCESS',
       },
-      { type: 'FETCH_DOCUMENTS' },
+      {
+        payload: { mediaType: false, page: 1, search: '' },
+        type: 'FETCH_DOCUMENTS',
+      },
     ]);
   });
 

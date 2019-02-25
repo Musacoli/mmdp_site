@@ -1,46 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Icon } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import DocumentCard from './DocumentCard';
 import MediaCard from '../Media/MediaCard';
-
+import SimpleLoader from '../../common/Loader/SimpleLoader';
 import InvalidPage from '../../common/InvalidPage';
 
-const MediaList = ({ loading, documents, goTo, isMedia }) => (
-  <Grid columns={4} className="ui loading" loading={loading.toString()}>
-    <Grid.Row className="animated fadeIn">
-      {documents.results.map((item) => {
-        return isMedia ? (
-          <MediaCard item={item} key={item._id} goTo={goTo} />
-        ) : (
-          <DocumentCard item={item} key={item._id} goTo={goTo} />
-        );
-      })}
-    </Grid.Row>
-    {!loading && documents.results.length < 1 && (
-      <InvalidPage
-        pathLabel="Add a document"
-        errorMessage="No documents to display"
-        errorDescription="Please add documents"
-        path="/resources/document/add"
-      />
-    )}
-    {loading && (
-      <Grid.Row className="ui loading center aligned animated fadeIn">
-        <Grid.Column width={16}>
-          <Icon size="large" name="circle notched" className="loading" />
-          Loading
-        </Grid.Column>
+const MediaList = (props) => {
+  const { documents, isMedia, loading, instanceName, addMediaUrl } = props;
+  return (
+    <Grid columns={4} className="ui loading">
+      <Grid.Row className="animated fadeIn">
+        {documents.results.map((item) => {
+          return isMedia ? (
+            <MediaCard item={item} key={item._id} {...props} />
+          ) : (
+            <DocumentCard item={item} key={item._id} {...props} />
+          );
+        })}
       </Grid.Row>
-    )}
-  </Grid>
-);
+      {!loading && documents.results.length < 1 && (
+        <Grid.Row className="ui loading center aligned animated fadeIn">
+          <InvalidPage
+            pathLabel={`Add a ${instanceName}`}
+            errorMessage={`No ${instanceName} to display`}
+            errorDescription={`Please add ${instanceName}`}
+            path={addMediaUrl || '/'}
+          />
+        </Grid.Row>
+      )}
+      {loading && <SimpleLoader loading={loading} />}
+    </Grid>
+  );
+};
 
 MediaList.propTypes = {
   documents: PropTypes.shape({}).isRequired,
   loading: PropTypes.bool.isRequired,
-  goTo: PropTypes.func.isRequired,
   isMedia: PropTypes.bool.isRequired,
+  instanceName: PropTypes.string,
+};
+
+MediaList.propTypes = {
+  instanceName: 'document',
+  addMediaUrl: '"/resources/document/add"',
 };
 
 export default MediaList;

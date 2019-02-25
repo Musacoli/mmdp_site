@@ -34,6 +34,7 @@ import {
   watchEditDocument,
   watchFetchDocuments,
 } from './resources/document';
+import { watchDeleteMedia } from './resources/media';
 
 export default function* root() {
   yield all([
@@ -94,5 +95,6 @@ export default function* root() {
     fork(getUserResearchWatcher),
     fork(deleteUserResearchWatcher),
     fork(archiveUserResearchWatcher),
+    fork(watchDeleteMedia),
   ]);
 }

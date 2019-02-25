@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Button, Icon } from 'semantic-ui-react';
-import ActionModal from './ActionModal';
+import ActionModal from '../common/Modal/ActionModal';
 
 const ActionButtons = ({ bulkDeleteGroups }) => (
   <Grid columns={3}>

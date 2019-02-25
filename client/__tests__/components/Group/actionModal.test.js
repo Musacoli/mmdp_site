@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { mount } from 'enzyme';
-import ActionModal from '../../../components/Group/ActionModal';
+import ActionModal from '../../../components/common/Modal/ActionModal';
 
 const content = 'confirm delete';
 const wrapper = mount(

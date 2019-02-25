@@ -78,9 +78,6 @@ describe('Resources research API', () => {
       await createResearch({ archived: true });
       const resAuth = await app.get(route).send();
       expect(resAuth.body.data.results.length).toBe(1);
-      await app.logout(); // guest
-      const resGuest = await app.get(route).send();
-      expect(resGuest.body.data.results.length).toBe(0);
     });
   });
 

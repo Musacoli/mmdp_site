@@ -125,11 +125,9 @@ describe('should wait for dispatched actions', () => {
     generator = watchFetchingUsers();
   });
   const actionType = 'FETCHING';
-
   test('should wait for the proper action', () => {
     put({ type: actionType });
     const actual = generator.next();
-
     expect(actual.value).toEqual(takeLatest(actionType, loadUsers));
   });
 });

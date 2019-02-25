@@ -4,24 +4,22 @@ import PropTypes from 'prop-types';
 import emptybox from './img/empty-box@3x.png';
 
 const EmptyView = ({ errorMessage, errorDescription, path, pathLabel }) => (
-  <div>
-    <div className="events-container empty-view">
-      <img
-        className="image-empty"
-        src={emptybox}
-        alt="Box"
-        title="Empty"
-        id="empty_box_img"
-      />
-      <h1>{errorMessage}</h1>
-      <p>{errorDescription}</p>
-      <br />
-      <Link to={path}>
-        <button className="btn-add cool-blue big" type="button">
-          {pathLabel}
-        </button>
-      </Link>
-    </div>
+  <div className="events-container empty-view">
+    <img
+      className="image-empty"
+      src={emptybox}
+      alt="Box"
+      title="Empty"
+      id="empty_box_img"
+    />
+    <h1>{errorMessage}</h1>
+    <p>{errorDescription}</p>
+    <br />
+    <Link to={path}>
+      <button className="btn-add cool-blue big" type="button">
+        {pathLabel}
+      </button>
+    </Link>
   </div>
 );
 

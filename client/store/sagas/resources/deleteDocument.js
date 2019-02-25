@@ -1,9 +1,13 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { api } from '../../../utils/api';
-import { DELETE, FETCH_DOCUMENTS } from '../../../constants/resources/document';
+import { DELETE } from '../../../constants/resources/document';
 import toaster from '../../../utils/toastr';
 
-import { deleteSuccess, deleteFailed } from '../../actions/resources/document';
+import {
+  deleteSuccess,
+  deleteFailed,
+  fetchDocuments,
+} from '../../actions/resources/document';
 
 export function* deleteDoc({ payload }) {
   try {
@@ -11,9 +15,7 @@ export function* deleteDoc({ payload }) {
     const { data } = resp;
     yield put(deleteSuccess(data));
     toaster.success(data.message);
-    yield put({
-      type: FETCH_DOCUMENTS,
-    });
+    yield put(fetchDocuments());
   } catch (error) {
     yield put(
       deleteFailed(

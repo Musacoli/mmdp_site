@@ -58,9 +58,10 @@ export class ViewUsers extends Component {
 
   render() {
     const { users, success, deleteUser, history, pagination } = this.props;
-    let { groups } = this.props;
+    const {
+      groups: { groups },
+    } = this.props;
     const options = [];
-    ({ groups = [] } = groups);
     if (groups.length > 0) {
       groupOptions(groups, options);
     }

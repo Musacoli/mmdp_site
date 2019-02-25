@@ -8,6 +8,7 @@ import {
   EDIT_DOCUMENT_FAILURE,
   EDIT_DOCUMENT_SUCCESS,
 } from '../../../../constants/resources/document';
+
 import documentsReducer, {
   initialState,
 } from '../../../../store/reducers/resources/document';

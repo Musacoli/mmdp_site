@@ -18,7 +18,9 @@ import {
 } from '../../../constants/resources/document';
 
 /** FETCH DOCUMENTS */
-export const fetchDocuments = (payload) => ({
+export const fetchDocuments = (
+  payload = { mediaType: false, page: 1, search: '' },
+) => ({
   type: FETCH_DOCUMENTS,
   payload,
 });

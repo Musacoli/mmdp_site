@@ -46,7 +46,7 @@ export default (state = initialState, { type, payload }) => {
     case FETCH_DOCUMENTS:
       return { ...state, ...payload, isFetching: true };
     case FETCH_DOCUMENT_FAILURE:
-      return { ...state, ...payload, isDeleting: false };
+      return { ...state, ...payload, isDeleting: false, loading: false };
     default:
       return state;
   }
