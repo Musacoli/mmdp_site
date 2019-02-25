@@ -11,7 +11,7 @@ pids
 *.seed
 
 # Coverage directory
-coverage 
+coverage
 /client/coverage
 /server/coverage
 /server/upload/images
