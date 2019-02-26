@@ -18,8 +18,8 @@
     "test:client": "jest \"-u\" --coverage",
     "test:client:watch": "jest \"-u\" --watch",
     "coverage:server": "nyc --reporter html --reporter text --report-dir ./server/coverage npm run test:server",
-    "lint": "eslint .",
     "pretest:client": "yarn lint",
+    "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "author": "MMDP",

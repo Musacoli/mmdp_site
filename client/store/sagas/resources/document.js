@@ -82,14 +82,16 @@ export function* fetchDocumentsAsync({ payload }) {
   try {
     let response;
     let data;
+    let pagination;
     if (payload.mediaType) {
       response = yield call(api.resources.media.list);
       data = response ? response.data.data.media : {};
       data = { results: data };
     } else {
-      response = yield call(api.resources.document.list);
+      response = yield call(api.resources.document.list, payload);
       data = response ? response.data.data.documents : {};
-      data = { results: data };
+      pagination = response ? response.data.data.pagination : {};
+      data = { results: data, pagination };
     }
 
     yield put(actions.fetchDocumentSuccess({ data, isFetching: false }));
