@@ -45,7 +45,9 @@ export const FetchingComplete = (payload) => ({
   payload,
 });
 
-export const fetchingStarted = (payload) => ({
+export const fetchingStarted = (
+  payload = { page: 1, search: '', selectedOption: '' },
+) => ({
   type: FETCHING,
   payload,
 });

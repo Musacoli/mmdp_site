@@ -70,7 +70,7 @@ export class AddUser extends Component {
             <label htmlFor="email">Email address</label>
             <input
               className="add-user-email selectGroup update-form-fields"
-              placeholder="please enter a valid email"
+              placeholder="Please enter a valid email"
               label="Email address"
               type="email"
               name="email"
