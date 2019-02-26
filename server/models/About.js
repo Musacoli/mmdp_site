@@ -16,7 +16,6 @@ About.add({
     type: Date,
     default: Date.now,
   },
-  archived: { type: Boolean, default: false },
 });
 
 About.defaultColumns = 'about, background';

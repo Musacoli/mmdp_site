@@ -15,7 +15,6 @@ Objectives.add({
     type: Date,
     default: Date.now,
   },
-  archived: { type: Boolean, default: false },
 });
 
 Objectives.defaultColumns = 'Objectives';

@@ -217,19 +217,19 @@ describe('StakeholdersDirectory API', () => {
       await BeneficiaryService.model.remove({});
       await BasicInformation.model.remove({});
       await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.stakeholder.view']);
+      await app.loginRandom([]);
       await createStakeholdersDirectory();
     });
 
-    it('expect to retrieve the list of StakeholdersDirectorys', async () => {
+    it('expect to retrieve the list of StakeholdersDirectory list', async () => {
       const res = await apiListStakeholdersDirectory();
       expect(res.status).toBe(200);
     });
 
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
+    it('should allow guests to retrieve StakeholdersDirectory list', async () => {
+      await app.logout();
       const res = await apiListStakeholdersDirectory();
-      expect(res.status).toBe(403);
+      expect(res.status).toBe(200);
     });
   });
 

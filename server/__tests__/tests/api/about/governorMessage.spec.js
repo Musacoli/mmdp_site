@@ -30,9 +30,6 @@ const apiGetGovernorMessage = async (id) =>
 const apiListGovernorMessage = async () =>
   app.get(`${governorMessagePath}/list`).send();
 
-const apiArchiveGovernorMessage = async (id) =>
-  app.delete(`${governorMessagePath}/${id}/remove`).send();
-
 describe('Governor Message API', () => {
   describe('create governor message', () => {
     beforeEach(async () => {
@@ -183,8 +180,6 @@ describe('Governor Message API', () => {
   describe('list governor message', () => {
     beforeEach(async () => {
       await removeAllCollections(GovernorMessage);
-      await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.about.view']);
       await Promise.all([...Array(5)].map(() => createGovernorMessage()));
     });
 
@@ -198,65 +193,6 @@ describe('Governor Message API', () => {
           governorMessage: messages[i].governorMessage,
         });
       }
-    });
-
-    it('should retrieve with full about or cms permission', async () => {
-      await app.loginRandom(['cms.about.*']);
-      expect((await apiListGovernorMessage()).status).toBe(200);
-      await app.loginRandom(['cms.view']);
-      expect((await apiListGovernorMessage()).status).toBe(200);
-      await app.loginRandom(['cms.*']);
-      expect((await apiListGovernorMessage()).status).toBe(200);
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
-      const res = await apiListGovernorMessage();
-      expect(res.status).toBe(403);
-    });
-  });
-
-  describe('archive governor message', () => {
-    let existingMessage;
-
-    beforeEach(async () => {
-      await removeAllCollections(GovernorMessage);
-      await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.about.archive']);
-      existingMessage = await createGovernorMessage();
-    });
-
-    it('expect to archive the governor messages by id', async () => {
-      const res = await apiArchiveGovernorMessage(existingMessage._id);
-      expect(res.status).toBe(200);
-      expect(res.body.item.archived).toEqual(true);
-    });
-
-    it('should archive with full full about or cms permission', async () => {
-      await app.loginRandom(['cms.about.*']);
-      expect(
-        (await apiArchiveGovernorMessage(existingMessage._id)).status,
-      ).toBe(200);
-      await app.loginRandom(['cms.archive']);
-      expect(
-        (await apiArchiveGovernorMessage(existingMessage._id)).status,
-      ).toBe(200);
-      await app.loginRandom(['cms.*']);
-      expect(
-        (await apiArchiveGovernorMessage(existingMessage._id)).status,
-      ).toBe(200);
-    });
-
-    it('expect to not archive the governor messages with an invalid id', async () => {
-      const res = await apiArchiveGovernorMessage('89787sjhkf98379');
-      expect(res.status).toBe(500);
-      expect(res.body.error).toEqual('database error');
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
-      const res = await apiArchiveGovernorMessage(existingMessage._id);
-      expect(res.status).toBe(403);
     });
   });
 });

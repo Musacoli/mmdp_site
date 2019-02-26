@@ -8,7 +8,7 @@ import middleware from '../middleware/events';
 import validator from '../validation';
 import errorHandler from '../middleware/errorHandler';
 import authorize from '../middleware/authorize';
-import authenticate from '../middleware/authenticate';
+import authenticate, { authOptional } from '../middleware/authenticate';
 import appendFilesToBody from '../middleware/appendFilesToBody';
 import {
   checkEmail,
@@ -54,7 +54,7 @@ const App = (app) => {
   );
 
   app.get('/', (req, res) => {
-    res.json({ message: 'API endpoint for mmdp cms' });
+    res.json({ message: 'MMDP CMS API v1' });
   });
 
   app.post(
@@ -70,7 +70,7 @@ const App = (app) => {
 
   app.get(
     `${aboutPath}/governor-message/list`,
-    [authenticate, authorize.cms.about.list, keystone.middleware.api],
+    [authOptional, keystone.middleware.api],
     routes.api.governorMessage.list,
   );
 
@@ -91,12 +91,6 @@ const App = (app) => {
     routes.api.governorMessage.get,
   );
 
-  app.delete(
-    `${aboutPath}/governor-message/:id/remove`,
-    [authenticate, authorize.cms.about.delete, keystone.middleware.api],
-    routes.api.governorMessage.remove,
-  );
-
   app.post(
     `${aboutPath}/edo-state-approach/create`,
     [
@@ -110,7 +104,7 @@ const App = (app) => {
 
   app.get(
     `${aboutPath}/edo-state-approach/list`,
-    [authenticate, authorize.cms.about.list, keystone.middleware.api],
+    [authOptional, keystone.middleware.api],
     routes.api.edoStateApproach.list,
   );
 
@@ -131,12 +125,6 @@ const App = (app) => {
     routes.api.edoStateApproach.get,
   );
 
-  app.delete(
-    `${aboutPath}/edo-state-approach/:id/remove`,
-    [authenticate, authorize.cms.about.delete, keystone.middleware.api],
-    routes.api.edoStateApproach.remove,
-  );
-
   app.post(
     `${aboutPath}/objectives/create`,
     [authenticate, authorize.cms.about.create, keystone.middleware.api],
@@ -146,7 +134,7 @@ const App = (app) => {
 
   app.get(
     `${aboutPath}/objectives/list`,
-    [authenticate, authorize.cms.about.list, keystone.middleware.api],
+    [authOptional, keystone.middleware.api],
     routes.api.objectives.list,
   );
 
@@ -163,12 +151,6 @@ const App = (app) => {
     routes.api.objectives.get,
   );
 
-  app.delete(
-    `${aboutPath}/objectives/:id/remove`,
-    [authenticate, authorize.cms.about.delete, keystone.middleware.api],
-    routes.api.objectives.remove,
-  );
-
   app.post(
     `${aboutPath}/coordination/create`,
     [
@@ -182,7 +164,7 @@ const App = (app) => {
 
   app.get(
     `${aboutPath}/coordination/list`,
-    [authenticate, authorize.cms.about.list, keystone.middleware.api],
+    [authOptional, keystone.middleware.api],
     routes.api.coordination.list,
   );
 
@@ -203,12 +185,6 @@ const App = (app) => {
     routes.api.coordination.get,
   );
 
-  app.delete(
-    `${aboutPath}/coordination/:id/remove`,
-    [authenticate, authorize.cms.about.delete, keystone.middleware.api],
-    routes.api.coordination.remove,
-  );
-
   app.post(
     `${aboutPath}/about-mmdp/create`,
     [
@@ -222,7 +198,7 @@ const App = (app) => {
 
   app.get(
     `${aboutPath}/about-mmdp/list`,
-    [authenticate, authorize.cms.about.list, keystone.middleware.api],
+    [authOptional, keystone.middleware.api],
     routes.api.about.list,
   );
 
@@ -242,16 +218,6 @@ const App = (app) => {
     [authenticate, authorize.cms.about.get, keystone.middleware.api],
     routes.api.about.get,
   );
-
-  app.delete(
-    `${aboutPath}/about-mmdp/:id/remove`,
-    [authenticate, authorize.cms.about.delete, keystone.middleware.api],
-    routes.api.about.remove,
-  );
-
-  app.get('/', (req, res) => {
-    res.json({ message: 'API endpoint for mmdp cms' });
-  });
 
   // users
   app.post(
@@ -344,7 +310,7 @@ const App = (app) => {
 
   app.get(
     '/api/v1/events',
-    [authenticate, authorize.cms.events.list, keystone.middleware.api],
+    [authOptional, keystone.middleware.api],
     routes.api.events.list,
   );
 
@@ -367,17 +333,17 @@ const App = (app) => {
   // Pillars
   app.get(
     '/api/v1/pillars/',
-    [authenticate, authorize.cms.pillar.list, keystone.middleware.api],
+    [authenticate, authorize.cms.pillar.view, keystone.middleware.api],
     routes.api.pillar.list,
   );
   app.get(
     '/api/v1/pillars/:id',
-    [authenticate, authorize.cms.pillar.get, keystone.middleware.api],
+    [authenticate, authorize.cms.pillar.view, keystone.middleware.api],
     routes.api.pillar.get,
   );
   app.get(
     '/api/v1/pillars/pillar-number/:id',
-    [authenticate, authorize.cms.pillar.get, keystone.middleware.api],
+    [authOptional, keystone.middleware.api],
     routes.api.pillar.getByPillarNumber,
   );
 
@@ -420,7 +386,7 @@ const App = (app) => {
 
   app.get(
     `${baseUrl}/resources/repository/media`,
-    [authenticate, authorize.cms.resources.list],
+    [authOptional],
     routes.api.resources.media.list,
   );
 
@@ -461,7 +427,7 @@ const App = (app) => {
 
   app.get(
     `${baseUrl}/resources/repository/document`,
-    [authenticate, authorize.cms.resources.get],
+    [authOptional],
     routes.api.resources.document.list,
   );
 
@@ -495,17 +461,9 @@ const App = (app) => {
     routes.api.resources.report.create,
   );
 
-  // returns the list including archived reports. Strictly for admin
-  app.get(
-    `${baseUrl}/resources/reports/all`,
-    [authenticate, authorize.cms.resources.get],
-    routes.api.resources.report.list,
-  );
-
-  // returns the list without archived reports. Will be used for the website
   app.get(
     `${baseUrl}/resources/reports`,
-    [authenticate, authorize.cms.resources.get],
+    [authOptional],
     routes.api.resources.report.list,
   );
 
@@ -558,7 +516,7 @@ const App = (app) => {
 
   app.get(
     `${baseUrl}/resources/research`,
-    [authenticate, authorize.cms.resources.list],
+    [authOptional],
     routes.api.resources.research.list,
   );
 
@@ -581,43 +539,41 @@ const App = (app) => {
   /* ---------- Stakeholders Directory ----------- */
   app.post(
     `${stakeholdersPath}/create`,
-    authenticate,
-    authorize.cms.stakeholders.create,
-    stakeholdersDirectoryValidator,
-    keystone.middleware.api,
+    [
+      authenticate,
+      authorize.cms.stakeholders.create,
+      stakeholdersDirectoryValidator,
+      keystone.middleware.api,
+    ],
     routes.api.stakeholdersDirectory.create,
   );
 
   app.get(
     `${stakeholdersPath}/list`,
-    authenticate,
-    authorize.cms.stakeholders.list,
-    keystone.middleware.api,
+    [authOptional, keystone.middleware.api],
     routes.api.stakeholdersDirectory.list,
   );
 
   app.put(
     `${stakeholdersPath}/:id/update`,
-    authenticate,
-    authorize.cms.stakeholders.update,
-    keystone.middleware.api,
-    stakeholdersDirectoryValidator,
+    [
+      authenticate,
+      authorize.cms.stakeholders.update,
+      keystone.middleware.api,
+      stakeholdersDirectoryValidator,
+    ],
     routes.api.stakeholdersDirectory.update,
   );
 
   app.get(
     `${stakeholdersPath}/:id`,
-    authenticate,
-    authorize.cms.stakeholders.get,
-    keystone.middleware.api,
+    [authenticate, authorize.cms.stakeholders.get, keystone.middleware.api],
     routes.api.stakeholdersDirectory.get,
   );
 
   app.delete(
     `${stakeholdersPath}/:id/remove`,
-    authenticate,
-    authorize.cms.stakeholders.delete,
-    keystone.middleware.api,
+    [authenticate, authorize.cms.stakeholders.delete, keystone.middleware.api],
     routes.api.stakeholdersDirectory.remove,
   );
   /* ---------- Stakeholders Directory ----------- */

@@ -25,9 +25,6 @@ const apiGetAbout = async (id) => app.get(`${aboutPath}/${id}`).send();
 
 const apiListAbout = async () => app.get(`${aboutPath}/list`).send();
 
-const apiArchiveAbout = async (id) =>
-  app.delete(`${aboutPath}/${id}/remove`).send();
-
 describe('About message API', () => {
   describe('Create About message', () => {
     beforeEach(async () => {
@@ -170,8 +167,6 @@ describe('About message API', () => {
   describe('List About messages', () => {
     beforeEach(async () => {
       await removeAllCollections(About);
-      await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.about.view']);
       await Promise.all([...Array(5)].map(() => createAbout()));
     });
 
@@ -185,58 +180,6 @@ describe('About message API', () => {
           background: abouts[i].background,
         });
       }
-    });
-
-    it('should retrieve with full about or cms permission', async () => {
-      await app.loginRandom(['cms.about.*']);
-      expect((await apiListAbout()).status).toBe(200);
-      await app.loginRandom(['cms.view']);
-      expect((await apiListAbout()).status).toBe(200);
-      await app.loginRandom(['cms.*']);
-      expect((await apiListAbout()).status).toBe(200);
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
-      const res = await apiListAbout();
-      expect(res.status).toBe(403);
-    });
-  });
-
-  describe('Archive About messages', () => {
-    let existingAbout;
-    beforeEach(async () => {
-      await removeAllCollections(About);
-      await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.about.archive']);
-      existingAbout = await createAbout();
-    });
-
-    it('should archive the Abouts by id', async () => {
-      const res = await apiArchiveAbout(existingAbout._id);
-      expect(res.status).toBe(200);
-      expect(res.body.item.archived).toEqual(true);
-    });
-
-    it('should archive with full full about or cms permission', async () => {
-      await app.loginRandom(['cms.about.*']);
-      expect((await apiArchiveAbout(existingAbout._id)).status).toBe(200);
-      await app.loginRandom(['cms.archive']);
-      expect((await apiArchiveAbout(existingAbout._id)).status).toBe(200);
-      await app.loginRandom(['cms.*']);
-      expect((await apiArchiveAbout(existingAbout._id)).status).toBe(200);
-    });
-
-    it('should not archive the Abouts with an invalid id', async () => {
-      const res = await apiArchiveAbout('89787sjhkf98379');
-      expect(res.status).toBe(500);
-      expect(res.body.error).toEqual('database error');
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
-      const res = await apiArchiveAbout(existingAbout._id);
-      expect(res.status).toBe(403);
     });
   });
 });

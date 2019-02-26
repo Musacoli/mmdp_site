@@ -72,7 +72,7 @@ describe('Media route', () => {
 
   describe('List media', () => {
     beforeEach(async () => {
-      await app.loginRandom(['cms.resources.view']);
+      await app.loginRandom([]);
       await createMedia({}, 2);
     });
 
@@ -82,24 +82,10 @@ describe('Media route', () => {
       expect(res.body.data.media.length).toEqual(2);
     });
 
-    it('should get empty when there are no docs', async () => {
+    it('should get empty when there is no media', async () => {
       await removeAllMedia();
       const res = await apiListMedia();
       expect(res.body.data.media.length).toBe(0);
-    });
-
-    it('should create for all other relevant permissions', async () => {
-      await app.loginRandom(['cms.*']);
-      expect((await apiListMedia()).status).toBe(200);
-      await app.loginRandom(['cms.view']);
-      expect((await apiListMedia()).status).toBe(200);
-      await app.loginRandom(['cms.resources.*']);
-      expect((await apiListMedia()).status).toBe(200);
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom();
-      expect((await apiListMedia()).status).toBe(403);
     });
   });
 

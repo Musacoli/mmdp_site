@@ -1,14 +1,6 @@
 import { hasAnyPermission } from '../../../../utils/permissions';
 
 export default {
-  list: (userPermissions) => {
-    return hasAnyPermission(userPermissions, [
-      'cms.*',
-      'cms.view',
-      'cms.stakeholder.*',
-      'cms.stakeholder.view',
-    ]);
-  },
   get: (userPermissions) => {
     return hasAnyPermission(userPermissions, [
       'cms.*',

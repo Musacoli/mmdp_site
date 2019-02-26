@@ -41,7 +41,12 @@ export const get = async (req, res) => {
 export const list = async (req, res) => {
   const reportItem = Report();
   try {
-    filterAndPaginate(reportItem, req).exec((err, data) => {
+    const otherFilters = {};
+
+    // don't show archived events for unauthenticated users
+    if (!req.user) otherFilters.archived = false;
+
+    filterAndPaginate(reportItem, req, {}, otherFilters).exec((err, data) => {
       return res.sendSuccess(
         {
           reports: data.results,

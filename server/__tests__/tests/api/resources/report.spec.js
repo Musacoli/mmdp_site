@@ -15,7 +15,6 @@ import Report from '../../../../models/resources/Report';
 const { expect } = chai;
 
 const route = '/api/v1/resources/reports';
-const getAllRoute = `${route}/all`;
 const routeWithId = (id) => `${route}/${id}`;
 const updateRoute = routeWithId;
 const deleteRoute = routeWithId;
@@ -38,16 +37,16 @@ const responseData = {
 };
 
 describe('Report route', () => {
-  before(async () => {
-    await app.loginRandom(['cms.resources.*']);
-  });
-  after(async () => {
-    await removeAllGroupsAndUsers();
-  });
   beforeEach(async () => {
+    await removeAllGroupsAndUsers();
     await removeAllCollections(Report);
   });
+
   describe(`POST ${route}`, () => {
+    beforeEach(async () => {
+      await app.loginRandom(['cms.resources.create']);
+    });
+
     it('should return a 400 status when title and or reportFile is not provided', async () => {
       const res = await app.post(route).send({
         title: '',
@@ -62,6 +61,7 @@ describe('Report route', () => {
       expect(res.body.error).to.have.property('files');
       expect(res.body.error).to.have.property('reportType');
     });
+
     it('should return a 400 status when invalid reportType is provided', async () => {
       const res = await app
         .post(route)
@@ -74,6 +74,7 @@ describe('Report route', () => {
       expect(res.body.error).to.have.property('files');
       expect(res.body.error).to.have.property('reportType');
     });
+
     it('should return a 201 status when valid title and reportFile is sent', async () => {
       const stub = sinon
         .stub(modelHelper, 'process')
@@ -94,6 +95,7 @@ describe('Report route', () => {
       stub.restore();
     });
   });
+
   describe(`GET request to ${route}`, () => {
     beforeEach(async () => {
       await Promise.all([
@@ -102,8 +104,10 @@ describe('Report route', () => {
         createReport(),
         createArchivedReport(),
       ]);
+      await app.loginRandom([]);
     });
-    it('should get only unarchived reports', async () => {
+
+    it('should get all reports', async () => {
       const res = await app.get(route);
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property('data');
@@ -111,20 +115,25 @@ describe('Report route', () => {
       expect(res.body.data.reports).to.be.a('Array');
       expect(res.body.data.reports).to.have.lengthOf(4);
     });
-    it('should get all reports including archived reports', async () => {
-      const res = await app.get(getAllRoute);
+
+    it('should exclude archived reports for guests', async () => {
+      app.logout();
+      const res = await app.get(route);
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property('data');
       expect(res.body.data).to.have.property('reports');
       expect(res.body.data.reports).to.be.a('Array');
-      expect(res.body.data.reports).to.have.lengthOf(4);
+      expect(res.body.data.reports).to.have.lengthOf(3);
     });
   });
+
   describe(`PATCH request`, () => {
     let report;
     beforeEach(async () => {
+      await app.loginRandom(['cms.resources.archive']);
       report = await createReport();
     });
+
     it('should archive a report', async () => {
       const { _id: id } = report;
       const res = await app.patch(archiveRoute(id));
@@ -134,6 +143,7 @@ describe('Report route', () => {
       expect(res.body.data.report).to.be.a('Object');
       expect(res.body.data.report.archived).to.equal(true);
     });
+
     it('should unarchive a report', async () => {
       const { _id: id } = report;
       const res = await app.patch(unArchiveRoute(id));
@@ -144,7 +154,12 @@ describe('Report route', () => {
       expect(res.body.data.report.archived).to.equal(false);
     });
   });
-  describe(`PATCH request`, () => {
+
+  describe(`DELETE request`, () => {
+    beforeEach(async () => {
+      await app.loginRandom(['cms.resources.delete']);
+    });
+
     it('should delete a report', async () => {
       const report = await createReport();
       const { _id: id } = report;
@@ -153,7 +168,12 @@ describe('Report route', () => {
       expect(res.body).to.have.property('message');
     });
   });
+
   describe(`PUT request`, () => {
+    beforeEach(async () => {
+      await app.loginRandom(['cms.resources.update']);
+    });
+
     it('should update a report', async () => {
       const newTitle = 'Edited report title';
       const report = await createReport();

@@ -16,7 +16,6 @@ EdoStateApproach.add({
     type: Date,
     default: Date.now,
   },
-  archived: { type: Boolean, default: false },
 });
 
 EdoStateApproach.defaultColumns = 'theEdoStateApproach, background';

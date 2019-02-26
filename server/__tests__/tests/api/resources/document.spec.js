@@ -129,7 +129,7 @@ describe('Document route', () => {
 
   describe('List documents', () => {
     beforeEach(async () => {
-      await app.loginRandom(['cms.resources.view']);
+      await app.loginRandom([]);
       await createDocument({ title: 'Foo' }, 2);
     });
 
@@ -157,18 +157,15 @@ describe('Document route', () => {
       expect(res.body.data.documents.length).toEqual(2);
     });
 
-    it('should create for all other relevant permissions', async () => {
-      await app.loginRandom(['cms.*']);
-      expect((await apiListDocuments()).status).toBe(200);
-      await app.loginRandom(['cms.view']);
-      expect((await apiListDocuments()).status).toBe(200);
-      await app.loginRandom(['cms.resources.*']);
-      expect((await apiListDocuments()).status).toBe(200);
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom();
-      expect((await apiListDocuments()).status).toBe(403);
+    it('should exclude archived documents for guests', async () => {
+      await removeAllDocuments();
+      // create 2 archived documents
+      await createDocument({ archived: true }, 2);
+      const resAuth = await apiListDocuments();
+      expect(resAuth.body.data.documents.length).toEqual(2);
+      await app.logout();
+      const resGuest = await apiListDocuments();
+      expect(resGuest.body.data.documents.length).toEqual(0);
     });
   });
 

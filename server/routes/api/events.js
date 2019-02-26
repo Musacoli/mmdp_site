@@ -46,7 +46,12 @@ export const get = (req, res) => {
 };
 
 export const list = (req, res) => {
-  filterAndPaginate(Events, req)
+  const otherFilters = {};
+
+  // don't show archived events for unauthenticated users
+  if (!req.user) otherFilters.archived = false;
+
+  filterAndPaginate(Events, req, {}, otherFilters)
     .sort('-dateCreated')
     .exec((err, data) => {
       res.status(200).send({

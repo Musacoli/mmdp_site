@@ -2,6 +2,7 @@ import keystone from 'keystone';
 import { sprintf } from 'sprintf-js';
 import modelHelper from '../../../helpers/modelHelper';
 import responseMessage from '../../../constants/responseMessage';
+import { filterAndPaginate } from '../../../utils/search';
 
 export const Research = () => keystone.list('Research');
 
@@ -59,23 +60,19 @@ export const update = (req, res) => {
 };
 
 export const list = async (req, res) => {
-  try {
-    await Research()
-      .paginate({
-        page: req.query.page || 1,
-        perPage: 12,
-        maxPages: 10,
-      })
-      .sort('')
-      .populate('')
-      .exec((err, results) => {
-        res.status(200).send({
-          data: results,
-        });
-      });
-  } catch (error) {
-    return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
-  }
+  const otherFilters = {};
+
+  // don't show archived events for unauthenticated users
+  if (!req.user) otherFilters.Archived = false;
+
+  filterAndPaginate(Research(), req, {}, otherFilters).exec((err, results) => {
+    if (err) {
+      return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, err);
+    }
+    res.status(200).send({
+      data: results,
+    });
+  });
 };
 
 export const remove = (req, res) => {
