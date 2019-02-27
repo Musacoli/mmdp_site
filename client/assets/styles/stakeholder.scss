@@ -1,13 +1,13 @@
-@import 'abstracts/theme_variables';
+@import 'abstracts/variables';
 
 .sh-title {
-  color: $color-dark;
   font-size: 22px;
-  font-stretch: normal;
-  font-style: normal;
   font-weight: 800;
-  letter-spacing: -0.7px;
+  font-style: normal;
+  font-stretch: normal;
   line-height: 1.55;
+  letter-spacing: -0.7px;
+  color: $color-dark;
 }
 
 .page-status {
@@ -107,6 +107,7 @@
   }
 
   .stakeholder-card-body {
+    padding: 7px 23px;
     width: 255px;
     height: 116px;
     font-size: 16px;
@@ -131,6 +132,22 @@
     line-height: 2.07;
     margin-right: 22px;
     width: 25px;
+    font-family: Muli, sans-serif;
+  }
+
+  .footer-btn {
+    padding: 10px 23px;
+    width: 25px;
+    height: 29px;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.07;
+    letter-spacing: -0.3px;
+    background-color: #eff8fb;
+    border: 0;
+    margin-right: 22px;
   }
 
   .txt-blue {
@@ -140,6 +157,10 @@
   .txt-red {
     color: $color-rusty-red;
   }
+}
+
+.stakeholder-list{
+  padding: 30px 0;
 }
 
 .sh-modal {
@@ -209,9 +230,7 @@
   width: 1136px;
   padding-top: 40px !important;
 
-  .search-box,
-  .btn-search,
-  .btn_add {
+  .search-box, .btn-search, .btn_add {
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding-left: 0;
@@ -230,12 +249,28 @@
   }
 }
 
+.stakeholder-loader {
+  width: 100%;
+}
+
+.close-stakeholder-modal {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border: none;
+  background-image: url('../images/cancel-button-dark.svg') !important;
+  background-repeat: no-repeat !important;
+  position: absolute;
+  right: 32px;
+  top: 32px;
+}
+
 .pr-25 {
   padding-right: 0 !important;
   margin-left: 15px;
 }
 
-.split-column {
+.split-column{
   width: 210px !important;
   margin-right: 40px !important;
 }

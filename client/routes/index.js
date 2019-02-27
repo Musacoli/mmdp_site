@@ -36,6 +36,7 @@ import StakeholdersView from '../views/Stakeholders/stakeholderDirectory';
 import AddStakeholderView from '../views/Stakeholders/addBasicInfo';
 import BeneficiaryServicesView from '../views/Stakeholders/addBeneficiaryServices';
 import StateView from '../views/DropDowns/State';
+import ViewStakeholders from '../views/Resources/Stakeholders/ViewStakeholders';
 
 const routes = [
   {
@@ -326,6 +327,14 @@ const routes = [
   {
     path: '*',
     component: Dashboard,
+    protected: true,
+  },
+
+  {
+    path: '/resources/stakeholders',
+    name: 'Stakeholder Directory',
+    component: ViewStakeholders,
+    exact: true,
     protected: true,
   },
 ];

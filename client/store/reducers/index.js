@@ -33,6 +33,7 @@ import archive from './resources/archive';
 import deleteDoc from './resources/deleteDoc';
 import getResearch from './resources/getResearch';
 import media from './resources/media';
+import stakeholdersDirectory from './resources/Stakeholders';
 import addStakeholder from './stakeholders/addStakeholder';
 import country from './dropdowns/country';
 import states from './dropdowns/state';
@@ -73,6 +74,7 @@ const rootReducer = combineReducers({
   addStakeholder,
   country,
   states,
+  stakeholdersDirectory,
 });
 
 export default rootReducer;
