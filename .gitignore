@@ -50,4 +50,9 @@ yarn-error.log
 
 .editorConfig
 data/
-!/client/__tests__/common/stakeholders/dataGenerationFixtures.js
+/.elasticbeanstalk/config.yml
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

@@ -40,11 +40,21 @@ export const addCommunity = async (query, communities, options) => {
         .populate(communityDataQuery)
         .lean()
         .exec(async (err, data) => {
-          if (err) throw err;
-          current.countryId = data.wardId.lgaId.stateId.countryId;
-          current.stateId = data.wardId.lgaId.stateId._id;
-          current.lgaId = data.wardId.lgaId._id;
-          BeneficiaryCommunityServiceData.push(current);
+          if (err) {
+            throw err;
+          } else if (data == null) {
+            throw new Error(
+              'Partial update successful.A specified community specified community was not found',
+            );
+          } else {
+            current.countryId = data.wardId.lgaId.stateId.countryId;
+            current.stateId = data.wardId.lgaId.stateId._id;
+            current.lgaId = data.wardId.lgaId._id;
+            BeneficiaryCommunityServiceData.push(current);
+          }
+        })
+        .catch((e) => {
+          throw e;
         });
     }),
   );
@@ -60,7 +70,7 @@ export const addCommunity = async (query, communities, options) => {
   return data;
 };
 
-const addSourceOfFunding = async (query, sourceOfFunding, options) => {
+export const addSourceOfFunding = async (query, sourceOfFunding, options) => {
   const id = { beneficiaryServiceId: query._id };
   let data = [];
   const sourceOfFundingModified = sourceOfFunding.map((source) =>
@@ -82,7 +92,7 @@ export const addBeneficiaryServiceType = async (
   beneficiaryServices,
   options,
 ) => {
-  const id = { beneficiaryServiceId: query._id };
+  const id = { beneficiaryServiceId: query._id || query };
   let data = [];
   const beneficiaryServicesModified = beneficiaryServices.map((beneficiary) =>
     Object.assign({}, beneficiary, id),
@@ -173,7 +183,9 @@ export const deleteBeneficiaries = async (stakeholderId) => {
             beneficiary._id,
             BeneficiaryServiceTypes,
           ),
-        ]),
+        ]).catch((e) => {
+          throw e;
+        }),
       ),
     ).then(async () => {
       await ReturneeService.model.findOneAndRemove({ stakeholderId }, () => {});

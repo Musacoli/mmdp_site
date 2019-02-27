@@ -32,9 +32,7 @@ class StakeholdersList extends Component {
 
   componentDidMount() {
     const { getStates, getLGAs } = this.props;
-    // fetch stakeholder data
     this.fetchStakeHolders();
-    // fetch state data
     getStates();
     getLGAs();
   }
@@ -101,7 +99,7 @@ class StakeholdersList extends Component {
         const beneficiaries = stakeholder.beneficiaries || [];
         return beneficiaries.forEach((beneficiary) => {
           // search from within stakeholder beneficiaries
-          const communities = beneficiary.communities;
+          const communities = beneficiary.communities || [];
           communities.forEach((community) => {
             // search from within the communities array in the beneficiaries data
             if (states === community[filterField]._id) {

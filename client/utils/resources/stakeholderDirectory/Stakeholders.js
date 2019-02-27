@@ -48,7 +48,7 @@ export const handleMultipleStrings = (
       if (arrayId === '') {
         str.push(handleGetValue(service, key, subkey));
       } else {
-        const array = service[arrayId];
+        const array = service[arrayId] || [];
         array.forEach((value) => {
           str.push(handleGetValue(value, key, subkey));
         });
@@ -92,7 +92,7 @@ export const handleTotals = (key, beneficiaries, arrayId = '') => {
   if (beneficiaries) {
     beneficiaries.forEach((service) => {
       if (arrayId !== '') {
-        const array = service[arrayId];
+        const array = service[arrayId] || [];
         array.forEach((value) => {
           if (value[key]) {
             total += value[key];
@@ -192,26 +192,47 @@ export const createStakeholdersAddressObject = (addressData) => {
   return [stateAddress, headAddress];
 };
 
+const getFrequencyValue = (frequencyId, reduxData) => {
+  const frequency = reduxData.frequency || {};
+  const frequencyResults = frequency.data || [];
+  const val = _.find(frequencyResults, { _id: frequencyId });
+  if (val === undefined) {
+    return 1;
+  }
+  return val.frequencyValue;
+};
+
 export const computeTotalNumberOfBeneficiariesPerService = (
-  beneficiaryServiceTypes,
+  formData,
+  reduxData,
 ) => {
+  const beneficiaryServiceTypes = formData.beneficiaryServiceType || [];
+  const frequency = getFrequencyValue(formData.frequency, reduxData);
+  let duration = formData.duration === '' ? 1 : formData.duration || 1;
+  duration = parseInt(duration, 10);
+  const noOfBeneficiaries = (total) => total * frequency * duration;
+  // debugger;
   let total = 0;
   try {
     beneficiaryServiceTypes.map((type) => {
-      total += type.totalNumberOfBeneficiaries;
+      total +=
+        parseInt(type.noOfMaleBeneficiaries, 10) +
+        parseInt(type.noOfFemaleBeneficiaries, 10);
     });
   } catch (e) {
-    return total;
+    return noOfBeneficiaries(total);
   }
-  return total;
+  return noOfBeneficiaries(total);
 };
 
-export const computeTotalNumberOfBeneficiaries = (beneficiaries) => {
+export const computeTotalNumberOfBeneficiaries = (beneficiaries, reduxData) => {
   let total = 0;
   try {
     beneficiaries.map((beneficiary) => {
-      const beneficiaryTypes = beneficiary.beneficiaryServiceType;
-      total += computeTotalNumberOfBeneficiariesPerService(beneficiaryTypes);
+      total += computeTotalNumberOfBeneficiariesPerService(
+        beneficiary,
+        reduxData,
+      );
     });
   } catch (e) {
     return total;

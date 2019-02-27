@@ -1,8 +1,8 @@
 import SagaTester from 'redux-saga-tester';
 import {
   fetchStates,
-  searchStakeholders,
   fetchStatesLGAs,
+  searchStakeholders,
 } from '../../../store/sagas/resources/Stakeholders';
 import StakeholdersReducer from '../../../store/reducers/resources/Stakeholders';
 import * as types from '../../../constants/resources/Stakeholders';
@@ -16,15 +16,6 @@ describe('Stakeholders Saga', () => {
       initialState: {},
       reducers: StakeholdersReducer,
     });
-  });
-
-  it('should fetchStates', async () => {
-    TestSaga.start(fetchStates);
-    const state = TestSaga.getState();
-
-    expect(state.loading).toEqual(false);
-
-    await TestSaga.waitFor(types.GET_ALL_NIGERIAN_STATES_SUCCESS);
   });
 
   it('should search stakeholders and fail', async () => {

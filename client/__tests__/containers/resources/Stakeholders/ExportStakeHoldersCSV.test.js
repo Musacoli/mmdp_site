@@ -8,7 +8,7 @@ import { returnStakeholders } from './StakeholdersList.test';
 describe('Export Stakeholders to CSV', () => {
   let wrapper;
   const props = {
-    data: [[returnStakeholders()]],
+    data: [returnStakeholders()],
   };
   let store;
   const initialState = {};

@@ -13,7 +13,7 @@ import {
 const payload = { data: {} };
 describe('LGA Saga', () => {
   describe('Get All Local Government Areas', async () => {
-    const it = sagaHelper(getAllLGAs());
+    const it = sagaHelper(getAllLGAs(payload));
     it('should have yield get All Local Government Areas', (result) => {
       expect(result).toEqual(call(api.list));
       return [{}, {}, {}];

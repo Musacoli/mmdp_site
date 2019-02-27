@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import BeneficiaryServicesForm from '../../../../components/Resources/Stakeholders/addBeneficiaryServices';
 import { generateDropDownData } from '../../../common/stakeholders/dataGenerationFixtures';
+import reduxStateData from '../../../common/stakeholders/reduxState';
 
 describe('add beneficiary information', () => {
   const fields = [
@@ -18,6 +19,7 @@ describe('add beneficiary information', () => {
     'targetAudiences',
   ];
   const props = {
+    reduxData: reduxStateData,
     commonValues: {},
     formData: { beneficiaryServiceType: [] },
     dropDownData: generateDropDownData(fields),

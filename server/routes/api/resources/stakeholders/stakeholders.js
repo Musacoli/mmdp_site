@@ -5,9 +5,9 @@ import {
   handleFetchTransaction,
 } from '../../../../helpers/stakeholdersDirectory/stakeholderHelpers';
 import {
+  addTransaction,
   editTransaction,
   stripStakeholderPayload,
-  transactionRunner,
 } from '../../../../helpers/stakeholdersDirectory/manualTransactions';
 
 export const list = async (req, res) => {
@@ -19,7 +19,7 @@ export const create = async (req, res) => {
   const data = stripStakeholderPayload(req.body);
 
   try {
-    const result = await transactionRunner(data);
+    const result = await addTransaction(data);
     return res.apiResponse({
       message: 'New stakeholder Added',
       stakeholder: data,
@@ -54,7 +54,9 @@ export const update = async (req, res) => {
         }
       }
     })
-    .catch((e) => res.apiError(e.message));
+    .catch((e) => {
+      return res.apiError(e.message);
+    });
 };
 
 /** ************************************************************************ */

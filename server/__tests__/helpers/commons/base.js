@@ -144,7 +144,11 @@ export const collectionToObject = (data) => {
  * @returns {Promise<void>}
  */
 export const removeAllCollections = async (model) => {
-  await model.model.remove({});
+  try {
+    await model.model.remove({});
+  } catch (e) {
+    console.log(model);
+  }
 };
 
 /**

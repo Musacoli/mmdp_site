@@ -38,7 +38,7 @@ export const mapStateToOptions = (data, key, value, text) => {
   }
 };
 
-const handleReduxData = (data, textValue) => {
+export const handleReduxData = (data, textValue) => {
   try {
     if (data.loading) {
       return {

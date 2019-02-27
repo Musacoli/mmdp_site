@@ -4,15 +4,15 @@ import sagaHelper from 'redux-saga-testing';
 import { api } from '../../../../utils/api';
 import * as actions from '../../../../store/actions/dropdowns/state';
 import {
-  fetchStatesAsync,
   addStatesAsync,
   deleteStatesAsync,
+  fetchStatesAsync,
 } from '../../../../store/sagas/dropdowns/state';
 
 const payload = { data: {}, new: true, id: 'someid' };
 describe('State Saga', () => {
   describe('fetchState', async () => {
-    const it = sagaHelper(fetchStatesAsync({ payload }));
+    const it = sagaHelper(fetchStatesAsync(payload));
     it('should have yield fetch states', (result) => {
       expect(result).toEqual(call(api.dropdowns.state.list));
     });
@@ -22,7 +22,8 @@ describe('State Saga', () => {
     });
 
     it('and then yield dispatch fetchStatesFailure', (result) => {
-      expect(result).toEqual(put(actions.fetchStatesFailure({})));
+      const error = new Error('Some error');
+      expect(result).toEqual(put(actions.fetchStatesFailure({ error })));
     });
   });
 

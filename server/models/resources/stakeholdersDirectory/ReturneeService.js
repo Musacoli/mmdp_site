@@ -1,7 +1,5 @@
 import keystone from 'keystone';
-import BeneficiaryServiceCommunity from './BeneficiaryServiceCommunity';
-import BeneficiaryServiceFundingSource from './BeneficiaryServiceFundingsource';
-import BeneficiaryServiceType from './BeneficiaryServiceType';
+import { handleE11000 } from '../../../utils/mongooseErrorCodes';
 
 const ReturneeService = new keystone.List('ReturneeService');
 const { Types } = keystone.Field;
@@ -39,30 +37,10 @@ ReturneeService.add({
 
 ReturneeService.defaultColumns = 'serviceName';
 
-ReturneeService.schema.pre('remove', (next) => {
-  // 'this' is the client being removed.
-  BeneficiaryServiceCommunity.model
-    .remove({ beneficiaryServiceId: this._id })
-    .exec();
-  BeneficiaryServiceFundingSource.model
-    .remove({ beneficiaryServiceId: this._id })
-    .exec();
-  BeneficiaryServiceType.model
-    .remove({ beneficiaryServiceId: this._id })
-    .exec();
-  return next();
-});
-
-ReturneeService.schema.post('save', (error, doc, next) => {
-  if (error.name === 'MongoError' && error.code === 11000) {
-    return next(
-      new Error(
-        'Another stakeholder Beneficiary with this name already exists.',
-      ),
-    );
-  }
-  return next();
-});
+ReturneeService.schema.post('save', handleE11000);
+ReturneeService.schema.post('update', handleE11000);
+ReturneeService.schema.post('findOneAndUpdate', handleE11000);
+ReturneeService.schema.post('insertMany', handleE11000);
 
 ReturneeService.register();
 

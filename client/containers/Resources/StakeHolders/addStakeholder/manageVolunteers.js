@@ -51,7 +51,7 @@ class ManageVolunteers extends Component {
     return (
       <Form.Group widths="equal">
         <InputDropDown
-          label="volunteers?"
+          label="Volunteers?"
           nameValue="hasVolunteers"
           placeholder="Yes or No"
           isRequired

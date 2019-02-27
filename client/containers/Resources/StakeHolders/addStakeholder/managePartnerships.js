@@ -46,7 +46,14 @@ class ManagePartnerships extends Component {
     // manage visibility of the message bar
     const messageVisible = value.length === 0;
     // match the length of the partnerships to partnerships type
-    if (value.length >= partnershipTypes.length) {
+    const diff = value.length - partnershipTypes.length;
+
+    if (diff > 1) {
+      // dont update the state if the condition fails
+      const message =
+        'Could not add a new partnership before a corresponding partnership type';
+      this.setState({ isWarning: true, message });
+    } else if (value.length >= partnershipTypes.length) {
       this.handleMissingPartnershipTypes(value, partnershipTypes);
       this.setState({
         partnerships: value,
@@ -103,7 +110,6 @@ class ManagePartnerships extends Component {
     const options = _.cloneDeep(partnershipTypesData.data);
     // get the ID of the last partner without an associated partnership type
     const currentIndex = partnershipTypes.length;
-    // debugger;
     const oldOptions = this.partnershipTypesToOptions(
       partnershipTypes,
       options,
@@ -194,16 +200,17 @@ class ManagePartnerships extends Component {
         <Message
           hidden={messageHiddenStatus}
           icon="handshake"
-          header="partnerships status"
+          header="Partnerships Status"
           content={message}
           negative={isWarning}
         />
         <Form.Group widths="equal">
           <Form.Select
+            key="partnershipsField"
             value={partnerships}
             name="partnerships"
             label="Partnerships"
-            placeholder="partnerships"
+            placeholder="Partnerships"
             options={partnershipData.data}
             loading={partnershipData.loading}
             onChange={this.onPartnershipsChange}
@@ -211,10 +218,11 @@ class ManagePartnerships extends Component {
             {...common}
           />
           <Form.Select
+            key="partnershipTypesField"
             value={partnershipTypes}
             name="partnershipTypes"
             label="Partnership Types"
-            placeholder="partnership types"
+            placeholder="Partnership Types"
             options={this.getPartnershipTypeOptions()}
             loading={partnershipTypesData.loading}
             onChange={this.onPartnershipsTypeChange}

@@ -40,9 +40,9 @@ const StakeHoldersCardsList = (props) => {
       <Grid.Column>
         <EmptyView
           pathLabel="Add"
-          errorDescription="There are no Stakeholders to display"
+          errorDescription="Please add a new stakeholder"
           path="/stakeholder-directory/add-basic-information"
-          errorMessage="Please add a Stakeholder"
+          errorMessage="There are no Stakeholders to display"
         />
       </Grid.Column>
     </Grid.Row>

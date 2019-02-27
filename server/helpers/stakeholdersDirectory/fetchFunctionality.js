@@ -29,10 +29,12 @@ const handleFocusArea = async (focusAreaId) => {
         .findOne(focusArea.subThemeId.thematicPillarId)
         .lean()
         .then((pillar) => {
-          response.thematicPillarName = {
-            pillarName: pillar.pillarName,
-            _id: pillar._id,
-          };
+          if (pillar !== null) {
+            response.thematicPillarName = {
+              pillarName: pillar.pillarName,
+              _id: pillar._id,
+            };
+          }
           results = response;
         });
     });

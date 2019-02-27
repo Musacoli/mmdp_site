@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import toastr from 'toastr';
+import _ from 'lodash';
 
 import { api } from '../../../utils/api';
 import * as actions from '../../actions/resources/Stakeholders';
@@ -117,9 +118,13 @@ export function* addStakeholder(inputData) {
 
 export function* editStakeholder(inputData) {
   try {
+    const payload = _.cloneDeep(inputData);
+    const id = payload.payload._id;
+    delete payload.payload._id;
     const stakeholder = yield call(
       api.stakeholdersDirectory.edit,
-      inputData.payload,
+      id,
+      payload.payload,
     );
     const { data } = stakeholder;
     yield put(editStakeholderSuccess(data));

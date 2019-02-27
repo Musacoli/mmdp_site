@@ -45,17 +45,44 @@ class ManageBeneficiaryTypes extends Component {
     // create deep clone of the object
     const temp = _.cloneDeep(beneficiaryType);
     try {
+      if (options.name === 'beneficiaryTypeId') {
+        const isDuplicate = _.find(temp, {
+          beneficiaryTypeId: options.value[0],
+        });
+        if (isDuplicate !== undefined) {
+          toastr.warning(
+            'This type of beneficiary is already selected. please select another ',
+          );
+          return;
+        }
+      }
       // update the object safely
       const current = temp[index];
+      // if value is reset/cleared assign the value to 0
+      if (
+        options.name === 'noOfMaleBeneficiaries' ||
+        options.name === 'noOfFemaleBeneficiaries'
+      ) {
+        // eslint-disable-next-line no-param-reassign
+        options.value = options.value === '' ? 0 : options.value;
+      }
+
       current[options.name] =
         options.value instanceof Array ? options.value[0] : options.value;
+
       // if male figures and female figures are available, populate the total beneficiaries
       if (
         current.noOfFemaleBeneficiaries !== '' &&
         current.noOfMaleBeneficiaries !== ''
       ) {
-        const male = current.noOfMaleBeneficiaries;
-        const female = current.noOfFemaleBeneficiaries;
+        const male =
+          typeof current.noOfMaleBeneficiaries === 'number'
+            ? current.noOfMaleBeneficiaries
+            : 0;
+        const female =
+          typeof current.noOfFemaleBeneficiaries === 'number'
+            ? current.noOfFemaleBeneficiaries
+            : 0;
 
         current.totalNumberOfBeneficiaries =
           parseInt(male, 10) + parseInt(female, 10);

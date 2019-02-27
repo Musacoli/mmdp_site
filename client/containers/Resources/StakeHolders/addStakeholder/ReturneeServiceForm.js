@@ -38,7 +38,6 @@ class ReturneeServiceForm extends Component {
     const formData = nextProps.data[step - 2]
       ? nextProps.data[step - 2]
       : nextProps.dataTemplate;
-
     return {
       formData,
       dataIndex: step - 2,
@@ -163,6 +162,7 @@ class ReturneeServiceForm extends Component {
       handlePrev,
       handleSubmit,
       handleAddNewBeneficiary,
+      reduxState,
     } = this.props;
     const { formData, dropdownData } = this.state;
 
@@ -185,6 +185,7 @@ class ReturneeServiceForm extends Component {
         step={step}
         wardOptions={this.handleWardOptions()}
         communityOptions={this.handleCommunityOptions()}
+        reduxData={reduxState}
       />
     );
   }

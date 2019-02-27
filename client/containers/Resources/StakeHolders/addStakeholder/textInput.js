@@ -110,15 +110,14 @@ class TextInput extends Component {
       isRequired,
       nameValue,
       isDisabled,
-      type,
       isReadOnly,
       isTextArea,
       isYearInput,
       propsValue,
+      type,
     } = this.props;
     const { isError, value } = this.state;
     const fieldProps = {
-      type,
       name: nameValue,
       label,
       placeholder,
@@ -128,6 +127,7 @@ class TextInput extends Component {
       value: propsValue || value,
       disabled: isDisabled,
       readOnly: isReadOnly,
+      type: type === 'email' ? 'text' : type,
     };
     // eslint-disable-next-line no-nested-ternary
     return isTextArea ? (

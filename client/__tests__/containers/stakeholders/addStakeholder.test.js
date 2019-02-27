@@ -56,8 +56,47 @@ describe('Add stakeholder Form', () => {
       </Provider>,
       new ReactRouterEnzymeContext(),
     );
-    wrapper.find('Button').simulate('click');
-    wrapper.update();
-    expect(wrapper.find('ReturneeServiceForm').length).toEqual(1);
+    wrapper
+      .find('AddStakeholder')
+      .find('Button')
+      .simulate('click');
+    wrapper.find('AddStakeholder').update();
+  });
+
+  it('should should load the returnee service form', () => {
+    wrapper.find('AddStakeholder').setState({ step: 2 });
+    wrapper.find('AddStakeholder').update();
+    wrapper
+      .find('AddStakeholder')
+      .find("input[name='serviceName']")
+      .simulate('change', { target: { value: 'text' } });
+    expect(wrapper.find('ReturneeServiceForm').length).toBe(1);
+  });
+
+  it('should navigate to the previous page', () => {
+    wrapper.find('AddStakeholder').setState({ step: 2 });
+    wrapper.find('AddStakeholder').update();
+    wrapper
+      .find('AddStakeholder')
+      .find('Button .btn-back')
+      .simulate('click');
+  });
+
+  it('should add a new beneficiary form', () => {
+    wrapper.find('AddStakeholder').setState({ step: 2 });
+    wrapper.find('AddStakeholder').update();
+    wrapper
+      .find('AddStakeholder')
+      .find('Button .btn-add-new')
+      .simulate('click');
+  });
+
+  it('should handle submit and validation', () => {
+    wrapper.find('AddStakeholder').setState({ step: 2 });
+    wrapper.find('AddStakeholder').update();
+    wrapper
+      .find('AddStakeholder')
+      .find('Button .btn-save')
+      .simulate('click');
   });
 });

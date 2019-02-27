@@ -60,6 +60,7 @@ export class AddStakeholder extends Component {
         stakeholderData: data.stakeholderData,
         beneficiariesItem: _.cloneDeep(beneficiaryInformationTemplate),
         stakeholderAddressItem: data.stakeholderAddressItem,
+        pages: data.stakeholderData.beneficiaries.length + 1,
         requiredBeneficiaryFields: _.cloneDeep(
           requiredBeneficiaryFieldsTemplate,
         ),
@@ -105,6 +106,7 @@ export class AddStakeholder extends Component {
   handleChange = (event, { name, value }) => {
     event.preventDefault();
     const { step, stakeholderAddressItem } = this.state;
+    const { reduxState } = this.props;
     const { stakeholderData } = { ...this.state };
     if (step === 1) {
       const isNotEssentialField = _.find(
@@ -125,6 +127,7 @@ export class AddStakeholder extends Component {
       beneficiaryItem[name] = value; // make sure the number of beneficiaries is updated
       beneficiaryItem.totalNumberOfBeneficiaries = computeTotalNumberOfBeneficiaries(
         tempBeneficiaries,
+        reduxState,
       ); // update the state with the new updated value
       tempBeneficiaries[step - 2] = beneficiaryItem;
       stakeholderData.beneficiaries = tempBeneficiaries;
@@ -151,10 +154,12 @@ export class AddStakeholder extends Component {
   handleAddNewBeneficiary = (e) => {
     const { stakeholderData, beneficiariesItem, step, pages } = this.state;
     e.preventDefault();
-    this.handleFormValidation().then(() => {
+    this.handleFormValidation().then((hasError) => {
+      if (!hasError) {
+        this.setState({ step: step + 1, pages: pages + 1 });
+        toastr.success('New beneficiary service form added');
+      }
       stakeholderData.beneficiaries.push(beneficiariesItem);
-      this.setState({ step: step + 1, pages: pages + 1 });
-      toastr.success('New beneficiary service form added');
     });
   };
 

@@ -2,6 +2,7 @@ import Joi from 'joi';
 
 export default {
   body: Joi.object({
+    _id: Joi.string().label('beneficiary Identity'),
     serviceName: Joi.string()
       .required()
       .label('Service Name'),

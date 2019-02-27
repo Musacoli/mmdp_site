@@ -1,10 +1,14 @@
 import _ from 'lodash';
 import StakeholderModel from '../../models/resources/stakeholdersDirectory/Stakeholders';
-import StakeholderAddressModel from '../../models/resources/stakeholdersDirectory/StakeholderAdress';
-import PartnershipsModel from '../../models/resources/stakeholdersDirectory/StakeholderPartnership';
 import { handleDeleteStakeholderDirectoryDependencies } from './stakeholderHelpers';
 import { addBeneficiaries } from './addReturneeServicesHelpers';
 import { editBeneficiary } from './editReturneeServiceHelpers';
+import { addModifyStakeholderAddress } from './addModifyAdressData';
+import {
+  addModifyPartnerships,
+  editPartnerships,
+} from './addModifyPartnerships';
+import { addModifyStakeholder } from './addModifyStakeholderBasicInfo';
 
 const getAndDelete = (payload, key) => {
   const record = _.cloneDeep(payload[key]);
@@ -58,124 +62,7 @@ export const stripBeneficiaryPayload = (beneficiary) => {
   };
 };
 
-const addModifyStakeholder = async (basicInformation, options) => {
-  // add or modify an existing stakeholder
-  let stakeholder;
-  if (basicInformation._id !== undefined) {
-    // logic for modifying the stakeholder model
-    await StakeholderModel.model
-      .findOneAndUpdate(
-        { _id: basicInformation._id },
-        basicInformation,
-        options,
-      )
-      .exec((err, doc) => {
-        if (err) {
-          throw err;
-        } else {
-          stakeholder = doc;
-        }
-      });
-  } else {
-    // logic for adding a new stakeholder
-    await StakeholderModel.model
-      .findOne({
-        organisationName: basicInformation.organisationName,
-      })
-      .then(async (query) => {
-        // logic for if the stakeholder name already exists
-        if (query !== null)
-          throw new Error(
-            `Stakeholder ${basicInformation.organisationName} already exists`,
-          );
-        // now create a new stakeholder
-        await StakeholderModel.model
-          .create(basicInformation)
-          .then((doc) => {
-            stakeholder = doc;
-          })
-          .catch((e) => {
-            throw e;
-          });
-      })
-      .catch((e) => {
-        throw e;
-      });
-  }
-  return stakeholder; // return the value of the stakeholder
-};
-
-const addStakeholderAddress = async (stakeholderID, addressData, options) => {
-  // find one or create if it does not exist
-  // addressData is an array with two address. iterate through it creating new entries
-  const addresses = [];
-  if (stakeholderID) {
-    await Promise.all(
-      addressData.map(async (address) => {
-        const data = address;
-        data.stakeholderId = stakeholderID;
-        await StakeholderAddressModel.model
-          .findOneAndUpdate(
-            {
-              stakeholderId: data.stakeholderId,
-              addressType: data.addressType,
-            },
-            data,
-            options,
-          )
-          .then((doc) => {
-            addresses.push(doc);
-          })
-          .catch((e) => {
-            throw e;
-          });
-      }),
-    ).catch((e) => {
-      throw e;
-    });
-  }
-  return addresses;
-};
-
-const partnershipQuery = (data) => ({
-  $and: [
-    {
-      $or: [
-        { stakeholder1Id: data.stakeholder1Id },
-        { stakeholder1Id: data.stakeholder2Id },
-      ],
-    },
-    {
-      $or: [
-        { stakeholder2Id: data.stakeholder1Id },
-        { stakeholder2Id: data.stakeholder2Id },
-      ],
-    },
-  ],
-});
-
-const addPartnerships = async (stakeholderID, partnerships = [], options) => {
-  const addedPartnerships = [];
-  await Promise.all(
-    partnerships.map(async (partner) => {
-      const data = partner;
-      data.stakeholder1Id = stakeholderID;
-      await PartnershipsModel.model
-        .findOneAndUpdate(partnershipQuery(data), partner, options)
-        .exec((err, doc) => {
-          if (err) {
-            throw err;
-          } else addedPartnerships.push(doc);
-        });
-    }),
-  ).catch((e) => {
-    throw e;
-  });
-
-  return addedPartnerships;
-};
-
-export const transactionRunner = async (payload) => {
+export const addTransaction = async (payload) => {
   const data = {
     Stakeholder: undefined,
     beneficiaries: [],
@@ -189,13 +76,13 @@ export const transactionRunner = async (payload) => {
       async (stakeholder) => {
         data.Stakeholder = stakeholder;
         // now add the stakeholders address
-        data.stakeholderAddress = await addStakeholderAddress(
+        data.stakeholderAddress = await addModifyStakeholderAddress(
           data.Stakeholder._id,
           payload.addressData,
           options,
         );
         // now add partnerships
-        data.partnerships = await addPartnerships(
+        data.partnerships = await addModifyPartnerships(
           data.Stakeholder._id,
           payload.partnerships,
           options,
@@ -220,23 +107,40 @@ export const transactionRunner = async (payload) => {
 };
 
 export const editTransaction = async (payload) => {
-  try {
-    const options = {
-      upsert: true,
-      lean: true,
-      omitUndefined: true,
-      new: true,
-    };
-    await addModifyStakeholder(payload.basicInformation, options).then(
-      async () => {
-        await Promise.all(
-          payload.beneficiaries.map(async (beneficiary) => {
-            await editBeneficiary(beneficiary);
-          }),
-        );
-      },
-    );
-  } catch (e) {
-    throw e;
-  }
+  const options = {
+    upsert: true,
+    lean: true,
+    omitUndefined: true,
+    new: true,
+  };
+  await addModifyStakeholder(payload.basicInformation, options)
+    .then(async () => {
+      // update address information data
+      await addModifyStakeholderAddress(
+        payload.basicInformation._id,
+        payload.addressData,
+        { upsert: false },
+      ).catch((e) => {
+        throw e;
+      });
+    })
+    .then(async () => {
+      // update partnership information
+      await editPartnerships(
+        payload.basicInformation._id,
+        payload.partnerships,
+      );
+    }) // update beneficiaries
+    .then(async () => {
+      await Promise.all(
+        payload.beneficiaries.map(async (beneficiary) =>
+          editBeneficiary(beneficiary, payload.basicInformation._id, options),
+        ),
+      ).catch((e) => {
+        throw e;
+      });
+    })
+    .catch((e) => {
+      throw e;
+    });
 };

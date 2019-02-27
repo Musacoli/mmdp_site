@@ -42,7 +42,13 @@ describe('beneficiary type component', () => {
       .find('input[name="noOfMaleBeneficiaries"]')
       .simulate('change', { target: { value: 9 } });
     wrapper
-      .find('input[name="noOfFemaleBeneficiaries"]')
+      .find('Icon')
+      .at(0)
+      .simulate('click');
+
+    wrapper
+      .find('DropdownItem')
+      .at(0)
       .simulate('change', { target: { value: 9 } });
   });
 });

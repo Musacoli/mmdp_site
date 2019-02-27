@@ -29,14 +29,14 @@ const BasicInformationForm = ({
         {...commonValues}
         nameValue="organisationName"
         label="Stakeholder Name"
-        placeholder="StakeholderName"
+        placeholder="Stakeholder Name"
         isRequired
       />
       <TextInput
         {...commonValues}
         nameValue="email"
         label="Email"
-        placeholder="email"
+        placeholder="Email"
         type="email"
       />
     </Form.Group>
@@ -96,7 +96,7 @@ const BasicInformationForm = ({
     <Form.Group widths="equal">
       <InputDropDown
         {...commonValues}
-        placeholder="Impact type"
+        placeholder="Impact Type"
         label="Impact Type"
         nameValue="impactTypeId"
         options={dropdownData.impactTypeId.data}
@@ -106,7 +106,7 @@ const BasicInformationForm = ({
       <InputDropDown
         {...commonValues}
         placeholder="Yes or No"
-        label="Willing to partner with edo State Government?"
+        label="Willing to partner with Edo state government?"
         nameValue="partnerWithGovernment"
         options={[
           {
@@ -138,7 +138,7 @@ const BasicInformationForm = ({
       <InputDropDown
         {...commonValues}
         data={addressData}
-        placeholder="state"
+        placeholder="State"
         label="State"
         nameValue="state"
         options={dropdownData.states.data}
@@ -190,8 +190,8 @@ const BasicInformationForm = ({
       />
       <TextInput
         {...commonValues}
-        placeholder="phoneNumber1"
-        label="PhoneNumber 1"
+        placeholder="Phone Number 1"
+        label="Phone Number 1"
         nameValue="phoneNumber"
         type="number"
         isRequired
@@ -200,15 +200,15 @@ const BasicInformationForm = ({
     <Form.Group widths="equal">
       <TextInput
         {...commonValues}
-        placeholder="phoneNumber2"
-        label="PhoneNumber 2"
+        placeholder="Phone Number 2"
+        label="Phone Number 2"
         nameValue="phoneNumber2"
         type="number"
       />
       <TextInput
         {...commonValues}
-        placeholder="phoneNumber3"
-        label="PhoneNumber 3"
+        placeholder="Phone Number 3"
+        label="Phone Number 3"
         nameValue="phoneNumber3"
         type="number"
       />
@@ -224,22 +224,22 @@ const BasicInformationForm = ({
       />
       <TextInput
         {...commonValues}
-        placeholder="Local Manager"
-        label="Local Manager"
+        placeholder="Local Contact Person"
+        label="Name of Contact Person"
         nameValue="localManagerName"
       />
     </Form.Group>
     <Form.Group widths="equal">
       <TextInput
         {...commonValues}
-        placeholder="Local Manager Email"
-        label="Local Manager Email"
+        placeholder="Local Contact's Email"
+        label="Email of Contact Person"
         nameValue="localManagerEmail"
         type="email"
       />
       <TextInput
         {...commonValues}
-        placeholder="Phone number"
+        placeholder="Phone Number"
         label="Phone number of Contact Person"
         nameValue="localManagerMobile"
         type="number"

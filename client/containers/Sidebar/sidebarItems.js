@@ -60,6 +60,7 @@ export const sidebarItems = [
       { name: 'Documents', path: '/resources/documents' },
       { name: 'Stakeholder directory', path: '/stakeholder-directory' },
     ],
+    dividerTitle: 'COORDINATION MATRIX',
   },
   {
     title: 'National level',

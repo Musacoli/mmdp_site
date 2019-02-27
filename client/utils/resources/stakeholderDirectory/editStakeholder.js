@@ -15,6 +15,7 @@ const handleBeneficiaryServiceType = (beneficiaryTypes) =>
       beneficiaryType,
       'beneficiaryTypeId',
       '_id',
+      '',
     );
     template.noOfFemaleBeneficiaries = handleGetValue(
       beneficiaryType,
@@ -63,7 +64,12 @@ const handleSourcesOfFunding = (fundingSources) => {
   let amountInvestedRange = '';
   const sourcesOfFunding = [];
   fundingSources.forEach((source) => {
-    amountInvestedRange = handleGetValue(source, 'amountInvestedRange', '_id');
+    amountInvestedRange = handleGetValue(
+      source,
+      'amountInvestedRange',
+      '_id',
+      '',
+    );
     sourcesOfFunding.push(
       handleGetValue(source, 'sourceOfFundingId', '_id', ''),
     );
@@ -74,12 +80,13 @@ const handleSourcesOfFunding = (fundingSources) => {
   };
 };
 
-const handleBeneficiariesData = (beneficiaries) => {
-  const data = _.cloneDeep(beneficiaryInformationTemplate);
-  return beneficiaries.map((beneficiary) => {
+const handleBeneficiariesData = (beneficiaries) =>
+  beneficiaries.map((beneficiary) => {
+    const data = _.cloneDeep(beneficiaryInformationTemplate);
     const funding = handleSourcesOfFunding(
-      handleGetValue(beneficiary, 'fundingSources'),
+      handleGetValue(beneficiary, 'fundingSources', '', ''),
     );
+    data._id = handleGetValue(beneficiary, '_id', '', '');
     data.sourceOfFunding = funding.sourcesOfFunding;
     data.amountInvestedRange = funding.amountInvestedRange;
     data.beneficiaryServiceType = handleBeneficiaryServiceType(
@@ -93,31 +100,33 @@ const handleBeneficiariesData = (beneficiaries) => {
     data.state = communities.state;
     data.localGovernmentArea = communities.lga;
     data.ward = communities.ward;
-    data.duration = handleGetValue(beneficiary, 'duration');
-    data.focusArea = handleGetValue(beneficiary, 'focusArea', '_id');
-    data.frequency = handleGetValue(beneficiary, 'frequency');
-    data.note = handleGetValue(beneficiary, 'note');
-    data.serviceName = handleGetValue(beneficiary, 'serviceName');
+    data.duration = handleGetValue(beneficiary, 'duration', '', '');
+    data.focusArea = handleGetValue(beneficiary, 'focusArea', '_id', '');
+    data.frequency = handleGetValue(beneficiary, 'frequency', '', '');
+    data.note = handleGetValue(beneficiary, 'note', '', '');
+    data.serviceName = handleGetValue(beneficiary, 'serviceName', '', '');
     data.subTheme = handleGetValue(
       beneficiary.focusArea,
       'subThemeName',
       '_id',
+      '',
     );
     data.ward = [];
     data.targetAudienceId = handleGetValue(
       beneficiary,
       'targetAudienceId',
       '_id',
+      '',
     );
     data.thematicPillars = handleGetValue(
       beneficiary.focusArea,
       'thematicPillarName',
       '_id',
+      '',
     );
     data.totalNumberOfBeneficiaries = 0;
     return data;
   });
-};
 
 const handleAddressData = (addressData) => {
   const template = _.cloneDeep(stakeholderAddressItemTemplate);
@@ -136,45 +145,65 @@ const handleAddressData = (addressData) => {
 const handlePartnerships = (partnerships) =>
   partnerships.map((partner) => {
     const temp = _.cloneDeep(partnershipItemTemplate);
-    temp.partnershipTypeId = handleGetValue(partner, 'partnershipType', '_id');
-    temp.stakeholder2Id = handleGetValue(partner, 'stakeholder2Id', '_id');
+    temp.partnershipTypeId = handleGetValue(
+      partner,
+      'partnershipType',
+      '_id',
+      '',
+    );
+    temp.stakeholder2Id = handleGetValue(partner, 'stakeholder2Id', '_id', '');
     return temp;
   });
 
 const handleBasicInformation = (stakeholder) => {
   const item = _.cloneDeep(stakeholder);
   const data = _.cloneDeep(basicInformationTemplate);
-  data.organisationName = handleGetValue(item, 'organisationName');
+  data._id = handleGetValue(item, '_id', '', '');
+  data.organisationName = handleGetValue(item, 'organisationName', '', '');
   data.beneficiaries = handleBeneficiariesData(
     handleGetValue(item, 'beneficiaries', '', []),
   );
-  data.cacRcNumber = handleGetValue(item, 'cacRcNumber');
-  data.email = handleGetValue(item, 'email');
-  data.founder = handleGetValue(item, 'founder');
-  data.impactTypeId = handleGetValue(item, 'impactTypeId', '_id');
-  data.localManagerEmail = handleGetValue(item, 'localManagerEmail');
-  data.localManagerMobile = handleGetValue(item, 'localManagerMobile');
-  data.localManagerName = handleGetValue(item, 'localManagerName');
-  data.notes = handleGetValue(item, 'notes');
-  data.partnerships = handlePartnerships(handleGetValue(item, 'partnerships'));
-  data.organisationTypeId = handleGetValue(item, 'organisationTypeId', '_id');
-  data.partnerWithGovernment = handleGetValue(item, 'partnerWithGovernment');
-  data.phoneNumber = handleGetValue(item, 'phoneNumber');
-  data.phoneNumber2 = handleGetValue(item, 'phoneNumber2');
-  data.phoneNumber3 = handleGetValue(item, 'phoneNumber3');
+  data.cacRcNumber = handleGetValue(item, 'cacRcNumber', '', '');
+  data.email = handleGetValue(item, 'email', '', '');
+  data.founder = handleGetValue(item, 'founder', '', '');
+  data.impactTypeId = handleGetValue(item, 'impactTypeId', '_id', '');
+  data.localManagerEmail = handleGetValue(item, 'localManagerEmail', '', '');
+  data.localManagerMobile = handleGetValue(item, 'localManagerMobile', '', '');
+  data.localManagerName = handleGetValue(item, 'localManagerName', '', '');
+  data.notes = handleGetValue(item, 'notes', '', '');
+  data.partnerships = handlePartnerships(
+    handleGetValue(item, 'partnerships', '', []),
+  );
+  data.organisationTypeId = handleGetValue(
+    item,
+    'organisationTypeId',
+    '_id',
+    '',
+  );
+  data.partnerWithGovernment = handleGetValue(
+    item,
+    'partnerWithGovernment',
+    '',
+    '',
+  );
+  data.phoneNumber = handleGetValue(item, 'phoneNumber', '', '');
+  data.phoneNumber2 = handleGetValue(item, 'phoneNumber2', '', '');
+  data.phoneNumber3 = handleGetValue(item, 'phoneNumber3', '', '');
   data.registrationStatusId = handleGetValue(
     item,
     'registrationStatusId',
     '_id',
+    '',
   );
   data.staffStrengthRangeId = handleGetValue(
     item,
     'staffStrengthRangeId',
     '_id',
+    '',
   );
-  data.volunteersCount = handleGetValue(item, 'volunteersCount');
-  data.website = handleGetValue(item, 'website');
-  data.yearOfCacREG = handleGetValue(item, 'yearOfCacREG');
+  data.volunteersCount = handleGetValue(item, 'volunteersCount', '', '');
+  data.website = handleGetValue(item, 'website', '', '');
+  data.yearOfCacREG = handleGetValue(item, 'yearOfCacREG', '', '');
   return data;
 };
 
@@ -187,7 +216,7 @@ export const mapStakeholderDataToBeneficiaryTemplate = (reduxState, params) => {
     return {
       stakeholderData: handleBasicInformation(stakeHolder),
       stakeholderAddressItem: handleAddressData(
-        handleGetValue(stakeHolder, 'adresses'),
+        handleGetValue(stakeHolder, 'adresses', '', []),
       ),
     };
   } catch (e) {

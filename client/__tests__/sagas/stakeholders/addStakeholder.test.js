@@ -26,8 +26,12 @@ describe('Add stakeholder saga', () => {
   it('should not add stakeholder error or failure', async () => {
     const dispatchedActions = [];
 
-    const payload = { name: 'prossie', state: 'edo' };
-    api.stakeholdersDirectory.create = jest.fn(() => Promise.resolve(payload));
+    const payload = {
+      response: {
+        data: ['error message'],
+      },
+    };
+    api.stakeholdersDirectory.create = jest.fn(() => Promise.reject(payload));
 
     const mockStore = {
       dispatch: (action) => dispatchedActions.push(action),
@@ -38,7 +42,7 @@ describe('Add stakeholder saga', () => {
     };
     await runSaga(mockStore, addStakeholder, {}).done;
     expect(dispatchedActions).toEqual([
-      { payload: undefined, type: constants.ADD_STAKEHOLDER_FAILURE },
+      { payload: { data: ['error message'] }, type: 'ADD_STAKEHOLDER_FAILURE' },
     ]);
   });
 });

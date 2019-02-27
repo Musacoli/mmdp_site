@@ -24,6 +24,7 @@ const BeneficiaryServicesForm = (props) => {
     dropDownData,
     wardOptions,
     communityOptions,
+    reduxData,
   } = props;
 
   return (
@@ -87,17 +88,18 @@ const BeneficiaryServicesForm = (props) => {
           </Form.Group>
           <Form.Group widths="equal">
             <TextInput
-              label="Number of Beneficiaries PerService"
+              label="Number of Beneficiaries Per Service"
               className="ui input"
-              placeholder="no of beneficiaries"
+              placeholder="No of Beneficiaries Per Service"
               isReadOnly
               propsValue={computeTotalNumberOfBeneficiariesPerService(
-                formData.beneficiaryServiceType,
+                formData,
+                reduxData,
               )}
             />
             <InputDropDown
               {...commonValues}
-              placeholder="thematic Pillars"
+              placeholder="Thematic Pillars"
               label="Thematic Pillars"
               options={dropDownData.thematicPillars.data}
               loading={dropDownData.thematicPillars.loading}
@@ -108,9 +110,9 @@ const BeneficiaryServicesForm = (props) => {
           <Form.Group widths="equal">
             <InputDropDown
               {...commonValues}
-              label="Sub-themes"
+              label="Sub Themes"
               nameValue="subTheme"
-              placeholder="Sub theme"
+              placeholder="Sub Theme"
               options={dropDownData.subThemes.data}
               loading={dropDownData.subThemes.loading}
               isRequired
@@ -118,8 +120,8 @@ const BeneficiaryServicesForm = (props) => {
             <InputDropDown
               {...commonValues}
               nameValue="focusArea"
-              label="Focus area"
-              placeholder="Focus area"
+              label="Focus Area"
+              placeholder="Focus Area"
               options={dropDownData.focusAreas.data}
               loading={dropDownData.focusAreas.loading}
               isRequired
@@ -130,7 +132,7 @@ const BeneficiaryServicesForm = (props) => {
               {...commonValues}
               nameValue="sourceOfFunding"
               label="Funding Source"
-              placeholder="Source"
+              placeholder="Funding Source"
               options={dropDownData.fundingSources.data}
               loading={dropDownData.fundingSources.loading}
               isRequired
@@ -139,8 +141,8 @@ const BeneficiaryServicesForm = (props) => {
             <InputDropDown
               {...commonValues}
               nameValue="amountInvestedRange"
-              label="Amount invested"
-              placeholder="range"
+              label="Amount Invested"
+              placeholder="Amount Invested Range"
               options={dropDownData.AmountInvestedRange.data}
               loading={dropDownData.AmountInvestedRange.loading}
               isRequired
@@ -199,7 +201,7 @@ const BeneficiaryServicesForm = (props) => {
             />
             <TextInput
               {...commonValues}
-              label="Total Number of beneficiaries reached by Stakeholder"
+              label="Total Number of Beneficiaries Reached by Stakeholder"
               placeholder="Number of Beneficiaries"
               nameValue="totalNumberOfBeneficiaries"
               isReadOnly
@@ -234,6 +236,7 @@ BeneficiaryServicesForm.propTypes = {
   dropDownData: PropTypes.instanceOf(Object).isRequired,
   wardOptions: PropTypes.instanceOf(Array).isRequired,
   communityOptions: PropTypes.instanceOf(Array).isRequired,
+  reduxData: PropTypes.instanceOf(Object),
   handlePrev: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,

@@ -13,7 +13,7 @@ import {
 const payload = { data: {}, new: true, id: 'someId' };
 describe('Ward type saga', () => {
   describe('fetchWardsAsync', async () => {
-    const it = sagaHelper(fetchWardsAsync({ payload }));
+    const it = sagaHelper(fetchWardsAsync(payload));
     it('should have yield fetch wards', (result) => {
       expect(result).toEqual(call(api.dropdowns.ward.list));
     });

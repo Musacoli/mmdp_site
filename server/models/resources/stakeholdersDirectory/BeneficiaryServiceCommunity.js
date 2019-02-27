@@ -1,4 +1,5 @@
 import keystone from 'keystone';
+import { handleE11000 } from '../../../utils/mongooseErrorCodes';
 
 const { Types } = keystone.Field;
 
@@ -21,6 +22,11 @@ BeneficiaryServiceCommunity.schema.index(
   { beneficiaryServiceId: 1, communityId: 1 },
   { unique: true },
 );
+
+BeneficiaryServiceCommunity.schema.post('save', handleE11000);
+BeneficiaryServiceCommunity.schema.post('update', handleE11000);
+BeneficiaryServiceCommunity.schema.post('findOneAndUpdate', handleE11000);
+BeneficiaryServiceCommunity.schema.post('insertMany', handleE11000);
 
 BeneficiaryServiceCommunity.register();
 

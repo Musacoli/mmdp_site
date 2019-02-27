@@ -23,7 +23,7 @@ export default {
     localManagerEmail: Joi.string()
       .email()
       .label('Local Manager Email'),
-    localManagerMobile: Joi.string().label('Local Manager Mobile'),
+    localManagerMobile: Joi.number().label('Local Manager Mobile'),
     partnerWithGovernment: Joi.boolean().label('Partner with the government'),
     challenges: Joi.string(),
     assistanceRequired: Joi.string(),

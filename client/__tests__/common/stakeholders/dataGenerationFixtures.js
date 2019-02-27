@@ -1,6 +1,12 @@
 import _ from 'lodash';
 import Faker from 'faker';
 
+describe('no test here', () => {
+  it('should remve erroor during testing', () => {
+    expect(1).toEqual(1);
+  });
+});
+
 export const getOptions = (n) =>
   // mock test data
   _.times(n, () => {
