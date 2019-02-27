@@ -6,10 +6,10 @@ script:
     - echo "skipping tests"  
 
 before_deploy:
-    - docker build -t shemogumbe/mmdp_api -f Dockerfile-api
-    - docker build -t shemogumbe/mmdp_client -f Dockerfile-client
-    - docker build -t shemogumbe/mmdp_db -f Dockerfile-db
-    - docker build -t shemogumbe/mmdp_server -f Dockerfile-nginx
+    -  docker build -t shemogumbe/mmdp_api -f ./Dockerfile-api .
+    - docker build -t shemogumbe/mmdp_client -f Dockerfile-client .
+    - docker build -t shemogumbe/mmdp_db -f Dockerfile-db .
+    - docker build -t shemogumbe/mmdp_server -f Dockerfile-nginx .
     # login to docker CLI
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID"
     # push to dockerhub
