@@ -11,7 +11,7 @@ before_deploy:
     - docker build -t shemogumbe/mmdp_db -f Dockerfile-db .
     - docker build -t shemogumbe/mmdp_server -f Dockerfile-nginx .
     # login to docker CLI
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID"
+    - docker login -u $DOCKER_ID -p $DOCKER_PASSWORD
     # push to dockerhub
     - docker push shemogumbe/mmdp_api
     - docker push shemogumbe/mmdp_lient
