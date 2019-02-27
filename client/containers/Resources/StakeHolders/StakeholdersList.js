@@ -17,6 +17,7 @@ import Pagination from '../../../components/common/Pagination';
 import SimpleLoader from '../../../components/common/Loader/SimpleLoader';
 import Search from '../../../components/common/Search';
 
+
 class StakeholdersList extends Component {
   constructor(props) {
     super(props);
