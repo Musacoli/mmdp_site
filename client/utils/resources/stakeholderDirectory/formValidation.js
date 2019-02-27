@@ -143,8 +143,11 @@ export const preSubmitValidationAndCleanup = (payload, stakeholderAddress) => {
       if (missing.length > 0) {
         toastr.warning(
           missing.join(' ,'),
-          `${missing.length} of the required fields have not been filled`,
+          `${
+            missing.length
+          } of the required fields have not been filled.beneficiary removed`,
         );
+        return {};
       }
       return temp;
     });

@@ -128,6 +128,7 @@ input {
 
 .empty-view {
   text-align: center;
+  width: fit-content;
 
   .image-empty {
     width: 112px;
@@ -139,6 +140,7 @@ input {
 
 .empty-view-search {
   margin-left: 240px;
+
 }
 
 .events-pagination {

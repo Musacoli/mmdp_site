@@ -19,7 +19,7 @@ export const PageNavigation = ({
   <Grid.Row columns={3}>
     <Grid.Column width={6}>
       {pages === step ? (
-        <Button onClick={handlePrev} classes="btn-black" text="Back" />
+        <Button onClick={handlePrev} classes="btn-back" text="Back" />
       ) : (
         <Button onClick={handlePrev} classes="btn-save" text="Back" />
       )}

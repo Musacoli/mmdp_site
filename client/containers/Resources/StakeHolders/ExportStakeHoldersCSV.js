@@ -109,14 +109,14 @@ class ExportStakeHoldersCsv extends Component {
         'localManagerEmail',
       ),
       Website: handleGetValue(item, 'email'),
-      Notes: handleGetValue(item, 'note'),
+      Notes: handleGetValue(item, 'notes'),
       'Name of Service': handleMultipleStrings(
         'serviceName',
         '',
         beneficiaries,
       ),
       'Target Audience': handleMultipleStrings(
-        'targetAudienceId',
+        'beneficiaryTypes',
         'audienceType',
         beneficiaries,
       ),
@@ -124,18 +124,23 @@ class ExportStakeHoldersCsv extends Component {
         'beneficiaryTypeId',
         'beneficiaryTypeName',
         beneficiaries,
+        '-',
+        'beneficiaryTypes',
       ),
       'Number of Male Beneficiaries': handleTotals(
-        'averageNumberOfMaleBeneficiaries',
+        'noOfMaleBeneficiaries',
         beneficiaries,
+        'beneficiaryTypes',
       ),
       'Number of Female Beneficiaries': handleTotals(
-        'averageNumberOfFemaleBeneficiaries',
+        'noOfFemaleBeneficiaries',
         beneficiaries,
+        'beneficiaryTypes',
       ),
       'Number of Beneficiary': handleTotals(
-        'averageNumberOfMaleBeneficiaries',
+        'totalNumberOfBeneficiaries',
         beneficiaries,
+        'beneficiaryTypes',
       ),
       'Thematic Pillar': FocusAreas[1],
       'Sub Theme': FocusAreas[0],
@@ -144,17 +149,29 @@ class ExportStakeHoldersCsv extends Component {
         'sourceOfFundingId',
         'sourceOfFundingName',
         beneficiaries,
+        '-',
+        'fundingSources',
       ),
       'LGA of operation': handleMultipleStrings(
-        'localGovernmentArea',
+        'lgaId',
         'lgaName',
         beneficiaries,
+        '-',
+        'communities',
       ),
-      Ward: handleMultipleStrings('ward', 'wardName', beneficiaries),
+      Ward: handleMultipleStrings(
+        'communityId',
+        'wardId',
+        beneficiaries,
+        '-',
+        'communities',
+      ),
       'Local Community': handleMultipleStrings(
-        'community',
+        'communityId',
         'communityName',
         beneficiaries,
+        '-',
+        'communities',
       ),
       'Total number of beneficiaries reached by stakeholder': handleTotals(
         'totalNumberOfBeneficiaries',
@@ -167,18 +184,18 @@ class ExportStakeHoldersCsv extends Component {
     'S/N': handleGetValue(item, '_id'),
     'Name of Service': handleGetValue(item, 'serviceName'),
     'Target Audience': handleGetValue(item, 'targetAudienceId', 'audienceType'),
-    'Beneficiary Type(Migrants, displaced persons)': handleGetValue(
-      item,
+    'Beneficiary Type(Migrants, displaced persons)': handleMultipleStrings(
       'beneficiaryTypeId',
       'beneficiaryTypeName',
+      item.beneficiaryTypes,
     ),
-    'Number of Male Beneficiaries': handleGetValue(
-      item,
-      'averageNumberOfMaleBeneficiaries',
+    'Number of Male Beneficiaries': handleTotals(
+      'noOfMaleBeneficiaries',
+      item.beneficiaryTypes,
     ),
-    'Number of Female Beneficiaries': handleGetValue(
-      item,
-      'averageNumberOfFemaleBeneficiaries',
+    'Number of Female Beneficiaries': handleTotals(
+      'noOfFemaleBeneficiaries',
+      item.beneficiaryTypes,
     ),
     'Frequency(days)': handleGetValue(item, 'frequency'),
     'Duration(Days)': handleGetValue(item, 'duration'),
@@ -186,19 +203,27 @@ class ExportStakeHoldersCsv extends Component {
     'Thematic Pillar': handleGetValue(item, 'focusArea', 'thematicPillarName'),
     'Sub Theme': handleGetValue(item, 'focusArea', 'subThemeName'),
     'Focus Area': handleGetValue(item, 'focusArea', 'focusAreaName'),
-    'Source of Funding': handleGetValue(
-      item,
+    'Source of Funding': handleMultipleStrings(
       'sourceOfFundingId',
       'sourceOfFundingName',
+      item.fundingSources,
     ),
-    'Amount Invested per service': handleGetValue(
-      item,
+    'Amount Invested per service': handleMultipleStrings(
       'amountInvestedRange',
       'amountInvestedRange',
+      item.fundingSources,
     ),
-    'LGA of operation': handleGetValue(item, 'localGovernmentArea', 'lgaName'),
-    Ward: handleGetValue(item, 'ward', 'wardName'),
-    'Local Community': handleGetValue(item, 'community', 'communityName'),
+    'LGA of operation': handleMultipleStrings(
+      'lgaId',
+      'lgaName',
+      item.communities,
+    ),
+    Ward: handleMultipleStrings('communityId', 'wardId', item.communities),
+    'Local Community': handleMultipleStrings(
+      'communityId',
+      'communityName',
+      item.communities,
+    ),
     'Total number of beneficiaries reached by stakeholder': handleGetValue(
       item,
       'totalNumberOfBeneficiaries',

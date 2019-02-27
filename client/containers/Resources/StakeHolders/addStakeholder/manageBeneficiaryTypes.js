@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Icon } from 'semantic-ui-react';
 import _ from 'lodash';
+import toastr from 'toastr';
 import uuid from 'uuid/v1';
 import InputDropDown from './inputDropDown';
 import TextInput from './textInput';
@@ -43,28 +44,33 @@ class ManageBeneficiaryTypes extends Component {
     const { handleChange } = this.props;
     // create deep clone of the object
     const temp = _.cloneDeep(beneficiaryType);
-    // update the object safely
-    const current = temp[index];
-    // debugger;
-    current[options.name] =
-      options.value instanceof Array ? options.value[0] : options.value;
-    // if male figures and female figures are available, populate the total beneficiaries
-    if (
-      current.noOfFemaleBeneficiaries !== '' &&
-      current.noOfMaleBeneficiaries !== ''
-    ) {
-      const male = current.noOfMaleBeneficiaries;
-      const female = current.noOfFemaleBeneficiaries;
+    try {
+      // update the object safely
+      const current = temp[index];
+      current[options.name] =
+        options.value instanceof Array ? options.value[0] : options.value;
+      // if male figures and female figures are available, populate the total beneficiaries
+      if (
+        current.noOfFemaleBeneficiaries !== '' &&
+        current.noOfMaleBeneficiaries !== ''
+      ) {
+        const male = current.noOfMaleBeneficiaries;
+        const female = current.noOfFemaleBeneficiaries;
 
-      current.totalNumberOfBeneficiaries =
-        parseInt(male, 10) + parseInt(female, 10);
+        current.totalNumberOfBeneficiaries =
+          parseInt(male, 10) + parseInt(female, 10);
 
-      // safely update the state
-      temp[index] = current;
-      handleChange(options.event, {
-        name: 'beneficiaryServiceType',
-        value: temp,
-      });
+        // safely update the state
+        temp[index] = current;
+        handleChange(options.event, {
+          name: 'beneficiaryServiceType',
+          value: temp,
+        });
+      }
+    } catch (e) {
+      toastr.warning(
+        'There was ana error proceesing the request please retry or contact the admin',
+      );
     }
   };
 
@@ -88,8 +94,7 @@ class ManageBeneficiaryTypes extends Component {
               nameValue="beneficiaryTypeId"
               label="Beneficiary Type"
               keyVal={index}
-              isRequired
-              onChange={this.onChange}
+              {...common}
             />
             <Form.Group inline>
               <TextInput

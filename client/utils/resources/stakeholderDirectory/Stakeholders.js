@@ -112,9 +112,15 @@ export const handleGetPartnerships = (item, type = 'partnerships') => {
   const partnershipTypes = []; // get all partnerships names
   if (partners.length > 0) {
     partners.forEach((partner) => {
-      partnerships1.push(partner.stakeholder1Id);
-      partnerships1.push(partner.stakeholder2Id);
-      partnershipTypes.push(partner.partnershipType);
+      partnerships1.push(
+        handleGetValue(partner, 'stakeholder1Id', 'organisationName'),
+      );
+      partnerships1.push(
+        handleGetValue(partner, 'stakeholder2Id', 'organisationName'),
+      );
+      partnershipTypes.push(
+        handleGetValue(partner, 'partnershipType', 'partnershipTypeName'),
+      );
     });
   } // make sure the components in the arrays are unique
   const uniqueCombinedArray = [...new Set(partnerships1)]; // remove the name of the current organisationName. This will also mutate the array
@@ -127,12 +133,18 @@ export const handleFocusAreas = (beneficiaries) => {
   const subThemes = [];
   const thematicPillars = [];
   const FocusAreas = [];
-  if (beneficiaries.length > 0) {
+  if (beneficiaries && beneficiaries.length > 0) {
     beneficiaries.forEach((service) => {
       if (service.focusArea) {
-        FocusAreas.push(service.focusArea.focusAreaName);
-        subThemes.push(service.focusArea.subThemeName);
-        thematicPillars.push(service.focusArea.thematicPillarName);
+        FocusAreas.push(
+          handleGetValue(service.focusArea, 'focusAreaName', 'focusAreaName'),
+        );
+        subThemes.push(
+          handleGetValue(service.focusArea, 'subThemeName', 'subThemeName'),
+        );
+        thematicPillars.push(
+          handleGetValue(service.focusArea, 'thematicPillarName', 'pillarName'),
+        );
       }
     });
   }
