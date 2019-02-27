@@ -54,6 +54,7 @@ const amountInvested = `${baseUrl}/amount-invested`;
 const subThemePath = `${baseUrl}/sub-theme`;
 const focusAreaPath = `${baseUrl}/focus-area`;
 const listDropdownsPath = `${baseUrl}/dropdowns-list`;
+const AllActiveStates = `${baseUrl}/ActiveStates`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -1459,6 +1460,8 @@ const App = (app) => {
     [authOptional],
     routes.api.dropdowns.manageDropdowns.list,
   );
+
+  app.get(`${AllActiveStates}`, [authOptional], routes.api.AllStates.list);
 
   app.use(errorHandler);
 };

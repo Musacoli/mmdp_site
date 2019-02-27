@@ -56,3 +56,5 @@ data/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+!/client/__tests__/common/stakeholders/dataGenerationFixtures.js
+
