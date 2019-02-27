@@ -68,7 +68,11 @@ ActionModal.propTypes = {
   header: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   confirmDeleteGroup: PropTypes.func,
-  group: PropTypes.shape({}),
+  group: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.instanceOf(Object),
+    PropTypes.string,
+  ]),
   className: PropTypes.string,
 };
 

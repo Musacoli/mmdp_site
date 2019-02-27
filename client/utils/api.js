@@ -88,6 +88,7 @@ export const api = {
     state: {
       create: (data) => server.post(stateApiPrefix, data),
       list: (data) => server.get(stateApiPrefix, data),
+      get: (id) => server.get(`${stateApiPrefix}/${id}`),
       update: (data) => server.put(`${stateApiPrefix}`, data),
       delete: (id) => server.delete(`${stateApiPrefix}/${id}`),
     },
@@ -206,5 +207,18 @@ export const api = {
     truncate: {
       delete: (id) => server.delete(`${truncateApiPrefix}/${id}`),
     },
+    localGovernmentArea: {
+      create: (data) => server.post('/api/v1/dropdowns/LGA', data),
+      list: () => server.get(`/api/v1/dropdowns/LGA`),
+      get: (stateId) => server.get(`/api/v1/dropdowns/LGA/${stateId}`),
+      edit: (data) => server.put(`/api/v1/dropdowns/LGA`, data),
+      delete: (id) => server.delete(`/api/v1/dropdowns/LGA/${id}`),
+    },
+  },
+  stakeholdersDirectory: {
+    create: (data) => server.post('/api/v1/stakeholders-directory', data),
+    delete: (id) => server.delete(`/api/v1/stakeholders-directory/${id}`),
+    edit: (id, data) =>
+      server.put(`/api/v1/stakeholders-directory/${id}`, data),
   },
 };

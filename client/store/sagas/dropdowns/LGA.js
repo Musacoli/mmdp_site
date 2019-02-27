@@ -2,20 +2,20 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { api } from '../../../utils/dropdowns/LGA';
 import {
   ADD_LGA_REQUEST,
-  GET_LGA_REQUEST,
   DELETE_LGA_REQUEST,
+  GET_LGA_REQUEST,
   UPDATE_LGA_REQUEST,
 } from '../../../constants/dropdowns/LGA';
 import {
-  getLGARequest,
-  getLGASuccess,
-  getLGAFailure,
-  updateLGAFailure,
-  updateLGASuccess,
-  deleteLGAFailure,
-  deleteLGASuccess,
   addLGAFailure,
   addLGASuccess,
+  deleteLGAFailure,
+  deleteLGASuccess,
+  getLGAFailure,
+  getLGARequest,
+  getLGASuccess,
+  updateLGAFailure,
+  updateLGASuccess,
 } from '../../actions/dropdowns/LGA';
 import toastr from '../../../utils/toastr';
 
@@ -53,9 +53,16 @@ export function* updateLGAs({ payload }) {
   }
 }
 
-export function* getAllLGAs() {
+export function* getAllLGAs(payload) {
   try {
-    const response = yield call(api.list);
+    let response;
+    if (payload.payload === undefined) {
+      response = yield call(api.list);
+    } else {
+      // add logic for fetch by state
+      response = yield call(api.get, payload.payload.stateId);
+    }
+
     yield put(getLGASuccess(response.data.data));
   } catch (error) {
     yield put(getLGAFailure(error.response));

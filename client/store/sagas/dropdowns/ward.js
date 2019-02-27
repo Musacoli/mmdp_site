@@ -3,8 +3,8 @@ import toastr from 'toastr';
 import { api } from '../../../utils/api';
 import {
   ADD_WARDS,
-  FETCH_WARDS,
   DELETE_WARD,
+  FETCH_WARDS,
 } from '../../../constants/dropdowns/ward';
 import * as actions from '../../actions/dropdowns/ward';
 
@@ -37,9 +37,14 @@ export function* addWardsAsync({ payload }) {
   }
 }
 
-export function* fetchWardsAsync() {
+export function* fetchWardsAsync(payload) {
   try {
-    const response = yield call(api.dropdowns.ward.list);
+    let response;
+    if (payload.payload === undefined) {
+      response = yield call(api.dropdowns.ward.list);
+    } else {
+      response = yield call(api.dropdowns.ward.get, payload.payload.lgaId);
+    }
     const data = response ? response.data.data : {};
     yield put(actions.fetchWardsSuccess(data));
   } catch (error) {

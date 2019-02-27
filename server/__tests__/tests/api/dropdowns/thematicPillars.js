@@ -1,11 +1,6 @@
 import keystone from 'keystone';
 import chai from 'chai';
-import {
-  app,
-  removeAllCollections,
-  removeAllGroupsAndUsers,
-  faker,
-} from '../../../helpers/commons/base';
+import { app, faker, removeAllCollections, removeAllGroupsAndUsers } from '../../../helpers/commons/base';
 import { createThematicPillarDropdown } from '../../../helpers/dropdowns/thematicPillars';
 
 const State = keystone.list('ThematicPillarDropdown');
@@ -75,7 +70,6 @@ describe('ThematicPillars route', () => {
     });
 
     it('should get a thematic pillar by id', async () => {
-      console.log(thematicPillars._id);
       const res = await app.get(routeWithId(thematicPillars._id));
       expect(res.status).to.equal(200);
     });

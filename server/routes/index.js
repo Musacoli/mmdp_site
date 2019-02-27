@@ -30,10 +30,7 @@ import { paramDocExists } from '../middleware/document';
 import { paramMediaExists } from '../middleware/media';
 
 import validators from '../middleware/pillar';
-import {
-  stakeHolderMiddleware,
-  ReturneeServiceMiddleware,
-} from '../middleware/stakeholdersDirectory';
+import { stakeHolderMiddleware } from '../middleware/stakeholdersDirectory';
 
 const importRoutes = keystone.importer(__dirname);
 
@@ -609,39 +606,6 @@ const App = (app) => {
     routes.api.resources.stakeholders.stakeholders.remove,
   );
   /* ---------- Stakeholders Directory ----------- */
-  /* ---------- Returnee Service -----------------*/
-  app.get(
-    `${stakeholdersPath}/:stakeholder_id/beneficiaries`,
-    [authOptional, keystone.middleware.api],
-    routes.api.resources.stakeholders.returneeService.list,
-  );
-
-  app.post(
-    `${stakeholdersPath}/:stakeholder_id/beneficiaries`,
-    authenticate,
-    authorize.cms.stakeholders.create,
-    ReturneeServiceMiddleware,
-    keystone.middleware.api,
-    routes.api.resources.stakeholders.returneeService.create,
-  );
-
-  app.put(
-    `${stakeholdersPath}/:beneficiary_id/beneficiaries/`,
-    authenticate,
-    authorize.cms.stakeholders.update,
-    ReturneeServiceMiddleware,
-    keystone.middleware.api,
-    routes.api.resources.stakeholders.returneeService.update,
-  );
-
-  app.delete(
-    `${stakeholdersPath}/:beneficiary_id/beneficiaries`,
-    authenticate,
-    authorize.cms.stakeholders.delete,
-    keystone.middleware.api,
-    routes.api.resources.stakeholders.returneeService.remove,
-  );
-
   // LGA Dropdown Endpoints
   app.post(
     `${baseUrl}/dropdowns/LGA`,
@@ -684,7 +648,7 @@ const App = (app) => {
   /* ---------- Returnee Service -----------------*/
 
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
-  /* ---------- Dropdowns ------------------- */
+  /* ---------- dropdowns ------------------- */
   // Country
   app.get(
     `${baseUrl}/country`,
@@ -920,7 +884,7 @@ const App = (app) => {
 
   app.get(
     `${dropdownsPath}/staff-strength`,
-    [authenticate, authorize.cms.dropdowns.get, keystone.middleware.api],
+    [authOptional],
     routes.api.dropdowns.staffStrength.list,
   );
 
@@ -1007,7 +971,7 @@ const App = (app) => {
 
   app.get(
     `${fundingSourcePath}`,
-    [authenticate, authorize.cms.dropdowns.create],
+    [authOptional],
     routes.api.dropdowns.fundingSource.list,
   );
 
@@ -1051,7 +1015,7 @@ const App = (app) => {
   );
   app.get(
     `${baseUrl}/organizationTypes`,
-    [authenticate, authorize.cms.dropdowns.get, keystone.middleware.api],
+    [authOptional],
     routes.api.dropdowns.organizationType.list,
   );
   app.put(
@@ -1173,7 +1137,7 @@ const App = (app) => {
 
   app.get(
     `${dropdownsPath}/target-audience`,
-    [authenticate, authorize.cms.dropdowns.get, keystone.middleware.api],
+    [authOptional],
     routes.api.dropdowns.targetAudience.list,
   );
 

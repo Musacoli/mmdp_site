@@ -11,13 +11,9 @@ export const create = async (req, res) => {
     .model.insertMany(req.body.data)
     .then((response) =>
       res.status(201).json({
-<<<<<<< HEAD
         message: `${
           req.body.data.length
         } source(s) of funding successfully added`,
-=======
-        message: `${req.body.data.length} source(s) of funding successfully added`,
->>>>>>> ft(communityDropDown): manage community dropdown
         data: response,
       }),
     )

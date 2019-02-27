@@ -121,4 +121,10 @@ exports.create = {
       description: '',
     },
   ],
+  Country: [
+    {
+      countryName: 'Nigeria',
+      description: '',
+    },
+  ],
 };

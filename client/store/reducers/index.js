@@ -35,6 +35,7 @@ import deleteDoc from './resources/deleteDoc';
 import deleteD from './manageDropdowns/deleteD';
 import getResearch from './resources/getResearch';
 import media from './resources/media';
+import stakeholdersDirectory from './resources/Stakeholders';
 import addStakeholder from './stakeholders/addStakeholder';
 import country from './dropdowns/country';
 import states from './dropdowns/state';
@@ -106,6 +107,7 @@ const rootReducer = combineReducers({
   impactTypes,
   frequency,
   thematicPillars,
+  stakeholdersDirectory,
   amountInvested,
   subTheme,
   focusArea,

@@ -14,8 +14,12 @@ const errorHandler = (err, req, res, next) => {
 
       return res.sendError('Validation error', 400, error);
     }
-    const error = err.message || undefined;
-    return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
+    const errorCode = err.statusCode || 500;
+    res.status(errorCode);
+    return res.send({
+      message: responseMessage.INTERNAL_SERVER_ERROR,
+      details: err.type || {},
+    });
   }
   return next();
 };

@@ -1,115 +1,90 @@
 import StakeholderModel from '../../../../models/resources/stakeholdersDirectory/Stakeholders';
-import beneficiaryService from '../../../../models/resources/stakeholdersDirectory/ReturneeService';
-import { filterAndPaginate, getPaginationData } from '../../../../utils/search';
 
-// search functionality for STAKEHOLDERS
-const handleBeneficiaryServices = async (data, res) => {
-  const response = []; // append beneficiary data
-  await Promise.all(
-    data.results.map(async (stakeholder) => {
-      const modifiedStakeholder = stakeholder;
-      await beneficiaryService.model
-        .find()
-        .where('stakeholderId', stakeholder._id)
-        .populate('SourceOfFunding')
-        .populate('amountInvestedRange')
-        .populate('beneficiaryTypeId')
-        .populate('targetAudienceId')
-        .exec((err, services) => {
-          if (err) return res.apiError('Database Error', { err });
-          modifiedStakeholder._doc.beneficiaryService = services;
-          response.push(modifiedStakeholder);
-        });
-    }),
-  );
-  return response;
-};
+import {
+  handleDeleteStakeholderDirectoryDependencies,
+  handleFetchTransaction,
+} from '../../../../helpers/stakeholdersDirectory/stakeholderHelpers';
+import {
+  editTransaction,
+  stripStakeholderPayload,
+  transactionRunner,
+} from '../../../../helpers/stakeholdersDirectory/manualTransactions';
+
 export const list = async (req, res) => {
-  filterAndPaginate(StakeholderModel, req).exec(async (err, data) => {
-    if (err) return res.apiError('Database Error', { err });
-    const response = await handleBeneficiaryServices(data, res);
-    return res.apiResponse({
-      data: response,
-      pagination: getPaginationData(data),
-    });
-  });
+  await handleFetchTransaction(req, res);
 };
 
+/** ************************************************************************ */
 export const create = async (req, res) => {
+  const data = stripStakeholderPayload(req.body);
+
   try {
-    const stakeholder = new StakeholderModel.model({
-      ...req.body,
-    });
-
-    stakeholder.save((err) => {
-      if (err) return res.apiError('Database Error', { err });
-
-      StakeholderModel.model
-        .find()
-        .where('organisationName', req.body.organisationName)
-        .populate('organisationTypeId')
-        .populate('registrationStatusId')
-        .populate('impactTypeID')
-        .populate('staffStrengthRangeId')
-        .exec((err, stakeholder) => {
-          if (err) return res.apiError('Database Error', err);
-          return res.sendSuccess(
-            stakeholder,
-            201,
-            'Stakeholder Directory entry successfully created!',
-          );
-        });
+    const result = await transactionRunner(data);
+    return res.apiResponse({
+      message: 'New stakeholder Added',
+      stakeholder: data,
+      result,
     });
   } catch (e) {
-    if (e) return res.apiError('Database Error', e);
+    return res.apiError(e.message);
   }
 };
 
+/** ************************************************************************ */
 export const update = async (req, res) => {
   const id = req.params.id;
-  let stakeholder = null;
+  const data = stripStakeholderPayload(req.body);
+  data.basicInformation._id = id;
   // fetch stakeholder
-  StakeholderModel.model.findById(id).exec((err, item) => {
-    if (item === null) {
-      return res.apiResponse({
-        message: 'The specified stakeholder was not found',
-      });
-    }
-    if (err) return res.apiError('Database Error', { err });
-    stakeholder = item;
-    // now update
-    StakeholderModel.updateItem(stakeholder, req.body, (err) => {
-      // handle errors
-      if (err) return res.apiError('Database Error', { err });
-      // handle success
-      StakeholderModel.model.findById(id).exec((err, updated) => {
-        // handle errors
-        if (err) return res.apiError('Database Error', { err });
-        return res.apiResponse({
-          message: 'successfully updated',
-          stakeholder: updated,
-        });
-      });
-    });
-  });
+  StakeholderModel.model
+    .findById(id)
+    .lean()
+    .then(async (doc) => {
+      if (doc === null)
+        res.status(404).send({ error: 'stakeholder not found or removed' });
+      else {
+        try {
+          await editTransaction(data).then(() =>
+            res.apiResponse({
+              message: 'Stakeholder Modified',
+            }),
+          );
+        } catch (e) {
+          return res.apiError(e.message);
+        }
+      }
+    })
+    .catch((e) => res.apiError(e.message));
 };
 
+/** ************************************************************************ */
 export const remove = async (req, res) => {
   const id = req.params.id;
 
-  StakeholderModel.model.findById(id).exec((err, item) => {
+  await StakeholderModel.model.findById(id).exec(async (err, item) => {
     if (item === null) {
       return res.apiResponse({
         message: 'The specified stakeholder was not found',
       });
     }
-    if (err) return res.apiError('Database Error', { err });
 
-    StakeholderModel.model.deleteOne({ _id: id }).exec((err) => {
-      if (err) return res.apiError('Database Error', { err });
-      return res.apiResponse({
-        message: 'successfully deleted record',
+    // delete related entries
+    handleDeleteStakeholderDirectoryDependencies(item._id)
+      .then(async () => {
+        await StakeholderModel.model.deleteOne({ _id: id }, () =>
+          res.apiResponse({
+            message: 'successfully deleted record',
+          }),
+        );
+      })
+      .catch((e) => {
+        return res.apiError(
+          'Database Error while trying to delete the record',
+          {
+            error: e.message || e,
+          },
+        );
       });
-    });
   });
 };
+/** ************************************************************************ */

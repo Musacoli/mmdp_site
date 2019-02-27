@@ -36,7 +36,8 @@ import {
   watchFetchDocuments,
 } from './resources/document';
 import { watchDeleteMedia } from './resources/media';
-import { AddStakeholderWatcher } from './stakeholders/addStakeholder';
+import { watchStakeholdersDirectory } from './resources/Stakeholders';
+
 import {
   watchFetchCountry,
   watchAddCountries,
@@ -209,7 +210,8 @@ export default function* root() {
     fork(archiveUserResearchWatcher),
     fork(watchDeleteMedia),
 
-    fork(AddStakeholderWatcher),
+    fork(watchStakeholdersDirectory),
+
     fork(watchAddStates),
     fork(watchFetchStates),
     fork(watchDeleteStates),

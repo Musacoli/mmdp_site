@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import React, { Component } from 'react';
-import StakeholderList from '../../components/Stakeholders/stakeholders';
+import StakeholderList from '../Resources/StakeHolders/StakeholdersList';
 
 class StakeholderDirectory extends Component {
   state = {};
