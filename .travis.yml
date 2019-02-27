@@ -6,24 +6,25 @@ script:
     - echo "skipping tests"
 
 before_deploy:
+    #  build api
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     - docker build -t mmdp_api -f ./Dockerfile-api .
     - docker images
     - docker tag mmdp_api $DOCKER_ID/mmdp_api
     - docker push $DOCKER_ID/mmdp_api
-
+   #  build client
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     - docker build -t mmdp_client -f ./Dockerfile-client .
     - docker images
     - docker tag mmdp_client $DOCKER_ID/mmdp_client
     - docker push $DOCKER_ID/mmdp_client
-      
+     #  build db
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     - docker build -t mmdp_db -f ./Dockerfile-db .
     - docker images
     - docker tag mmdp_db $DOCKER_ID/mmdp_db
     - docker push $DOCKER_ID/mmdp_db
-      
+    #  build server
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     - docker build -t mmdp_server -f ./Dockerfile-nginx .
     - docker images
