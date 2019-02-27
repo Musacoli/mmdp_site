@@ -5,7 +5,7 @@ services:
 script:
     - echo "skipping tests"
 before_deploy:
-    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    -  echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     - docker build -t shemogumbe/mmdp_api -f ./Dockerfile-api .
     - docker build -t shemogumbe/mmdp_client -f Dockerfile-client .
     - docker build -t shemogumbe/mmdp_db -f Dockerfile-db .
