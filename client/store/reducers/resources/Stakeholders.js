@@ -6,6 +6,7 @@ const initialState = {
   payload: [],
   payload2: [],
   stakeholders: [],
+  filterStatus: false,
 };
 
 export default (state = initialState, action = {}) => {
@@ -51,6 +52,11 @@ export default (state = initialState, action = {}) => {
         responseMessage: action.payload,
         loading: false,
         stakeholdersLoading: false,
+      };
+    case types.FILTER_SEARCH_RESULTS_UPDATE:
+      return {
+        ...state,
+        filterStatus: action.filterStatus,
       };
 
     default:

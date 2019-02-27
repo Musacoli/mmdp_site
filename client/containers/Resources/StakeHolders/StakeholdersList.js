@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import SearchFiltersRow from '../../../components/Resources/Stakeholders/SearchFilters';
 import {
+  filterSearchResults,
   getNigerianStateLGAS,
   getNigerianStates,
   searchStakeHolders,
@@ -23,7 +24,7 @@ class StakeholdersList extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { getStates, getLGAs } = this.props;
     // fetch stakeholder data
     this.fetchStakeHolders();
@@ -32,28 +33,25 @@ class StakeholdersList extends Component {
     getLGAs();
   }
 
-  componentDidMount() {
-    const { loading } = this.state;
-    const { stakeholders } = this.props;
-    // update state once data fetching is complete
-    while (loading) {
-      if (typeof stakeholders === 'object') {
-        this.setState({
-          loading: false,
-          stakeHolders: stakeholders,
-        });
-        break;
-      }
+  static getDerivedStateFromProps(props, state) {
+    // debugger;
+    // logic to enable the filter by state to work
+    if (props.filterStatus) {
+      return null;
     }
-  }
 
-  componentDidUpdate(prevProps) {
-    const { stakeholders } = this.props;
-    if (prevProps.stakeholders !== stakeholders) {
-      this.setState({
-        stakeHolders: stakeholders,
-      });
+    // update the component when it loads first
+    if (
+      props.stakeholders !== state.stakeholders &&
+      props.filterStatus === false
+    ) {
+      return {
+        stakeHolders: props.stakeholders,
+        loading: false,
+      };
     }
+    // Return null to indicate no change to state.
+    return null;
   }
 
   handleSearch = (search) => {
@@ -62,31 +60,73 @@ class StakeholdersList extends Component {
   };
 
   fetchStakeHolders = (page = 1, searchQuery = null) => {
-    const { search } = this.props;
+    const { search, filterResults } = this.props;
     const { searchStr } = this.state;
+    filterResults(false);
     const query = searchQuery !== null ? searchQuery : searchStr;
     search({ page, searchQuery: query });
   };
 
-  handleChange(search) {
-    if (!search) {
+  applyStateFilter = (states = []) => {
+    const { stakeholders } = this.props;
+
+    if (states.length > 0) {
+      const search = stakeholders.stakeholders.data.map((stakeholder) => {
+        if (states.includes(stakeholder[0].basicInformation.state))
+          return stakeholder;
+      });
+      const filtered = search.filter((element) => {
+        return element !== undefined;
+      });
+      this.setState({
+        stakeHolders: {
+          stakeholders: {
+            data: filtered,
+          },
+        },
+      });
+    } else {
+      this.setState({ stakeHolders: stakeholders });
+    }
+  };
+
+  applyLGAFilter = (lgas = []) => {
+    const { stakeholders } = this.props;
+
+    if (lgas.length > 0) {
+      const search = stakeholders.stakeholders.data.map((stakeholder) => {
+        if (lgas.includes(stakeholder[0].beneficiaryService.localGovernment))
+          return stakeholder;
+      });
+      const filtered = search.filter((element) => {
+        return element !== undefined;
+      });
+      this.setState({
+        stakeHolders: {
+          stakeholders: {
+            data: filtered,
+          },
+        },
+      });
+    } else {
+      this.setState({ stakeHolders: stakeholders });
+    }
+  };
+
+  handleChange = (search) => {
+    const { filterResults } = this.props;
+    filterResults(false);
+    if (search === undefined) {
+      this.setState({ searchStr: '' });
+    } else if (!search) {
       this.setState({ searchStr: search });
       this.fetchStakeHolders(1, search);
     }
-  }
-
-  applyStateFilter(states) {
-    const { stakeholders } = this.props;
-    return stakeholders.stakeholders.data.map((stakeholder) => {
-      if (states.includes(stakeholder[0].basicInformation.state))
-        return stakeholder;
-    });
-  }
+  };
 
   render() {
-    const { states, LGAs } = this.props;
+    const { states, LGAs, stakeholders } = this.props;
     const { loading, stakeHolders } = this.state;
-    const stakeholders = stakeHolders;
     if (stakeholders.stakeholders === undefined || loading) {
       return <SimpleLoader loading={loading} />;
     }
@@ -97,8 +137,13 @@ class StakeholdersList extends Component {
           onSearch={this.handleSearch}
           onChange={this.handleChange}
         />
-        <SearchFiltersRow states={states} LGAs={LGAs} />
-        <StakeHoldersCardsList items={stakeholders.stakeholders.data} />
+        <SearchFiltersRow
+          states={states}
+          LGAs={LGAs}
+          filterByState={this.applyStateFilter}
+          filterByLGA={this.applyLGAFilter}
+        />
+        <StakeHoldersCardsList items={stakeHolders.stakeholders.data} />
         <Pagination
           handlePageChange={this.fetchStakeHolders}
           data={stakeholders.stakeholders.pagination}
@@ -117,6 +162,7 @@ StakeholdersList.propTypes = {
   LGAs: PropTypes.instanceOf(Array),
   stakeholders: PropTypes.instanceOf(Object),
   stakeholdersLoading: PropTypes.bool.isRequired,
+  filterResults: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -124,12 +170,14 @@ const mapStateToProps = (state) => ({
   LGAs: state.stakeholdersDirectory.payload2.LGAs,
   stakeholders: state.stakeholdersDirectory.stakeholders,
   stakeholdersLoading: state.stakeholdersDirectory.stakeholdersLoading,
+  filterStatus: state.stakeholdersDirectory.filterStatus,
 });
 
 const mapDispatchToProps = {
   getStates: getNigerianStates,
   getLGAs: getNigerianStateLGAS,
   search: searchStakeHolders,
+  filterResults: filterSearchResults,
 };
 
 export default connect(

@@ -33,7 +33,6 @@ import AddMedia from '../views/Resources/Document/AddMedia';
 import ViewAllResearch from '../views/Resources/Research/ViewAllResearch';
 import MediaListView from '../views/Resources/Media/MediaList';
 import ViewStakeholders from '../views/Resources/Stakeholders/ViewStakeholders';
-import MediaListView from '../views/Resources/Media/MediaList';
 
 const routes = [
   {
