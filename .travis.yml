@@ -28,7 +28,7 @@ before_deploy:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     - docker build -t mmdp_server -f ./Dockerfile-nginx .
     - docker images
-    - docker tag mmdp_server $DOCKER_ID/mmdp_api
+    - docker tag mmdp_server $DOCKER_ID/mmdp_server
     - docker push $DOCKER_ID/mmdp_server
       
       
