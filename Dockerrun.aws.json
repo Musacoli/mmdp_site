@@ -6,7 +6,7 @@
             "image": "shemogumbe/mmdp_lient",
             "hostname": "client",
             "essential": false,
-            "links": ["serverI"],
+            "links": ["server"],
             "memory": 512
         },
         {
