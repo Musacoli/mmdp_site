@@ -1,0 +1,48 @@
+{
+    "AWSRBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "shemogumbe/mmdp_lient",
+            "hostname": "client",
+            "essential": false,
+            "links": ["serverI"],
+            "memory": 512
+        },
+        {
+            "name": "server",
+            "image": "shemogumbe/mmdp_api",
+            "hostname": "api",
+            "essential": false,
+            "links": ["mongo"],
+            "memory": 512
+        },
+        {
+            "name": "mongo",
+            "image": "shemogumbe/mmdp_db",
+            "hostname": "mongo",
+            "essential": false,
+            "portMappings": [
+                {
+                    "hostPort": 27017,
+                    "containerPort": 27017
+                }
+            ],
+            "memory": 512
+        },
+        {
+            "name": "nginx",
+            "image": "shemogumbe/mmdp_server",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"],
+            "memory": 512
+        }
+    ]
+}

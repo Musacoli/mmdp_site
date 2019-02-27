@@ -1,5 +1,5 @@
 import keystone from 'keystone';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import responseMessage from '../../../constants/responseMessage';
 

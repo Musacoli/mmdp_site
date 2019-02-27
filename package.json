@@ -31,7 +31,7 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-react-app": "^7.0.0",
-    "bcrypt": "^3.0.4",
+    "bcryptjs": "^2.4.3",
     "classnames": "^2.2.6",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",

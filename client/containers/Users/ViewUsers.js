@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Group from '../../components/common/GroupButtons';
-import UserViewList from '../../components/Users/USersDetails';
+import UserViewList from '../../components/Users/UserDetails';
 import Search from '../../components/common/Form/UsersSearch';
 import { fetchingGroups } from '../../store/actions/groups';
 import groupOptions from '../../utils/mapGroups';

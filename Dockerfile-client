@@ -1,0 +1,11 @@
+FROM node:alpine
+
+WORKDIR $HOME/mmdp/
+
+COPY ./package.json ./
+
+COPY ./ ./
+
+RUN yarn install
+
+CMD ["yarn", "run", "client:dev"]

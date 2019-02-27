@@ -1,0 +1,35 @@
+sudo: required
+services:
+    - docker
+
+script:
+    - echo "skipping tests"  
+
+before_deploy:
+    - docker build -t shemogumbe/mmdp_api -f Dockerfile-api
+    - docker build -t shemogumbe/mmdp_client -f Dockerfile-client
+    - docker build -t shemogumbe/mmdp_db -f Dockerfile-db
+    - docker build -t shemogumbe/mmdp_server -f Dockerfile-nginx
+    # login to docker CLI
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID"
+    # push to dockerhub
+    - docker push shemogumbe/mmdp_api
+    - docker push shemogumbe/mmdp_lient
+    - docker push shemogumbe/mmdp_db
+    - docker push shemogumbe/mmdp_server
+
+
+
+
+deploy:
+    provider: elasticbeanstalk
+    region: us-west-2
+    app: mmdp_cms
+    env: MmdpCms-env
+    bucket_name: elasticbeanstalk-us-west-2-817932213731
+    bucket_path: mmdp_cms
+    on:
+       branch: develop
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key:
+        secure: $AWS_SECRET_KEY
