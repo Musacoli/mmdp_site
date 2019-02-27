@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Group from '../../components/common/GroupButtons';
-import UserViewList from '../../components/Users/UsersDetails';
+import UserViewList from '../../components/Users/UserDetails';
 import { fetchingStarted, userDeletingStarted } from '../../store/sagas/users';
 
 export class ViewUsers extends Component {

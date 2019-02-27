@@ -30,6 +30,15 @@ services:
       - "./client:$HOME/mmdp/"
     ports:
       - "1234:1234"
+    
+
+  nginx:
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile-nginx
+    ports:
+      - "8080:80"
 
   
   
