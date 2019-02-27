@@ -43,31 +43,6 @@ keystone.set('locals', {
 
 keystone.set('routes', routes);
 
-// keystone.start();
-const socketio = require('socket.io');
-
-keystone.start({
-  onHttpServerCreated() {
-    keystone.set('io', socketio.listen(keystone.httpServer));
-  },
-  onStart() {
-    const io = keystone.get('io');
-    const session = keystone.expressSession;
-
-    // Share session between express and socketio
-    io.use(function(socket, next) {
-      session(socket.handshake, {}, next);
-    });
-
-    // Socketio connection
-    io.on('connect', function(socket) {
-      console.log('--- User connected');
-
-      socket.on('disconnect', function() {
-        console.log('--- User disconnected');
-      });
-    });
-  },
-});
+keystone.start();
 
 export default keystone;

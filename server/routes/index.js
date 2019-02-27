@@ -558,7 +558,6 @@ const App = (app) => {
 
   app.get(
     `${baseUrl}/resources/research`,
-    [authenticate, authorize.cms.resources.list],
     routes.api.resources.research.list,
   );
 

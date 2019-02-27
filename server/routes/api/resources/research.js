@@ -9,9 +9,6 @@ export const create = async (req, res) => {
   const researchItem = new Research().model();
   try {
     const newResearch = await modelHelper.process(researchItem, req);
-    const io = keystone.get('io');
-    io.sockets.emit('research', newResearch);
-    req.session.new = { data: newResearch };
     return res.sendSuccess(
       {
         research: newResearch,
@@ -72,12 +69,9 @@ export const list = async (req, res) => {
       .sort('')
       .populate('')
       .exec((err, results) => {
-        const io = keystone.get('io');
-        io.sockets.emit('research', results);
         res.status(200).send({
           data: results,
         });
-        req.session.message = { data: results };
       });
   } catch (error) {
     return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
