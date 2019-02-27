@@ -622,7 +622,7 @@ const App = (app) => {
   /* ---------- Returnee Service -----------------*/
 
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
-  /* ---------- Dropdowns ------------------- */
+  /* ---------- dropdowns ------------------- */
   // Country
   app.get(
     `${baseUrl}/country`,

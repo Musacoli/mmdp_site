@@ -11,9 +11,6 @@ const StakeHoldersCard = (props) => {
   return (
     <Card key={item._id} raised className="media stakeholder-card">
       <div className=" stakeholder-card-title">
-        {/* <Truncate lines={1}> */}
-        {/* <h4>{item.organisationName}</h4> */}
-        {/* </Truncate> */}
         <StakeholderModal
           trigger={
             <Truncate lines={1}>

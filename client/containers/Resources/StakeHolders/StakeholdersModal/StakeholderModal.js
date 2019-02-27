@@ -81,17 +81,14 @@ class StakeholderModal extends React.Component {
 
   handleItems = () => {
     const { schema } = this.state;
-
     // truncate the schema into groups of 3 for each row using lodash
     const truncated = _.chunk(Object.keys(schema), 3);
-
     // iterate through out the list creating columns and rows
     // return the rows
     return truncated.map((row) => {
       const children = row.map((col) => {
         const obj = {};
         obj[col] = schema[col];
-
         return <StakeholderModalItem key={uuid4()} entry={obj} />;
       });
       return (
