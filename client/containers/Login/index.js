@@ -37,12 +37,18 @@ export class Login extends Component {
     }
   };
 
-  render() {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     const { history, LoginStatus } = this.props;
     const { payload } = LoginStatus;
     if (payload && payload.status === 'success') {
-      history.push('/');
+      // allow the browser to set userToken
+      setTimeout(() => {
+        history.push('/');
+      }, 1000);
     }
+  }
+
+  render() {
     return (
       <LoginViewForm
         onSubmit={this.onFormSubmit}

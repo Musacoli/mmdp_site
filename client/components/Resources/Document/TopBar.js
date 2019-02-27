@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Input, Button } from 'semantic-ui-react';
 
-const SearchMedia = () => {
+const TopBar = ({ instanceName, addMediaUrl }) => {
   return (
     <Grid columns={3}>
       <Grid.Row>
@@ -14,9 +15,9 @@ const SearchMedia = () => {
           </Button>
         </Grid.Column>
         <Grid.Column width={3}>
-          <a href="/resources/document/add">
+          <a href={addMediaUrl}>
             <Button className="common__button bg-ugly-blue" fluid>
-              Add Media
+              Add {instanceName}
             </Button>
           </a>
         </Grid.Column>
@@ -24,5 +25,13 @@ const SearchMedia = () => {
     </Grid>
   );
 };
+TopBar.propTypes = {
+  instanceName: PropTypes.string,
+  addMediaUrl: PropTypes.string,
+};
 
-export default SearchMedia;
+TopBar.defaultProps = {
+  instanceName: 'Document',
+  addMediaUrl: '/resources/document/add',
+};
+export default TopBar;

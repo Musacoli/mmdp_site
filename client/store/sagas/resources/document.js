@@ -78,11 +78,22 @@ export function* addDocument({ payload }) {
 }
 
 /** Fetch documents */
-export function* fetchDocumentsAsync() {
+export function* fetchDocumentsAsync({ payload }) {
   try {
-    const response = yield call(api.resources.document.list);
-    let data = response ? response.data.data.documents : {};
-    data = { results: data };
+    let response;
+    let data;
+    let pagination;
+    if (payload.mediaType) {
+      response = yield call(api.resources.media.list);
+      data = response ? response.data.data.media : {};
+      data = { results: data };
+    } else {
+      response = yield call(api.resources.document.list, payload);
+      data = response ? response.data.data.documents : {};
+      pagination = response ? response.data.data.pagination : {};
+      data = { results: data, pagination };
+    }
+
     yield put(actions.fetchDocumentSuccess({ data, isFetching: false }));
   } catch (error) {
     yield put(actions.fetchDocumentFailure({}));

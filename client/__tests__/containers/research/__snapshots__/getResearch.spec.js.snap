@@ -5,12 +5,64 @@ exports[`<ViewAllResearch />  renders the container without crashing 1`] = `
   <SimpleLoader
     loading={false}
   />
+  <Grid>
+    <GridColumn
+      width={12}
+    >
+      <Search
+        className="report-search"
+        onChange={[Function]}
+        onSearch={[Function]}
+        placeholder="Search research"
+      />
+    </GridColumn>
+    <GridColumn>
+      <Link
+        className="btn__add"
+        replace={false}
+        to="/resources/research/add"
+      >
+        <Button
+          as="button"
+          className="btn__add"
+        >
+          New Research
+        </Button>
+      </Link>
+    </GridColumn>
+  </Grid>
   <ResearchList
-    results={
-      Array [
-        "Research one",
-      ]
+    onArchive={[Function]}
+    onDelete={[Function]}
+    results={Object {}}
+  />
+  <Pagination
+    className="right floated events-pagination"
+    data={Object {}}
+    handlePageChange={
+      [MockFunction] {
+        "calls": Array [
+          Array [],
+        ],
+        "results": Array [
+          Object {
+            "isThrow": false,
+            "value": undefined,
+          },
+        ],
+      }
     }
+  />
+  <ConfirmModal
+    handleModalToggle={[Function]}
+    isOpen={false}
+    modalInfo={
+      Object {
+        "content": "Are you sure you want to delete this research",
+        "header": "Delete Research",
+      }
+    }
+    onConfirm={[Function]}
   />
 </div>
 `;

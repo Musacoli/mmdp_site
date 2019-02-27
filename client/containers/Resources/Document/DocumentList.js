@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button } from 'semantic-ui-react';
 import { fetchDocuments } from '../../../store/actions/resources/document';
-import DocumentComponent from '../../../components/Resources/Document/Document';
+import DocumentComponent from '../../../components/Resources/Document/PdfDocument';
+import Pagination from '../../../components/common/Pagination';
+import Search from '../../../components/common/Search';
 
 export class DocumentList extends Component {
   static propTypes = {
@@ -12,12 +15,34 @@ export class DocumentList extends Component {
     history: PropTypes.shape({}).isRequired,
   };
 
-  state = {};
+  state = {
+    search: '',
+  };
 
   componentDidMount() {
-    const { getDocuments } = this.props;
-    getDocuments();
+    this.fetchDocuments();
   }
+
+  fetchDocuments = (pageNumber = 1, searchStr = null) => {
+    const { getDocuments } = this.props;
+    const { search } = this.state;
+
+    const query = searchStr !== null ? searchStr : search;
+
+    getDocuments({ page: pageNumber, search: query });
+  };
+
+  handleSearch = (search) => {
+    this.setState({ search });
+    this.fetchDocuments(1, search);
+  };
+
+  handleSearchChange = (search) => {
+    if (!search) {
+      this.setState({ search });
+      this.fetchDocuments(1, search);
+    }
+  };
 
   goTo = (path) => {
     const { history } = this.props;
@@ -26,12 +51,43 @@ export class DocumentList extends Component {
 
   render() {
     const { loading, documents } = this.props;
+    const { search } = this.state;
+
     return (
-      <DocumentComponent
-        goTo={this.goTo}
-        loading={loading}
-        documents={documents}
-      />
+      <React.Fragment>
+        {documents.results.length || search ? (
+          <div className="ui grid">
+            <div className="twelve wide column">
+              <Search
+                placeholder="Search documents"
+                onChange={this.handleSearchChange}
+                onSearch={this.handleSearch}
+              />
+            </div>
+            <div className="four wide column">
+              <a href="/resources/document/add">
+                <Button className="common__button bg-ugly-blue add-media" fluid>
+                  Add Document
+                </Button>
+              </a>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
+
+        <DocumentComponent
+          goTo={this.goTo}
+          loading={loading}
+          documents={documents}
+        />
+        <div className="doc__pagination">
+          <Pagination
+            handlePageChange={this.fetchDocuments}
+            data={documents.pagination}
+          />
+        </div>
+      </React.Fragment>
     );
   }
 }

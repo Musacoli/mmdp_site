@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validate from 'validate.js';
-import DocumentForm from '../../../components/Resources/Document/DocumentForm';
+import AddEditDocument from '../../../components/Resources/Document/AddEditDocument';
 import {
   addDocument,
   editDocument,
@@ -102,7 +102,7 @@ export class MediaForm extends Component {
     const { document, errors, title, mediaType } = this.state;
     const { loading } = this.props;
     return (
-      <DocumentForm
+      <AddEditDocument
         loading={loading}
         title={title}
         reportFileName={document.name || ''}

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button, Form, Message } from 'semantic-ui-react';
+import { Button, Form } from 'semantic-ui-react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/lib/animated';
 import { startEditing, fetchingOne } from '../../store/sagas/users';
@@ -14,8 +14,6 @@ export class EditEmail extends Component {
     data: {
       newEmail: '',
     },
-    status: false,
-    success: false,
     selectedOption: [],
     selectedGroups: [],
   };
@@ -26,17 +24,13 @@ export class EditEmail extends Component {
     fetchedUser(match.params.username);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { status, success } = nextProps.userEdit;
-    this.setState({ status, success });
-    setTimeout(() => {
-      this.setState({ status: false, success: false }, () => {});
-    }, 2000);
-  }
-
   componentDidUpdate() {
     /* eslint-disable  react/no-did-update-set-state */
-    const { fetchOneUser } = this.props;
+    const {
+      fetchOneUser,
+      history,
+      userEdit: { success },
+    } = this.props;
     const { singleUser } = fetchOneUser;
     const { selectedGroups } = this.state;
     if (
@@ -55,6 +49,7 @@ export class EditEmail extends Component {
       });
       this.setState({ selectedGroups: userGroups, selectedOption: userGroups });
     }
+    success && history.push('/users/all');
   }
 
   onChange = (e) => {
@@ -121,26 +116,15 @@ export class EditEmail extends Component {
 
   render() {
     const { match, userEdit, groups: allGroups } = this.props;
-    const { isEditing, errors, user } = userEdit;
+    const { isEditing } = userEdit;
     const { selectedOption, email } = this.state;
     const options = [];
     const { groups } = allGroups;
     if (groups.length > 0) {
       mapGroupOptions(groups, options);
     }
-    const { status, success } = this.state;
     return (
       <div className="ui container">
-        {status && (
-          <Message negative>
-            <Message.Header> {errors.message} </Message.Header>
-          </Message>
-        )}
-        {success && !status && (
-          <Message positive>
-            <Message.Header> {user.message} </Message.Header>
-          </Message>
-        )}
         <Form loading={isEditing}>
           <Form.Field>
             <label htmlFor="email" className="update-email-label">
@@ -209,6 +193,7 @@ EditEmail.propTypes = {
     errors: PropTypes.string,
     user: PropTypes.shape,
   }),
+  history: PropTypes.shape({}),
   fetchOneUser: PropTypes.shape({}),
   groups: PropTypes.shape({}),
   allGroups: PropTypes.shape({}),

@@ -7,17 +7,19 @@ import {
 } from '../../../../store/actions/resources/document';
 import { fetchDocumentsAsync } from '../../../../store/sagas/resources/document';
 
+// const payload = {};
 describe('Document saga', async () => {
   describe('fetchDocumentSuccess', async () => {
-    const it = sagaHelper(fetchDocumentsAsync());
+    const filters = { page: 1, search: '' };
+    const it = sagaHelper(fetchDocumentsAsync({ payload: filters }));
     it('should have called api list documents', (result) => {
-      expect(result).toEqual(call(api.resources.document.list));
+      expect(result).toEqual(call(api.resources.document.list, filters));
     });
-    it('and then trigger an fetchGroups', (result) => {
+    it('and then trigger an fetchDocument', (result) => {
       expect(result).toEqual(
         put(
           fetchDocumentSuccess({
-            data: { results: {} },
+            data: { results: {}, pagination: {} },
             isFetching: false,
           }),
         ),
@@ -26,6 +28,15 @@ describe('Document saga', async () => {
     });
     it('and then yield dispatch fetchDocumentFailure', (result) => {
       expect(result).toEqual(put(fetchDocumentFailure({})));
+    });
+  });
+
+  describe('fetchMediaSuccess', async () => {
+    const it = sagaHelper(
+      fetchDocumentsAsync({ payload: { mediaType: true } }),
+    );
+    it('should have called api list media', (result) => {
+      expect(result).toEqual(call(api.resources.media.list));
     });
   });
 });

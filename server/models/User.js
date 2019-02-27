@@ -9,14 +9,10 @@ const User = new keystone.List('User');
 User.add({
   first_name: {
     type: Types.Text,
-    required: true,
-    default: 'first name',
     index: true,
   },
   last_name: {
     type: Types.Text,
-    required: true,
-    default: 'last name',
     index: true,
   },
   username: {

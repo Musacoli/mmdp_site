@@ -9,19 +9,33 @@ import './assets/styles/index.scss';
 import './assets/css/users/index.scss';
 import './assets/css/users/containers/user-containers.scss';
 import './assets/styles/main.scss';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 const app = (
   <Provider store={store}>
     <Router>
       <Switch>
-        {routes.map((route) => (
-          <Route
-            exact={route.exact}
-            path={route.path}
-            component={route.component}
-            key={route.path}
-          />
-        ))}
+        {routes.map((route) => {
+          if (route.protected){
+            return (
+              <ProtectedRoute
+                exact={route.exact}
+                path={route.path}
+                component={route.component}
+                key={route.path}
+              />
+            );
+          }
+
+          return (
+            <Route
+              exact={route.exact}
+              path={route.path}
+              component={route.component}
+              key={route.path}
+            />
+          );
+        })}
       </Switch>
     </Router>
   </Provider>

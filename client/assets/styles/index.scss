@@ -23,3 +23,10 @@ div [class*="right floated"] {
     color: white !important;
     font-weight: 400 !important;
 }
+
+/**
+hides toast message when using interceptors to redirect to login page.
+ */
+.hide-toast {
+  display: none !important;
+}

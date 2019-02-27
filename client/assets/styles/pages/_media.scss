@@ -1,0 +1,14 @@
+@import '../abstracts/theme_variables';
+
+.ui.red.delete.media {
+    color: $color-rusty-red;
+    font-size: 14px;
+}
+
+.media {
+    &__view {
+        max-height: 156px;
+        min-height: 156px;
+        overflow: hidden;
+    }
+}

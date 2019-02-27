@@ -14,9 +14,8 @@ export const api = {
         return server.get(
           `api/groups?${formatObjectToParams({ page, name: search })}`,
         );
-      } else {
-        return server.get('api/groups');
       }
+      return server.get('api/groups');
     },
     edit: (id, data) => server.put(`api/groups/${id}/`, data),
     delete: (id) => server.delete(`api/groups/${id}/`),
@@ -28,7 +27,14 @@ export const api = {
   users: {
     create: (data) => server.post('api/v1/users', data),
     edit: (data) => server.put('api/v1/users/', data),
-    list: () => server.get('api/v1/users'),
+    list: ({ page, search, selectedOption }) =>
+      server.get(
+        `api/v1/users?${formatObjectToParams({
+          page,
+          groups: selectedOption,
+          username: search,
+        })}`,
+      ),
     getOne: (username) => server.get(`api/v1/users/${username}`),
     delete: (data) => server.delete(`api/v1/users/${data}`),
   },
@@ -37,7 +43,13 @@ export const api = {
       create: (data) => server.post(documentsApiPrefix, data),
       update: (data, id) => server.put(`${documentsApiPrefix}/${id.id}`, data),
       retrieve: (id) => server.get(`${documentsApiPrefix}/${id}/`),
-      list: () => server.get(documentsApiPrefix),
+      list: ({ page, search }) =>
+        server.get(
+          `${documentsApiPrefix}?${formatObjectToParams({
+            page,
+            title: search,
+          })}`,
+        ),
       archive: (id) =>
         server.patch(`api/v1/resources/repository/archive/${id}`),
       delete: (id) => server.delete(`api/v1/resources/repository/${id}`),
@@ -46,6 +58,7 @@ export const api = {
       create: (data) => server.post(mediaApiPrefix, data),
       update: (data, id) => server.put(`${mediaApiPrefix}/${id.id}`, data),
       retrieve: (id) => server.get(`${mediaApiPrefix}/${id}/`),
+      list: () => server.get(mediaApiPrefix),
     },
   },
 };

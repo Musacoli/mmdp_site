@@ -9,8 +9,16 @@ import { store } from '../../../store';
 describe.only('DocumentList', () => {
   let wrapper;
   let props;
-  let node;
-  const data = { results: [{ _id: 'someId', title: 'someTitle' }] };
+  const data = {
+    results: [{ _id: 'someId', title: 'someTitle' }],
+    pagination: {
+      total: 1,
+      currentPage: 1,
+      totalPages: 1,
+      previous: false,
+      next: false,
+    },
+  };
   const documents = { ...initialState, data };
   beforeEach(() => {
     props = {
@@ -29,6 +37,6 @@ describe.only('DocumentList', () => {
     );
   });
   it('should mount without crashing', () => {
-    expect(wrapper.find('Document').length).toEqual(1);
+    expect(wrapper.find('Pagination').length).toEqual(1);
   });
 });

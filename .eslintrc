@@ -20,9 +20,9 @@
       "prettier/prettier": "error",
       "import/no-unresolved": 0,
       "no-plusplus": 0,
+      "no-unused-expressions": 0,
       "consistent-return": 0,
       "no-underscore-dangle": 0,
-      "no-unused-expressions": 0,
       "jsx-a11y/label-has-associated-control": [ 2, {
         "labelComponents": ["label"],
         "labelAttributes": ["htmlFor"],

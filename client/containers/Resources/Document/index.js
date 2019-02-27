@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validate from 'validate.js';
-import DocumentForm from '../../../components/Resources/Document/DocumentForm';
+import AddEditDocument from '../../../components/Resources/Document/AddEditDocument';
 import documentFormConstraint from '../../../utils/constraints/document';
 import {
   addDocument,
@@ -32,6 +32,7 @@ export class AddDocument extends Component {
     mediaType: 'document',
     id: '',
     errors: {},
+    isEditing: false,
   };
 
   componentDidMount() {
@@ -53,12 +54,13 @@ export class AddDocument extends Component {
 
   componentDidUpdate = () => {
     const { singleDocument, success, history } = this.props;
-    const { title } = this.state;
+    const { title, isEditing } = this.state;
 
-    if (title === '' && singleDocument.title) {
+    if (title === '' && singleDocument.title && !isEditing) {
       this.setState({
         title: singleDocument.title,
         document: singleDocument.document,
+        isEditing: true,
       });
     }
     if (success) {
@@ -123,7 +125,7 @@ export class AddDocument extends Component {
     const { reportType, document, errors, title } = this.state;
     const { loading } = this.props;
     return (
-      <DocumentForm
+      <AddEditDocument
         loading={loading}
         reportType={reportType}
         title={title}
