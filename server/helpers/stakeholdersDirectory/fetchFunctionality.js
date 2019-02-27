@@ -149,9 +149,9 @@ export const fetchPartners = async (stakeholders = []) => {
         .populate('stakeholder2Id')
         .populate('partnershipTypeId')
         .then((results) => {
-          modifiedStakeholder._doc.partnerships = results.map((partner) => {
-            return formatResponse(partner);
-          });
+          modifiedStakeholder._doc.partnerships = results.map((partner) =>
+            formatResponse(partner),
+          );
         })
         .catch((error) => {
           throw error;

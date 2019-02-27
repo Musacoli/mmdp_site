@@ -77,14 +77,11 @@ export const remove = async (req, res) => {
           }),
         );
       })
-      .catch((e) => {
-        return res.apiError(
-          'Database Error while trying to delete the record',
-          {
-            error: e.message || e,
-          },
-        );
-      });
+      .catch((e) =>
+        res.apiError('Database Error while trying to delete the record', {
+          error: e.message || e,
+        }),
+      );
   });
 };
 /** ************************************************************************ */

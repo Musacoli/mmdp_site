@@ -2,34 +2,49 @@ import Joi from 'joi';
 
 export default {
   body: Joi.object({
-    serviceName: Joi.string().required(),
-    averageNumberOfMaleBeneficiaries: Joi.number(),
-    averageNumberOfFemaleBeneficiaries: Joi.number(),
-    averageNumberOfBeneficiary: Joi.number(),
-    amountInvestedRange: Joi.string(),
-    targetAudienceId: Joi.string(),
+    serviceName: Joi.string()
+      .required()
+      .label('Service Name'),
+    amountInvestedRange: Joi.string().label('Amount invested range'),
+    targetAudienceId: Joi.string().label('Target  Audience'),
     duration: Joi.number(),
     note: Joi.string(),
     comment: Joi.string(),
-    meansOfAwareness: Joi.string(),
+    meansOfAwareness: Joi.string().label('Means of Awareness'),
     frequency: Joi.string(),
-    averageNumberOfBeneficiariesPerService: Joi.number(),
-    totalNumberOfBeneficiaries: Joi.number(),
-    serviceStatus: Joi.string(),
+    averageNumberOfBeneficiariesPerService: Joi.number().label(
+      'Average Number of Beneficiaries per Service',
+    ),
+    totalNumberOfBeneficiaries: Joi.number().label(
+      'Total number of beneficiaries',
+    ),
+    serviceStatus: Joi.string().label('Service  Status'),
     community: Joi.array().items(Joi.string()),
-    focusArea: Joi.string().required(),
+    focusArea: Joi.string()
+      .required()
+      .label('Focus Area'),
     sourceOfFunding: Joi.array().items(
       Joi.object({
-        sourceOfFundingId: Joi.string().required(),
-        amountInvestedRange: Joi.string().required(),
+        sourceOfFundingId: Joi.string()
+          .required()
+          .label('Source of  Funding'),
+        amountInvestedRange: Joi.string().label('Amount invested Range'),
       }),
     ),
     beneficiaryServiceType: Joi.array().items(
       Joi.object({
-        beneficiaryTypeId: Joi.string().required(),
-        noOfMaleBeneficiaries: Joi.number().required(),
-        noOfFemaleBeneficiaries: Joi.number().required(),
-        totalNumberOfBeneficiaries: Joi.number().required(),
+        beneficiaryTypeId: Joi.string()
+          .required()
+          .label('Beneficiary Type'),
+        noOfMaleBeneficiaries: Joi.number()
+          .required()
+          .label('Number of Male Beneficiaries'),
+        noOfFemaleBeneficiaries: Joi.number()
+          .required()
+          .label('Number of Female Beneficiaries'),
+        totalNumberOfBeneficiaries: Joi.number()
+          .required()
+          .label('Total Number of  Beneficiaries'),
       }),
     ),
   }),
