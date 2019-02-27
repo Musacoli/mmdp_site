@@ -7,7 +7,7 @@
             "hostname": "client",
             "essential": false,
             "links": ["server"],
-            "memory": 512
+            "memory": 128
         },
         {
             "name": "server",
@@ -15,7 +15,7 @@
             "hostname": "api",
             "essential": false,
             "links": ["mongo"],
-            "memory": 512
+            "memory": 128
         },
         {
             "name": "mongo",
@@ -28,7 +28,7 @@
                     "containerPort": 27017
                 }
             ],
-            "memory": 512
+            "memory": 128
         },
         {
             "name": "nginx",
@@ -42,7 +42,7 @@
                 }
             ],
             "links": ["client", "server"],
-            "memory": 512
+            "memory": 128
         }
     ]
 }
