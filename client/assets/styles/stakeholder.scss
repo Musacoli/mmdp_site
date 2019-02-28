@@ -279,3 +279,19 @@
 .search-box {
   width: 620px !important;
 }
+
+.Export-CSV {
+  width: 184px;
+  height: 40px;
+  border-radius: 3px;
+  background-color: var(--cool-blue);
+  font-family: Muli;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.81;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color: var(--white);
+}

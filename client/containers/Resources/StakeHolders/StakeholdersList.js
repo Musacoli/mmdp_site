@@ -16,7 +16,7 @@ import StakeHoldersCardsList from '../../../components/Resources/Stakeholders/St
 import Pagination from '../../../components/common/Pagination';
 import SimpleLoader from '../../../components/common/Loader/SimpleLoader';
 import Search from '../../../components/common/Search';
-
+import ExportStakeHoldersCsv from './ExportStakeHoldersCSV';
 
 class StakeholdersList extends Component {
   constructor(props) {
@@ -191,12 +191,18 @@ class StakeholdersList extends Component {
             items={stakeHolders.stakeholders.data}
             loading={stakeholdersLoading}
           />
-          <Grid.Row>
-            <Pagination
-              handlePageChange={this.fetchStakeHolders}
-              data={stakeholders.stakeholders.pagination}
-              className="right floated events-pagination"
-            />
+          <Grid.Row columns={3}>
+            <Grid.Column width={3}>
+              <ExportStakeHoldersCsv data={stakeHolders.stakeholders.data} />
+            </Grid.Column>
+            <Grid.Column width={7} />
+            <Grid.Column width={6}>
+              <Pagination
+                handlePageChange={this.fetchStakeHolders}
+                data={stakeholders.stakeholders.pagination}
+                className="right floated events-pagination"
+              />
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </React.Fragment>
