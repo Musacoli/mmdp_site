@@ -1,6 +1,7 @@
 /* eslint-env jest */
-import { server, authUserHeader } from '../../utils/keys';
+import { server} from '../../utils/keys';
 import { api } from '../../utils/api';
+import {authUserHeader} from "../../utils/auth";
 
 describe.only('Should test axios api requests', () => {
   it('should test get object', () => {

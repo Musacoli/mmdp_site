@@ -2,6 +2,7 @@ import keystone from 'keystone';
 import { sprintf } from 'sprintf-js';
 import modelHelper from '../../../helpers/modelHelper';
 import responseMessage from '../../../constants/responseMessage';
+import { filterAndPaginate, getPaginationData } from '../../../utils/search';
 
 export const Document = keystone.list('Document');
 
@@ -44,15 +45,20 @@ export const update = async (req, res) => {
 
 export const list = async (req, res) => {
   try {
-    const message = sprintf(responseMessage.RESOURCE_FETCHED, 'documents');
-    Document.model
-      .find((err, documents) => {
-        return res.status(200).json({
-          message,
-          data: { documents },
-        });
-      })
-      .sort({ created_at: 'descending' });
+    filterAndPaginate(Document, req)
+      .sort('-created_at')
+      .exec((err, data) => {
+        return res.sendSuccess(
+          {
+            documents: data.results,
+            pagination: getPaginationData(data),
+          },
+
+          200,
+
+          sprintf(responseMessage.RESOURCE_FETCHED, 'documents'),
+        );
+      });
   } catch (error) {
     const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
     return res.status(500).json({

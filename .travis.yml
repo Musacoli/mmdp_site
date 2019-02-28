@@ -1,0 +1,50 @@
+sudo: required
+services:
+    - docker
+
+script:
+    - echo "skipping tests"
+
+jobs:
+  include:
+    - stage: build api
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+      - docker build -t mmdp_api -f ./Dockerfile-api .
+      - docker images
+      - docker tag mmdp_api $DOCKER_ID/mmdp_api
+      - docker push $DOCKER_ID/mmdp_api
+    - stage: build client
+        script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+        - docker build -t mmdp_client -f ./Dockerfile-client .
+        - docker images
+        - docker tag mmdp_client $DOCKER_ID/mmdp_client
+        - docker push $DOCKER_ID/mmdp_client
+    - stage: build database
+        script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+        - docker build -t mmdp_db -f ./Dockerfile-db .
+        - docker images
+        - docker tag mmdp_cdb $DOCKER_ID/mmdp_db
+        - docker push $DOCKER_ID/mmdp_db
+    - stage: build server
+        script:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+        - docker build -t mmdp_server -f ./Dockerfile-server .
+        - docker images
+        - docker tag mmdp_server $DOCKER_ID/mmdp_server
+        - docker push $DOCKER_ID/mmdp_server
+
+deploy:
+    provider: elasticbeanstalk
+    region: us-west-2
+    app: mmdp_cms
+    env: MmdpCms-env
+    bucket_name: elasticbeanstalk-us-west-2-817932213731
+    bucket_path: mmdp_cms
+    on:
+       branch: develop
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key:
+        secure: $AWS_SECRET_KEY

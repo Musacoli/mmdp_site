@@ -68,12 +68,18 @@ $fontSize: 14px;
 	}
 } 
 
+.add-media {
+	height: 50px;
+}
+.doc__pagination {
+	margin-left:77%;
+}
+
 .ui.card {
 	.content {
 		.header.media__heading {
 			min-height: 100px;
 			overflow: hidden;
-			font-family: Muli;
 			font-size: 16px;
 			font-weight: bold;
 			font-style: normal;

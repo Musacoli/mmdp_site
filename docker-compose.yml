@@ -1,33 +1,45 @@
-version: '3'
+version: "3"
 
 services:
-  mongo-server:
-    image: mongo:3.4.19-jessie
+  mongo:
+    build:
+      context: ./
+      dockerfile: Dockerfile-db
     ports:
       - "27017:27017"
-    expose:
-       - 27017
-  web-app:
-    build: .
+
+
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile-api
+    volumes:
+      - "/mmdp/node_modules"
+      - "./server:$HOME/mmdp/"
     ports:
       - "3000:3000"
-    volumes:
-      - /mmdp/node_modules
-      - .:/mmdp
-    environment:
-      - NODE_ENV=production
     depends_on:
-      - "mongo-server"
-  frontend:
-    image: nginx
+      - mongo
+      
+  client: 
+    build:
+      context: ./
+      dockerfile: Dockerfile-client
+    volumes:
+      - "/mmdp/node_modules"
+      - "./client:$HOME/mmdp/"
     ports:
-      - "80:8080"
-    volumes:
-      - ./:/var/www/mmdp
-      - ./nginx.conf:/etc/nginx/conf.d/mmdp.conf
-    environment:
-      - NGINX_PORT=8080
-    depends_on:
-      - "web-app"
+      - "1234:1234"
+    
 
+  nginx:
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile-nginx
+    ports:
+      - "8080:80"
 
+  
+  
+  

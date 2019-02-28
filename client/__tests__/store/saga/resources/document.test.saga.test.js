@@ -7,18 +7,19 @@ import {
 } from '../../../../store/actions/resources/document';
 import { fetchDocumentsAsync } from '../../../../store/sagas/resources/document';
 
-const payload = {};
+// const payload = {};
 describe('Document saga', async () => {
   describe('fetchDocumentSuccess', async () => {
-    const it = sagaHelper(fetchDocumentsAsync({ payload }));
+    const filters = { page: 1, search: '' };
+    const it = sagaHelper(fetchDocumentsAsync({ payload: filters }));
     it('should have called api list documents', (result) => {
-      expect(result).toEqual(call(api.resources.document.list));
+      expect(result).toEqual(call(api.resources.document.list, filters));
     });
-    it('and then trigger a media fetchDocumentSuccess', (result) => {
+    it('and then trigger an fetchDocument', (result) => {
       expect(result).toEqual(
         put(
           fetchDocumentSuccess({
-            data: { results: {} },
+            data: { results: {}, pagination: {} },
             isFetching: false,
           }),
         ),

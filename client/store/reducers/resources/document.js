@@ -11,14 +11,16 @@ import {
   FETCH_DOCUMENT_SUCCESS,
 } from '../../../constants/resources/document';
 
+const data = {
+  results: [],
+  pagination: {},
+};
+
 export const initialState = {
   loading: false,
   document: {},
   success: false,
-  data: {
-    results: [],
-    currentPage: 1,
-  },
+  data,
   isFetching: false,
   errors: '',
 };
@@ -28,7 +30,7 @@ export default (state = initialState, { type, payload }) => {
     case ADD_DOCUMENT:
       return { ...state, loading: true };
     case ADD_DOCUMENT_SUCCESS:
-      return { ...state, loading: false, success: true, ...payload };
+      return { ...state, loading: false, success: true, ...payload, data };
     case ADD_DOCUMENT_FAILURE:
       return { ...state, loading: false, success: false, ...payload };
     case FETCH_DOCUMENT:
