@@ -125,7 +125,7 @@ export class EditEmail extends Component {
     }
     return (
       <div className="ui container">
-        <Form loading={isEditing}>
+        <Form loading={isEditing} className="reduce-width">
           <Form.Field>
             <label htmlFor="email" className="update-email-label">
               Email
