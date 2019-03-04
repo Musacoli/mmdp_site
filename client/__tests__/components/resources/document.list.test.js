@@ -26,6 +26,7 @@ describe.only('DocumentList', () => {
       loading: false,
       history: { push: jest.fn() },
       documents: documents.data,
+      isMedia: true,
     };
 
     wrapper = mount(
