@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { Table, Grid, Container } from 'semantic-ui-react';
+import { Table, Grid, Container, Checkbox } from 'semantic-ui-react';
 import * as PropTypes from 'prop-types';
 import ActionButtons from '../common/ActionButtons';
 import NoResults from '../common/TableRowLoading/NoResultsRow';
 import Loader from '../common/TableRowLoading';
-import DeleteUser from './deleteUser';
+import { DeleteAllUsers, DeleteUser } from './deleteUser';
+import GroupButtons from '../common/GroupButtons';
 
 class DisplayUsers extends Component {
   state = {
     deleteModalOpen: false,
+    deleteAllModalOpen: false,
     selectedUser: null,
+    selectedUsers: {},
+    allSelected: false,
+    disabled: true,
   };
 
   showDeleteModal = (user) =>
@@ -18,7 +23,13 @@ class DisplayUsers extends Component {
       selectedUser: user,
     });
 
-  hideDeleteModal = () => this.setState({ deleteModalOpen: false });
+  showDeleteAllModal = () =>
+    this.setState({
+      deleteAllModalOpen: true,
+    });
+
+  hideDeleteModal = () =>
+    this.setState({ deleteModalOpen: false, deleteAllModalOpen: false });
 
   handleDelete = () => {
     const { selectedUser } = this.state;
@@ -27,9 +38,63 @@ class DisplayUsers extends Component {
     deleteUser(selectedUser.username, history);
   };
 
+  enableButton = (selectedUsers) => {
+    const selected = Object.keys(selectedUsers).filter(
+      (key) => selectedUsers[key],
+    );
+    selected.length === 0
+      ? this.setState({ disabled: true })
+      : this.setState({ disabled: false });
+  };
+
+  selectRow = (users, username) => {
+    const { selectedUsers } = this.state;
+
+    selectedUsers[username] = !selectedUsers[username];
+
+    const allSelected = users
+      .map((user) => selectedUsers[user.username])
+      .reduce((accumulator, currentValue) => accumulator && currentValue);
+    this.setState({
+      selectedUsers,
+      allSelected,
+    });
+    this.enableButton(selectedUsers);
+  };
+
+  handleDeleteAllUsers = () => {
+    const { selectedUsers } = this.state;
+    const users = Object.keys(selectedUsers).filter(
+      (key) => selectedUsers[key],
+    );
+
+    const { deleteUser, history } = this.props;
+    this.setState({ deleteAllModalOpen: false });
+    users.map((user) => deleteUser(user, history));
+  };
+
+  selectAllRows = (users) => {
+    const { allSelected } = this.state;
+    const rows = {};
+    users.forEach((user) => {
+      rows[user.username] = !allSelected;
+    });
+    this.setState({
+      allSelected: !allSelected,
+      selectedUsers: rows,
+    });
+    this.enableButton(rows);
+  };
+
   render() {
     const { users, success } = this.props;
-    const { deleteModalOpen } = this.state;
+    const {
+      deleteModalOpen,
+      deleteAllModalOpen,
+      selectedUsers,
+      allSelected,
+      disabled,
+    } = this.state;
     return (
       <div className="main-content-wrapper">
         <DeleteUser
@@ -38,11 +103,26 @@ class DisplayUsers extends Component {
           handleDelete={this.handleDelete}
         />
 
+        <DeleteAllUsers
+          open={deleteAllModalOpen}
+          closeModal={this.hideDeleteModal}
+          deleteUsers={this.handleDeleteAllUsers}
+        />
+        <GroupButtons
+          deleteUsers={() => this.showDeleteAllModal()}
+          disabled={disabled}
+        />
         <Container>
           <Grid.Row className="table-row">
             <Table className="no margin top no border radius">
               <Table.Header fullWidth>
                 <Table.Row className="tr-height">
+                  <Table.HeaderCell>
+                    <Checkbox
+                      onChange={() => this.selectAllRows(users)}
+                      checked={allSelected}
+                    />
+                  </Table.HeaderCell>
                   <Table.HeaderCell>Fullname</Table.HeaderCell>
                   <Table.HeaderCell>Username</Table.HeaderCell>
                   <Table.HeaderCell>Email address</Table.HeaderCell>
@@ -54,6 +134,12 @@ class DisplayUsers extends Component {
               <Table.Body>
                 {users.map((user) => (
                   <Table.Row key={user.username}>
+                    <Table.Cell>
+                      <Checkbox
+                        checked={selectedUsers[user.username]}
+                        onChange={() => this.selectRow(users, user.username)}
+                      />
+                    </Table.Cell>
                     <Table.Cell>
                       <span className="fullname">{user.first_name}</span>{' '}
                       {user.last_name}

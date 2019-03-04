@@ -36,21 +36,24 @@ describe('fetch users saga', () => {
         isRegistering: false,
       }),
     };
-    await runSaga(fakeStore, loadUsers).done;
+    await runSaga(fakeStore, loadUsers, {}).done;
     expect(api.users.list.mock.calls.length).toBe(1);
     expect(dispatchedActions).toEqual([
       { type: 'FETCHING_STARTED' },
       {
-        payload: [
-          {
-            confirmed: false,
-            email: 'charisschomba@gmail.com',
-            first_name: 'first name',
-            isAdmin: false,
-            last_name: 'last name',
-            username: 'charisschomba8779',
-          },
-        ],
+        payload: {
+          status: 'success',
+          users: [
+            {
+              confirmed: false,
+              email: 'charisschomba@gmail.com',
+              first_name: 'first name',
+              isAdmin: false,
+              last_name: 'last name',
+              username: 'charisschomba8779',
+            },
+          ],
+        },
         type: 'FETCHING_USERS_SUCCESS',
       },
     ]);
@@ -78,7 +81,7 @@ describe('fetch users saga', () => {
         isRegistering: false,
       }),
     };
-    await runSaga(fakeStore, loadUsers).done;
+    await runSaga(fakeStore, loadUsers, {}).done;
     expect(api.users.list.mock.calls.length).toBe(1);
     expect(dispatchedActions).toEqual([
       { type: 'FETCHING_STARTED' },

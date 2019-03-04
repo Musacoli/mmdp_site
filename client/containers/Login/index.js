@@ -37,7 +37,7 @@ export class Login extends Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate() {
     const { history, LoginStatus } = this.props;
     const { payload } = LoginStatus;
     if (payload && payload.status === 'success') {

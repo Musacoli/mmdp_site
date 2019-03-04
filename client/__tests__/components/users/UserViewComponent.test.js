@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { mount } from 'enzyme';
-import DisplayUsers from '../../../components/Users/USersDetails';
+import DisplayUsers from '../../../components/Users/UserDetails';
 import user from '../../../__mocks__/fetchUserData';
 
 const props = {

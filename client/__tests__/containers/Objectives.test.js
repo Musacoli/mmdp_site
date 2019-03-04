@@ -20,7 +20,7 @@ const props = {
 };
 
 const validData = {
-  objectives: ' provided information to give you context on the about section',
+  Objectives: ' provided information to give you context on the about section',
 };
 
 const component = (

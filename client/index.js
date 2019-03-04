@@ -16,7 +16,7 @@ const app = (
     <Router>
       <Switch>
         {routes.map((route) => {
-          if (route.protected){
+          if (route.protected) {
             return (
               <ProtectedRoute
                 exact={route.exact}

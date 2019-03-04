@@ -24,8 +24,11 @@ const apiUpdateDocument = (id) => {
     .attach('document', './server/__tests__/helpers/files/blank.pdf');
 };
 
-const apiListDocuments = () => {
-  return app.get(`${route}`).send();
+const apiListDocuments = (parameters = {}) => {
+  return app
+    .get(`${route}`)
+    .query(parameters)
+    .send();
 };
 
 const apiGetOne = (id) => {

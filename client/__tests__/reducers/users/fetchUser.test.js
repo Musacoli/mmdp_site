@@ -21,8 +21,9 @@ describe('User Reducer test', () => {
 
   it('should handle FETCHING_USERS_SUCCESS', () => {
     action.type = FETCHING_USERS_SUCCESS;
-    action.payload.results = user.fetchedUsersData;
-    expect(fetchUsers(initialState.users, action).users.results).toEqual(
+    action.payload.users = user.fetchedUsersData;
+    action.payload.pagination = user.pagination;
+    expect(fetchUsers(initialState.users, action).users).toEqual(
       user.fetchedUsersData,
     );
     expect(fetchUsers(initialState.users, action).success).toEqual(true);

@@ -413,7 +413,7 @@ const App = (app) => {
       authenticate,
       authorize.cms.resources.create,
       appendFilesToBody,
-      validate(validator.media),
+      validate(validator.media.addMedia),
     ],
     routes.api.resources.media.create,
   );
