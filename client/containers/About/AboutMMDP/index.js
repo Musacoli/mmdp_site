@@ -7,6 +7,7 @@ import MarkdownEditor from '../../../components/common/MarkdownEditor';
 import Label from '../../../components/common/Label';
 import Button from '../../../components/common/Button';
 import '../../../assets/styles/About/common/style.scss';
+import { FileInput } from '../../../components/common/Inputs/FileInput';
 
 export class AboutMMDP extends Component {
   state = {
@@ -16,6 +17,10 @@ export class AboutMMDP extends Component {
     id: null,
     loading: false,
     updateMode: false,
+    image1: '',
+    image2: '',
+    imageOneFileName: '',
+    imageTwoFileName: '',
   };
 
   componentDidMount() {
@@ -23,7 +28,27 @@ export class AboutMMDP extends Component {
     getAboutMMDP();
   }
 
-  static getDerivedStateFromProps(props, state) {
+  componentDidUpdate = () => {
+    const { imageOneFileName, imageTwoFileName } = this.state;
+    const { aboutMMDP } = this.props;
+    if (
+      imageOneFileName === '' &&
+      aboutMMDP.image1 &&
+      aboutMMDP.image1.filename
+    ) {
+      this.setState({ imageOneFileName: aboutMMDP.image2.filename });
+    }
+
+    if (
+      imageTwoFileName === '' &&
+      aboutMMDP.image1 &&
+      aboutMMDP.image1.filename
+    ) {
+      this.setState({ imageTwoFileName: aboutMMDP.image2.filename });
+    }
+  };
+
+  static getDerivedStateFromProps = (props, state) => {
     const { aboutMMDP } = props;
     if (!state.updateMode) {
       return {
@@ -36,7 +61,7 @@ export class AboutMMDP extends Component {
     return {
       loading: aboutMMDP.loading,
     };
-  }
+  };
 
   handleEditorChange = (name, val) => {
     this.setState({ [name]: val });
@@ -52,7 +77,9 @@ export class AboutMMDP extends Component {
 
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
-      formData.append(key, data[key]);
+      if (data[key] && !data[key].url) {
+        formData.append(key, data[key]);
+      }
     });
 
     if (data.updateMode) {
@@ -83,8 +110,32 @@ export class AboutMMDP extends Component {
     return true;
   };
 
+  handleChange = (e) => {
+    if (e.target.name === 'image1' && e.target.files.length) {
+      const file = e.target.files[0];
+      this.setState({
+        imageOneFileName: file.name || '',
+        image1: file,
+      });
+    } else if (e.target.name === 'image2' && e.target.files.length) {
+      const file = e.target.files[0];
+      this.setState({
+        imageTwoFileName: file.name || '',
+        image2: file,
+      });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
+    }
+  };
+
   render() {
-    const { about, background, loading } = this.state;
+    const {
+      about,
+      background,
+      loading,
+      imageOneFileName,
+      imageTwoFileName,
+    } = this.state;
     return (
       <React.Fragment>
         <form className="about__section" onSubmit={this.submit}>
@@ -110,6 +161,24 @@ export class AboutMMDP extends Component {
               />
             </div>
           </div>
+          <FileInput
+            inputLabel="Attach Photo 1"
+            placeholder={imageOneFileName || 'Select a photo'}
+            value=""
+            id="image1"
+            name="image1"
+            accept="image/*"
+            change={this.handleChange}
+          />
+          <FileInput
+            inputLabel="Attach Photo 2"
+            placeholder={imageTwoFileName || 'Select a photo'}
+            value=""
+            id="image2"
+            name="image2"
+            accept="image/*"
+            change={this.handleChange}
+          />
           <Button
             classNames="save__btn"
             type="submit"
@@ -126,6 +195,7 @@ AboutMMDP.propTypes = {
   createAboutMMDP: PropTypes.func.isRequired,
   updateAboutMMDP: PropTypes.func.isRequired,
   getAboutMMDP: PropTypes.func.isRequired,
+  aboutMMDP: PropTypes.shape({}),
 };
 
 const mapStateToProps = (state) => ({
