@@ -17,7 +17,7 @@ const ActionButtons = ({ bulkDeleteGroups }) => (
       <Grid.Column width={8} />
       <Grid.Column width={4}>
         <Button.Group basic className="right floated no border radius">
-          <Button disabled>
+          <Button id="" disabled>
             <Icon name="pencil alternate" />
             Edit
           </Button>
