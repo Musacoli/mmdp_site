@@ -20,8 +20,13 @@
       "prettier/prettier": "error",
       "import/no-unresolved": 0,
       "no-plusplus": 0,
+      "react/sort-comp": 0,
+      "react/prop-types": 0,
       "no-unused-expressions": 0,
+      "import/no-named-as-default": 0,
       "consistent-return": 0,
+      "prefer-destructuring": 0,
+      "no-shadow": 0,
       "no-underscore-dangle": 0,
       "jsx-a11y/label-has-associated-control": [ 2, {
         "labelComponents": ["label"],

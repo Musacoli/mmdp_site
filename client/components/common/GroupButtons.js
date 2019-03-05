@@ -1,7 +1,8 @@
 import React from 'react';
 import { Grid, Button, Icon, Container } from 'semantic-ui-react';
+import * as PropTypes from 'prop-types';
 
-const GroupButtons = () => (
+const GroupButtons = ({ deleteUsers, disabled }) => (
   <Container>
     <Grid columns={3}>
       <Grid.Row className="group-btn">
@@ -22,7 +23,12 @@ const GroupButtons = () => (
               <Icon name="pencil alternate" />
               Edit
             </Button>
-            <Button color="red" className="btn-smaller btn-actions">
+            <Button
+              color="red"
+              className="btn-smaller btn-actions"
+              onClick={deleteUsers}
+              disabled={disabled}
+            >
               <Icon name="trash alternate outline" />
               Delete
             </Button>
@@ -33,4 +39,8 @@ const GroupButtons = () => (
   </Container>
 );
 
+GroupButtons.propTypes = {
+  deleteUsers: PropTypes.func,
+  disabled: PropTypes.bool,
+};
 export default GroupButtons;

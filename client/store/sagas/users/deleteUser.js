@@ -1,7 +1,12 @@
 import { call, takeLatest, put } from 'redux-saga/effects';
-import { DELETE_USER, FETCHING } from '../../../constants/users';
+import { DELETE_USER } from '../../../constants/users';
 import { api } from '../../../utils/api';
-import { deletingStarted, deletingSuccess, deletingFailed } from '.';
+import {
+  deletingStarted,
+  deletingSuccess,
+  deletingFailed,
+  fetchingStarted,
+} from '.';
 
 export function* deleteUser({ payload }) {
   yield put(deletingStarted());
@@ -9,9 +14,7 @@ export function* deleteUser({ payload }) {
     const user = yield call(api.users.delete, payload);
     const { data } = user;
     yield put(deletingSuccess(data));
-    yield put({
-      type: FETCHING,
-    });
+    yield put(fetchingStarted());
   } catch (error) {
     yield put(
       deletingFailed(

@@ -6,6 +6,7 @@ import {
   mapStateToProps,
 } from '../../../containers/Users/ViewUsers';
 import user from '../../../__mocks__/fetchUserData';
+import fetchedGroups from '../../../__mocks__/fetchGroups';
 
 const state = {
   Users: [],
@@ -13,8 +14,15 @@ const state = {
 
 const props = {
   fetchUsersList: jest.fn(),
+  allGroups: jest.fn(),
   success: false,
   users: user.fetchedUsersData,
+  groups: {
+    groups: fetchedGroups,
+  },
+  pagination: user.pagination,
+  handleSearch: jest.fn(),
+  handleSearchChange: jest.fn(),
 };
 
 const wrapper = mount(<ViewUsers {...props} />);

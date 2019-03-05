@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Group from '../../components/common/GroupButtons';
 import UserViewList from '../../components/Users/UserDetails';
 import Search from '../../components/common/Form/UsersSearch';
 import { fetchingGroups } from '../../store/actions/groups';
@@ -77,7 +76,6 @@ export class ViewUsers extends Component {
           handleSearchChange={this.handleSearchChange}
           value={selectedOption}
         />
-        <Group />
         <UserViewList
           users={users}
           success={success}

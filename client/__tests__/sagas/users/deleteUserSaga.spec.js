@@ -1,7 +1,7 @@
 import { runSaga } from 'redux-saga';
 import { api } from '../../../utils/api';
 import { deleteUser } from '../../../store/sagas/users/deleteUser';
-import { DELETING_SUCCESS, DELETING_FAILURE } from '../../../constants/users';
+import { DELETING_FAILURE } from '../../../constants/users';
 
 describe('Delete users saga', () => {
   it('should handle user deletion in case of success', async () => {
@@ -22,11 +22,12 @@ describe('Delete users saga', () => {
     await runSaga(fakeStore, deleteUser, {}).done;
     expect(api.users.delete.mock.calls.length).toBe(1);
     expect(dispatchedActions).toEqual([
+      { type: 'DELETING_USER' },
+      { payload: undefined, type: 'DELETING_SUCCESS' },
       {
-        type: 'DELETING_USER',
+        payload: { page: 1, search: '', selectedOption: '' },
+        type: 'FETCHING',
       },
-      { payload: undefined, type: DELETING_SUCCESS },
-      { type: 'FETCHING' },
     ]);
   });
 

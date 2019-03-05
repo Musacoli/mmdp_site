@@ -2,13 +2,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Sidebar from '../../../components/Sidebar';
-import { sidebarItems } from '../../../containers/Sidebar/sidebarItems';
+import sidebarItems from '../../../containers/Sidebar/sidebarItems';
 
 const func = () => {};
 const props = {
   goTo: func,
   title: 'hello',
-  sidebarItems,
+  sidebarItems: sidebarItems(),
   activeIndex: 1,
   children: <div>hello</div>,
 };
