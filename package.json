@@ -11,7 +11,7 @@
     "dev-server": "concurrently --kill-others \"npm run run:server\" \"npm run client:dev\"",
     "client:dev": "parcel client/index.html",
     "client:watch": "parcel watch client/index.html",
-    "build:client": "parcel build client/index.html --out-dir ./dist-client",
+    "build:client": "parcel build client/index.html -d ./dist-client",
     "run:server": "nodemon ./server/index.js --exec babel-node",
     "build:server": "babel ./server -d ./dist-server --copy-files",
     "test:server": "NODE_ENV=test mocha --recursive --require @babel/register ./server/__tests__/tests --reporter spec --timeout 10000 --exit",

@@ -3,6 +3,7 @@ import { sprintf } from 'sprintf-js';
 import modelHelper from '../../../helpers/modelHelper';
 import responseMessage from '../../../constants/responseMessage';
 import { insertMediaType } from '../../../utils/helpers';
+import { filterAndPaginate, getPaginationData } from '../../../utils/search';
 
 export const Media = keystone.list('Media');
 
@@ -26,23 +27,22 @@ export const create = async (req, res) => {
 };
 
 export const list = async (req, res) => {
-  try {
-    Media.model
-      .find((err, media) => {
-        const message = sprintf(responseMessage.RESOURCE_FETCHED, 'media');
-        return res.status(200).json({
-          message,
-          data: { media },
+  filterAndPaginate(Media, req)
+    .sort({ created_at: 'descending' })
+    .exec((err, data) => {
+      if (err) {
+        const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
+        return res.status(500).json({
+          errMessage,
+          err,
         });
-      })
-      .sort({ created_at: 'descending' });
-  } catch (error) {
-    const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
-    return res.status(500).json({
-      errMessage,
-      error,
+      }
+      const message = sprintf(responseMessage.RESOURCE_FETCHED, 'Media');
+      return res.status(200).json({
+        message,
+        data: { media: data.results, pagination: getPaginationData(data) },
+      });
     });
-  }
 };
 
 export const getOne = async (req, res) => {
