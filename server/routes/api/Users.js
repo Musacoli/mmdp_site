@@ -46,6 +46,11 @@ export const deleteUser = async (req, res) => {
         status: ERROR,
         message: resp.notFound,
       });
+    if (user.username === req.params.id) {
+      return res.status(400).json({
+        message: 'You are not authorized to delete your own account',
+      });
+    }
     user.remove((err) => {
       if (err)
         return res.status(500).json({
@@ -108,10 +113,12 @@ export const fetchAllUsers = async (req, res) => {
           status: FAIL,
           message: resp.tryAgain,
         });
-
+      const allUsers = data.results.filter(
+        (user) => user.email !== req.user.email,
+      );
       return res.json({
         status: SUCCESS,
-        users: data.results,
+        users: allUsers,
         pagination: getPaginationData(data),
       });
     });
