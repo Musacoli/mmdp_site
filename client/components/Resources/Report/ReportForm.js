@@ -13,7 +13,7 @@ const ReportForm = ({
   loading,
   errors,
 }) => (
-  <Form loading={loading} onSubmit={onSubmit} className="main-content">
+  <Form loading={loading} onSubmit={onSubmit} id="research-main-content">
     <Form.Group widths="equal">
       <Form.Field error={!!errors.reportFile}>
         <FileInput
@@ -59,7 +59,7 @@ const ReportForm = ({
         />
       </Form.Field>
     </Form.Group>
-    <Form.Button type="submit" className="btn__upload u-margin-top-medium">
+    <Form.Button type="submit" className="btn__upload" id="report__upload__btn">
       Upload Report
     </Form.Button>
   </Form>
