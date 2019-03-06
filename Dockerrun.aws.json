@@ -9,9 +9,15 @@
             "name": "client",
             "image": "shemogumbe/mmdp_client",
             "hostname": "client",
-            "essential": false,
-            "links": ["server"],
-            "memory": 256
+            "essential": true,
+            "memory": 256,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["server"]
         },
         {
             "name": "server",
@@ -19,20 +25,6 @@
             "hostname": "api",
             "essential": false,
             "memory": 256
-        },
-        {
-            "name": "nginx",
-            "image": "shemogumbe/mmdp_server",
-            "hostname": "nginx",
-            "essential": true,
-            "portMappings": [
-                {
-                    "hostPort": 80,
-                    "containerPort": 80
-                }
-            ],
-            "links": ["client", "server"],
-            "memory": 256
-        }
+        }        
     ]
 }

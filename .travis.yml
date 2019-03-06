@@ -21,21 +21,8 @@ before_deploy:
     - docker images
     - docker tag mmdp_client $DOCKER_ID/mmdp_client
     - docker push $DOCKER_ID/mmdp_client
-     #  build db
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    - docker build -t mmdp_db -f ./Dockerfile-db .
-    - docker images
-    - docker tag mmdp_db $DOCKER_ID/mmdp_db
-    - docker push $DOCKER_ID/mmdp_db
     #  build server
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    - docker build -t mmdp_server -f ./Dockerfile-nginx .
-    - docker images
-    - docker tag mmdp_server $DOCKER_ID/mmdp_server
-    - docker push $DOCKER_ID/mmdp_server
-      
-      
-
+    
 deploy:
     provider: elasticbeanstalk
     region: us-west-2
