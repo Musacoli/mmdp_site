@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { mount } from 'enzyme';
-import UsersDetails from '../../../components/Users/UserDetails';
+import UserDetails from '../../../components/Users/UserDetails';
 import user from '../../../__mocks__/fetchUserData';
 
 const state = {
@@ -16,10 +16,10 @@ const props = {
 
 let wrapper;
 
-describe('<UsersDetails /> ', () => {
-  beforeEach(() => {
+describe('<UserDetails /> ', () => {
+  before(() => {
     wrapper = mount(
-      <UsersDetails users={user.fetchedUsersData} {...props} {...state} />,
+      <UserDetails users={user.fetchedUsersData} {...props} {...state} />,
     );
   });
 

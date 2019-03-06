@@ -27,9 +27,6 @@ const apiGetObjective = async (id) => app.get(`${objectivesPath}/${id}`).send();
 
 const apiListObjectives = async () => app.get(`${objectivesPath}/list`).send();
 
-const apiArchiveObjective = async (id) =>
-  app.delete(`${objectivesPath}/${id}/remove`).send();
-
 describe('Objectives API', () => {
   describe('create objectives', () => {
     beforeEach(async () => {
@@ -158,8 +155,6 @@ describe('Objectives API', () => {
   describe('list objectives', () => {
     beforeEach(async () => {
       await removeAllCollections(Objective);
-      await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.about.view']);
       await Promise.all([...Array(5)].map(() => createObjective()));
     });
 
@@ -172,65 +167,6 @@ describe('Objectives API', () => {
           Objectives: objectives[i].Objectives,
         });
       }
-    });
-
-    it('should retrieve with full about or cms permission', async () => {
-      await app.loginRandom(['cms.about.*']);
-      expect((await apiListObjectives()).status).toBe(200);
-      await app.loginRandom(['cms.view']);
-      expect((await apiListObjectives()).status).toBe(200);
-      await app.loginRandom(['cms.*']);
-      expect((await apiListObjectives()).status).toBe(200);
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
-      const res = await apiListObjectives();
-      expect(res.status).toBe(403);
-    });
-  });
-
-  describe('archive objectives', () => {
-    let existingObjectives;
-
-    beforeEach(async () => {
-      await removeAllCollections(Objective);
-      await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.about.archive']);
-      existingObjectives = await createObjective();
-    });
-
-    it('expect to archive the Objectives by id', async () => {
-      const res = await apiArchiveObjective(existingObjectives._id);
-      expect(res.status).toBe(200);
-      expect(res.body.item.archived).toEqual(true);
-    });
-
-    it('should archive with full full about or cms permission', async () => {
-      await app.loginRandom(['cms.about.*']);
-      expect((await apiArchiveObjective(existingObjectives._id)).status).toBe(
-        200,
-      );
-      await app.loginRandom(['cms.archive']);
-      expect((await apiArchiveObjective(existingObjectives._id)).status).toBe(
-        200,
-      );
-      await app.loginRandom(['cms.*']);
-      expect((await apiArchiveObjective(existingObjectives._id)).status).toBe(
-        200,
-      );
-    });
-
-    it('expect to not archive the Objectives with an invalid id', async () => {
-      const res = await apiArchiveObjective('89787sjhkf98379');
-      expect(res.status).toBe(500);
-      expect(res.body.error).toEqual('database error');
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
-      const res = await apiArchiveObjective(existingObjectives._id);
-      expect(res.status).toBe(403);
     });
   });
 });

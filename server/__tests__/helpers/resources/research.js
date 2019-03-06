@@ -1,5 +1,5 @@
-import keystone from 'keystone';
-import faker from 'faker';
+import { faker, removeAllCollections } from '../commons/base';
+import Research from '../../../models/resources/Research';
 
 export const data = {
   title: 'My New Title',
@@ -14,6 +14,10 @@ export const data = {
   },
 };
 
-export const createResearch = async () => {
-  return keystone.list('Research').model.create(data);
+export const createResearch = (overrides = {}) => {
+  return Research.model.create({ ...data, ...overrides });
+};
+
+export const removeAllResearch = async () => {
+  await removeAllCollections(Research);
 };

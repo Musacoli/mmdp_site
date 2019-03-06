@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.svg';
-import './styles.css';
+import '../../assets/styles/Login/index.scss';
 
 export const LoginView = ({ onSubmit, onChange }) => (
   <div className="form__container ">
@@ -18,14 +18,14 @@ export const LoginView = ({ onSubmit, onChange }) => (
     <form className="ui form " onSubmit={onSubmit}>
       <div className="form__holder">
         <div className="input__field">
-          <label htmlFor="username">Username/Email</label>
+          <label htmlFor="username">Username or Email address</label>
           <br />
           <input
             type="text"
             name="username"
             id="username"
             className="field form__input"
-            placeholder="Enter Username or Email"
+            placeholder="Enter your username or email address"
             onChange={onChange}
             required
           />
@@ -53,7 +53,7 @@ export const LoginView = ({ onSubmit, onChange }) => (
           </button>
           <div id="forgot__password__container">
             <Link to="/">
-              <p>Forgot password?</p>
+              <p className="forgot__password__link">Forgot password?</p>
             </Link>
           </div>
         </div>

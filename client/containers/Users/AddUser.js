@@ -65,7 +65,7 @@ export class AddUser extends Component {
     const { selectedOption, email } = this.state;
     return (
       <div className="container">
-        <Form loading={isRegistering}>
+        <Form loading={isRegistering} className="reduce-width">
           <Form.Field>
             <label htmlFor="email">Email address</label>
             <input

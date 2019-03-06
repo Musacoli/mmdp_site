@@ -45,7 +45,12 @@ export const update = async (req, res) => {
 
 export const list = async (req, res) => {
   try {
-    filterAndPaginate(Document, req)
+    const otherFilters = {};
+
+    // don't show archived documents for unauthenticated users
+    if (!req.user) otherFilters.archived = false;
+
+    filterAndPaginate(Document, req, {}, otherFilters)
       .sort('-created_at')
       .exec((err, data) => {
         return res.sendSuccess(

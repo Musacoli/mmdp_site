@@ -13,7 +13,7 @@ import {
   archiveResearchSuccess,
   archiveResearchFailure,
 } from '../../actions/resources/getResearch';
-import { createResearch } from '../../../utils/resources/research';
+import { research } from '../../../utils/resources/research';
 
 toastr.options = {
   positionClass: 'toast-top-center',
@@ -21,7 +21,7 @@ toastr.options = {
 };
 export function* getUserResearch(action) {
   try {
-    const response = yield call(createResearch.getAll, action.payload);
+    const response = yield call(research.getAll, action.payload);
     yield put(getResearchSuccess(response.data));
   } catch (error) {
     toastr.warning(error.response.data.message);
@@ -36,7 +36,7 @@ export function* getUserResearchWatcher() {
 export function* deleteUserResearch(action) {
   try {
     const id = action.payload;
-    yield call(createResearch.delete, id);
+    yield call(research.delete, id);
     yield put(deleteResearchSuccess(id));
   } catch (error) {
     toastr.warning(error.response.data.message);
@@ -51,7 +51,7 @@ export function* archiveUserResearch(action) {
   try {
     const { _id, data } = action.payload;
 
-    yield call(createResearch.update, data, _id);
+    yield call(research.update, data, _id);
     yield put(archiveResearchSuccess(action.payload));
   } catch (error) {
     toastr.warning(error.response.data.message);

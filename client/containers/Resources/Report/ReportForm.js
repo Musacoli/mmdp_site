@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';

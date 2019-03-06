@@ -10,7 +10,7 @@ import {
 } from '../../../constants/resources/research';
 import editResearchReducer from '../../../store/reducers/resources/editResearch';
 
-describe('Add Research reducer', () => {
+describe('Edit Research reducer', () => {
   const initialState = {
     loading: false,
     researchItem: {},

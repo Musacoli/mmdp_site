@@ -2,7 +2,11 @@
 import expect from 'expect';
 import sinon from 'sinon';
 import modelHelper from '../../../helpers/modelHelper';
-import { createResearch, data } from '../../helpers/resources/research';
+import {
+  createResearch,
+  data,
+  removeAllResearch,
+} from '../../helpers/resources/research';
 import { app, removeAllGroupsAndUsers } from '../../helpers/commons/base';
 
 const route = '/api/v1/resources/research';
@@ -60,18 +64,23 @@ describe('Resources research API', () => {
   describe('List All Research Items', () => {
     beforeEach(async () => {
       await removeAllGroupsAndUsers();
+      await removeAllResearch();
+      await app.loginRandom([]);
     });
 
-    it('Should return 200 with all items in the Research Model', async () => {
-      await app.loginRandom(['cms.*']);
+    it('should return 200 with all items in the Research Model', async () => {
       const res = await app.get(route).send();
       expect(res.status).toBe(200);
     });
 
-    it('Should Return 403 For UnAuthorized User', async () => {
-      await app.loginRandom(['']);
-      const res = await app.get(route).send();
-      expect(res.status).toBe(403);
+    it('should exclude archived research for guests', async () => {
+      // create an archived event
+      await createResearch({ Archived: true });
+      const resAuth = await app.get(route).send();
+      expect(resAuth.body.data.results.length).toBe(1);
+      await app.logout(); // guest
+      const resGuest = await app.get(route).send();
+      expect(resGuest.body.data.results.length).toBe(0);
     });
   });
 

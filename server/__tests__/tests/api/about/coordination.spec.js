@@ -32,9 +32,6 @@ const apiGetCoordination = async (id) =>
 const apiListCoordination = async () =>
   app.get(`${coordinationPath}/list`).send();
 
-const apiArchiveCoordination = async (id) =>
-  app.delete(`${coordinationPath}/${id}/remove`).send();
-
 describe('Coordination API', () => {
   describe('create coordination', () => {
     before(async () => {
@@ -50,7 +47,6 @@ describe('Coordination API', () => {
         coordination: data.coordination,
         whatAreWeDoing: data.whatAreWeDoing,
         introToHighlights: data.introToHighlights,
-        archived: false,
       });
     });
 
@@ -188,8 +184,6 @@ describe('Coordination API', () => {
   describe('list coordination', () => {
     beforeEach(async () => {
       await removeAllCollections(Coordination);
-      await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.about.view']);
       await Promise.all([...Array(5)].map(() => createCoordination()));
     });
 
@@ -204,56 +198,6 @@ describe('Coordination API', () => {
           introToHighlights: coordination[i].introToHighlights,
         });
       }
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
-      const res = await apiListCoordination();
-      expect(res.status).toBe(403);
-    });
-  });
-
-  describe('archive coordination', () => {
-    let existingCoordination;
-
-    beforeEach(async () => {
-      await removeAllCollections(Coordination);
-      await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.about.archive']);
-      existingCoordination = await createCoordination();
-    });
-
-    it('expect to archive coordinations by id', async () => {
-      const res = await apiArchiveCoordination(existingCoordination._id);
-      expect(res.status).toBe(200);
-      expect(res.body.item.archived).toEqual(true);
-    });
-
-    it('should archive with full full about or cms permission', async () => {
-      await app.loginRandom(['cms.about.*']);
-      expect(
-        (await apiArchiveCoordination(existingCoordination._id)).status,
-      ).toBe(200);
-      await app.loginRandom(['cms.archive']);
-      expect(
-        (await apiArchiveCoordination(existingCoordination._id)).status,
-      ).toBe(200);
-      await app.loginRandom(['cms.*']);
-      expect(
-        (await apiArchiveCoordination(existingCoordination._id)).status,
-      ).toBe(200);
-    });
-
-    it('expect to not archive coordinations with an invalid id', async () => {
-      const res = await apiArchiveCoordination('89787sjhkf98379');
-      expect(res.status).toBe(500);
-      expect(res.body.error).toEqual('database error');
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
-      const res = await apiArchiveCoordination(existingCoordination._id);
-      expect(res.status).toBe(403);
     });
   });
 });

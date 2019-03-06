@@ -10,6 +10,17 @@ export class Login extends Component {
     password: '',
   };
 
+  componentDidUpdate() {
+    const { LoginStatus } = this.props;
+    const { payload } = LoginStatus;
+    if (payload && payload.status === 'success') {
+      // allow the browser to set userToken
+      setTimeout(() => {
+        window.location.assign('/');
+      }, 1000);
+    }
+  }
+
   onChange = (e) => {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
@@ -37,17 +48,6 @@ export class Login extends Component {
     }
   };
 
-  componentDidUpdate() {
-    const { history, LoginStatus } = this.props;
-    const { payload } = LoginStatus;
-    if (payload && payload.status === 'success') {
-      // allow the browser to set userToken
-      setTimeout(() => {
-        history.push('/');
-      }, 1000);
-    }
-  }
-
   render() {
     return (
       <LoginViewForm
@@ -61,7 +61,6 @@ export class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  history: PropTypes.shape({}).isRequired,
   LoginStatus: PropTypes.shape({}).isRequired,
 };
 

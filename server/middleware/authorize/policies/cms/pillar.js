@@ -1,15 +1,13 @@
 import { hasAnyPermission } from '../../../../utils/permissions';
 
-const viewPermissions = [
-  'cms.*',
-  'cms.view',
-  'cms.pillars.*',
-  'cms.pillars.view',
-];
-
 export default {
-  list: (userPermissions) => hasAnyPermission(userPermissions, viewPermissions),
-  get: (userPermissions) => hasAnyPermission(userPermissions, viewPermissions),
+  view: (userPermissions) =>
+    hasAnyPermission(userPermissions, [
+      'cms.*',
+      'cms.view',
+      'cms.pillars.*',
+      'cms.pillars.view',
+    ]),
   create: (userPermissions) =>
     hasAnyPermission(userPermissions, [
       'cms.*',

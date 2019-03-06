@@ -25,7 +25,7 @@ const getToken = (req) => {
   return req.headers.authorization.split(' ')[1];
 };
 
-const authenticate = async (req, res, next) => {
+const checkAuth = async (req) => {
   const token = getToken(req);
   let error = null;
   try {
@@ -41,6 +41,36 @@ const authenticate = async (req, res, next) => {
   } catch (err) {
     error = deriveError(err);
   }
+  return error;
+};
+
+/**
+ * Checks whether user has provided has provided authorization headers. If
+ * successful, it adds the user object to the request object and allows
+ * the request to proceed.
+ *
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<*>}
+ */
+export const authOptional = async (req, res, next) => {
+  await checkAuth(req);
+  return next();
+};
+
+/**
+ * Authenticates a request by checking the authorization header. If successful,
+ * it adds the user object to the request object and allows the request to
+ * proceed. Else, it returns a 401 error with the appropriate message.
+ *
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<*>}
+ */
+const authenticate = async (req, res, next) => {
+  const error = await checkAuth(req);
   if (!error) {
     return next();
   }

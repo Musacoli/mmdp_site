@@ -11,7 +11,7 @@
  */
 import { hasAccess } from '../../utils/auth';
 
-const sidebarItems = [
+export const sidebarItems = [
   {
     title: 'Thematic Pillars',
     menuItems: [

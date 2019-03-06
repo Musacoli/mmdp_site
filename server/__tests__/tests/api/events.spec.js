@@ -48,7 +48,7 @@ describe('Events API', () => {
 
   describe('GET /events', () => {
     beforeEach(async () => {
-      await app.loginRandom(['cms.events.view']);
+      await app.loginRandom([]);
     });
 
     it('returns a list of events', async () => {
@@ -62,25 +62,21 @@ describe('Events API', () => {
     });
 
     it('should filter by GET parameters - match', async () => {
-      // create 4 events with title 'Foo'
-      await createEvent({ title: 'Foo' }, 4);
+      // create 3 events with title 'Foo'
+      await createEvent({ title: 'Foo' }, 3);
       const res = await apiListEvents({ title: 'Foo' });
-      expect(res.body.data.length).toBe(4);
+      expect(res.body.data.length).toBe(3);
     });
 
-    it('should fail for unauthorized users', async () => {
-      await app.loginRandom();
+    it('should exclude archived events for guests', async () => {
+      await app.logout();
+      await removeAllEvents();
+      // create 3 events that are archived
+      await createEvent({ archived: true }, 3);
+      // create 2 events that are not archived
+      await createEvent({ archived: false }, 2);
       const res = await apiListEvents();
-      expect(res.status).toBe(403);
-    });
-
-    it('should list for all relevant permissions', async () => {
-      await app.loginRandom(['cms.events.*']);
-      expect((await apiListEvents()).status).toBe(200);
-      await app.loginRandom(['cms.view']);
-      expect((await apiListEvents()).status).toBe(200);
-      await app.loginRandom(['cms.*']);
-      expect((await apiListEvents()).status).toBe(200);
+      expect(res.body.data.length).toBe(2);
     });
   });
 

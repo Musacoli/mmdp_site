@@ -56,17 +56,3 @@ export const get = (req, res) => {
     });
   });
 };
-
-export const remove = (req, res) => {
-  GovernorMessage.model.findById(req.params.id).exec((err, item) => {
-    if (err) return res.apiError('database error', err);
-    if (!item) return res.apiError('not found');
-
-    item.getUpdateHandler(req).process({ archived: true }, (error) => {
-      if (err) return res.apiError('remove error', error);
-      res.apiResponse({
-        item,
-      });
-    });
-  });
-};

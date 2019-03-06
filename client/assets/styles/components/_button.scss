@@ -11,6 +11,10 @@
     background-color: $color-cool-blue;
     color: $color-white;
     font-weight: normal;
+    // set due to the width 10em set in
+    // button.ui.button user-container.scss
+    // which makes button text take 2 lines
+    min-width: 11em;
   }
 }
 .btn__add {

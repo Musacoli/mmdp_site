@@ -175,7 +175,7 @@ class DisplayUsers extends Component {
 }
 
 DisplayUsers.propTypes = {
-  users: PropTypes.bool,
+  users: PropTypes.arrayOf(PropTypes.shape({})),
   success: PropTypes.bool,
   history: PropTypes.shape({}),
   deleteUser: PropTypes.func,

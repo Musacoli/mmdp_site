@@ -32,9 +32,6 @@ const apiGetEdoStateApproach = async (id) =>
 const apiListEdoStateApproach = async () =>
   app.get(`${edoStateApproachPath}/list`).send();
 
-const apiArchiveEdoStateApproach = async (id) =>
-  app.delete(`${edoStateApproachPath}/${id}/remove`).send();
-
 describe('Edo State Approach API', () => {
   describe('Create Edo State Approach', () => {
     beforeEach(async () => {
@@ -188,8 +185,6 @@ describe('Edo State Approach API', () => {
   describe('List Edo State Approach', () => {
     beforeEach(async () => {
       await removeAllCollections(EdoStateApproach);
-      await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.about.view']);
       await Promise.all([...Array(5)].map(() => createEdoStateApproach()));
     });
 
@@ -203,65 +198,6 @@ describe('Edo State Approach API', () => {
           background: approaches[i].background,
         });
       }
-    });
-
-    it('should retrieve with full about or cms permission', async () => {
-      await app.loginRandom(['cms.about.*']);
-      expect((await apiListEdoStateApproach()).status).toBe(200);
-      await app.loginRandom(['cms.view']);
-      expect((await apiListEdoStateApproach()).status).toBe(200);
-      await app.loginRandom(['cms.*']);
-      expect((await apiListEdoStateApproach()).status).toBe(200);
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
-      const res = await apiListEdoStateApproach();
-      expect(res.status).toBe(403);
-    });
-  });
-
-  describe('Archive Edo State Approach', () => {
-    let existingApproach;
-
-    beforeEach(async () => {
-      await removeAllCollections(EdoStateApproach);
-      await removeAllGroupsAndUsers();
-      await app.loginRandom(['cms.about.archive']);
-      existingApproach = await createEdoStateApproach();
-    });
-
-    it('expect to archive the Edo State Approach by id', async () => {
-      const res = await apiArchiveEdoStateApproach(existingApproach._id);
-      expect(res.status).toBe(200);
-      expect(res.body.item.archived).toEqual(true);
-    });
-
-    it('should archive with full full about or cms permission', async () => {
-      await app.loginRandom(['cms.about.*']);
-      expect(
-        (await apiArchiveEdoStateApproach(existingApproach._id)).status,
-      ).toBe(200);
-      await app.loginRandom(['cms.archive']);
-      expect(
-        (await apiArchiveEdoStateApproach(existingApproach._id)).status,
-      ).toBe(200);
-      await app.loginRandom(['cms.*']);
-      expect(
-        (await apiArchiveEdoStateApproach(existingApproach._id)).status,
-      ).toBe(200);
-    });
-
-    it('expect to not archive the Edo State Approachs with an invalid id', async () => {
-      const res = await apiArchiveEdoStateApproach('89787sjhkf98379');
-      expect(res.status).toBe(500);
-      expect(res.body.error).toEqual('database error');
-    });
-
-    it('should fail if user is not authorized', async () => {
-      await app.loginRandom([]);
-      const res = await apiArchiveEdoStateApproach(existingApproach._id);
-      expect(res.status).toBe(403);
     });
   });
 });

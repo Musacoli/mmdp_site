@@ -62,7 +62,7 @@ const expectQueryToBeAccurate = (result, queryParams, overrides = {}) => {
       [key]: { $regex: new RegExp(params[key], 'gi') },
     };
   });
-  expect(result).toEqual({ $or: expected });
+  expect(result.$or).toEqual(expected);
 };
 
 describe('utils - search.js', () => {
@@ -86,7 +86,7 @@ describe('utils - search.js', () => {
       expect(getSearchQuery(req)).toEqual({});
     });
 
-    it('should return an $or mongoose query with all query params', () => {
+    it('should return an object with a $or query with all query params', () => {
       const query = { name: 'foo', email: 'bar' };
       const req = mockSearchRequest(query);
       const result = getSearchQuery(req);
@@ -101,11 +101,34 @@ describe('utils - search.js', () => {
       expectQueryToBeAccurate(result, query, overrides);
     });
 
+    it('should include otherFilters', () => {
+      const req = mockSearchRequest();
+      const otherFilters = { confirmed: true };
+      const result = getSearchQuery(req, {}, otherFilters);
+      expect(result.confirmed).toEqual(true);
+    });
+
     it('should remove the page parameter if it exists', () => {
       const query = { name: 'foo', page: 2 };
       const req = mockSearchRequest(query);
       const result = getSearchQuery(req);
       delete query.page;
+      expectQueryToBeAccurate(result, query);
+    });
+
+    it('should remove the perPage parameter if it exists', () => {
+      const query = { name: 'foo', perPage: 10 };
+      const req = mockSearchRequest(query);
+      const result = getSearchQuery(req);
+      delete query.perPage;
+      expectQueryToBeAccurate(result, query);
+    });
+
+    it('should exclude any filters with value undefined', () => {
+      const query = { name: 'foo', username: undefined };
+      const req = mockSearchRequest(query);
+      const result = getSearchQuery(req);
+      delete query.username;
       expectQueryToBeAccurate(result, query);
     });
 

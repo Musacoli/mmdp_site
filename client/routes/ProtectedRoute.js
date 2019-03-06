@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { isLoggedIn } from '../utils/auth';
 
-export const ProtectedRoute = ({ component: Component, ...rest }) => (
+const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
@@ -19,5 +20,10 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
+
+ProtectedRoute.propTypes = {
+  location: PropTypes.shape({}),
+  component: PropTypes.func.isRequired,
+};
 
 export default ProtectedRoute;

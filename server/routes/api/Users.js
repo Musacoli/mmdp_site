@@ -96,7 +96,7 @@ export const fetchAllUsers = async (req, res) => {
 
   User.paginate({
     page: req.query.page || 1,
-    perPage: 8,
+    perPage: req.query.perPage || 8,
     maxPages: 10,
     filters,
   })
