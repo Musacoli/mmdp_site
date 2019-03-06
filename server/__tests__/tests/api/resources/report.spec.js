@@ -7,7 +7,7 @@ import {
 } from '../../../helpers/commons/base';
 import {
   createReport,
-  createArchivedReport,
+  removeAllReports,
 } from '../../../helpers/resources/report';
 import modelHelper from '../../../../helpers/modelHelper';
 import Report from '../../../../models/resources/Report';
@@ -99,10 +99,8 @@ describe('Report route', () => {
   describe(`GET request to ${route}`, () => {
     beforeEach(async () => {
       await Promise.all([
-        createReport(),
-        createReport(),
-        createReport(),
-        createArchivedReport(),
+        createReport({}, 3),
+        createReport({ archived: true }),
       ]);
       await app.loginRandom([]);
     });
@@ -124,6 +122,45 @@ describe('Report route', () => {
       expect(res.body.data).to.have.property('reports');
       expect(res.body.data.reports).to.be.a('Array');
       expect(res.body.data.reports).to.have.lengthOf(3);
+    });
+  });
+
+  describe(`GET request to ${route}/:type`, () => {
+    beforeEach(async () => {
+      await removeAllReports();
+      await Promise.all([
+        createReport({ reportType: 'annual' }, 2),
+        createReport({ reportType: 'quarterly' }, 2),
+        createReport({ reportType: 'annual', archived: true }),
+        createReport({ reportType: 'quarterly', archived: true }),
+      ]);
+      await app.loginRandom([]);
+    });
+
+    it('should get all annual reports for authenticated users', async () => {
+      const res = await app.get(`${route}/annual`);
+      expect(res.status).to.equal(200);
+      expect(res.body.data.reports).to.have.lengthOf(3);
+    });
+
+    it('should get all quarterly reports for authenticated users', async () => {
+      const res = await app.get(`${route}/quarterly`);
+      expect(res.status).to.equal(200);
+      expect(res.body.data.reports).to.have.lengthOf(3);
+    });
+
+    it('should exclude archived annual reports for guests', async () => {
+      app.logout();
+      const res = await app.get(`${route}/annual`);
+      expect(res.status).to.equal(200);
+      expect(res.body.data.reports).to.have.lengthOf(2);
+    });
+
+    it('should exclude archived annual reports for guests', async () => {
+      app.logout();
+      const res = await app.get(`${route}/annual`);
+      expect(res.status).to.equal(200);
+      expect(res.body.data.reports).to.have.lengthOf(2);
     });
   });
 

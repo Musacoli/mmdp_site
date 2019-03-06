@@ -1,5 +1,5 @@
-import keystone from 'keystone';
-import faker from 'faker';
+import { faker, removeAllCollections } from '../commons/base';
+import Report from '../../../models/resources/Report';
 
 const getReportItem = (fields) => ({
   title: faker.random.words(3),
@@ -16,12 +16,16 @@ const getReportItem = (fields) => ({
   ...fields,
 });
 
-export const createReport = async () => {
-  const report = getReportItem();
-  return keystone.list('Report').model.create(report);
+export const createReport = async (overrides = {}, times = 1) => {
+  const data = getReportItem(overrides);
+  const reports = [];
+  for (let i = 0; i < times; i++) {
+    // eslint-disable-next-line no-await-in-loop
+    reports.push(await Report.model.create(data));
+  }
+  return times === 1 ? reports[0] : reports;
 };
 
-export const createArchivedReport = async () => {
-  const report = getReportItem({ archived: true });
-  return keystone.list('Report').model.create(report);
+export const removeAllReports = async () => {
+  await removeAllCollections(Report);
 };
