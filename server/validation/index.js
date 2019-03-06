@@ -3,7 +3,6 @@ import report from './resources/report';
 import research from './resources/research';
 import document from './resources/document';
 import media from './resources/media';
-import stakeholdersDirectory from './stakeholdersDirectory';
 
 export default {
   login,
@@ -11,5 +10,4 @@ export default {
   research,
   document,
   media,
-  stakeholdersDirectory,
 };

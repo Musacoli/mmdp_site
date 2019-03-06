@@ -28,7 +28,10 @@ import { paramDocExists } from '../middleware/documents';
 import { paramMediaExists } from '../middleware/media';
 
 import validators from '../middleware/pillar_middleware';
-import stakeholdersDirectoryValidator from '../middleware/stakeholdersDirectory';
+import {
+  stakeHolderMiddleware,
+  ReturneeServiceMiddleware,
+} from '../middleware/stakeholdersDirectory';
 
 const importRoutes = keystone.importer(__dirname);
 
@@ -545,48 +548,72 @@ const App = (app) => {
     [authenticate, authorize.cms.resources.delete],
     routes.api.resources.research.remove,
   );
-
   /* ---------- Stakeholders Directory ----------- */
   app.post(
-    `${stakeholdersPath}/create`,
-    [
-      authenticate,
-      authorize.cms.stakeholders.create,
-      stakeholdersDirectoryValidator,
-      keystone.middleware.api,
-    ],
-    routes.api.stakeholdersDirectory.create,
+    `${stakeholdersPath}`,
+    authenticate,
+    authorize.cms.stakeholders.create,
+    stakeHolderMiddleware,
+    keystone.middleware.api,
+    routes.api.resources.Stakeholders.Stakeholders.create,
   );
 
   app.get(
-    `${stakeholdersPath}/list`,
+    `${stakeholdersPath}`,
     [authOptional, keystone.middleware.api],
-    routes.api.stakeholdersDirectory.list,
+    routes.api.resources.Stakeholders.Stakeholders.list,
   );
 
   app.put(
-    `${stakeholdersPath}/:id/update`,
+    `${stakeholdersPath}/:id`,
     [
       authenticate,
       authorize.cms.stakeholders.update,
       keystone.middleware.api,
-      stakeholdersDirectoryValidator,
+      stakeHolderMiddleware,
     ],
-    routes.api.stakeholdersDirectory.update,
-  );
-
-  app.get(
-    `${stakeholdersPath}/:id`,
-    [authenticate, authorize.cms.stakeholders.get, keystone.middleware.api],
-    routes.api.stakeholdersDirectory.get,
+    routes.api.resources.Stakeholders.Stakeholders.update,
   );
 
   app.delete(
-    `${stakeholdersPath}/:id/remove`,
+    `${stakeholdersPath}/:id`,
     [authenticate, authorize.cms.stakeholders.delete, keystone.middleware.api],
-    routes.api.stakeholdersDirectory.remove,
+    routes.api.resources.Stakeholders.Stakeholders.remove,
   );
   /* ---------- Stakeholders Directory ----------- */
+  /* ---------- Returnee Service -----------------*/
+  app.get(
+    `${stakeholdersPath}/:stakeholder_id/beneficiaries`,
+    [authOptional, keystone.middleware.api],
+    routes.api.resources.Stakeholders.ReturneeService.list,
+  );
+
+  app.post(
+    `${stakeholdersPath}/:stakeholder_id/beneficiaries`,
+    authenticate,
+    authorize.cms.stakeholders.create,
+    ReturneeServiceMiddleware,
+    keystone.middleware.api,
+    routes.api.resources.Stakeholders.ReturneeService.create,
+  );
+
+  app.put(
+    `${stakeholdersPath}/:beneficiary_id/beneficiaries/`,
+    authenticate,
+    authorize.cms.stakeholders.update,
+    ReturneeServiceMiddleware,
+    keystone.middleware.api,
+    routes.api.resources.Stakeholders.ReturneeService.update,
+  );
+
+  app.delete(
+    `${stakeholdersPath}/:beneficiary_id/beneficiaries`,
+    authenticate,
+    authorize.cms.stakeholders.delete,
+    keystone.middleware.api,
+    routes.api.resources.Stakeholders.ReturneeService.remove,
+  );
+  /* ---------- Returnee Service -----------------*/
 
   app.use(errorHandler);
 };

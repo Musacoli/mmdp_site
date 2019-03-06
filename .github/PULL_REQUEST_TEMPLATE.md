@@ -2,7 +2,7 @@
 
 Summarise the main tasks handled in the pull request
 
-**Description of Task to be completed?**
+**description of Task to be completed?**
 
 Describe (in detail) what the task completed in the pull request does as per the relevant task
 
