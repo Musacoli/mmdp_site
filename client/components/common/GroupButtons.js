@@ -11,7 +11,7 @@ const GroupButtons = ({ deleteUsers, disabled }) => (
             className="no border raduis radiusless ui button ugly-blue "
             href="/users"
           >
-            save user
+            New User
           </a>
         </Grid.Column>
         <Grid.Column width={13} className="actions-delete-edit">

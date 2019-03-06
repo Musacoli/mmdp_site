@@ -70,7 +70,7 @@ export class AddUser extends Component {
             <label htmlFor="email">Email address</label>
             <input
               className="add-user-email selectGroup update-form-fields"
-              placeholder="Please enter a valid email"
+              placeholder="Please enter a valid email address"
               label="Email address"
               type="email"
               name="email"
@@ -95,7 +95,7 @@ export class AddUser extends Component {
             disabled={!email}
             onClick={this.onSubmit}
           >
-            save user
+            Save user
           </Form.Button>
         </Form>
       </div>
