@@ -39,8 +39,8 @@ before_deploy:
 deploy:
     provider: elasticbeanstalk
     region: us-west-2
-    app: mmdp-cms
-    env: MmdpCms-env
+    app:  mmdp-cms
+    env: MmdpCms-env-1
     bucket_name: elasticbeanstalk-us-west-2-817932213731
     bucket_path: mmdp_cms
     on:
