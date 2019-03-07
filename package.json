@@ -12,7 +12,7 @@
     "client:dev": "parcel client/index.html",
     "client:watch": "parcel watch client/index.html",
     "build:client": "parcel build client/index.html --out-dir ./dist-client",
-    "run:server": "node ./server/index.js --exec babel-node",
+    "run:server": "babel-node ./server/index.js",
     "build:server": "babel ./server -d ./dist-server --copy-files",
     "test:server": "NODE_ENV=test mocha --recursive --require @babel/register ./server/__tests__/tests --reporter spec --timeout 10000 --exit",
     "test:client": "jest \"-u\" --coverage",
