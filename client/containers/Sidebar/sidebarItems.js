@@ -25,7 +25,7 @@ export const sidebarItems = [
     title: 'About',
     menuItems: [
       {
-        name: 'Message from the governor',
+        name: 'Message from the Governor',
         path: '/about/governor-message',
       },
       {

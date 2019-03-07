@@ -128,7 +128,7 @@ export class GovernorMessage extends Component {
           <div className="input__area">
             <div className="flex">
               <TextInput
-                inputLabel="Set Governor Name"
+                inputLabel="Set Governor name"
                 placeholder="Governor name"
                 value={governorName}
                 id="governorName"
