@@ -4,6 +4,8 @@ WORKDIR $HOME/mmdp
 
 COPY ./package.json ./
 
+
+
 COPY ./ ./
 
 RUN yarn install
