@@ -37,5 +37,9 @@ deploy:
         secure: $AWS_SECRET_KEY
 
 env:
-  - NODE_ENV=development DEV_MONGODB_URL=mongodb://54.202.70.86:27017/mmdp_db
-  - NODE_ENV=production MONGODB_URL=mongodb://54.202.70.86:27017/mmdp_db
+  global:
+    - DEV_MONGODB_URL=mongodb://54.202.70.86:27017/mmdp_db
+    - MONGODB_URL=mongodb://54.202.70.86:27017/mmdp_db
+  matrix:
+    - NODE_ENV=development
+    - NODE_ENV=production

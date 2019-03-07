@@ -10,7 +10,7 @@ const mongodbURL = () => {
     return MONGODB_URL;
   }
   if (process.env.NODE_ENV === 'production') {
-    const { MONGODB_URL } = process.env;
+    const MONGODB_URL = process.env.MONGODB_URL;
     return MONGODB_URL;
   }
   if (process.env.NODE_ENV === 'development') {
