@@ -16,6 +16,7 @@ after_deploy:
 before_deploy:
     #  build api
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - echo "DEV_MONGODB_URL $DEV_MONGODB_URL"
     - docker build -t mmdp_api -f ./Dockerfile-api .
     - docker images
     - docker tag mmdp_api $DOCKER_ID/mmdp_api
