@@ -10,5 +10,5 @@ COPY ./ ./
 
 RUN yarn install
 
-RUN yarn run run:server
+RUN yarn run start
 
