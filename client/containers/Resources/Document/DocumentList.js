@@ -80,6 +80,8 @@ export class DocumentList extends Component {
           goTo={this.goTo}
           loading={loading}
           documents={documents}
+          instanceName="Document"
+          addMediaUrl="/resources/document/add"
         />
         <div className="doc__pagination">
           <Pagination
@@ -94,7 +96,7 @@ export class DocumentList extends Component {
 
 const mapStateToProps = (state) => ({
   documents: state.documents.data,
-  loading: state.documents.loading,
+  loading: state.documents.isFetching,
 });
 
 const mapDispatchToProps = {

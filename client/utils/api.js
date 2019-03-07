@@ -59,6 +59,7 @@ export const api = {
       update: (data, id) => server.put(`${mediaApiPrefix}/${id.id}`, data),
       retrieve: (id) => server.get(`${mediaApiPrefix}/${id}/`),
       list: () => server.get(mediaApiPrefix),
+      delete: (id) => server.delete(`${mediaApiPrefix}/${id}`),
     },
   },
 };

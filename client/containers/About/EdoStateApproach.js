@@ -74,13 +74,6 @@ export class EdoStateApproach extends Component {
       ];
     }
 
-    if (!data.background || data.background.trim().length < 20) {
-      errors = [
-        ...errors,
-        '"Background" must have twenty(20) characters minimum',
-      ];
-    }
-
     if (errors.length) {
       errors.reverse().forEach((err) => toastr.error(err));
       return false;
@@ -89,7 +82,7 @@ export class EdoStateApproach extends Component {
   };
 
   render() {
-    const { theEdoStateApproach, background, loading } = this.state;
+    const { theEdoStateApproach, loading } = this.state;
     return (
       <React.Fragment>
         <form className="about__section" onSubmit={this.submit}>
@@ -104,17 +97,7 @@ export class EdoStateApproach extends Component {
               />
             </div>
           </div>
-          <div className="markdown__area">
-            <Label label="Background" htmlFor="background-markdown" />
-            <div className="markdown">
-              <MarkdownEditor
-                value={background}
-                handleEditorChange={(val) =>
-                  this.handleEditorChange('background', val)
-                }
-              />
-            </div>
-          </div>
+
           <div className="button__area">
             <Button
               loading={loading}

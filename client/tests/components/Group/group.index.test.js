@@ -28,6 +28,9 @@ const props = {
   handeMainCheckBoxChange: testFunc,
   confirmDeleteGroup: testFunc,
   bulkDeleteGroups: testFunc,
+  handleSearchChange: testFunc,
+  handleChangePage: testFunc,
+  handleSearch: testFunc,
 };
 const wrapper = mount(<GroupIndex {...props} />);
 

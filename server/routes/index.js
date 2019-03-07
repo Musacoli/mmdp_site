@@ -468,6 +468,12 @@ const App = (app) => {
   );
 
   app.get(
+    `${baseUrl}/resources/reports/:type`,
+    [authOptional],
+    routes.api.resources.report.list,
+  );
+
+  app.get(
     `${baseUrl}/resources/reports/:id`,
     [authenticate, authorize.cms.resources.get],
     routes.api.resources.report.get,

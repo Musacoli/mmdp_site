@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Checkbox, Dropdown } from 'semantic-ui-react';
-import ActionModal from './ActionModal';
+import ActionModal from '../common/Modal/ActionModal';
 
 const GroupItem = ({
   group,

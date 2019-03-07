@@ -29,6 +29,16 @@ const user = {
       groups: [{ _id: 1, name: 'admin' }],
     },
   ],
+  pagination: {
+    total: 3,
+    currentPage: 1,
+    totalPages: 1,
+    pages: [1],
+    previous: false,
+    next: false,
+    first: 1,
+    last: 3,
+  },
 };
 
 export default user;

@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -78,7 +79,7 @@ export class Objectives extends Component {
   };
 
   render() {
-    const { Objectives: ObjectivesValue, loading } = this.state;
+    const { objectives, loading } = this.state;
     return (
       <React.Fragment>
         <form className="about__section" onSubmit={this.submit}>
@@ -86,7 +87,7 @@ export class Objectives extends Component {
             <Label label="Objectives" htmlFor="about-markdown" />
             <div className="markdown">
               <MarkdownEditor
-                value={ObjectivesValue}
+                value={objectives}
                 handleEditorChange={(val) =>
                   this.handleEditorChange('Objectives', val)
                 }

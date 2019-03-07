@@ -57,9 +57,12 @@ export class AddDocument extends Component {
     const { title, isEditing } = this.state;
 
     if (title === '' && singleDocument.title && !isEditing) {
+      const document = singleDocument.document
+        ? singleDocument.document
+        : { name: '', filename: 'none' };
       this.setState({
         title: singleDocument.title,
-        document: singleDocument.document,
+        document,
         isEditing: true,
       });
     }

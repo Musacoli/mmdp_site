@@ -2,8 +2,8 @@ import { runSaga } from 'redux-saga';
 import { put, takeLatest } from 'redux-saga/effects';
 import { api } from '../../../utils/api';
 import {
-  loadUsers,
   watchFetchingUsers,
+  loadUsers,
 } from '../../../store/sagas/users/fetchUsers';
 
 describe('fetch users saga', () => {
@@ -17,15 +17,29 @@ describe('fetch users saga', () => {
           {
             email: 'charisschomba@gmail.com',
             isAdmin: false,
-            confirmed: false,
+            groups: [
+              {
+                _id: '5c51a233bc3c8c1adc3f5469',
+                name: 'Super Admin',
+              },
+            ],
             username: 'charisschomba8779',
             last_name: 'last name',
             first_name: 'first name',
           },
         ],
+        pagination: {
+          total: 1,
+          currentPage: 1,
+          totalPages: 1,
+          pages: [1],
+          previous: false,
+          next: false,
+          first: 1,
+          last: 1,
+        },
       },
     };
-
     api.users.list = jest.fn(() => Promise.resolve(usersList));
 
     const fakeStore = {
@@ -37,18 +51,29 @@ describe('fetch users saga', () => {
       }),
     };
     await runSaga(fakeStore, loadUsers, {}).done;
-    await runSaga(fakeStore, loadUsers, { payload: {} }).done;
     expect(api.users.list.mock.calls.length).toBe(1);
     expect(dispatchedActions).toEqual([
       { type: 'FETCHING_STARTED' },
       {
         payload: {
+          pagination: {
+            currentPage: 1,
+            first: 1,
+            last: 1,
+            next: false,
+            pages: [1],
+            previous: false,
+            total: 1,
+            totalPages: 1,
+          },
           status: 'success',
           users: [
             {
-              confirmed: false,
               email: 'charisschomba@gmail.com',
               first_name: 'first name',
+              groups: [
+                { _id: '5c51a233bc3c8c1adc3f5469', name: 'Super Admin' },
+              ],
               isAdmin: false,
               last_name: 'last name',
               username: 'charisschomba8779',
@@ -100,11 +125,9 @@ describe('should wait for dispatched actions', () => {
     generator = watchFetchingUsers();
   });
   const actionType = 'FETCHING';
-
   test('should wait for the proper action', () => {
     put({ type: actionType });
     const actual = generator.next();
-
     expect(actual.value).toEqual(takeLatest(actionType, loadUsers));
   });
 });

@@ -52,15 +52,7 @@ describe('EdoStateApproach', () => {
       .prop('handleEditorChange')('value');
     wrapper
       .find('MarkdownEditor')
-      .at(1)
-      .prop('handleEditorChange')('value');
-    wrapper
-      .find('MarkdownEditor')
       .at(0)
-      .simulate('change');
-    wrapper
-      .find('MarkdownEditor')
-      .at(1)
       .simulate('change');
     wrapper.setState({
       theEdoStateApproach: 'theEdoStateApproach',

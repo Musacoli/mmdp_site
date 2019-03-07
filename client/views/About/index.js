@@ -19,7 +19,7 @@ export const Coordination = ({ ...props }) => (
 );
 
 export const GovernorMessage = ({ ...props }) => (
-  <Templates {...props} title="Governor Message">
+  <Templates {...props} title="Message from the Governor">
     <GovernorMessageContainer {...props} />
   </Templates>
 );

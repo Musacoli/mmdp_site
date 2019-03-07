@@ -28,6 +28,5 @@ describe.only('Login Container', () => {
       password: 'password',
     });
     instance.onFormSubmit(e);
-    // console.log(instance);
   });
 });

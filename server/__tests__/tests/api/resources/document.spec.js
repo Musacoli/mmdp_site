@@ -12,7 +12,7 @@ const title = 'My Doc';
 
 const apiCreateDocument = () => {
   return app
-    .post(route)
+    .post(`${route}`)
     .field('title', title)
     .attach('document', './server/__tests__/helpers/files/blank.pdf');
 };

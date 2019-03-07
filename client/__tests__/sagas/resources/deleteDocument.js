@@ -23,7 +23,10 @@ describe('Delete document saga', () => {
         payload: { message: 'Document deleted succesfully' },
         type: 'DELETE_SUCCESS',
       },
-      { type: 'FETCH_DOCUMENTS' },
+      {
+        payload: { mediaType: false, page: 1, search: '' },
+        type: 'FETCH_DOCUMENTS',
+      },
     ]);
   });
 

@@ -46,6 +46,9 @@ export const list = async (req, res) => {
     // don't show archived events for unauthenticated users
     if (!req.user) otherFilters.archived = false;
 
+    // filter by the supplied type
+    if (req.params.type) otherFilters.reportType = req.params.type;
+
     filterAndPaginate(reportItem, req, {}, otherFilters).exec((err, data) => {
       return res.sendSuccess(
         {

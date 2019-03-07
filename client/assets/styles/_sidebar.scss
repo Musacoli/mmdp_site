@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:400,600,700');
 @import './breakpoints';
+
 .borderless {
     border-radius: 0!important;
     border: 0;
@@ -52,6 +54,7 @@
 }
  
 .title.item {
+    font-family: Muli, serif !important;
     padding: 18px 18px 18px 18px !important;
     transition: 1.5s;
     &.active {
@@ -118,6 +121,7 @@
     padding: 0 !important;
 }
 .main-content {
+    font-family: Muli, serif !important;
     margin-top: 18px;
     padding-left: 66px;
     padding-right: 66px;
@@ -127,6 +131,7 @@
     }
 }
 .sidebar.theme_primary {
+    font-family: Muli, serif !important;
     visibility: visible;
 }
 @include screen-size-laptop {

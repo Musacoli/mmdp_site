@@ -32,6 +32,7 @@ import {
 import archive from './resources/archive';
 import deleteDoc from './resources/deleteDoc';
 import getResearch from './resources/getResearch';
+import media from './resources/media';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -65,6 +66,7 @@ const rootReducer = combineReducers({
   deleteDoc,
   editResearch,
   getResearch,
+  media,
 });
 
 export default rootReducer;
