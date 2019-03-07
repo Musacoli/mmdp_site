@@ -41,9 +41,12 @@ deploy:
     secret_access_key:
         secure: $AWS_SECRET_KEY
 
-# env:
-#   global:
-#     - NODE_ENV=development;DEV_MONGODB_URL=mongodb://54.202.70.86:27017/mmdp_db;mongo=mongodb://54.202.70.86:27017/mmdp_db;key=$AWS_ACCESS_KEY;secret=$AWS_SECRET_KEY;bucket=mmdp-img-assets;region=us-east-2
+env:
+  global:
+    - DEV_MONGODB_URL=mongodb://54.202.70.86:27017/mmdp_db;mongo=mongodb://54.202.70.86:27017/mmdp_db
+    - key=$AWS_ACCESS_KEY
+    - secret=$AWS_SECRET_KEY
+    - bucket=mmdp-img-assets;region=us-east-2
 
 #   matrix:
 #     - NODE_ENV=development
