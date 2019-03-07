@@ -2,13 +2,10 @@ FROM node:alpine
 
 WORKDIR $HOME/mmdp_api/
 
-ENV NODE_ENV="production"
-
 COPY ./package.json ./
 
 COPY ./ ./
 
 RUN yarn install
 
-RUN yarn run start
-
+CMD ["yarn", "run", "start"]

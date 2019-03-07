@@ -14,12 +14,7 @@ after_deploy:
   - echo "done deploying"
 
 before_deploy:
-    #  build api
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    - docker build -t mmdp_api -f ./Dockerfile-api .
-    - docker images
-    - docker tag mmdp_api $DOCKER_ID/mmdp_api
-    - docker push $DOCKER_ID/mmdp_api
+    
    #  build client
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     - docker build -t mmdp_client -f ./Dockerfile-client .
