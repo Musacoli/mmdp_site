@@ -49,6 +49,7 @@ env:
     - secret=$AWS_SECRET_KEY
     - bucket=mmdp-img-assets
     - region=us-east-2
+    - NODE_ENV=development
 
 #   matrix:
 #     - NODE_ENV=development
