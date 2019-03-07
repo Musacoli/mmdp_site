@@ -23,7 +23,13 @@
             "image": "shemogumbe/mmdp_api",
             "hostname": "api",
             "essential": false,
-            "memory": 256
+            "memory": 256,
+            "portMappings": [
+                {
+                    "hostPort": 3000,
+                    "containerPort": 3000
+                }
+            ]
         }        
     ]
 }
