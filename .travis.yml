@@ -35,3 +35,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key:
         secure: $AWS_SECRET_KEY
+
+env:
+  - NODE_ENV=development DEV_MONGODB_URL=mongodb://54.202.70.86:27017/mmdp_db
+  - NODE_ENV=production MONGODB_URL=mongodb://54.202.70.86:27017/mmdp_db
