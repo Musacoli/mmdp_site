@@ -1,8 +1,8 @@
 import keystone from 'keystone';
 
 const S3AdapterConfig = {
-  key: process.env.S3_KEY,
-  secret: process.env.S3_SECRET,
+  key: process.env.key,
+  secret: process.env.secret,
   bucket: process.env.S3_BUCKET,
   region: process.env.S3_REGION,
   publicUrl: `https://s3.amazonaws.com/${process.env.S3_BUCKET}`,
