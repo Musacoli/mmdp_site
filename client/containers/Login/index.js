@@ -11,12 +11,12 @@ export class Login extends Component {
   };
 
   componentDidUpdate() {
-    const { history, LoginStatus } = this.props;
+    const { LoginStatus } = this.props;
     const { payload } = LoginStatus;
     if (payload && payload.status === 'success') {
       // allow the browser to set userToken
       setTimeout(() => {
-        history.push('/');
+        window.location.assign('/');
       }, 1000);
     }
   }
