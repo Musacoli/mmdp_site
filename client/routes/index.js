@@ -47,6 +47,7 @@ const routes = [
     component: GroupForm,
     exact: true,
     protected: true,
+    permissions: ['group'],
   },
   {
     path: '/group/edit/:id',
@@ -54,6 +55,7 @@ const routes = [
     component: GroupUpdateForm,
     exact: false,
     protected: true,
+    permissions: ['group'],
   },
   {
     path: '/group/list',
@@ -61,6 +63,7 @@ const routes = [
     component: Group,
     exact: false,
     protected: true,
+    permissions: ['group'],
   },
   {
     path: '/login',
@@ -220,6 +223,7 @@ const routes = [
     component: AddUserView,
     exact: true,
     protected: true,
+    permissions: ['user'],
   },
   {
     path: '/users/edit/:email/:username',
@@ -227,6 +231,7 @@ const routes = [
     component: editEmailView,
     exact: true,
     protected: true,
+    permissions: ['user'],
   },
   {
     path: '/users/all',
@@ -234,6 +239,7 @@ const routes = [
     component: EditUserView,
     exact: true,
     protected: true,
+    permissions: ['user'],
   },
   {
     path: '/pillar-1',
@@ -287,6 +293,11 @@ const routes = [
     name: 'List Media',
     component: MediaListView,
     exact: true,
+    protected: true,
+  },
+  {
+    path: '*',
+    component: Dashboard,
     protected: true,
   },
 ];
