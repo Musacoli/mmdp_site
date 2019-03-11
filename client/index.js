@@ -10,12 +10,18 @@ import './assets/css/users/index.scss';
 import './assets/css/users/containers/user-containers.scss';
 import './assets/styles/main.scss';
 import ProtectedRoute from './routes/ProtectedRoute';
+import { hasAccess } from './utils/auth';
+
+const getUserRoutes = (routes) =>
+  routes.filter((item) =>
+    item.permissions ? hasAccess(item.permissions) : true,
+  );
 
 const app = (
   <Provider store={store}>
     <Router>
       <Switch>
-        {routes.map((route) => {
+        {getUserRoutes(routes).map((route) => {
           if (route.protected) {
             return (
               <ProtectedRoute

@@ -4,7 +4,7 @@ import { Form } from 'semantic-ui-react';
 import FileInput from '../../common/Form/FileInput';
 
 const ResearchForm = ({ fileName, onChange, onSubmit, loading, title }) => (
-  <Form onSubmit={onSubmit} loading={loading} className="main-content">
+  <Form onSubmit={onSubmit} loading={loading} id="research-main-content">
     <Form.Group widths="equal">
       <Form.Field>
         <FileInput
@@ -29,7 +29,11 @@ const ResearchForm = ({ fileName, onChange, onSubmit, loading, title }) => (
         required
       />
     </Form.Group>
-    <Form.Button type="submit" className="btn__upload u-margin-top-medium">
+    <Form.Button
+      type="submit"
+      className="btn__upload"
+      id="research__upload__btn"
+    >
       Upload Research
     </Form.Button>
   </Form>

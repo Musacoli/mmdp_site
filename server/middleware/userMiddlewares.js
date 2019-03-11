@@ -186,6 +186,11 @@ export const verifyAccount = (req, res, next) => {
 
 // allows admin to update users emails
 export const updateDetails = async (req, res, next) => {
+  if (req.user.email === req.body.email) {
+    return res.status(400).json({
+      message: 'You are not authorized to edit your own account',
+    });
+  }
   const { email, newEmail } = req.body;
   const foundUser = await User.model.findOne({ email: req.body.email });
   const userWithEmailExists = await User.model.findOne({

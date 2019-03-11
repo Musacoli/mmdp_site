@@ -16,6 +16,14 @@
     // which makes button text take 2 lines
     min-width: 11em;
   }
+
+#report__upload__btn, #research__upload__btn {
+  color: $color-white;
+  width: 200px;
+  height: 50px;
+  border-radius: 3px;
+  background-color: $color-cool-blue;
+
 }
 .btn__add {
   button.ui.button {
@@ -28,4 +36,5 @@
   button.ui.button:hover {
     background-color: #81BDD4;
   }
+}
 }
