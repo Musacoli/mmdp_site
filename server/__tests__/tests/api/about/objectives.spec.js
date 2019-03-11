@@ -5,7 +5,7 @@ import {
   removeAllGroupsAndUsers,
   removeAllCollections,
 } from '../../../helpers/commons/base';
-import Objective from '../../../../models/Objectives';
+import Objective from '../../../../models/about/Objectives';
 import {
   makeObjective,
   createObjective,

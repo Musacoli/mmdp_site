@@ -1,5 +1,5 @@
 import { faker } from '../commons/base';
-import GovernorMessage from '../../../models/GovernorMessage';
+import GovernorMessage from '../../../models/about/GovernorMessage';
 
 export const makeGovernorMessage = (overrides = {}) => {
   return {

@@ -5,7 +5,7 @@ import {
   removeAllGroupsAndUsers,
   removeAllCollections,
 } from '../../../helpers/commons/base';
-import Coordination from '../../../../models/Coordination';
+import Coordination from '../../../../models/about/Coordination';
 import {
   createCoordination,
   makeCoordination,

@@ -1,5 +1,5 @@
 import { faker } from '../commons/base';
-import Objective from '../../../models/Objectives';
+import Objective from '../../../models/about/Objectives';
 
 export const makeObjective = (overrides = {}) => {
   return {

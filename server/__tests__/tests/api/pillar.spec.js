@@ -6,10 +6,7 @@ import {
 } from '../../helpers/commons/base';
 
 import Pillar from '../../../models/Pillar';
-import {
-  makeThematicPillar,
-  createThematicPillar,
-} from '../../helpers/pillars/pillar';
+import { makeThematicPillar, createThematicPillar } from '../../helpers/pillar';
 
 const pillarPath = `/api/v1/pillars`;
 

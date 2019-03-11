@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-import Coordination from '../../../models/Coordination';
-import Highlight from '../../../models/Highlight';
+import Coordination from '../../../models/about/Coordination';
+import Highlight from '../../../models/about/Highlight';
 import { faker, createUser } from '../commons/base';
 
 export const makeHighlight = (overrides = {}) => {

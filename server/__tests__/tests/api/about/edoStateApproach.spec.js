@@ -5,12 +5,12 @@ import {
   removeAllGroupsAndUsers,
   removeAllCollections,
 } from '../../../helpers/commons/base';
-import EdoStateApproach from '../../../../models/EdoStateApproach';
+import EdoStateApproach from '../../../../models/about/EdoStateApproach';
 import {
   makeEdoStateApproach,
   createEdoStateApproach,
 } from '../../../helpers/about/edoStateApproach';
-import GovernorMessage from '../../../../models/GovernorMessage';
+import GovernorMessage from '../../../../models/about/GovernorMessage';
 
 const edoStateApproachPath = '/api/v1/about/edo-state-approach';
 

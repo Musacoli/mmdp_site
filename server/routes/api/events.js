@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
-import Events from '../../models/EventsModel';
+import Events from '../../models/Event';
 import modelHelper from '../../helpers/modelHelper';
 import { filterAndPaginate, getPaginationData } from '../../utils/search';
 

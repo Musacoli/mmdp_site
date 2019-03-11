@@ -1,5 +1,5 @@
 import { faker } from '../commons/base';
-import EdoStateApproach from '../../../models/EdoStateApproach';
+import EdoStateApproach from '../../../models/about/EdoStateApproach';
 
 export const makeEdoStateApproach = (overrides = {}) => {
   return {

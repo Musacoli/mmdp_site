@@ -6,7 +6,7 @@ import swaggerUI from 'swagger-ui-express';
 import aboutValidator from '../middleware/about';
 import fileUploadValidator from '../middleware/fileUpload';
 import apiResponse from '../middleware/apiResponse';
-import middleware from '../middleware/events';
+import middleware from '../middleware/event';
 import validator from '../validation';
 import errorHandler from '../middleware/errorHandler';
 import authorize from '../middleware/authorize';
@@ -19,17 +19,17 @@ import {
   validateEmail,
   verifyAccount,
   verifyEdit,
-} from '../middleware/userMiddlewares';
+} from '../middleware/user';
 import { checkIfDocument } from '../middleware/repository/validateDocument';
 import {
   paramGroupExists,
   validateGroupCreate,
   validateGroupUpdate,
-} from '../middleware/groupMiddlewares';
-import { paramDocExists } from '../middleware/documents';
+} from '../middleware/group';
+import { paramDocExists } from '../middleware/document';
 import { paramMediaExists } from '../middleware/media';
 
-import validators from '../middleware/pillar_middleware';
+import validators from '../middleware/pillar';
 import {
   stakeHolderMiddleware,
   ReturneeServiceMiddleware,
@@ -58,7 +58,7 @@ const App = (app) => {
   app.post(
     `${baseUrl}/auth/login`,
     validate(validator.login),
-    routes.api.auth.index.login,
+    routes.api.auth.login,
   );
 
   app.get('/', (req, res) => {
@@ -73,13 +73,13 @@ const App = (app) => {
       keystone.middleware.api,
       aboutValidator.governorMessage,
     ],
-    routes.api.governorMessage.create,
+    routes.api.about.governorMessage.create,
   );
 
   app.get(
     `${aboutPath}/governor-message/list`,
     [authOptional, keystone.middleware.api],
-    routes.api.governorMessage.list,
+    routes.api.about.governorMessage.list,
   );
 
   app.put(
@@ -90,13 +90,13 @@ const App = (app) => {
       keystone.middleware.api,
       aboutValidator.governorMessage,
     ],
-    routes.api.governorMessage.update,
+    routes.api.about.governorMessage.update,
   );
 
   app.get(
     `${aboutPath}/governor-message/:id`,
     [authenticate, authorize.cms.about.get, keystone.middleware.api],
-    routes.api.governorMessage.get,
+    routes.api.about.governorMessage.get,
   );
 
   app.post(
@@ -107,13 +107,13 @@ const App = (app) => {
       keystone.middleware.api,
       aboutValidator.edoStateApproach,
     ],
-    routes.api.edoStateApproach.create,
+    routes.api.about.edoStateApproach.create,
   );
 
   app.get(
     `${aboutPath}/edo-state-approach/list`,
     [authOptional, keystone.middleware.api],
-    routes.api.edoStateApproach.list,
+    routes.api.about.edoStateApproach.list,
   );
 
   app.put(
@@ -124,39 +124,39 @@ const App = (app) => {
       keystone.middleware.api,
       aboutValidator.edoStateApproach,
     ],
-    routes.api.edoStateApproach.update,
+    routes.api.about.edoStateApproach.update,
   );
 
   app.get(
     `${aboutPath}/edo-state-approach/:id`,
     [authenticate, authorize.cms.about.get, keystone.middleware.api],
-    routes.api.edoStateApproach.get,
+    routes.api.about.edoStateApproach.get,
   );
 
   app.post(
     `${aboutPath}/objectives/create`,
     [authenticate, authorize.cms.about.create, keystone.middleware.api],
     aboutValidator.Objectives,
-    routes.api.objectives.create,
+    routes.api.about.objectives.create,
   );
 
   app.get(
     `${aboutPath}/objectives/list`,
     [authOptional, keystone.middleware.api],
-    routes.api.objectives.list,
+    routes.api.about.objectives.list,
   );
 
   app.put(
     `${aboutPath}/objectives/:id/update`,
     keystone.middleware.api,
     [authenticate, authorize.cms.about.update, aboutValidator.Objectives],
-    routes.api.objectives.update,
+    routes.api.about.objectives.update,
   );
 
   app.get(
     `${aboutPath}/objectives/:id`,
     [authenticate, authorize.cms.about.get, keystone.middleware.api],
-    routes.api.objectives.get,
+    routes.api.about.objectives.get,
   );
 
   app.post(
@@ -167,13 +167,13 @@ const App = (app) => {
       keystone.middleware.api,
       aboutValidator.coordination,
     ],
-    routes.api.coordination.create,
+    routes.api.about.coordination.create,
   );
 
   app.get(
     `${aboutPath}/coordination/list`,
     [authOptional, keystone.middleware.api],
-    routes.api.coordination.list,
+    routes.api.about.coordination.list,
   );
 
   app.put(
@@ -184,13 +184,13 @@ const App = (app) => {
       keystone.middleware.api,
       aboutValidator.coordination,
     ],
-    routes.api.coordination.update,
+    routes.api.about.coordination.update,
   );
 
   app.get(
     `${aboutPath}/coordination/:id`,
     [authenticate, authorize.cms.about.get, keystone.middleware.api],
-    routes.api.coordination.get,
+    routes.api.about.coordination.get,
   );
 
   app.post(
@@ -201,13 +201,13 @@ const App = (app) => {
       keystone.middleware.api,
       aboutValidator.about,
     ],
-    routes.api.about.create,
+    routes.api.about.about.create,
   );
 
   app.get(
     `${aboutPath}/about-mmdp/list`,
     [authOptional, keystone.middleware.api],
-    routes.api.about.list,
+    routes.api.about.about.list,
   );
 
   app.put(
@@ -218,51 +218,51 @@ const App = (app) => {
       keystone.middleware.api,
       aboutValidator.about,
     ],
-    routes.api.about.update,
+    routes.api.about.about.update,
   );
 
   app.get(
     `${aboutPath}/about-mmdp/:id`,
     [authenticate, authorize.cms.about.get, keystone.middleware.api],
-    routes.api.about.get,
+    routes.api.about.about.get,
   );
 
   // users
   app.post(
     `${baseUrl}/users`,
     [authenticate, authorize.user.create, parseRegistration, checkEmail],
-    routes.api.Users.createUser,
+    routes.api.users.createUser,
   );
   // the confirmation route is accessible by guests
   app.put(
     `${baseUrl}/users/confirmation`,
     verifyAccount,
-    routes.api.Users.confirmed,
+    routes.api.users.confirmed,
   );
   app.put(
     `${baseUrl}/users/`,
     [authenticate, authorize.user.update, validateEmail, updateDetails],
-    routes.api.Users.updateEmail,
+    routes.api.users.updateEmail,
   );
   app.delete(
     `${baseUrl}/users/:username`,
     [authenticate, authorize.user.delete],
-    routes.api.Users.deleteUser,
+    routes.api.users.deleteUser,
   );
   app.get(
     `${baseUrl}/users/:username`,
     [authenticate, authorize.user.get],
-    routes.api.Users.fetchUser,
+    routes.api.users.fetchUser,
   );
   app.get(
     `${baseUrl}/users`,
     [authenticate, authorize.user.list],
-    routes.api.Users.fetchAllUsers,
+    routes.api.users.fetchAllUsers,
   );
   app.put(
     `${baseUrl}/users/edit`,
     [authenticate, verifyEdit],
-    routes.api.Users.edited,
+    routes.api.users.edited,
   );
 
   // groups
@@ -306,7 +306,7 @@ const App = (app) => {
   app.post(
     `${baseUrl}/file-upload`,
     fileUploadValidator.fileUpload,
-    routes.api.fileUpload.create,
+    routes.api.file.create,
   );
 
   app.post(
@@ -452,13 +452,13 @@ const App = (app) => {
   app.patch(
     `${baseUrl}/resources/repository/document/:id/archive`,
     [authenticate, authorize.cms.resources.archive, checkIfDocument],
-    routes.api.resources.archiveDocument.archive,
+    routes.api.resources.document.archive,
   );
 
   app.delete(
     `${baseUrl}/resources/repository/document/:id`,
     [authenticate, authorize.cms.resources.delete, checkIfDocument],
-    routes.api.resources.deleteDocument.deleteDocument,
+    routes.api.resources.document.remove,
   );
 
   // resources report
@@ -561,13 +561,13 @@ const App = (app) => {
     authorize.cms.stakeholders.create,
     stakeHolderMiddleware,
     keystone.middleware.api,
-    routes.api.resources.Stakeholders.Stakeholders.create,
+    routes.api.resources.stakeholders.stakeholders.create,
   );
 
   app.get(
     `${stakeholdersPath}`,
     [authOptional, keystone.middleware.api],
-    routes.api.resources.Stakeholders.Stakeholders.list,
+    routes.api.resources.stakeholders.stakeholders.list,
   );
 
   app.put(
@@ -578,20 +578,20 @@ const App = (app) => {
       keystone.middleware.api,
       stakeHolderMiddleware,
     ],
-    routes.api.resources.Stakeholders.Stakeholders.update,
+    routes.api.resources.stakeholders.stakeholders.update,
   );
 
   app.delete(
     `${stakeholdersPath}/:id`,
     [authenticate, authorize.cms.stakeholders.delete, keystone.middleware.api],
-    routes.api.resources.Stakeholders.Stakeholders.remove,
+    routes.api.resources.stakeholders.stakeholders.remove,
   );
   /* ---------- Stakeholders Directory ----------- */
   /* ---------- Returnee Service -----------------*/
   app.get(
     `${stakeholdersPath}/:stakeholder_id/beneficiaries`,
     [authOptional, keystone.middleware.api],
-    routes.api.resources.Stakeholders.ReturneeService.list,
+    routes.api.resources.stakeholders.returneeService.list,
   );
 
   app.post(
@@ -600,7 +600,7 @@ const App = (app) => {
     authorize.cms.stakeholders.create,
     ReturneeServiceMiddleware,
     keystone.middleware.api,
-    routes.api.resources.Stakeholders.ReturneeService.create,
+    routes.api.resources.stakeholders.returneeService.create,
   );
 
   app.put(
@@ -609,7 +609,7 @@ const App = (app) => {
     authorize.cms.stakeholders.update,
     ReturneeServiceMiddleware,
     keystone.middleware.api,
-    routes.api.resources.Stakeholders.ReturneeService.update,
+    routes.api.resources.stakeholders.returneeService.update,
   );
 
   app.delete(
@@ -617,7 +617,7 @@ const App = (app) => {
     authenticate,
     authorize.cms.stakeholders.delete,
     keystone.middleware.api,
-    routes.api.resources.Stakeholders.ReturneeService.remove,
+    routes.api.resources.stakeholders.returneeService.remove,
   );
   /* ---------- Returnee Service -----------------*/
 

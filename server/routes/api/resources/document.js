@@ -3,6 +3,10 @@ import { sprintf } from 'sprintf-js';
 import modelHelper from '../../../helpers/modelHelper';
 import responseMessage from '../../../constants/responseMessage';
 import { filterAndPaginate, getPaginationData } from '../../../utils/search';
+import {
+  checkArchiveState,
+  message,
+} from '../../../middleware/repository/archiveHelper';
 
 export const Document = keystone.list('Document');
 
@@ -93,6 +97,35 @@ export const getOne = async (req, res) => {
       status: 'error',
       errMessage,
       error,
+    });
+  }
+};
+
+export const archive = async (req, res) => {
+  try {
+    const archived = await checkArchiveState(req.params.id);
+
+    await Document.model.findByIdAndUpdate(req.params.id, archived);
+    return res.status(200).json({
+      message: message(archived.archived),
+      archived: archived.archived,
+    });
+  } catch (e) {
+    return res.status(500).json({
+      message: e.message,
+    });
+  }
+};
+
+export const remove = async (req, res) => {
+  try {
+    await Document.model.findByIdAndRemove(req.params.id);
+    return res.status(200).json({
+      message: 'Document deleted successfully',
+    });
+  } catch (e) {
+    return res.status(500).json({
+      message: e.message,
     });
   }
 };

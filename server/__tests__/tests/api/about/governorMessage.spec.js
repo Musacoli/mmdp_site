@@ -5,7 +5,7 @@ import {
   removeAllGroupsAndUsers,
   removeAllCollections,
 } from '../../../helpers/commons/base';
-import GovernorMessage from '../../../../models/GovernorMessage';
+import GovernorMessage from '../../../../models/about/GovernorMessage';
 import {
   makeGovernorMessage,
   createGovernorMessage,

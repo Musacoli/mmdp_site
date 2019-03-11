@@ -5,8 +5,8 @@ import {
   removeAllGroupsAndUsers,
   removeAllCollections,
 } from '../../../helpers/commons/base';
-import About from '../../../../models/About';
-import { createAbout, makeAbout } from '../../../helpers/about';
+import About from '../../../../models/about/About';
+import { createAbout, makeAbout } from '../../../helpers/about/about';
 
 const data = {
   about: 'about must at least be twenty characters in number',
