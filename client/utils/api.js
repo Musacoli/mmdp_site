@@ -62,4 +62,16 @@ export const api = {
       delete: (id) => server.delete(`${mediaApiPrefix}/${id}`),
     },
   },
+  stakeholdersDirectory: {
+    staffStrength: {
+      create: (data) =>
+        server.post(`${apiVersion}dropdowns/staff-strength/create`, data),
+      list: () => server.get(`${apiVersion}dropdowns/staff-strength`),
+      update: (data) =>
+        server.put(`${apiVersion}dropdowns/staff-strength/update`, data),
+      get: (id) => server.get(`${apiVersion}dropdowns/staff-strength/${id}`),
+      delete: (id) =>
+        server.delete(`${apiVersion}dropdowns/staff-strength/${id}`),
+    },
+  },
 };

@@ -32,6 +32,7 @@ import UpdateResearch from '../views/Resources/Research/EditResearch';
 import AddMedia from '../views/Resources/Document/AddMedia';
 import ListResearch from '../views/Resources/Research/ListResearch';
 import MediaListView from '../views/Resources/Media/MediaList';
+import StaffStrengthView from  '../views/Stakeholders/ManageStaffStrength';
 
 const routes = [
   {
@@ -295,6 +296,14 @@ const routes = [
     exact: true,
     protected: true,
   },
+  {
+    path: '/dropdowns/staffstrength',
+    name: 'Manage Staff Strength',
+    component: StaffStrengthView,
+    exact: true,
+    protected: true,
+  },
+
   {
     path: '*',
     component: Dashboard,

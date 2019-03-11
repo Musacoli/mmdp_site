@@ -25,6 +25,7 @@
   background-color: $color-cool-blue;
 
 }
+
 .btn__add {
   button.ui.button {
     border-radius: 3px;
@@ -37,4 +38,17 @@
     background-color: #81BDD4;
   }
 }
+}
+
+#dropdown__add__btn {
+    border-radius: 3px;
+    background-color: transparent;
+    color: #3faaca;
+    font-weight: bold;
+    min-width: 190px;
+    font-size: 16px;
+  }
+
+.options__group {
+  padding-top: 20px;
 }

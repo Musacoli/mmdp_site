@@ -29,7 +29,7 @@ BasicInformation.add({
   phoneNumberOne: { type: String },
   phoneNumberTwo: { type: String },
   phoneNumberThree: { type: String },
-  staffStrength: { type: String },
+  staffStrength: { type: Types.Relationship, ref: 'StaffStrength' },
   localContactPerson: { type: String },
   contactPersonEmailAddress: { type: Types.Email },
   contactPersonPhoneNumber: { type: String },

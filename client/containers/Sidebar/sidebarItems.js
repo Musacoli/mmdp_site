@@ -73,7 +73,7 @@ export const sidebarItems = [
   },
   {
     title: 'Manage dropdowns',
-    menuItems: [],
+    menuItems: [{ name: 'Staff Strength', path: '/dropdowns/staffstrength' }],
     dividerTitle: 'USERS & GROUPS',
     permissions: ['user', 'group'],
   },

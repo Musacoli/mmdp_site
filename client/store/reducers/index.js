@@ -33,6 +33,7 @@ import archive from './resources/archive';
 import deleteDoc from './resources/deleteDoc';
 import getResearch from './resources/getResearch';
 import media from './resources/media';
+import staffStrengths from './dropdowns/staffStrength';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -67,6 +68,7 @@ const rootReducer = combineReducers({
   editResearch,
   getResearch,
   media,
+  staffStrengths,
 });
 
 export default rootReducer;

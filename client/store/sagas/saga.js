@@ -35,6 +35,11 @@ import {
   watchFetchDocuments,
 } from './resources/document';
 import { watchDeleteMedia } from './resources/media';
+import {
+  watchCreateStaffStrengths,
+  watchDeleteStaffStrength,
+  watchFetchingStaffStrengths,
+} from './dropdowns/staffStrength';
 
 export default function* root() {
   yield all([
@@ -96,5 +101,8 @@ export default function* root() {
     fork(deleteUserResearchWatcher),
     fork(archiveUserResearchWatcher),
     fork(watchDeleteMedia),
+    fork(watchFetchingStaffStrengths),
+    fork(watchDeleteStaffStrength),
+    fork(watchCreateStaffStrengths),
   ]);
 }
