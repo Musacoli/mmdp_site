@@ -104,7 +104,7 @@ export const remove = (req, res) => {
     item.remove((err) =>
       res.status(200).send({
         status: 'success',
-        message: 'Successfully Deleted',
+        message: 'Event successfully deleted',
       }),
     );
   });

@@ -33,6 +33,7 @@ export const retrieve = (req, res) => {
       }
       res.status(200).send({
         status: 'success',
+        message: sprintf(responseMessage.RESOURCE_FETCHED, 'Research'),
         data: item,
       });
     });
@@ -52,7 +53,7 @@ export const update = (req, res) => {
           return res.status(400).send({ message: 'update error', error });
 
         return res.status(200).send({
-          message: 'Research Successfully Updated',
+          message: sprintf(responseMessage.RESOURCE_UPDATED, 'Research'),
           data: item,
         });
       });
@@ -70,6 +71,8 @@ export const list = async (req, res) => {
       return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, err);
     }
     res.status(200).send({
+      status: 'success',
+      message: sprintf(responseMessage.RESOURCE_FETCHED, 'Research'),
       data: results,
     });
   });
@@ -86,7 +89,7 @@ export const remove = (req, res) => {
       }
       item.remove(() =>
         res.status(204).send({
-          message: 'Successfully Deleted',
+          message: 'Research successfully deleted',
         }),
       );
     });

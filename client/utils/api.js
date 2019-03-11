@@ -51,8 +51,9 @@ export const api = {
           })}`,
         ),
       archive: (id) =>
-        server.patch(`api/v1/resources/repository/archive/${id}`),
-      delete: (id) => server.delete(`api/v1/resources/repository/${id}`),
+        server.patch(`api/v1/resources/repository/document/${id}/archive`),
+      delete: (id) =>
+        server.delete(`api/v1/resources/repository/document/${id}`),
     },
     media: {
       create: (data) => server.post(mediaApiPrefix, data),

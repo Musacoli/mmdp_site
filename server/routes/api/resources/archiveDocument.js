@@ -12,11 +12,13 @@ export const archive = async (req, res) => {
 
     await document.findByIdAndUpdate(req.params.id, archived);
     return res.status(200).json({
+      status: 'success',
       message: message(archived.archived),
       archived: archived.archived,
     });
   } catch (e) {
     return res.status(500).json({
+      status: 'error',
       message: e.message,
     });
   }

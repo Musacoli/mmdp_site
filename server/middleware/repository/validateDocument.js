@@ -13,7 +13,9 @@ export const checkIfDocument = async (req, res, next) => {
   try {
     const doc = await document.findById(req.params.id);
     if (!doc) {
-      return res.status(404).json({ message: 'Document does not exist' });
+      return res
+        .status(404)
+        .json({ status: 'fail', message: 'Document does not exist' });
     }
     return next();
   } catch (e) {

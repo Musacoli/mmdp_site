@@ -39,12 +39,13 @@ exports[`<ResearchContainer />  renders the container without crashing 1`] = `
     >
       <Form
         as="form"
-        className="main-content"
+        id="research-main-content"
         loading={true}
         onSubmit={[Function]}
       >
         <form
-          className="ui loading form main-content"
+          className="ui loading form"
+          id="research-main-content"
           onSubmit={[Function]}
         >
           <FormGroup
@@ -154,24 +155,28 @@ exports[`<ResearchContainer />  renders the container without crashing 1`] = `
           </FormGroup>
           <FormButton
             as={[Function]}
-            className="btn__upload u-margin-top-medium"
+            className="btn__upload"
             control={[Function]}
+            id="research__upload__btn"
             type="submit"
           >
             <FormField
-              className="btn__upload u-margin-top-medium"
+              className="btn__upload"
               control={[Function]}
+              id="research__upload__btn"
               type="submit"
             >
               <div
-                className="field btn__upload u-margin-top-medium"
+                className="field btn__upload"
               >
                 <Button
                   as="button"
+                  id="research__upload__btn"
                   type="submit"
                 >
                   <button
                     className="ui button"
+                    id="research__upload__btn"
                     onClick={[Function]}
                     type="submit"
                   >

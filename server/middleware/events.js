@@ -22,8 +22,9 @@ const middlelware = {
   eventsMiddlewares(req, res, next) {
     let errors = [];
 
-    const { details, title } = req.body;
-    const { headerImage } = req.files;
+    const { body, files = {} } = req;
+    const { details, title } = body;
+    const { headerImage } = files;
 
     if (validateNullorUndefined(title)) {
       errors = [...errors, 'Event Title is Required'];

@@ -1,0 +1,2133 @@
+swagger: '2.0'
+info:
+  title: mmdp-cms
+  version: 1.0.0
+schemes:
+  - http
+  - https
+host: 0.0.0.0:3000
+basePath: /api/v1
+consumes:
+  - application/json
+  - multipart/form-data
+produces:
+  - application/json
+securityDefinitions:
+  bearerToken:
+    type: apiKey
+    in: header
+    name: Authorization
+security:
+  - bearerToken: []
+
+paths:
+  /auth/login:
+    post:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/LoginResponse'
+      tags:
+        - Authentication
+      description: Log in an existing user
+      summary: Log in an existing user
+  /users:
+    post:
+      responses:
+        '201':
+          description: 201 Created
+          schema:
+            $ref: '#/definitions/NewUserResponse'
+      tags:
+        - Users
+      summary: Create new user and assign to a group
+      parameters:
+        - name: body
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/NewUserRequest'
+          description: ''
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/UpdateEmailResponse'
+      tags:
+        - Users
+      summary: Change user email
+      parameters:
+        - name: body
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/UpdateEmailRequest'
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllUsersReponse'
+      tags:
+        - Users
+      summary: Get list of all users
+  /users/confirmation:
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/UserConfirmationResponse'
+      tags:
+        - Users
+      summary: New user account confirmation
+      description: User information is updated using the token sent as part of the URL sent to their email
+      parameters:
+        - name: body
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/UserConfirmationRequest'
+  /users/edit:
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/UpdateUserReponse'
+      tags:
+        - Users
+      summary: Edit user details
+      parameters:
+        - name: body
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/UdpateUserRequest'
+  '/users/{username}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/SingleUserResponse'
+      tags:
+        - Users
+      summary: Get a single user details
+      parameters:
+        - name: username
+          type: string
+          required: true
+          in: path
+          description: username of user to whose details is to be retrieved
+    delete:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/DeleteUserResponse'
+      tags:
+        - Users
+      parameters:
+        - name: username
+          type: string
+          required: true
+          in: path
+          description: username of user to be deleted
+      summary: Delete a user by username
+  /groups:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllGroupsResponse'
+      tags:
+        - Groups
+      summary: Get a list of groups
+      description: 'Get a list of groups, includes permissions and users associated'
+    post:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewGroupResponse'
+      tags:
+        - Groups
+      summary: Create new group with permissions
+      parameters:
+        - name: body
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/NewGroupRequest'
+  '/groups/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/SingleGroupResponse'
+      summary: Get a single group details
+      tags:
+        - Groups
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/UpdateGroupResponse'
+      tags:
+        - Groups
+      parameters:
+        - name: body
+          required: false
+          in: body
+          schema:
+            $ref: '#/definitions/UpdateGroupRequest'
+    delete:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/DeleteGroupResponse'
+      tags:
+        - Groups
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of specific group to perform operations on
+  /permissions:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            type: object
+      tags:
+        - Groups
+      summary: Get a list of all available permissions
+  /about/governor-message/create:
+    post:
+      responses:
+        '201':
+          description: 200 Created
+          schema:
+            $ref: '#/definitions/NewGovernorMessageResponse'
+      tags:
+        - About
+      parameters:
+        - name: governorMessage
+          required: true
+          in: formData
+          type: string
+        - name: governorName
+          type: string
+          required: true
+          in: formData
+        - name: governorPhoto
+          type: file
+          required: false
+          in: formData
+      summary: Create content for the governors message section of the about page
+  /about/governor-message/list:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllGovernorMessageResponse'
+      tags:
+        - About
+      summary: List of contents that have been created for the governor's message section
+      description: Get a list of all the contents that have been created on the governor's message section
+  '/about/governor-message/{id}/update':
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewGovernorMessageResponse'
+      tags:
+        - About
+      parameters:
+        - name: governorMessage
+          required: true
+          in: formData
+          type: string
+        - name: governorName
+          type: string
+          required: true
+          in: formData
+        - name: governorPhoto
+          type: file
+          required: false
+          in: formData
+      summary: Update governor message
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of governor message to edit
+  '/about/governor-message/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewGovernorMessageResponse'
+      tags:
+        - About
+      summary: Get governor message by id
+    delete:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewGovernorMessageResponse'
+      tags:
+        - About
+      summary: Delete govenor's message by id
+      description: This endpoint currently archives the content (by setting archive to true) and DOES NOT actually delete it from the database
+    parameters:
+      - name: id
+        required: true
+        in: path
+        description: id of governor's message to perform action on
+        type: string
+  /about/edo-state-approach/create:
+    post:
+      responses:
+        '201':
+          description: 200 Created
+          schema:
+            $ref: '#/definitions/NewEdoStateApproachResponse'
+      tags:
+        - About
+      parameters:
+        - name: theEdoStateApproach
+          type: string
+          required: true
+          in: formData
+          description: ''
+        - name: background
+          required: true
+          in: formData
+          type: string
+      summary: Create content for Edo state approach section
+  /about/edo-state-approach/list:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllEdoStateApproachResponse'
+      tags:
+        - About
+      summary: Get list of content that has been created for the edo state approach
+  '/about/edo-state-approach/{id}/update':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewEdoStateApproachResponse'
+      tags:
+        - About
+      parameters:
+        - name: theEdoStateApproach
+          type: string
+          required: true
+          in: formData
+          description: ''
+        - name: background
+          required: true
+          in: formData
+          type: string
+      summary: Update Edo State Approach content by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of Edo State Approach content to be edited
+  '/about/edo-state-approach/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewEdoStateApproachResponse'
+      tags:
+        - About
+      summary: Get Edo state Approach details by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of edo state approach to modify
+  /about/objectives/create:
+    post:
+      responses:
+        '201':
+          description: 201 Created
+          schema:
+            $ref: '#/definitions/NewObjectivesResponse'
+      tags:
+        - About
+      parameters:
+        - name: Objectives
+          type: string
+          required: true
+          in: formData
+          description: ''
+      summary: Create content for the objective section
+  /about/objectives/list:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllObjectivesResponse'
+      tags:
+        - About
+      summary: Get list of all objectives content that has been created
+  '/about/objectives/{id}/update':
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewObjectivesResponse'
+      tags:
+        - About
+      parameters:
+        - name: Objectives
+          type: string
+          required: true
+          in: formData
+          description: ''
+      summary: Update objective by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of objective to be updated
+  '/about/objectives/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewObjectivesResponse'
+      tags:
+        - About
+      summary: Get a single objective by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of objective to perfom action on
+  /about/coordination/create:
+    post:
+      responses:
+        '201':
+          description: 201 Created
+          schema:
+            $ref: '#/definitions/NewCordinationResponse'
+        '400':
+          description: 400 Bad Request
+          schema:
+            type: object
+      tags:
+        - About
+      summary: Create content for Coordination section
+      parameters:
+        - name: body
+          required: false
+          in: body
+          schema:
+            $ref: '#/definitions/NewCoordinationRequest'
+  /about/coordination/list:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllCoordinationResponse'
+      tags:
+        - About
+      summary: Get list of all coordination contents that have been created
+  '/about/coordination/{id}/update':
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewCordinationResponse'
+        '400':
+          description: 400 Bad Request
+          schema:
+            type: object
+      tags:
+        - About
+      summary: Update coordination content by id
+      parameters:
+        - name: body
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/NewCoordinationRequest'
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of coordination content to update
+  '/about/coordination/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewCordinationResponse'
+      summary: Get coordination content by id
+      tags:
+        - About
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of coordination content to perform action on
+  /about/about-mmdp/create:
+    post:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewAboutMMDPResponse'
+      tags:
+        - About
+      summary: Create content for About MMDP section
+      parameters:
+        - name: body
+          required: false
+          in: body
+          schema:
+            $ref: '#/definitions/AboutMMDPRequest'
+  /about/about-mmdp/list:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllAboutMMDPResponse'
+      tags:
+        - About
+      summary: Get list of all content that have been created
+  '/about/about-mmdp/{id}/update':
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewAboutMMDPResponse'
+      tags:
+        - About
+      summary: Update about-mmdp content by id
+      parameters:
+        - name: body
+          required: false
+          in: body
+          schema:
+            $ref: '#/definitions/AboutMMDPRequest'
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of content to be modified
+  '/about/about-mmdp/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewAboutMMDPResponse'
+      tags:
+        - About
+      summary: Get About MMDP content by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of item to be modified
+  /events:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllEventResponse'
+      tags:
+        - Events
+      summary: Get all events
+    post:
+      responses:
+        '201':
+          description: 201 Created
+          schema:
+            $ref: '#/definitions/NewEventResponse'
+      tags:
+        - Events
+      summary: Create new event
+      parameters:
+        - name: title
+          type: string
+          required: true
+          in: formData
+        - name: details
+          type: string
+          required: true
+          in: formData
+        - name: headerImage
+          type: file
+          required: true
+          in: formData
+  '/events/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewEventResponse'
+      tags:
+        - Events
+      summary: Get event by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of event to perform action on
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewEventResponse'
+      tags:
+        - Events
+      summary: Update event by id
+    delete:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/DeleteEventResponse'
+      tags:
+        - Events
+      summary: Delete event by id
+  /pillars:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllPillarsResponse'
+      tags:
+        - Pillars
+      summary: Get all pillars
+    post:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewPillarResponse'
+      tags:
+        - Pillars
+      summary: Create pillar
+      parameters:
+        - name: body
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/PillarRequest'
+  '/pillars/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewPillarResponse'
+      tags:
+        - Pillars
+      summary: Get pillar by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of pillar content
+    delete:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/DeletePillarResponse'
+      tags:
+        - Pillars
+      summary: Delete pillar by id
+  '/pillars/pillar-number/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewPillarResponse'
+      tags:
+        - Pillars
+      summary: Get pillar by number
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id is pillar number
+  '/pillars/{id}/update':
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/NewPillarResponse'
+      tags:
+        - Pillars
+      summary: Update pillar by id
+      parameters:
+        - name: body
+          required: true
+          in: body
+          schema:
+            $ref: '#/definitions/PillarRequest'
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+        description: id of pillar content
+  /resources/repository/media:
+    post:
+      responses:
+        '201':
+          description: 201 Created
+          schema:
+            $ref: '#/definitions/NewMediaResponse'
+      tags:
+        - Resources
+      summary: Create new media
+      parameters:
+        - name: mediaFile
+          type: file
+          required: true
+          in: formData
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllMediaResponse'
+      tags:
+        - Resources
+      summary: Get all resources
+  '/resources/repository/media/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/SingleMediaResponse'
+      tags:
+        - Resources
+      summary: Get media by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+    delete:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/DeleteMediaResponse'
+      tags:
+        - Resources
+      summary: Delete media by id
+  /resources/repository/document:
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllDocumentResponse'
+      tags:
+        - Resources
+      summary: Get all documents
+    post:
+      responses:
+        '201':
+          description: 201 Created
+          schema:
+            $ref: '#/definitions/NewDocumentResponse'
+      tags:
+        - Resources
+      summary: Create new document
+      parameters:
+        - name: title
+          type: string
+          required: true
+          in: formData
+          description: Document title
+        - name: document
+          type: file
+          required: true
+          in: formData
+  '/resources/repository/document/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/SingleDocumentResponse'
+      tags:
+        - Resources
+      summary: Get document by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/UpdateDocumentResponse'
+      tags:
+        - Resources
+      summary: Update document by id
+      parameters:
+        - name: title
+          type: string
+          required: true
+          in: formData
+          description: Document title
+        - name: document
+          type: file
+          required: true
+          in: formData
+    delete:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/DeleteDocumentResponse'
+      tags:
+        - Resources
+      summary: Delete document by id
+  '/resources/repository/document/{id}/archive':
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+    patch:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/ArchiveDocumentResponse'
+      summary: Archive or unarchive document
+      tags:
+        - Resources
+      description: Same endpoint performs archive or unarchive functionality using the current archive property of the document to determine the next action.
+  /resources/reports:
+    post:
+      responses:
+        '201':
+          description: 201 Created
+          schema:
+            $ref: '#/definitions/NewReportResponse'
+      tags:
+        - Resources
+      summary: Create a new report
+      parameters:
+        - name: title
+          type: string
+          required: true
+          in: formData
+        - name: reportFile
+          type: file
+          required: true
+          in: formData
+        - name: reportType
+          type: string
+          enum:
+            - quarterly
+            - annual
+          required: true
+          in: formData
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllReportsResponse'
+      tags:
+        - Resources
+      summary: Get all reports (both archived and unarchived)
+  '/resources/reports/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/SingleReportResponse'
+      tags:
+        - Resources
+      summary: Get report by id
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/UpdateReportResponse'
+      tags:
+        - Resources
+      summary: Update report by id
+      parameters:
+        - name: title
+          type: string
+          required: true
+          in: formData
+        - name: reportFile
+          type: file
+          required: true
+          in: formData
+        - name: reportType
+          type: string
+          enum:
+            - quarterly
+            - annual
+          required: true
+          in: formData
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+    delete:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/DeleteReportResponse'
+      tags:
+        - Resources
+      summary: Delete report by id
+  '/resources/reports/{type}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllReportsResponse'
+      tags:
+        - Resources
+      summary: Get all reports by type (archived or unarchived)
+  '/resources/reports/{id}/archive':
+    patch:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/ArchiveReportResponse'
+      tags:
+        - Resources
+      summary: Archive report by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+  '/resources/reports/{id}/unarchive':
+    patch:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/UnArchiveReportResponse'
+      tags:
+        - Resources
+      summary: Unarchive report by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+  /resources/research:
+    post:
+      responses:
+        '201':
+          description: 201 Created
+          schema:
+            $ref: '#/definitions/NewResearchResponse'
+      tags:
+        - Resources
+      summary: Create a new research
+      parameters:
+        - name: title
+          type: string
+          required: true
+          in: formData
+        - name: researchFile
+          type: file
+          required: true
+          in: formData
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/AllResearchResponse'
+      tags:
+        - Resources
+      summary: Get all research contents
+  '/resources/research/{id}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/SingleResearchResponse'
+      tags:
+        - Resources
+      summary: Get research by id
+    parameters:
+      - name: id
+        type: string
+        required: true
+        in: path
+    put:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/UpdateResearchResponse'
+      tags:
+        - Resources
+      summary: Update research by id
+    delete:
+      responses:
+        '204':
+          description: 204 No Content
+      tags:
+        - Resources
+      summary: Delete research by id
+definitions:
+  LoginResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Successfully logged in!
+      data:
+        type: object
+        properties:
+          user:
+            $ref: '#/definitions/User'
+    required:
+      - status
+      - message
+  User:
+    properties:
+      id:
+        type: string
+        example: 5c6dd517e021a0067b94fd67
+      username:
+        type: string
+        example: 23admin
+      email:
+        type: string
+        example: oneadmin23@mmdp.com
+      groups:
+        type: array
+        items:
+          type: string
+        example:
+          - 5c6dd517e021a0067b94fd66
+      token:
+        type: string
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNjNmRkMDEzZTAyMWExMTY3Yjk0ZmQ2NyIsInVzZXJuYW1lIjoiZXhhbXBsZUBVc2VyIiwiZW1haWwiOiJ4eHh4eHh4eEBleGFtcGxlLmNvbSIsImdyb3VwcyI6WyI1YzZkZDUxN2UwMjFhMDA2N2I5NGZkNjYiXSwiaWF0IjoxNTUwOTY2MzM3fQ.DJPUChNQpGkke_EOY82bB_aDeHwlGKaQkSHUAXGDXKs
+    additionalProperties: true
+  NewUserResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: User successfully created
+  NewUserRequest:
+    properties:
+      email:
+        type: string
+        example: newcontenteditor@mmdp.com
+        description: New user email
+      groups:
+        type: array
+        description: Array of ids for groups user is assigned to
+        items:
+          type: string
+        example:
+          - 5c6dd517e021a0067b94fd66
+  UserConfirmationRequest:
+    properties:
+      token:
+        type: string
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5ld3h4eHh1c2VyQHh4eC5jb20iLCJjb25maXJtZWQiOmZhbHNlLCJpYXQiOjE1NTA5ODAwMDJ9.crLggbsYNPDubsj1UwL4a5zBx9lTgzj4MPOjKP3EtzU
+        description: Token sent as part url emailed to the user
+      username:
+        type: string
+        example: newuser
+      password:
+        type: string
+        example: Password231
+        description: 'Alpha numeric, at least one uppercase and should contain a number.'
+      firstName:
+        type: string
+        example: John
+      lastName:
+        type: string
+        example: Doe
+      phone:
+        type: string
+        example: '0243032332'
+  UserConfirmationResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Congratulations! Your account has been successfully verified.
+  UpdateUserReponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Your details have been successfully updated.
+  UdpateUserRequest:
+    properties:
+      username:
+        type: string
+        example: newusername12
+      email:
+        type: string
+        example: new.email@xxxs.com
+      password:
+        type: string
+        example: newPassw0d
+    required:
+      - username
+  UpdateEmailResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Email successfully changed
+  UpdateEmailRequest:
+    properties:
+      oldEmail:
+        type: string
+        example: old.email@xxxy.com
+      newEmail:
+        type: string
+        example: new.email@xxxo.com
+    required:
+      - oldEmail
+      - newEmail
+  AllUsersReponse:
+    properties:
+      status:
+        type: string
+        example: success
+      users:
+        type: array
+        items:
+          $ref: '#/definitions/SingleUser'
+  SingleUser:
+    properties:
+      id:
+        type: string
+        example: 5c6dd517e021a0067b94fd66
+      email:
+        type: string
+        example: testuser@xxxy.com
+      last_name:
+        type: string
+        example: John
+      first_name:
+        type: string
+        example: Doe
+      groups:
+        type: array
+        items:
+          $ref: '#/definitions/Group'
+      confirmed:
+        type: boolean
+        example: 'true'
+      username:
+        type: string
+        example: testuser12
+  SingleGroup:
+    properties:
+      _id:
+        type: string
+        example: 5c6dd517e021a0067b94fd66
+      name:
+        type: string
+        example: Security Admin
+      createdAt:
+        type: string
+        example: '2019-02-20T22:30:47.509Z'
+      permissions:
+        type: array
+        items:
+          type: string
+        example:
+          - user.*
+          - group.*
+          - group.*
+          - cms.*
+          - cms.resources.*
+  Group:
+    properties:
+      _id:
+        type: string
+        example: 5c6dd517e021a0067b94fd66
+      name:
+        type: string
+        example: Security Admin
+  SingleUserWithGroups:
+    properties:
+      id:
+        type: string
+        example: 5c6dd517e021a0067b94fd66
+      email:
+        type: string
+        example: testuser@xxxy.com
+      last_name:
+        type: string
+        example: John
+      first_name:
+        type: string
+        example: Doe
+      groups:
+        type: array
+        items:
+          $ref: '#/definitions/SingleGroup'
+      confirmed:
+        type: boolean
+        example: 'true'
+      username:
+        type: string
+        example: testuser12
+  SingleUserResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      user:
+        $ref: '#/definitions/SingleUserWithGroups'
+  DeleteUserResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: User was deleted successfully
+  SingleGroupWithUsers:
+    properties:
+      _id:
+        type: string
+        example: 5c6dd517e021a0067b94fd66
+      name:
+        type: string
+        example: Security Admin
+      createdAt:
+        type: string
+        example: '2019-02-20T22:30:47.509Z'
+      permissions:
+        type: array
+        items:
+          type: object
+        example:
+          - cms.*: Full cms access
+          - group.*: Full groups access
+      users:
+        type: array
+        items:
+          $ref: '#/definitions/SingleUser'
+  AllGroupsResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      groups:
+        type: array
+        items:
+          $ref: '#/definitions/SingleGroupWithUsers'
+  SingleGroupResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      group:
+        $ref: '#/definitions/SingleUserWithGroups'
+  UpdateGroupResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: The Security Admin group was updated successfully.
+      group:
+        $ref: '#/definitions/SingleGroupWithUsers'
+  UpdateGroupRequest:
+    properties:
+      name:
+        type: string
+        example: Content Manager old
+      permissions:
+        type: array
+        items:
+          type: string
+        example:
+          - user.*
+          - group.*
+          - group.*
+          - cms.*
+          - cms.resources.*
+  NewGroupRequest:
+    properties:
+      name:
+        type: string
+        example: Content Manager
+      permissions:
+        type: array
+        items:
+          type: string
+        example:
+          - cms.*
+          - users.*
+    required:
+      - name
+  NewGroupResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: The Content Manager group was created successfully.
+      group:
+        $ref: '#/definitions/SingleGroup'
+  DeleteGroupResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: The Content Manager group was removed successfully.
+  NewGovernorMessageResponse:
+    properties:
+      item:
+        $ref: '#/definitions/GovernorMessage'
+  AllGovernorMessageResponse:
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/GovernorMessage'
+  GovernorMessage:
+    properties:
+      governorMessage:
+        type: string
+        example: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen look'
+      governorName:
+        type: string
+        example: Governor John Doe
+      creator:
+        type: string
+        example: 5c6dd517e021a0177b94fd67
+      updatedAt:
+        type: string
+        example: '2019-02-24T14:33:49.748Z'
+        format: date-time
+      createdAt:
+        type: string
+        example: '2019-02-24T14:33:49.748Z'
+        format: date-time
+      archived:
+        type: string
+        example: 'false'
+      _id:
+        type: string
+        example: 5c72ab4d3130b92b66602697
+  NewEdoStateApproachResponse:
+    properties:
+      item:
+        $ref: '#/definitions/EdoStateApproach'
+  EdoStateApproach:
+    properties:
+      background:
+        type: string
+        example: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen look. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen look'
+      theEdoStateApproach:
+        type: string
+        example: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen look'
+      creator:
+        type: string
+        example: 5c6dd517e021a0177b94fd67
+      updatedAt:
+        type: string
+        example: '2019-02-24T14:33:49.748Z'
+        format: date-time
+      createdAt:
+        type: string
+        example: '2019-02-24T14:33:49.748Z'
+        format: date-time
+      archived:
+        type: string
+        example: 'false'
+      _id:
+        type: string
+        example: 5c72ab4d3130b92b66602697
+  AllEdoStateApproachResponse:
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/EdoStateApproach'
+  Objectives:
+    properties:
+      Objectives:
+        type: string
+        example: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ''lorem ipsum'' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).'
+      creator:
+        type: string
+        example: 5c6dd517e021a0177b94fd67
+      updatedAt:
+        type: string
+        example: '2019-02-24T14:33:49.748Z'
+        format: date-time
+      createdAt:
+        type: string
+        example: '2019-02-24T14:33:49.748Z'
+        format: date-time
+      archived:
+        type: string
+        example: 'false'
+      _id:
+        type: string
+        example: 5c72ab4d3130b92b66602697
+  NewObjectivesResponse:
+    properties:
+      item:
+        $ref: '#/definitions/Objectives'
+  AllObjectivesResponse:
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/Objectives'
+  Coordination:
+    properties:
+      coordination:
+        type: string
+        example: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.'
+      whatAreWeDoing:
+        type: string
+        example: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don''t look even slightly believable. '
+      introToHighlights:
+        type: string
+        example: Lorem Ipsum is simply dummy text of the printing and typesetting industry
+      highlight:
+        type: array
+        items:
+          type: string
+      creator:
+        type: string
+        example: 5c6dd517e021a0177b94fd67
+      updatedAt:
+        type: string
+        example: '2019-02-24T14:33:49.748Z'
+        format: date-time
+      createdAt:
+        type: string
+        example: '2019-02-24T14:33:49.748Z'
+        format: date-time
+      archived:
+        type: string
+        example: 'false'
+      _id:
+        type: string
+        example: 5c72ab4d3130b92b66602697
+  NewCordinationResponse:
+    properties:
+      item:
+        $ref: '#/definitions/Coordination'
+  AllCoordinationResponse:
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/Coordination'
+  AboutMMDP:
+    properties:
+      background:
+        type: string
+        example: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen look'
+      about:
+        type: string
+        example: It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout
+      creator:
+        type: string
+        example: 5c6dd517e021a0177b94fd67
+      updatedAt:
+        type: string
+        example: '2019-02-24T14:33:49.748Z'
+        format: date-time
+      createdAt:
+        type: string
+        example: '2019-02-24T14:33:49.748Z'
+        format: date-time
+      archived:
+        type: string
+        example: 'false'
+      _id:
+        type: string
+        example: 5c72ab4d3130b92b66602697
+  NewAboutMMDPResponse:
+    properties:
+      item:
+        $ref: '#/definitions/AboutMMDP'
+  AboutMMDPRequest:
+    properties:
+      about:
+        type: string
+        example: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'
+      background:
+        type: string
+        example: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.'
+  AllAboutMMDPResponse:
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/AboutMMDP'
+  NewCoordinationRequest:
+    properties:
+      coordination:
+        type: string
+        example: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English'
+      whatAreWeDoing:
+        type: string
+        example: 'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ''Content here, content here'', making it look like readable English'
+        description: ''
+      introToHighlights:
+        type: string
+        example: Lorem Ipsum is simply dummy text of the printing and typesetting industry
+      highlight:
+        type: array
+        items:
+          type: string
+  Event:
+    properties:
+      slug:
+        type: string
+        description: generated event slug
+        example: new-dawn-vaccination
+      details:
+        type: string
+        example: 'It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.'
+      title:
+        type: string
+        example: New dawn vaccination
+      archived:
+        type: boolean
+        example: 'false'
+      headerImage:
+        $ref: '#/definitions/S3ImageInfo'
+      mainEvent:
+        type: boolean
+        example: 'false'
+      dateCreated:
+        type: string
+        example: '2019-02-25T12:13:46.980Z'
+      _id:
+        type: string
+        example: 5c73dbfa0fed0a5736723794
+  NewEventResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        $ref: '#/definitions/Event'
+  S3ImageInfo:
+    properties:
+      mimetype:
+        type: string
+        example: image/png
+      filename:
+        type: string
+        example: xywsname
+      path:
+        type: string
+        example: /assets/images
+      size:
+        type: string
+        example: '179803'
+      etag:
+        type: string
+        example: 5316b717300ba1ec2a9764c887501f26
+      bucket:
+        type: string
+        example: bucket-name
+      url:
+        type: string
+        example: 'https://url-to-s3-bucket-asset'
+  Pagination:
+    properties:
+      total:
+        type: integer
+        format: int32
+        example: '1'
+      currentPage:
+        type: integer
+        format: int32
+        example: '1'
+      totalPages:
+        type: integer
+        format: int32
+        example: '1'
+      pages:
+        type: array
+        items:
+          type: string
+        example: '1,'
+      previous:
+        type: boolean
+        example: 'false'
+      next:
+        type: boolean
+        example: 'false'
+      first:
+        type: integer
+        format: int32
+        example: '1'
+      last:
+        type: integer
+        format: int32
+        example: '1'
+  AllEventResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Event'
+      pagination:
+        $ref: '#/definitions/Pagination'
+  DeleteEventResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Event successfully deleted
+  Pillar:
+    properties:
+      keyActivities:
+        type: string
+        example: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.'
+      whatWeAreDoing:
+        type: string
+        example: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      introduction:
+        type: string
+        example: 'It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.'
+      title:
+        type: string
+        example: Pillar One
+      updatedAt:
+        type: string
+        example: '2019-02-25T13:47:37.754Z'
+      createdAt:
+        type: string
+        example: '2019-02-25T13:47:37.754Z'
+      _id:
+        type: string
+        example: 5c74f1f80f7c8b5ce5c65957
+  PillarRequest:
+    properties:
+      keyActivities:
+        type: string
+        example: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.'
+      whatWeAreDoing:
+        type: string
+        example: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      introduction:
+        type: string
+        example: 'It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.'
+      title:
+        type: string
+        example: Pillar One
+  NewPillarResponse:
+    properties:
+      pillar:
+        $ref: '#/definitions/Pillar'
+  AllPillarsResponse:
+    properties:
+      pillars:
+        type: array
+        items:
+          $ref: '#/definitions/Pillar'
+  DeletePillarResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Pillar deleted successfully.
+  Media:
+    properties:
+      mediaType:
+        type: string
+        example: photo
+      createdAt:
+        type: string
+        example: '2019-02-25T19:04:53.560Z'
+      mediaFile:
+        $ref: '#/definitions/S3ImageInfo'
+      _id:
+        type: string
+        example: 5c743d244e7a5364c9dbe394
+  NewMediaResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Media has been successfully added!
+      data:
+        type: object
+        properties:
+          media:
+            $ref: '#/definitions/Media'
+  AllMediaResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Media fetched successfully
+      data:
+        type: object
+        properties:
+          media:
+            type: array
+            items:
+              $ref: '#/definitions/Media'
+  SingleMediaResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Media fetched successfully!
+      data:
+        type: object
+        properties:
+          media:
+            $ref: '#/definitions/Media'
+  DeleteMediaResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Media has been successfully deleted!
+      data:
+        type: object
+        properties:
+          media:
+            $ref: '#/definitions/Media'
+  NewDocumentResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Document has been successfully added!
+      data:
+        type: object
+        properties:
+          media:
+            $ref: '#/definitions/Document'
+  Document:
+    properties:
+      title:
+        type: string
+      createdAt:
+        type: string
+        example: '2019-02-25T19:49:04.486Z'
+        format: date-time
+      document:
+        $ref: '#/definitions/S3PDFInfo'
+      archived:
+        type: boolean
+        example: 'false'
+      _id:
+        type: string
+        example: 5c7446b01542b0677e98c6da
+  S3PDFInfo:
+    properties:
+      mimetype:
+        type: string
+        example: application/pdf
+      filename:
+        type: string
+        example: xywsname
+      path:
+        type: string
+        example: /assets/repository/media
+      size:
+        type: string
+        example: '179803'
+      etag:
+        type: string
+        example: 5316b717300ba1ec2a9764c887501f26
+      bucket:
+        type: string
+        example: bucket-name
+      url:
+        type: string
+        example: 'https://url-to-s3-bucket-asset'
+  AllDocumentResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Documents fetched successfully!
+      data:
+        type: object
+        properties:
+          document:
+            type: array
+            items:
+              $ref: '#/definitions/Document'
+  SingleDocumentResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Document fetched successfully!
+      data:
+        type: object
+        properties:
+          media:
+            $ref: '#/definitions/Document'
+  UpdateDocumentResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Document has been successfully updated!
+      data:
+        type: object
+        properties:
+          media:
+            $ref: '#/definitions/Document'
+  DeleteDocumentResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Document has been successfully deleted!
+      data:
+        type: object
+        properties:
+          media:
+            $ref: '#/definitions/Document'
+  ArchiveDocumentResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Document archived successfully
+      archived:
+        type: string
+        example: 'true'
+  NewReportResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Report has been successfully added!
+      data:
+        type: object
+        properties:
+          report:
+            $ref: '#/definitions/Report'
+  Report:
+    properties:
+      updatedAt:
+        type: string
+        format: date-time
+      createdAt:
+        type: string
+        format: date-time
+      reportType:
+        type: string
+        enum:
+          - quarterly
+          - annual
+      title:
+        type: string
+      archived:
+        type: boolean
+        example: 'false'
+      reportFile:
+        $ref: '#/definitions/S3PDFInfo'
+      _id:
+        type: string
+        example: 5c74579b15fd1e6b451238cd
+  AllReportsResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Reports fetched successfully!
+      data:
+        type: object
+        properties:
+          reports:
+            type: array
+            items:
+              $ref: '#/definitions/Report'
+  SingleReportResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Report fetched successfully!
+      data:
+        type: object
+        properties:
+          report:
+            $ref: '#/definitions/Report'
+  UpdateReportResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Report has been successfully updated!
+      data:
+        type: object
+        properties:
+          report:
+            $ref: '#/definitions/Report'
+  DeleteReportResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Report has been successfully deleted!
+      data:
+        type: object
+        properties:
+          media:
+            $ref: '#/definitions/Report'
+  UnArchiveReportResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Report has been successfully unarchived!
+      data:
+        type: object
+        properties:
+          media:
+            $ref: '#/definitions/Report'
+  ArchiveReportResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Report has been successfully archived!
+      data:
+        type: object
+        properties:
+          media:
+            $ref: '#/definitions/Report'
+  Research:
+    properties:
+      title:
+        type: string
+      researchFile:
+        $ref: '#/definitions/S3PDFInfo'
+      archived:
+        type: boolean
+        example: 'false'
+      _id:
+        type: string
+        example: 5c74579b15fd1e6b451238cd
+  NewResearchResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Research has been successfully added!
+      data:
+        type: object
+        properties:
+          research:
+            $ref: '#/definitions/Research'
+  SingleResearchResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Research fetched successfully!
+      data:
+        $ref: '#/definitions/Research'
+  AllResearchResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Research fetched successfully!
+      data:
+        type: object
+        properties:
+          total:
+            type: integer
+            example: 1
+          results:
+            type: array
+            items:
+              $ref: '#/definitions/Research'
+          currentPage:
+            type: integer
+            example: 1
+          totalPages:
+            type: integer
+            example: 1
+          pages:
+            type: array
+            items:
+              type: integer
+            example:
+              - 1
+          previous:
+            type: boolean
+            example: false
+          next:
+            type: boolean
+            example: false
+          first:
+            type: integer
+            example: 1
+          last:
+            type: integer
+            example: 1
+  UpdateResearchResponse:
+    properties:
+      status:
+        type: string
+        example: success
+      message:
+        type: string
+        example: Research has been successfully updated!
+      data:
+        $ref: '#/definitions/Research'
+tags:
+  - name: Resources
+  - name: Pillars
+  - name: Events
+  - name: About
+  - name: Groups
+  - name: Users
+  - name: Authentication

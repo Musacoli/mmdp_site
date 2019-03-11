@@ -26,7 +26,7 @@ Media.add({
     required: true,
   },
   mediaType: { type: Types.Select, options: ['video', 'photo'] },
-  created_at: { type: Date, required: true, default: Date.now },
+  createdAt: { type: Date, required: true, default: Date.now },
 });
 
 Media.register();

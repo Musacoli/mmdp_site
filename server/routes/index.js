@@ -1,6 +1,8 @@
 import cors from 'cors';
 import keystone from 'keystone';
 import validate from 'express-validation';
+import YAML from 'yamljs';
+import swaggerUI from 'swagger-ui-express';
 import aboutValidator from '../middleware/about';
 import fileUploadValidator from '../middleware/fileUpload';
 import apiResponse from '../middleware/apiResponse';
@@ -39,6 +41,8 @@ export const baseUrl = '/api/v1';
 
 const aboutPath = `${baseUrl}/about`;
 const stakeholdersPath = `${baseUrl}/stakeholders-directory`;
+
+const swaggerDoc = YAML.load('./documentation.yml');
 
 const App = (app) => {
   // Import Route Controllers
@@ -240,12 +244,12 @@ const App = (app) => {
     routes.api.Users.updateEmail,
   );
   app.delete(
-    `${baseUrl}/users/:id`,
+    `${baseUrl}/users/:username`,
     [authenticate, authorize.user.delete],
     routes.api.Users.deleteUser,
   );
   app.get(
-    `${baseUrl}/users/:id`,
+    `${baseUrl}/users/:username`,
     [authenticate, authorize.user.get],
     routes.api.Users.fetchUser,
   );
@@ -375,7 +379,7 @@ const App = (app) => {
     routes.api.pillar.update,
   );
   app.delete(
-    '/api/v1/pillars/:id/delete',
+    '/api/v1/pillars/:id',
     [authenticate, authorize.cms.pillar.delete, keystone.middleware.api],
     routes.api.pillar.remove,
   );
@@ -445,13 +449,13 @@ const App = (app) => {
   );
 
   app.patch(
-    `${baseUrl}/resources/repository/archive/:id`,
+    `${baseUrl}/resources/repository/document/:id/archive`,
     [authenticate, authorize.cms.resources.archive, checkIfDocument],
     routes.api.resources.archiveDocument.archive,
   );
 
   app.delete(
-    `${baseUrl}/resources/repository/:id`,
+    `${baseUrl}/resources/repository/document/:id`,
     [authenticate, authorize.cms.resources.delete, checkIfDocument],
     routes.api.resources.deleteDocument.deleteDocument,
   );
@@ -548,6 +552,7 @@ const App = (app) => {
     [authenticate, authorize.cms.resources.delete],
     routes.api.resources.research.remove,
   );
+
   /* ---------- Stakeholders Directory ----------- */
   app.post(
     `${stakeholdersPath}`,
@@ -614,6 +619,8 @@ const App = (app) => {
     routes.api.resources.Stakeholders.ReturneeService.remove,
   );
   /* ---------- Returnee Service -----------------*/
+
+  app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
   app.use(errorHandler);
 };

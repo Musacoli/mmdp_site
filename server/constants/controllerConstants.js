@@ -21,13 +21,13 @@ export const passwordError = {
 };
 
 export default {
-  accountCreated: 'user successfully created',
+  accountCreated: 'User successfully created.',
   verified: 'Congratulations! Your account has been successfully verified.',
-  emailUpdated: 'email succesfully changed',
+  emailUpdated: 'Email successfully changed',
   notFound: 'user was not found',
   tryAgain: 'something went wrong, try again',
-  userDeleted: 'user was deleted successfully',
-  detailsUpdated: 'You details have been successfully updated.',
+  userDeleted: 'User was deleted successfully',
+  detailsUpdated: 'Your details have been successfully updated.',
 };
 
 export const status = {

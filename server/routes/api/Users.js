@@ -40,36 +40,38 @@ export const updateEmail = (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-  await User.model.findOne({ username: req.params.id }).exec((error, user) => {
-    if (!user)
-      return res.status(404).json({
-        status: ERROR,
-        message: resp.notFound,
-      });
-    if (req.user.username === user.username) {
-      return res.status(400).json({
-        message: 'You are not authorized to delete your own account',
-      });
-    }
-    user.remove((err) => {
-      if (err)
-        return res.status(500).json({
+  await User.model
+    .findOne({ username: req.params.username })
+    .exec((error, user) => {
+      if (!user)
+        return res.status(404).json({
           status: ERROR,
-          message: resp.tryAgain,
+          message: resp.notFound,
         });
-      return res.status(200).json({
-        status: SUCCESS,
-        message: resp.userDeleted,
+      if (req.user.username === user.username) {
+        return res.status(400).json({
+          message: 'You are not authorized to delete your own account',
+        });
+      }
+      user.remove((err) => {
+        if (err)
+          return res.status(500).json({
+            status: ERROR,
+            message: resp.tryAgain,
+          });
+        return res.status(200).json({
+          status: SUCCESS,
+          message: resp.userDeleted,
+        });
       });
     });
-  });
 };
 
 export const fetchUser = async (req, res) => {
   await User.model
     .findOne(
       {
-        username: req.params.id,
+        username: req.params.username,
       },
       fields,
     )

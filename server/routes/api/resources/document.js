@@ -10,14 +10,16 @@ export const create = async (req, res) => {
   try {
     const document = new Document.model();
     const newDocument = await modelHelper.process(document, req);
-    const message = sprintf(responseMessage.RESOURCE_CREATED, 'document');
+    const message = sprintf(responseMessage.RESOURCE_CREATED, 'Document');
     return res.status(201).json({
+      status: 'success',
       message,
       data: { document: newDocument },
     });
   } catch (error) {
     const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
     return res.status(500).json({
+      status: 'error',
       errMessage,
       error,
     });
@@ -29,14 +31,16 @@ export const update = async (req, res) => {
     const { doc } = req;
 
     const updatedDoc = await modelHelper.process(doc, req);
-    const message = sprintf(responseMessage.RESOURCE_UPDATED, 'document');
+    const message = sprintf(responseMessage.RESOURCE_UPDATED, 'Document');
     return res.status(200).json({
+      status: 'success',
       message,
       data: { document: updatedDoc },
     });
   } catch (error) {
     const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
     return res.status(500).json({
+      status: 'error',
       errMessage,
       error,
     });
@@ -67,6 +71,7 @@ export const list = async (req, res) => {
   } catch (error) {
     const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
     return res.status(500).json({
+      status: 'error',
       errMessage,
       error,
     });
@@ -76,14 +81,16 @@ export const list = async (req, res) => {
 export const getOne = async (req, res) => {
   try {
     const { doc } = req;
-    const message = sprintf(responseMessage.RESOURCE_FETCHED, 'document');
+    const message = sprintf(responseMessage.RESOURCE_FETCHED, 'Document');
     return res.status(200).json({
+      status: 'success',
       message,
       data: { document: doc },
     });
   } catch (error) {
     const errMessage = responseMessage.INTERNAL_SERVER_ERROR;
     return res.status(500).json({
+      status: 'error',
       errMessage,
       error,
     });

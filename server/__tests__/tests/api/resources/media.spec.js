@@ -130,7 +130,7 @@ describe('Media route', () => {
 
     beforeEach(async () => {
       await app.loginRandom(['cms.resources.delete']);
-      const createdAt = { created_at: new Date() };
+      const createdAt = { createdAt: new Date() };
       existingMedia = await createMedia(createdAt);
     });
 

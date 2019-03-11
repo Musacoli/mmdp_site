@@ -15,5 +15,5 @@ export const checkArchiveState = async (id) => {
 export const message = (state) => {
   return state
     ? 'Document archived successfully'
-    : 'Document restored successfully';
+    : 'Document unarchived successfully';
 };

@@ -83,7 +83,8 @@ export const remove = (req, res) => {
       if (err) return res.apiError('database error', error);
 
       res.apiResponse({
-        success: true,
+        status: 'success',
+        message: 'Pillar deleted successfully.',
       });
     });
   });

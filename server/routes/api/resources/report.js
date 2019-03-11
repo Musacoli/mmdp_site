@@ -32,7 +32,11 @@ export const get = async (req, res) => {
         sprintf(responseMessage.RESOURCE_NOT_FOUND, 'Report'),
         404,
       );
-    return res.sendSuccess({ report });
+    return res.sendSuccess(
+      { report },
+      200,
+      sprintf(responseMessage.RESOURCE_FETCHED, 'Report'),
+    );
   } catch (error) {
     res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
   }
@@ -56,7 +60,7 @@ export const list = async (req, res) => {
           pagination: getPaginationData(data),
         },
         200,
-        sprintf(responseMessage.RESOURCE_FETCHED, 'reports'),
+        sprintf(responseMessage.RESOURCE_FETCHED, 'Reports'),
       );
     });
   } catch (error) {
@@ -105,7 +109,7 @@ export const archive = async (req, res) => {
     });
     if (!report)
       return res.sendError(
-        sprintf(responseMessage.RESOURCE_T0_ARCHIVE_NOT_FOUND, 'report'),
+        sprintf(responseMessage.RESOURCE_T0_ARCHIVE_NOT_FOUND, 'Report'),
         404,
       );
     return res.sendSuccess({ report }, 200, successMessage);
@@ -120,7 +124,7 @@ export const remove = async (req, res) => {
     const report = await Report().model.findByIdAndRemove(id);
     if (!report)
       return res.sendError(
-        sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'report'),
+        sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'Report'),
         404,
       );
     return res.sendSuccess(
