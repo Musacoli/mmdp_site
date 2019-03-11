@@ -66,6 +66,12 @@ import {
   watchDeleteStatuses,
 } from './dropdowns/status';
 import {
+  watchUpdateStaffStrengths,
+  watchCreateStaffStrengths,
+  watchDeleteStaffStrength,
+  watchFetchingStaffStrengths,
+} from './dropdowns/staffStrength';
+import {
   watchAddPartnershipTypes,
   watchFetchPartnershipTypes,
   watchDeletePartnershipTypes,
@@ -179,6 +185,10 @@ export default function* root() {
     fork(watchAddStatuses),
     fork(watchFetchStatuses),
     fork(watchDeleteStatuses),
+    fork(watchFetchingStaffStrengths),
+    fork(watchDeleteStaffStrength),
+    fork(watchUpdateStaffStrengths),
+    fork(watchCreateStaffStrengths),
 
     fork(watchFetchingTargetAudiences),
     fork(watchCreateTargetAudiences),

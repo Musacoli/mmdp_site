@@ -13,6 +13,7 @@ const DropdownForm = ({
   editAState,
   twoFieldsClass,
   deleteAState,
+  twoFieldsClass,
   inputs,
   className,
 }) => {

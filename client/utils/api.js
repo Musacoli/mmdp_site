@@ -106,6 +106,16 @@ export const api = {
       update: (data) => server.put(`${countryApiPrefix}`, data),
       delete: (id) => server.delete(`${countryApiPrefix}/${id}`),
     },
+    staffStrength: {
+      create: (data) =>
+        server.post(`${apiVersion}dropdowns/staff-strength/create`, data),
+      list: () => server.get(`${apiVersion}dropdowns/staff-strength`),
+      update: (data) =>
+        server.put(`${apiVersion}dropdowns/staff-strength/update`, data),
+      get: (id) => server.get(`${apiVersion}dropdowns/staff-strength/${id}`),
+      delete: (id) =>
+        server.delete(`${apiVersion}dropdowns/staff-strength/${id}/remove`),
+    },
 
     partnershipType: {
       create: (data) => server.post(partnershipTypeApiPrefix, data),

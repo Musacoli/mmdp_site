@@ -39,6 +39,7 @@ import StateView from '../views/DropDowns/State';
 import FundingView from '../views/DropDowns/SourceOfFunding';
 import Country from '../views/DropDowns/Country';
 import RegistrationStatusView from '../views/DropDowns/RegistrationStatus';
+import StaffStrengthsView from '../views/DropDowns/StaffStrength';
 import TargetAudienceView from '../views/DropDowns/TargetAudience';
 import LGAView from '../views/DropDowns/LGA';
 import PartnershipType from '../views/DropDowns/PartnershipType';
@@ -344,6 +345,13 @@ const routes = [
     path: '/dropdowns/registration-status',
     name: 'Registration Status Dropdown',
     component: RegistrationStatusView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/dropdowns/staff-strength',
+    name: 'Staff Strength Dropdown',
+    component: StaffStrengthsView,
     exact: true,
     protected: true,
   },
