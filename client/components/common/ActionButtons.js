@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 
 const DropdownButton = ({ email, username, handleDelete }) => (
-  <Dropdown pointing icon="ellipsis horizontal user-actions">
+  <Dropdown pointing icon="ellipsis horizontal">
     <Dropdown.Menu className="user-action-dropdown">
       <Dropdown.Item href={email ? `edit/${email}/${username}` : ''}>
         Edit

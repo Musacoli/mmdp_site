@@ -19,7 +19,7 @@ const MainContent = ({ children, title }) => (
 );
 
 MainContent.propTypes = {
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  title: PropTypes.string,
 };
 export default MainContent;

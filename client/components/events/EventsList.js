@@ -46,8 +46,12 @@ const EventsList = ({
 };
 
 EventsList.propTypes = {
-  events: PropTypes.shape([]).isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+    }),
+  ),
+  handleDelete: PropTypes.func,
   handleSearchChange: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
 };

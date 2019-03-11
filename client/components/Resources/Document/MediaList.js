@@ -37,13 +37,7 @@ const MediaList = (props) => {
 MediaList.propTypes = {
   documents: PropTypes.shape({}).isRequired,
   loading: PropTypes.bool.isRequired,
-  isMedia: PropTypes.bool.isRequired,
+  isMedia: PropTypes.bool,
   instanceName: PropTypes.string,
 };
-
-MediaList.propTypes = {
-  instanceName: 'document',
-  addMediaUrl: '"/resources/document/add"',
-};
-
 export default MediaList;

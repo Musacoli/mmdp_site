@@ -9,9 +9,9 @@ export class SidebarContainer extends Component {
   static propTypes = {
     activateSidebarMenu: PropTypes.func.isRequired,
     activeIndex: PropTypes.number.isRequired,
-    history: PropTypes.shape({}).isRequired,
-    children: PropTypes.node.isRequired,
-    title: PropTypes.string.isRequired,
+    history: PropTypes.shape({}),
+    children: PropTypes.node,
+    title: PropTypes.string,
   };
 
   state = {};

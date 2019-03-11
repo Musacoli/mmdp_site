@@ -66,7 +66,7 @@ export class ListEvents extends Component {
         <SidebarMenu />
         <EmptyView
           errorMessage="No Event to display"
-          errrorDescription=" There are no events to be displayed here"
+          errorDescription=" There are no events to be displayed here"
           path="/create-event"
           pathLabel="Add Event"
         />
@@ -82,7 +82,11 @@ export const mapStateToProps = (state) => ({
 });
 
 ListEvents.propTypes = {
-  events: PropTypes.shape([]).isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+    }),
+  ),
   pagination: PropTypes.shape({}).isRequired,
   dispatch: PropTypes.func.isRequired,
   match: PropTypes.shape({}).isRequired,

@@ -46,10 +46,10 @@ const EventCard = ({ props }) => {
 };
 
 EventCard.propTypes = {
-  headerImage: PropTypes.string.isRequired,
-  eventDate: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  _id: PropTypes.string.isRequired,
+  headerImage: PropTypes.string,
+  eventDate: PropTypes.string,
+  title: PropTypes.string,
+  _id: PropTypes.string,
   props: PropTypes.shape({}).isRequired,
 };
 

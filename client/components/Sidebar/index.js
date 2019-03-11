@@ -52,7 +52,7 @@ SidebarMenu.propTypes = {
   goTo: PropTypes.func.isRequired,
   sidebarItems: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   activeIndex: PropTypes.number.isRequired,
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  title: PropTypes.string,
 };
 export default SidebarMenu;
