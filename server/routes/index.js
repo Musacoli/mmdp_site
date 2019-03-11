@@ -236,7 +236,11 @@ const App = (app) => {
     [authenticate, authorize.user.update, validateEmail, updateDetails],
     routes.api.Users.updateEmail,
   );
-  app.delete(`${baseUrl}/users/:id`, routes.api.Users.deleteUser);
+  app.delete(
+    `${baseUrl}/users/:id`,
+    [authenticate, authorize.user.delete],
+    routes.api.Users.deleteUser,
+  );
   app.get(
     `${baseUrl}/users/:id`,
     [authenticate, authorize.user.get],

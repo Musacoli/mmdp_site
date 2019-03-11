@@ -13,4 +13,7 @@ export default {
   update: (userPermissions) => {
     return hasAnyPermission(userPermissions, ['user.*', 'user.update']);
   },
+  delete: (userPermissions) => {
+    return hasAnyPermission(userPermissions, ['user.*', 'user.delete']);
+  },
 };

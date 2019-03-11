@@ -46,7 +46,7 @@ export const deleteUser = async (req, res) => {
         status: ERROR,
         message: resp.notFound,
       });
-    if (user.username === req.params.id) {
+    if (req.user.username === user.username) {
       return res.status(400).json({
         message: 'You are not authorized to delete your own account',
       });
