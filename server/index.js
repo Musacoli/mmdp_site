@@ -1,5 +1,6 @@
 import dotEnv from 'dotenv';
 import keystone from 'keystone';
+import sock from 'socket.io';
 import routes from './routes';
 
 dotEnv.config();
@@ -43,6 +44,14 @@ keystone.set('locals', {
 
 keystone.set('routes', routes);
 
-keystone.start();
+keystone.start({
+  onStart() {
+    const hserver = keystone.httpServer;
+    const io = keystone.set('io', sock.listen(hserver)).get('io');
+
+    // eslint-disable-next-line no-unused-vars
+    io.on('connection', (socket) => {});
+  },
+});
 
 export default keystone;

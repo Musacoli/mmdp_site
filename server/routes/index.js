@@ -328,7 +328,7 @@ const App = (app) => {
 
   app.get(
     '/api/v1/events/:id',
-    [authenticate, authorize.cms.events.get, keystone.middleware.api],
+    [authOptional, keystone.middleware.api],
     routes.api.events.get,
   );
   app.put(

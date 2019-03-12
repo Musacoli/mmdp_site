@@ -132,10 +132,10 @@ describe('Events API', () => {
       expect(res.status).toBe(404);
     });
 
-    it('should fail for unauthorized users', async () => {
+    it('should pass for guest users', async () => {
       await app.loginRandom();
       const res = await apiGetEvent(existing._id);
-      expect(res.status).toBe(403);
+      expect(res.status).toBe(200);
     });
 
     it('should list for all relevant permissions', async () => {
