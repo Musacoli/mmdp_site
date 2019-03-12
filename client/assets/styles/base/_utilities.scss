@@ -9,3 +9,8 @@
   margin-right: 12px !important;
   margin-top: 2px !important;
 }
+
+.visible.menu.transition {
+  z-index: 10000;
+  clear: both;
+}

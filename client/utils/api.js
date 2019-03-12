@@ -4,6 +4,8 @@ import { formatObjectToParams } from './helpers';
 const apiVersion = 'api/v1/';
 const documentsApiPrefix = `${apiVersion}resources/repository/document`;
 const mediaApiPrefix = `${apiVersion}resources/repository/media`;
+const stateApiPrefix = `${apiVersion}state`;
+const countryApiPrefix = `${apiVersion}country`;
 
 export const api = {
   group: {
@@ -61,6 +63,17 @@ export const api = {
       retrieve: (id) => server.get(`${mediaApiPrefix}/${id}/`),
       list: () => server.get(mediaApiPrefix),
       delete: (id) => server.delete(`${mediaApiPrefix}/${id}`),
+    },
+  },
+  dropdowns: {
+    state: {
+      create: (data) => server.post(stateApiPrefix, data),
+      list: (data) => server.get(stateApiPrefix, data),
+      update: (data) => server.put(`${stateApiPrefix}`, data),
+      delete: (id) => server.delete(`${stateApiPrefix}/${id}`),
+    },
+    country: {
+      list: () => server.get(`${countryApiPrefix}`),
     },
   },
 };

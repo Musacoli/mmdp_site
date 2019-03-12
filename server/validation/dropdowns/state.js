@@ -2,9 +2,16 @@ import Joi from 'joi';
 
 const addState = {
   body: {
-    stateName: Joi.string().required(),
-    countryId: Joi.string(),
-    description: Joi.string(),
+    data: Joi.array().items([
+      {
+        stateName: Joi.string()
+          .required()
+          .label('stateName'),
+        countryId: Joi.string()
+          .required()
+          .label('countryId'),
+      },
+    ]),
   },
 };
 

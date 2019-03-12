@@ -1,6 +1,5 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
-
 import keystone from 'keystone';
 import Events from '../../models/Event';
 import modelHelper from '../../helpers/modelHelper';
@@ -111,6 +110,7 @@ export const remove = (req, res) => {
 
     item.remove((err) => {
       const io = keystone.get('io');
+
       io.sockets.emit('deleteEvent', req.params.id);
       res.status(200).send({
         status: 'success',

@@ -1,0 +1,4 @@
+exports.create = {
+  StakeholderAddress: [{}],
+  LGA: [{}],
+};

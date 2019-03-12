@@ -64,7 +64,7 @@ class ActionModal extends Component {
 }
 
 ActionModal.propTypes = {
-  triggerText: PropTypes.string,
+  triggerText: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({})]),
   header: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   confirmDeleteGroup: PropTypes.func,

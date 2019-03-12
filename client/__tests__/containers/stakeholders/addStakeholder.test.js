@@ -8,6 +8,7 @@ describe('<AddStakeholder /> ', () => {
   const props = {
     step: 1,
     pages: 2,
+    fetchStates: jest.fn(),
     basicInformation: {
       stakeholderName: '',
       email: '',
@@ -72,6 +73,7 @@ describe('<AddStakeholder /> ', () => {
       addStakeholder={jest.fn}
       response={response}
       state={props}
+      fetchStates={jest.fn()}
     />,
     new ReactRouterEnzymeContext(),
   );

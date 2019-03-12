@@ -4,6 +4,7 @@ import {
   app,
   removeAllCollections,
   removeAllGroupsAndUsers,
+  faker,
 } from '../../../helpers/commons/base';
 import { createState } from '../../../helpers/dropdowns/state';
 
@@ -30,22 +31,26 @@ describe('State route', () => {
     });
 
     it('should return a 400 status when countryId or stateName is not provided', async () => {
-      const res = await app.post(route).send({});
+      const res = await app.post(route).send({ data: [{ stateName: 'name' }] });
       expect(res.status).to.equal(400);
-      expect(res.body)
-        .to.have.property('message')
-        .be.a('String');
-      expect(res.body.error).to.have.property('stateName');
+      expect(res.body).to.have.property('error');
+      expect(res.body.error).to.have.property('data');
     });
 
     it('should return a 201 status when valid stateName and countryId is sent', async () => {
-      const res = await app.post(route).field('stateName', state.stateName);
+      const res = await app.post(route).send({
+        data: [
+          {
+            stateName: state.stateName + faker.random.uuid(),
+            countryId: state.countryId,
+            description: 'sdfsdf',
+          },
+        ],
+      });
       expect(res.status).to.equal(201);
       expect(res.body).not.to.have.property('error');
       expect(res.body).to.have.property('message');
       expect(res.body).to.have.property('data');
-      expect(res.body.data.state).to.have.property('stateName');
-      expect(res.body.data.state.stateName).to.equal(state.stateName);
     });
   });
 

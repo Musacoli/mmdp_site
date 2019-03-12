@@ -34,6 +34,8 @@ import deleteDoc from './resources/deleteDoc';
 import getResearch from './resources/getResearch';
 import media from './resources/media';
 import addStakeholder from './stakeholders/addStakeholder';
+import country from './dropdowns/country';
+import states from './dropdowns/state';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -69,6 +71,8 @@ const rootReducer = combineReducers({
   getResearch,
   media,
   addStakeholder,
+  country,
+  states,
 });
 
 export default rootReducer;

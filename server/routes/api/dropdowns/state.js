@@ -5,20 +5,19 @@ import modelHelper from '../../../helpers/modelHelper';
 import responseMessage from '../../../constants/responseMessage';
 
 export const State = () => keystone.list('State');
+
 export const create = async (req, res) => {
-  const stateItem = new State().model();
-  try {
-    const newState = await modelHelper.process(stateItem, req);
-    return res.sendSuccess(
-      {
-        state: newState,
-      },
-      201,
-      sprintf(responseMessage.RESOURCE_CREATED, 'State'),
-    );
-  } catch (error) {
-    return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
-  }
+  State()
+    .model.insertMany(req.body.data)
+    .then((result) => {
+      return res.status(201).json({
+        message: `${req.body.data.length} states successfully added`,
+        data: result,
+      });
+    })
+    .catch((err) => {
+      res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, err);
+    });
 };
 
 export const get = async (req, res) => {
@@ -43,7 +42,6 @@ export const list = async (req, res) => {
   if (id) {
     states.where('countryId', id);
   }
-  states.populate('countryId');
   states.exec((err, response) => {
     if (err) return res.status(400).json(err);
     res.sendSuccess(
@@ -52,6 +50,31 @@ export const list = async (req, res) => {
       },
       200,
     );
+  });
+};
+
+export const updateMany = (req, res) => {
+  req.body.data.forEach((data) => {
+    State()
+      .model.update(
+        { _id: data._id },
+        {
+          stateName: data.stateName,
+          description: data.description,
+          countryId: data.countryId,
+        },
+        { upsert: true },
+      )
+      .then(() => {
+        res.sendSuccess(
+          '',
+          201,
+          `${req.body.data.length} state(s) updated successfully`,
+        );
+      })
+      .catch((err) => {
+        res.sendError('failed', 500, err);
+      });
   });
 };
 
