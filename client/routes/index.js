@@ -35,6 +35,7 @@ import MediaListView from '../views/Resources/Media/MediaList';
 import StakeholdersView from '../views/Stakeholders/stakeholderDirectory';
 import AddStakeholderView from '../views/Stakeholders/addBasicInfo';
 import BeneficiaryServicesView from '../views/Stakeholders/addBeneficiaryServices';
+import Country from '../views/Dropdowns/country';
 
 const routes = [
   {
@@ -312,6 +313,13 @@ const routes = [
     path: '/resources/media',
     name: 'List Media',
     component: MediaListView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/dropdowns/Country/edit',
+    name: 'Country Dropdown',
+    component: Country,
     exact: true,
     protected: true,
   },

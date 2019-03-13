@@ -36,6 +36,11 @@ import {
 } from './resources/document';
 import { watchDeleteMedia } from './resources/media';
 import { AddStakeholderWatcher } from './stakeholders/addStakeholder';
+import {
+  getCountryDropDownSagaWatcher,
+  updateCountryDropDownSagaWatcher,
+  deleteCountryDropDownSagaWatcher,
+} from './dropdowns/country';
 
 export default function* root() {
   yield all([
@@ -97,7 +102,9 @@ export default function* root() {
     fork(deleteUserResearchWatcher),
     fork(archiveUserResearchWatcher),
     fork(watchDeleteMedia),
-
     fork(AddStakeholderWatcher),
+    fork(getCountryDropDownSagaWatcher),
+    fork(updateCountryDropDownSagaWatcher),
+    fork(deleteCountryDropDownSagaWatcher),
   ]);
 }

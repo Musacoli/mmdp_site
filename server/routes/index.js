@@ -29,8 +29,8 @@ import { paramMediaExists } from '../middleware/media';
 
 import validators from '../middleware/pillar_middleware';
 import {
-  stakeHolderMiddleware,
   ReturneeServiceMiddleware,
+  stakeHolderMiddleware,
 } from '../middleware/stakeholdersDirectory';
 
 const importRoutes = keystone.importer(__dirname);
@@ -614,6 +614,49 @@ const App = (app) => {
     routes.api.resources.Stakeholders.ReturneeService.remove,
   );
   /* ---------- Returnee Service -----------------*/
+
+  // Manage drop down routes
+  app.get(
+    `${baseUrl}/dropdowns-country`,
+    [authOptional],
+    routes.api.dropdowns.country.list,
+  );
+
+  // Create a Country drop down
+  app.post(
+    `${baseUrl}/dropdowns-country`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.country.addCountry),
+    ],
+    routes.api.dropdowns.country.create,
+  );
+
+  // Get a single drop down item
+  app.get(
+    `${baseUrl}/dropdowns-country/:id`,
+    [authOptional],
+    routes.api.dropdowns.country.retrieve,
+  );
+
+  // Update  the Country drop down
+  app.put(
+    `${baseUrl}/dropdowns-country/`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      validate(validator.country.addCountry),
+    ],
+    routes.api.dropdowns.country.update,
+  );
+
+  // Delete a particular item
+  app.delete(
+    `${baseUrl}/dropdowns-country/:id`,
+    [authenticate, authorize.cms.dropdowns.delete],
+    routes.api.dropdowns.country.remove,
+  );
 
   app.use(errorHandler);
 };

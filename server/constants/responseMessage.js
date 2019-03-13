@@ -11,4 +11,5 @@ export default {
   RESOURCE_CREATED: '%s has been successfully added!',
   RESOURCE_UPDATE: '%s has been successfully updated!',
   RESOURCE_FETCH: '%s fetched successfully',
+  DROP_DOWN_CREATED: '%s created successfully',
 };
