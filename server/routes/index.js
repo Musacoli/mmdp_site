@@ -41,6 +41,7 @@ export const baseUrl = '/api/v1';
 
 const aboutPath = `${baseUrl}/about`;
 const stakeholdersPath = `${baseUrl}/stakeholders-directory`;
+const stateDropdownPath = `${baseUrl}/state`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -621,6 +622,52 @@ const App = (app) => {
   /* ---------- Returnee Service -----------------*/
 
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
+  /* ---------- Dropdowns ------------------- */
+  // Country
+  app.get(
+    `${baseUrl}/country`,
+    [authOptional],
+    routes.api.dropdowns.country.list,
+  );
+  // State resources
+  app.post(
+    `${stateDropdownPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      appendFilesToBody,
+      validate(validator.state.addState),
+    ],
+    routes.api.dropdowns.state.create,
+  );
+
+  app.get(
+    `${stateDropdownPath}`,
+    [authOptional],
+    routes.api.dropdowns.state.list,
+  );
+
+  app.get(
+    `${stateDropdownPath}/:country_id`,
+    [authOptional],
+    routes.api.dropdowns.state.list,
+  );
+
+  app.put(
+    `${stateDropdownPath}/:id`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.state.addState),
+    ],
+    routes.api.dropdowns.state.update,
+  );
+  app.delete(
+    `${stateDropdownPath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.state.remove,
+  );
 
   app.use(errorHandler);
 };

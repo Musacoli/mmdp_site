@@ -3,6 +3,7 @@ import report from './resources/report';
 import research from './resources/research';
 import document from './resources/document';
 import media from './resources/media';
+import state from './dropdowns/state';
 
 export default {
   login,
@@ -10,4 +11,5 @@ export default {
   research,
   document,
   media,
+  state,
 };
