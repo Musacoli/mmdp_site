@@ -11,10 +11,13 @@ const StakeHoldersCard = (props) => {
   return (
     <Card key={item._id} raised className="media stakeholder-card">
       <div className=" stakeholder-card-title">
+        {/* <Truncate lines={1}> */}
+        {/* <h4>{item.organisationName}</h4> */}
+        {/* </Truncate> */}
         <StakeholderModal
           trigger={
             <Truncate lines={1}>
-              <h4>{item.basicInformation.stakeholderName}</h4>
+              <h4>{item.organisationName}</h4>
             </Truncate>
           }
           item={item}
@@ -22,10 +25,10 @@ const StakeHoldersCard = (props) => {
         />
       </div>
       <div className="stakeholder-card-body">
-        {item.basicInformation.headOfficeAddress} <br />
-        {item.basicInformation.email} <br />
-        {item.basicInformation.phoneNumberOne} <br />
-        {item.basicInformation.phoneNumberThree} <br />
+        {item.locality} <br />
+        {item.email} <br />
+        {item.localManagerMobile} <br />
+        {item.phoneNumber} <br />
       </div>
       <div className=" stakeholder-footer">
         <Link to="/">

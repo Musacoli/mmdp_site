@@ -23,7 +23,7 @@ const StakeHoldersCardsList = (props) => {
         <div className="stakeholder-list">
           <Card.Group>
             {items.map((item) => (
-              <StakeHoldersCard item={item[0]} key={item[0]._id} />
+              <StakeHoldersCard item={item} key={item._id} />
             ))}
           </Card.Group>
         </div>

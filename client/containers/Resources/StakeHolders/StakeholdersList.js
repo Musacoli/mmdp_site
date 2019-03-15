@@ -80,17 +80,20 @@ class StakeholdersList extends Component {
     const { searchStr } = this.state;
     filterResults(false);
     const query = searchQuery !== null ? searchQuery : searchStr;
-    search({ page, searchQuery: query });
+    search({ page, searchQuery: query, perPage: 9 });
   };
 
   applyStateFilter = (states = []) => {
     const { stakeholders } = this.props;
-
     if (states.length > 0) {
       let search = stakeholders.stakeholders.data.map((stakeholder) =>
-        stakeholder[0].beneficiaryService.map((beneficiary) => {
-          if (states.includes(beneficiary.state)) return stakeholder;
-          return undefined;
+        stakeholder.beneficiaries.map((beneficiary) => {
+          try {
+            if (states.includes(beneficiary.localGovernmentArea.stateId))
+              return stakeholder;
+          } catch (e) {
+            return undefined;
+          }
         }),
       );
       // create a single array from the nested arrays
@@ -117,9 +120,13 @@ class StakeholdersList extends Component {
 
     if (lgas.length > 0) {
       let search = stakeholders.stakeholders.data.map((stakeholder) =>
-        stakeholder[0].beneficiaryService.map((beneficiary) => {
-          if (lgas.includes(beneficiary.localGovernment)) return stakeholder;
-          return undefined;
+        stakeholder.beneficiaries.map((beneficiary) => {
+          try {
+            if (lgas.includes(beneficiary.localGovernmentArea._id))
+              return stakeholder;
+          } catch (e) {
+            return undefined;
+          }
         }),
       );
       search = [].concat(...search);

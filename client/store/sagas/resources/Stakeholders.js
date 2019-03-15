@@ -45,7 +45,6 @@ export function* searchStakeholders(payload) {
   try {
     const res = yield call(searchStakeHoldersDirectory, payload);
     const response = {
-      status: res.status,
       stakeholders: res.data,
     };
     yield put(actions.searchStakeHoldersSucess(response));

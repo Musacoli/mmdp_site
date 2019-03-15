@@ -14,5 +14,4 @@ AmountInvestedRange.add({
 AmountInvestedRange.defaultColumns = 'amountInvestedRange';
 
 AmountInvestedRange.register();
-
 export default AmountInvestedRange;

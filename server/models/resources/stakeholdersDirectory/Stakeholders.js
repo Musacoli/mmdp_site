@@ -38,7 +38,7 @@ Stakeholder.add({
   locality: { type: Types.Select, options: 'Local,International' },
 });
 
-Stakeholder.defaultColumns = 'stakeholderName';
+Stakeholder.defaultColumns = 'organisationName';
 Stakeholder.register();
 
 export default Stakeholder;

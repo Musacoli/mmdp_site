@@ -7,9 +7,10 @@ const URL = `${baseAPI}/api/v1`;
 export const searchStakeHoldersDirectory = (actionPayload) => {
   const { payload } = actionPayload;
   return server.get(
-    `${URL}/stakeholders-directory/search?${formatObjectToParams({
+    `${URL}/stakeholders-directory?${formatObjectToParams({
       page: payload.page,
-      stakeholderName: payload.searchQuery,
+      organisationName: payload.searchQuery,
+      perPage: 9,
     })}`,
   );
 };

@@ -6,13 +6,13 @@ import StakeHoldersCardsList from '../../../../components/Resources/Stakeholders
 
 const testData = () => ({
   _id: Faker.random.uuid(),
-  basicInformation: {
-    stakeholderName: Faker.name.title(),
-    state: Faker.address.state(),
-    email: Faker.internet.email(),
-    phoneNumberOne: Faker.phone.phoneNumber(),
-    phoneNumberThree: Faker.phone.phoneNumber(),
-  },
+  stakeholderName: Faker.name.title(),
+  state: Faker.address.state(),
+  email: Faker.internet.email(),
+  phoneNumberOne: Faker.phone.phoneNumber(),
+  phoneNumberThree: Faker.phone.phoneNumber(),
+  beneficiaries: [],
+  partnerships: [],
 });
 
 describe('StakeHoldersCardslist', () => {
@@ -32,7 +32,7 @@ describe('StakeHoldersCardslist', () => {
   });
 
   it('should mount with multiple cards', () => {
-    data = [[testData()], [testData()], [testData()]];
+    data = [testData(), testData(), testData()];
     wrapper = mount(
       <StakeHoldersCardsList items={data} />,
       new ReactRouterEnzymeContext(),

@@ -27,11 +27,10 @@ export const update = async (req, res) => {
     .findById(req.params.beneficiary_id)
     .exec((err, beneficiary) => {
       if (err) return res.apiError('Database Error', err);
-      if (beneficiary === null) {
+      if (beneficiary === null)
         return res.apiResponse({
           message: 'The specified Beneficiary was not found',
         });
-      }
       beneficiaryService.updateItem(beneficiary, req.body, (err) => {
         if (err) return res.apiError('Database Error', err);
         beneficiaryService.model
@@ -39,6 +38,7 @@ export const update = async (req, res) => {
           .populate('registrationStatusId')
           .populate('impactTypeID')
           .populate('staffStrengthRangeId')
+          .populate('sourceOfFundingId')
           .exec((err, updatedBeneficiary) => {
             if (err) return res.apiError('Database Error', err);
             return res.apiResponse({
@@ -54,25 +54,22 @@ export const create = async (req, res) => {
     .findById(req.params.stakeholder_id)
     .exec((err, stakeholder) => {
       if (err) return res.apiError('Database Error', err);
-      if (stakeholder === null) {
+      if (stakeholder === null)
         return res.apiResponse({
           message: 'The specified Stakeholder was not found',
         });
-      }
       req.body.stakeholderId = req.params.stakeholder_id;
       const beneficiary = new beneficiaryService.model({
         ...req.body,
       });
       beneficiary.save((err) => {
-        if (err) {
-          return res.apiError('Database Error', err);
-        }
+        if (err) return res.apiError('Database Error', err);
         beneficiaryService.model
-          .findOne()
-          .where('serviceName', req.body.serviceName)
+          .findOne({ serviceName: req.body.serviceName })
           .populate('registrationStatusId')
           .populate('impactTypeID')
           .populate('staffStrengthRangeId')
+          .populate('sourceOfFundingId')
           .exec((err, beneficiary) => {
             if (err) return res.apiError('Database Error', err);
             return res.apiResponse({
@@ -96,7 +93,6 @@ export const remove = async (req, res) => {
           message: 'The specified Beneficiary was not found',
         });
       }
-
       beneficiaryService.model
         .deleteOne({ _id: req.params.beneficiary_id })
         .exec((err) => {

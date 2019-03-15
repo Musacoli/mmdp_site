@@ -18,5 +18,9 @@ export default {
     averageNumberOfBeneficiariesPerService: Joi.number(),
     totalNumberOfBeneficiaries: Joi.number(),
     serviceStatus: Joi.string(),
+    localGovernmentArea: Joi.string(),
+    community: Joi.string(),
+    focusArea: Joi.string().required(),
+    ward: Joi.string(),
   }),
 };

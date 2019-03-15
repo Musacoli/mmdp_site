@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import ReturneeServiceValidation from './ReturneeServiceValidation';
 
 export default {
   body: Joi.object({
@@ -23,5 +24,23 @@ export default {
     challenges: Joi.string(),
     assistanceRequired: Joi.string(),
     locality: Joi.string(),
+    stakeholderAddress: Joi.array().items(
+      // home office address
+      Joi.object({
+        countryId: Joi.string().required(),
+        stateId: Joi.string(),
+        address: Joi.string().required(),
+        addressType: Joi.string()
+          .valid('HOME', 'BRANCH')
+          .required(),
+      }).required(),
+    ),
+    partnerships: Joi.array().items(
+      Joi.object({
+        stakeholder2Id: Joi.string().required(),
+        partnershipTypeId: Joi.string().required(),
+      }),
+    ),
+    returneeServices: Joi.array().items(ReturneeServiceValidation.body),
   }),
 };

@@ -58,14 +58,8 @@ export const sidebarItems = [
       { name: 'Report', path: '/resources/reports' },
       { name: 'Media', path: '/resources/media' },
       { name: 'Documents', path: '/resources/documents' },
-      { name: 'Stakeholder directory', path: '/resources/stakeholders' },
+      { name: 'Stakeholder directory', path: '/stakeholder-directory' },
     ],
-  },
-  {
-    title: 'Stakeholder directory',
-    menuItems: [],
-    path: '/stakeholder-directory',
-    dividerTitle: 'COORDINATION MATRIX',
   },
   {
     title: 'National level',
