@@ -37,10 +37,10 @@ const apiGetOne = (id) => {
   return app.get(`${route}/${id}`).send();
 };
 
-const url = '/api/v1/resources/repository';
+const url = '/api/v1/resources/repository/document';
 
 const apiArchiveDocument = (id) => {
-  return app.patch(`${url}/archive/${id}`).send();
+  return app.patch(`${url}/${id}/archive`).send();
 };
 
 const deleteDocument = (id) => {
@@ -251,7 +251,7 @@ describe('Document route', () => {
       const res = await apiArchiveDocument(existingDocument._id);
       expect(res.status).toBe(200);
       expect(res.body.archived).toEqual(false);
-      expect(res.body.message).toEqual('Document restored successfully');
+      expect(res.body.message).toEqual('Document unarchived successfully');
     });
 
     it('should fail if invalid object id is used', async () => {
