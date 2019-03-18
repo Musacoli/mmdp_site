@@ -6,7 +6,14 @@ import ActionModal from '../../Modal/ActionModal';
 import Input from './Input';
 import SelectInput from './Select';
 
-const DropdownForm = ({ item, editAState, deleteAState, inputs }) => {
+const DropdownForm = ({
+  header,
+  label,
+  item,
+  editAState,
+  deleteAState,
+  inputs,
+}) => {
   const handleChange = (e) => {
     const { value, name } = e.target;
     const instance = { ...item };
@@ -14,9 +21,9 @@ const DropdownForm = ({ item, editAState, deleteAState, inputs }) => {
     editAState(instance);
   };
 
-  const handleSelectChange = (event, { value }) => {
+  const handleSelectChange = (event, { value, name }) => {
     const instance = { ...item };
-    instance.countryId = value;
+    instance[name] = value;
     editAState(instance);
   };
   return (
@@ -46,8 +53,8 @@ const DropdownForm = ({ item, editAState, deleteAState, inputs }) => {
         <ActionModal
           confirmDeleteGroup={deleteAState}
           group={item}
-          header="Delete a state"
-          content="Confirm delete state"
+          header={header}
+          content={label}
           triggerText={<Icon name="trash alternate outline" size="large" />}
         />
       </div>

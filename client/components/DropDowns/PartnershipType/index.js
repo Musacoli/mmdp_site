@@ -42,11 +42,13 @@ const State = (props) => {
           return (
             <PartnershipTypeForm
               // eslint-disable-next-line
-              key={index}              
+              key={index}
               item={item}
               inputs={inputs}
               {...props}
               countries={false}
+              header="Delete Partnership Type"
+              label="Confirm Delete a Partnership Type"
             />
           );
         })}

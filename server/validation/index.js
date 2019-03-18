@@ -6,6 +6,7 @@ import media from './resources/media';
 import state from './dropdowns/state';
 import status from './dropdowns/status';
 import partnershipType from './dropdowns/partnershipType';
+import LGA from './dropdowns/LGA';
 
 export default {
   login,
@@ -16,4 +17,5 @@ export default {
   state,
   status,
   partnershipType,
+  LGA,
 };

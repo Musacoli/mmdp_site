@@ -37,6 +37,7 @@ import AddStakeholderView from '../views/Stakeholders/addBasicInfo';
 import BeneficiaryServicesView from '../views/Stakeholders/addBeneficiaryServices';
 import StateView from '../views/DropDowns/State';
 import RegistrationStatusView from '../views/DropDowns/RegistrationStatus';
+import LGAView from '../views/DropDowns/LGA';
 
 const routes = [
   {
@@ -330,6 +331,11 @@ const routes = [
     component: RegistrationStatusView,
     exact: true,
     protected: true,
+  },
+  {
+    path: '/dropdowns/LGA',
+    name: 'State Dropdown',
+    component: LGAView,
   },
   {
     path: '*',

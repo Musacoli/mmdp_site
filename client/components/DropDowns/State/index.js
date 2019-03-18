@@ -48,6 +48,8 @@ const State = (props) => {
               inputs={inputs || []}
               {...props}
               countries={false}
+              header="Delete State"
+              label="Confirm Delete a state"
             />
           );
         })}
