@@ -1,22 +1,23 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
-<<<<<<< HEAD
-import Events from '../../models/Event';
-=======
+
 import keystone from 'keystone';
-import Events from '../../models/EventsModel';
->>>>>>> ft (Sockets) : Integrate Web Sockets
+import Events from '../../models/Event';
 import modelHelper from '../../helpers/modelHelper';
 import { filterAndPaginate, getPaginationData } from '../../utils/search';
 
-export const create = (req, res) => {
-  const { mainEvent } = req.body;
-
+const updateMainEvent = (mainEvent) => {
   if (mainEvent && mainEvent === true) {
     Events.model
       .update({}, { $set: { mainEvent: false } }, { multi: true })
       .exec((err, result) => {});
   }
+};
+
+export const create = (req, res) => {
+  const { mainEvent } = req.body;
+
+  updateMainEvent(mainEvent);
 
   // eslint-disable-next-line new-cap
   const item = new Events.model();
@@ -31,9 +32,7 @@ export const create = (req, res) => {
         data: item,
       });
     })
-    .catch((err) => {
-      return res.apiError({ err });
-    });
+    .catch((err) => res.apiError({ err }));
 };
 
 export const get = (req, res) => {
@@ -84,12 +83,7 @@ export const update = (req, res) => {
     }
 
     const { mainEvent } = req.body;
-
-    if (mainEvent && mainEvent === true) {
-      Events.model
-        .update({}, { $set: { mainEvent: false } }, { multi: true })
-        .exec((err, result) => {});
-    }
+    updateMainEvent(mainEvent);
 
     item.getUpdateHandler(req).process(req.body, (err) => {
       if (err) {
@@ -121,7 +115,7 @@ export const remove = (req, res) => {
       res.status(200).send({
         status: 'success',
         message: 'Event successfully deleted',
-      }),
-    );
+      });
+    });
   });
 };

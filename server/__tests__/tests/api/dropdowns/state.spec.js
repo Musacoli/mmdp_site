@@ -1,3 +1,4 @@
+import keystone from 'keystone';
 import chai from 'chai';
 import {
   app,
@@ -5,7 +6,8 @@ import {
   removeAllGroupsAndUsers,
 } from '../../../helpers/commons/base';
 import { createState } from '../../../helpers/dropdowns/state';
-import State from '../../../../models/Dropdowns/State';
+
+const State = keystone.list('State');
 
 const { expect } = chai;
 

@@ -1,7 +1,9 @@
 // eslint disable
+import keystone from 'keystone';
 import { faker, removeAllCollections } from '../commons/base';
-import State from '../../../models/Dropdowns/State';
-import Country from '../../../models/Dropdowns/Country';
+
+const State = keystone.list('State');
+const Country = keystone.list('Country');
 
 export const createCountry = async (overrides = {}, times = 1) => {
   const data = {
