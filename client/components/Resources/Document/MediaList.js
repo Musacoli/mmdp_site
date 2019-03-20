@@ -22,9 +22,9 @@ const MediaList = (props) => {
       {!loading && documents.results.length < 1 && (
         <Grid.Row className="ui loading center aligned animated fadeIn">
           <InvalidPage
-            pathLabel={`Add a ${instanceName}`}
+            pathLabel={`Add a ${instanceName} `}
             errorMessage={`No ${instanceName} to display`}
-            errorDescription={`Please add ${instanceName}`}
+            errorDescription={`Please add ${instanceName} `}
             path={addMediaUrl || '/'}
           />
         </Grid.Row>

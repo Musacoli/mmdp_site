@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Button } from 'semantic-ui-react';
 import BlueCard from '../../common/Card/BlueCard';
 import ConfirmModal from '../../common/Modal/ConfirmModal';
+import InvalidPage from '../../common/InvalidPage';
 import {
   ucFirstLetter,
   ARCHIVE_ACTION,
@@ -13,6 +14,8 @@ import Search from '../../common/Search';
 const ListReport = ({
   reports,
   isOpen,
+  instanceName,
+  addReportUrl,
   modalAction,
   showModal,
   handleModalToggle,
@@ -78,9 +81,14 @@ const ListReport = ({
               );
             })
           : !loading && (
-              <div className="ui info message no-reports">
-                <p>No reports found in the records.</p>
-              </div>
+              <Grid.Row className="ui loading center aligned animated fadeIn">
+                <InvalidPage
+                  pathLabel={`Add a ${instanceName}`}
+                  errorMessage={`No ${instanceName} to display`}
+                  errorDescription={`Please add ${instanceName}`}
+                  path={addReportUrl || '/'}
+                />
+              </Grid.Row>
             )}
         <ConfirmModal
           isOpen={isOpen}

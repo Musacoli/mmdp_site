@@ -4,18 +4,20 @@ import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import EventCard from './EventCard';
+import SimpleLoader from '../common/Loader/SimpleLoader';
 import Search from '../common/Search';
 
-const EventsList = ({
-  events,
-  handleDelete,
-  handleSearch,
-  handleSearchChange,
-}) => {
+const EventsList = (props) => {
+  const {
+    events,
+    loading,
+    handleDelete,
+    handleSearch,
+    handleSearchChange,
+  } = props;
   const showEvents = events.map((event_) => (
     <EventCard props={event_} key={event_._id} handleDelete={handleDelete} />
   ));
-
   return (
     <React.Fragment>
       <div className="events-container">
@@ -33,13 +35,12 @@ const EventsList = ({
             </Link>
           </div>
         </div>
-        {events.length ? (
+        {!loading && events.length ? (
           <div className="ui grid list-body">{showEvents}</div>
         ) : (
-          <div className="ui info message no-search-events">
-            <p>There are no events that match your search.</p>
-          </div>
+          ''
         )}
+        {loading && <SimpleLoader loading={loading} />}
       </div>
     </React.Fragment>
   );
