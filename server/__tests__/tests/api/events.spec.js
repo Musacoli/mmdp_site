@@ -1,11 +1,14 @@
 /* eslint-disable no-underscore-dangle */
 import expect from 'expect';
+import keystone from 'keystone';
 import { app, removeAllGroupsAndUsers } from '../../helpers/commons/base';
 import { createEvent, removeAllEvents } from '../../helpers/events';
 import { stubModelUpdateProcess } from '../../helpers/files';
 
 const eventsUrl = '/api/v1/events';
 const imageUploadUrl = `${__dirname}/../../helpers/files/test-img.png`;
+
+export const Event = keystone.list('Event');
 
 const apiCreateEvent = async () =>
   app
@@ -20,6 +23,10 @@ const apiListEvents = (parameters = {}) => {
     .get(`${eventsUrl}`)
     .query(parameters)
     .send();
+};
+
+const apiArchiveEvent = (id) => {
+  return app.patch(`${eventsUrl}/${id}/archive`).send();
 };
 
 const apiGetEvent = (id) => {
@@ -77,6 +84,55 @@ describe('Events API', () => {
       await createEvent({ archived: false }, 2);
       const res = await apiListEvents();
       expect(res.body.data.length).toBe(2);
+    });
+  });
+
+  describe('Archive/Unarchive', () => {
+    let existingEvent;
+
+    beforeEach(async () => {
+      await removeAllGroupsAndUsers();
+      await app.loginRandom(['cms.events.update']);
+      existingEvent = await createEvent();
+    });
+
+    it('should archive Event', async () => {
+      existingEvent = await createEvent({
+        archived: false,
+      });
+      const res = await apiArchiveEvent(existingEvent._id);
+      expect(res.status).toBe(200);
+      expect(res.body.message).toEqual('Event archived successfully');
+    });
+
+    it('should archive with all other relevant permissions', async () => {
+      await app.loginRandom(['cms.events.*']);
+      expect((await apiArchiveEvent(existingEvent._id)).status).toBe(200);
+      await app.loginRandom(['cms.update']);
+      expect((await apiArchiveEvent(existingEvent._id)).status).toBe(200);
+      await app.loginRandom(['cms.*']);
+      expect((await apiArchiveEvent(existingEvent._id)).status).toBe(200);
+    });
+
+    it('should restore event', async () => {
+      existingEvent = await createEvent({
+        archived: true,
+      });
+      const res = await apiArchiveEvent(existingEvent._id);
+      expect(res.status).toBe(200);
+      expect(res.body.message).toEqual('Event unarchived successfully');
+    });
+
+    it('should fail if invalid object id is used', async () => {
+      const res = await apiArchiveEvent('invalid id');
+      expect(res.status).toBe(404);
+      expect(res.body.message).toEqual('Event with that id doesnot exist');
+    });
+
+    it('should fail if user is not authorized', async () => {
+      await app.loginRandom([]);
+      const res = await apiArchiveEvent(existingEvent._id);
+      expect(res.status).toBe(403);
     });
   });
 
