@@ -11,6 +11,7 @@ const AddEditDocument = ({
   errors,
   title,
   mediaLabel,
+  disabled,
 }) => (
   <Form loading={loading} onSubmit={onSubmit}>
     <Form.Group widths={mediaLabel === 'document' ? 'equal' : '16'}>
@@ -42,7 +43,12 @@ const AddEditDocument = ({
     <Form.Field>
       <Button
         type="submit"
-        className="common-button upload-document bg-cool-blue"
+        className={
+          disabled
+            ? 'upload-document bg-cool-blue disable-btn-area'
+            : 'upload-document bg-cool-blue'
+        }
+        disabled={disabled}
       >
         Add {mediaLabel}
       </Button>

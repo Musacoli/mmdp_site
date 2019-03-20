@@ -11,6 +11,7 @@ import {
   editDocument,
   addDocumentFailure,
 } from '../../../store/actions/resources/document';
+import { validateFields } from '../../../utils/validations';
 
 export class AddDocument extends Component {
   static propTypes = {
@@ -136,6 +137,10 @@ export class AddDocument extends Component {
         onChange={this.handleChange}
         onSubmit={this.handleSubmit}
         errors={errors}
+        disabled={validateFields({
+          title,
+          document: document.name || '',
+        })}
       />
     );
   }

@@ -8,6 +8,7 @@ import Label from '../../../components/common/Label';
 import Button from '../../../components/common/Button';
 import '../../../assets/styles/About/common/style.scss';
 import { FileInput } from '../../../components/common/Inputs/FileInput';
+import { validateFields } from '../../../utils/validations';
 
 export class AboutMMDP extends Component {
   state = {
@@ -136,6 +137,12 @@ export class AboutMMDP extends Component {
       imageOneFileName,
       imageTwoFileName,
     } = this.state;
+    const disabled = validateFields({
+      about,
+      background,
+      imageOneFileName,
+      imageTwoFileName,
+    });
     return (
       <React.Fragment>
         <form className="about__section" onSubmit={this.submit}>
@@ -180,10 +187,11 @@ export class AboutMMDP extends Component {
             change={this.handleChange}
           />
           <Button
-            classNames="save__btn"
+            classNames={disabled ? 'save__btn disable-btn-area' : 'save__btn'}
             type="submit"
             loading={loading}
             name="Save"
+            disabled={disabled}
           />
         </form>
       </React.Fragment>

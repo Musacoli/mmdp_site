@@ -27,6 +27,7 @@ describe('<ResearchForm /> ', () => {
       loading: true,
       onSubmit: jest.fn(),
       fileName: '',
+      disable: true,
     };
     shallow(<ResearchForm {...props} />);
   });

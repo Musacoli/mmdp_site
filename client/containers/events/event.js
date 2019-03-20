@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import EventForm from '../../components/events/EventForm';
 import { addEventRequest } from '../../store/actions/events/event';
+import { validateFields } from '../../utils/validations';
 
 export class CreateEvent extends Component {
   state = {
@@ -81,6 +82,7 @@ export class CreateEvent extends Component {
           defaults={this.state}
           ImageName={ImageName}
           loading={response.adding}
+          disabled={validateFields(this.state)}
         />
       </React.Fragment>
     );

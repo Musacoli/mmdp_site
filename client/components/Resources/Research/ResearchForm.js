@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
 import FileInput from '../../common/Form/FileInput';
 
-const ResearchForm = ({ fileName, onChange, onSubmit, loading, title }) => (
+const ResearchForm = ({
+  fileName,
+  onChange,
+  onSubmit,
+  loading,
+  title,
+  disabled,
+}) => (
   <Form onSubmit={onSubmit} loading={loading} id="research-main-content">
     <Form.Group widths="equal">
       <Form.Field>
@@ -31,8 +38,9 @@ const ResearchForm = ({ fileName, onChange, onSubmit, loading, title }) => (
     </Form.Group>
     <Form.Button
       type="submit"
-      className="btn__upload"
       id="research__upload__btn"
+      disabled={disabled}
+      className={disabled ? 'btn__upload disable-btn-area' : 'btn__upload'}
     >
       Upload Research
     </Form.Button>

@@ -12,6 +12,7 @@ const ReportForm = ({
   onSubmit,
   loading,
   errors,
+  disabled,
 }) => (
   <Form loading={loading} onSubmit={onSubmit} id="research-main-content">
     <Form.Group widths="equal">
@@ -59,7 +60,12 @@ const ReportForm = ({
         />
       </Form.Field>
     </Form.Group>
-    <Form.Button type="submit" className="btn__upload" id="report__upload__btn">
+    <Form.Button
+      type="submit"
+      id="report__upload__btn"
+      className={disabled ? 'btn__upload disable-btn-area' : 'btn__upload'}
+      disabled={disabled}
+    >
       Upload Report
     </Form.Button>
   </Form>
