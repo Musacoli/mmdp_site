@@ -24,6 +24,7 @@ import { watchAddEventWatcher } from './events/addEventSaga';
 import { watcherListEvent } from './events/listEventsSaga';
 import { singleEventWatcher } from './events/singleEventSaga';
 import { updateEventWatcher } from './events/editEventSaga';
+import { archiveEventWatcher } from './events/archiveEvents';
 import { watcherDeleteEvent } from './events/deleteEventSaga';
 import { watchArchive } from './resources/archive';
 import { watchDelete } from './resources/deleteDocument';
@@ -84,6 +85,7 @@ export default function* root() {
     fork(watcherListEvent),
     fork(singleEventWatcher),
     fork(updateEventWatcher),
+    fork(archiveEventWatcher),
     fork(watcherDeleteEvent),
     fork(addUserResearchWatcher),
     fork(pillarWatcher.createPillarWatcher1),

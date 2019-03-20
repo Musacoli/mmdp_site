@@ -18,6 +18,7 @@ import listEvents from './events/events';
 import singleEvent from './events/singleEvent';
 import deleteEvent from './events/deleteEvent';
 import updateEvent from './events/updateEvent';
+import archiveEvents from './events/archiveEvents';
 import coordination from './about/coordination';
 import edoStateApproach from './about/edoStateApproach';
 import objectives from './about/objectives';
@@ -58,6 +59,7 @@ const rootReducer = combineReducers({
   singleEvent,
   deleteEvent,
   updateEvent,
+  archiveEvents,
   coordination,
   edoStateApproach,
   objectives,
