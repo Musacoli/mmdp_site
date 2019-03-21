@@ -42,6 +42,7 @@ export const baseUrl = '/api/v1';
 const aboutPath = `${baseUrl}/about`;
 const stakeholdersPath = `${baseUrl}/stakeholders-directory`;
 const stateDropdownPath = `${baseUrl}/state`;
+const registrationStatusPath = `${baseUrl}/registration-status`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -683,6 +684,50 @@ const App = (app) => {
     `${stateDropdownPath}/:id`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.state.remove,
+  );
+
+  /* Registration Status Dropdown */
+
+  app.post(
+    `${registrationStatusPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.status.addRegStatus),
+    ],
+    routes.api.dropdowns.registrationStatus.create,
+  );
+
+  app.get(
+    `${registrationStatusPath}`,
+    [authOptional],
+    routes.api.dropdowns.registrationStatus.list,
+  );
+
+  app.put(
+    `${registrationStatusPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.status.addRegStatus),
+    ],
+    routes.api.dropdowns.registrationStatus.updateMany,
+  );
+  app.put(
+    `${registrationStatusPath}/:id`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.state.addState),
+    ],
+    routes.api.dropdowns.registrationStatus.update,
+  );
+  app.delete(
+    `${registrationStatusPath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.registrationStatus.remove,
   );
 
   app.use(errorHandler);

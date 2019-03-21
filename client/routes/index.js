@@ -36,6 +36,7 @@ import StakeholdersView from '../views/Stakeholders/stakeholderDirectory';
 import AddStakeholderView from '../views/Stakeholders/addBasicInfo';
 import BeneficiaryServicesView from '../views/Stakeholders/addBeneficiaryServices';
 import StateView from '../views/DropDowns/State';
+import RegistrationStatusView from '../views/DropDowns/RegistrationStatus';
 
 const routes = [
   {
@@ -320,6 +321,13 @@ const routes = [
     path: '/dropdowns/state',
     name: 'State Dropdown',
     component: StateView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/dropdowns/registration-status',
+    name: 'Registration Status Dropdown',
+    component: RegistrationStatusView,
     exact: true,
     protected: true,
   },

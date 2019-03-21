@@ -5,6 +5,7 @@ const apiVersion = 'api/v1/';
 const documentsApiPrefix = `${apiVersion}resources/repository/document`;
 const mediaApiPrefix = `${apiVersion}resources/repository/media`;
 const stateApiPrefix = `${apiVersion}state`;
+const regStatusApiPrefix = `${apiVersion}registration-status`;
 const countryApiPrefix = `${apiVersion}country`;
 
 export const api = {
@@ -72,6 +73,13 @@ export const api = {
       update: (data) => server.put(`${stateApiPrefix}`, data),
       delete: (id) => server.delete(`${stateApiPrefix}/${id}`),
     },
+    regStatus: {
+      create: (data) => server.post(regStatusApiPrefix, data),
+      list: (data) => server.get(regStatusApiPrefix, data),
+      update: (data) => server.put(`${regStatusApiPrefix}`, data),
+      delete: (id) => server.delete(`${regStatusApiPrefix}/${id}`),
+    },
+
     country: {
       list: () => server.get(`${countryApiPrefix}`),
     },
