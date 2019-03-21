@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BasicInformationForm from '../../components/Stakeholders/addBasicInfo';
 import BeneficiaryServiceForm from '../../components/Stakeholders/addBeneficiaryServices';
+import * as stateActions from '../../store/actions/dropdowns/state';
+
 import { addStakeholderRequest } from '../../store/actions/stakeholders/stakeholders';
 
 export class AddStakeholder extends Component {
@@ -71,6 +73,13 @@ export class AddStakeholder extends Component {
       this.forceUpdate();
     }
   }
+
+  componentDidMount() {
+    const { fetchStates } = this.props;
+    fetchStates();
+  }
+
+  handleSelectChange = () => {};
 
   handleChange = (event) => {
     event.preventDefault();
@@ -146,6 +155,7 @@ export class AddStakeholder extends Component {
         state={basicInformation}
         pages={pages}
         step={step}
+        {...this.props}
       />
     ) : (
       <BeneficiaryServiceForm
@@ -157,6 +167,7 @@ export class AddStakeholder extends Component {
         handleAddnewBeneficiary={this.handleAddnewBeneficiary}
         pages={pages}
         step={step}
+        {...this.props}
       />
     );
   }
@@ -168,10 +179,12 @@ AddStakeholder.propTypes = {
 
 export const mapStateToProps = (state) => ({
   stakeholderData: state,
+  states: state.states.data,
 });
 
 export const mapDispatchToProps = {
   addStakeholder: (data) => addStakeholderRequest(data),
+  fetchStates: stateActions.fetchStates,
 };
 
 export default connect(

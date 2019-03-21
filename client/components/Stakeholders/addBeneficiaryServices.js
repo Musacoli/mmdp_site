@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 import FormLabels from './formLabels';
 import FormHeader from './formHeader';
 import FormNotesTextarea from './textArea';
@@ -14,6 +15,8 @@ const BeneficiaryServicesForm = (props) => {
     handleAddnewBeneficiary,
     pages,
     step,
+    states,
+    handleSelectChange,
   } = props;
 
   return (
@@ -223,18 +226,15 @@ const BeneficiaryServicesForm = (props) => {
                 <option value="0">option 2</option>
               </select>
             </div>
-            <div className="eight wide column">
-              <select
-                className="ui dropdown st-input"
-                id="state"
-                name="state"
-                onChange={handleChange}
-                value={state.state}
-              >
-                <option value="">Edo</option>
-                <option value="1">option 1</option>
-                <option value="0">option 2</option>
-              </select>
+            <div className="seven wide column">
+              <div className="select__box">
+                <Select
+                  getOptionValue={(item) => item._id}
+                  getOptionLabel={(item) => item.stateName}
+                  options={states}
+                  onChange={handleSelectChange}
+                />
+              </div>
             </div>
           </div>
           <FormLabels label1="Local government" label2="Ward" />

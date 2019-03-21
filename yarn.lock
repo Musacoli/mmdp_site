@@ -8141,6 +8141,11 @@ list-to-array@^1.1.0:
   resolved "https://registry.yarnpkg.com/list-to-array/-/list-to-array-1.1.0.tgz#ca7dff640606433cac75cbe8446acd864b15bf6f"
   integrity sha1-yn3/ZAYGQzysdcvoRGrNhksVv28=
 
+lo@^0.34.0:
+  version "0.34.0"
+  resolved "https://registry.yarnpkg.com/lo/-/lo-0.34.0.tgz#ef772f22b8c82dd3e5dc609ab12aba4590a9434b"
+  integrity sha512-IKMDGdZ5IkVebpIzCXFPWLHAiZNOVeVpidyBACs994jF7JEcjAWw5Y3XglNv5RUVxpnYX8uIU1+IdaPdOc17Fg==
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -13079,6 +13084,11 @@ syntax-error@^1.1.1:
   integrity sha512-YPPlu67mdnHGTup2A8ff7BC2Pjq0e0Yp/IyTFN03zWO0RcK07uLcbi7C2KpGR2FvWbaB0+bfE27a+sBKebSo7w==
   dependencies:
     acorn-node "^1.2.0"
+
+t@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/t/-/t-0.5.1.tgz#7d9192201ed7f8bbf61598ac73660d8ffcc3b578"
+  integrity sha1-fZGSIB7X+Lv2FZisc2YNj/zDtXg=
 
 table@^4.0.3:
   version "4.0.3"

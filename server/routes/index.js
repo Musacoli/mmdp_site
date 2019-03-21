@@ -635,7 +635,6 @@ const App = (app) => {
     [
       authenticate,
       authorize.cms.dropdowns.create,
-      appendFilesToBody,
       validate(validator.state.addState),
     ],
     routes.api.dropdowns.state.create,
@@ -653,6 +652,16 @@ const App = (app) => {
     routes.api.dropdowns.state.list,
   );
 
+  app.put(
+    `${stateDropdownPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.state.addState),
+    ],
+    routes.api.dropdowns.state.updateMany,
+  );
   app.put(
     `${stateDropdownPath}/:id`,
     [

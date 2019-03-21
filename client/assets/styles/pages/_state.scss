@@ -1,0 +1,50 @@
+.stateDropdown {
+    &__actions {
+        color: white;
+        background: $cool-blue;
+        border-radius: 50%;
+        height: 34px;
+        width: 107px;
+        margin-top: 33px;
+        opacity: 1;
+        &:hover {
+            opacity: 1;
+        }
+        .trash {
+            padding-top: 7px;
+            padding-left: 8px;
+        }
+    }
+    .input, .selection {
+        height: 50px;
+        .text {
+            margin-top: 6px !important
+        }
+        .dropdown.icon {
+            margin-top: -3px !important
+        }
+    }
+    &__add {
+        padding-left: 0;
+    }
+    &__add, &__save {
+        button {
+            width: 170px !important;
+            height: 49px;
+            color: $cool-blue !important;
+            background-color: transparent !important;
+            margin-top: 20px !important;
+        }
+           
+    }
+    &__save {
+        button {
+            background-color: $cool-blue !important;
+            color: white !important
+        }        
+    }
+}
+
+.select__box {
+    margin-right: 40px;
+}
