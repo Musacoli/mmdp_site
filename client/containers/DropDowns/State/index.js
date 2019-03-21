@@ -28,12 +28,16 @@ export class State extends Component {
     const { loading, states } = this.props;
     const { dropdowns, refresh } = this.state;
     const filtered = filterDropdowns(dropdowns, hasId);
+
     if (
       states.length > 0 &&
       !loading &&
       refresh &&
       filtered.length !== states.length
     ) {
+      // eslint-disable-next-line
+      this.setState({ dropdowns: states, refresh: false });
+    } else if (states.length === 0 && !loading && refresh) {
       // eslint-disable-next-line
       this.setState({ dropdowns: states, refresh: false });
     }

@@ -7,6 +7,8 @@ import {
   faker,
 } from '../../../helpers/commons/base';
 import { createState } from '../../../helpers/dropdowns/state';
+import { createLGA } from '../../../helpers/dropdowns/LGA';
+import { createStakeholderAddress } from '../../../helpers/dropdowns/StakeholderAddress';
 
 const State = keystone.list('State');
 
@@ -88,8 +90,36 @@ describe('State route', () => {
     it('should delete a state', async () => {
       const state = await createState();
       const { _id: id } = state;
-      const res = await app.delete(deleteRoute(id));
+      let res = await app.delete(deleteRoute(id));
       expect(res.status).to.equal(200);
+      expect(res.body).to.have.property('message');
+
+      res = await app.delete(deleteRoute(id));
+      expect(res.status).to.equal(404);
+      expect(res.body).to.have.property('message');
+    });
+
+    it('should not delete a state with LGA assigned to it', async () => {
+      const state = await createState();
+      const { _id: id } = state;
+      await createLGA(id);
+      const res = await app.delete(deleteRoute(id));
+      expect(res.status).to.equal(400);
+      expect(res.body.message).to.equal(
+        'You cannot delete this state. It is already assigned to 1  Local governement(s)',
+      );
+      expect(res.body).to.have.property('message');
+    });
+
+    it('should not delete a state with stakeholder address assigned to it', async () => {
+      const state = await createState();
+      const { _id: id } = state;
+      await createStakeholderAddress(id);
+      const res = await app.delete(deleteRoute(id));
+      expect(res.status).to.equal(400);
+      expect(res.body.message).to.equal(
+        'You cannot delete this state. It is already assigned to 1 stakeholder(s) ',
+      );
       expect(res.body).to.have.property('message');
     });
   });

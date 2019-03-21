@@ -53,6 +53,10 @@ export function* deleteStatesAsync({ payload }) {
     const data = response ? response.data : {};
     yield put(actions.deleteStateSuccess(data));
     yield put(actions.fetchStates({}));
+    const message = response
+      ? response.data.message
+      : 'State deleted successfully';
+    toastr.success(message);
   } catch (error) {
     yield put(actions.deleteStateFailure({}));
     const message = error.response
