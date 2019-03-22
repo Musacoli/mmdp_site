@@ -4,6 +4,7 @@ import research from './resources/research';
 import document from './resources/document';
 import media from './resources/media';
 import state from './dropdowns/state';
+import status from './dropdowns/status';
 
 export default {
   login,
@@ -12,4 +13,5 @@ export default {
   document,
   media,
   state,
+  status,
 };

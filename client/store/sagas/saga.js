@@ -43,6 +43,12 @@ import {
   watchDeleteStates,
 } from './dropdowns/state';
 
+import {
+  watchAddStatuses,
+  watchFetchStatuses,
+  watchDeleteStatuses,
+} from './dropdowns/status';
+
 export default function* root() {
   yield all([
     fork(watchFetchingGroups),
@@ -109,5 +115,9 @@ export default function* root() {
     fork(watchAddStates),
     fork(watchFetchStates),
     fork(watchDeleteStates),
+
+    fork(watchAddStatuses),
+    fork(watchFetchStatuses),
+    fork(watchDeleteStatuses),
   ]);
 }

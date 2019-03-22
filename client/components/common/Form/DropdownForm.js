@@ -61,6 +61,7 @@ const StateForm = ({ countries, item, editAState, deleteAState }) => {
         value={item.description}
         name="description"
       />
+
       <div className="stateDropdown__actions">
         <ActionModal
           confirmDeleteGroup={deleteAState}

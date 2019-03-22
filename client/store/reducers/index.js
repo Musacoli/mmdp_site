@@ -36,6 +36,7 @@ import media from './resources/media';
 import addStakeholder from './stakeholders/addStakeholder';
 import country from './dropdowns/country';
 import states from './dropdowns/state';
+import statuses from './dropdowns/status';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -73,6 +74,7 @@ const rootReducer = combineReducers({
   addStakeholder,
   country,
   states,
+  statuses,
 });
 
 export default rootReducer;
