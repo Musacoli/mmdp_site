@@ -75,6 +75,7 @@ describe('ThematicPillars route', () => {
     });
 
     it('should get a thematic pillar by id', async () => {
+      console.log(thematicPillars._id);
       const res = await app.get(routeWithId(thematicPillars._id));
       expect(res.status).to.equal(200);
     });

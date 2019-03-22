@@ -20,6 +20,7 @@ import frequency from './dropdowns/frequency';
 import thematicPillars from './dropdowns/thematicPillars';
 import amountInvested from './dropdowns/amountInvested';
 import subTheme from './dropdowns/subTheme';
+import focusArea from './dropdowns/focusArea';
 
 export default {
   login,
@@ -45,4 +46,5 @@ export default {
   thematicPillars,
   amountInvested,
   subTheme,
+  focusArea,
 };

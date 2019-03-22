@@ -62,7 +62,7 @@ export function* deleteSubThemesAsync({ payload }) {
       : 'Subtheme deleted successfully';
     yield call(toastr.success, message);
   } catch (error) {
-    yield put(actions.deleteSubTheme({}));
+    yield put(actions.deleteSubThemeFailure({}));
     const message = error.response
       ? error.response.data.message
       : 'Error deleting sub themes';

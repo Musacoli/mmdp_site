@@ -4,7 +4,10 @@ import { Form } from 'semantic-ui-react';
 function DropdownActions({ addDropdown, handleSubmit }) {
   return (
     <Form.Group>
-      <Form.Button className="dropdowns__add" onClick={() => addDropdown()}>
+      <Form.Button
+        className="dropdowns__add button-more"
+        onClick={() => addDropdown()}
+      >
         Add more options
       </Form.Button>
       <Form.Button

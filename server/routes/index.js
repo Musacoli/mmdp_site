@@ -55,6 +55,7 @@ const FrequencyPath = `${baseUrl}/frequency`;
 const thematicPillarsDropdownPath = `${baseUrl}/thematic-pillars`;
 const amountInvested = `${baseUrl}/amount-invested`;
 const subThemePath = `${baseUrl}/sub-theme`;
+const focusAreaPath = `${baseUrl}/focus-area`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -1298,6 +1299,56 @@ const App = (app) => {
     routes.api.dropdowns.Frequency.remove,
   );
 
+  /* ---------- Sub Theme Dropdown ----------- */
+  app.post(
+    `${subThemePath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.subTheme.addSubTheme),
+      keystone.middleware.api,
+    ],
+    routes.api.dropdowns.subTheme.create,
+  );
+
+  app.get(
+    `${subThemePath}`,
+    [authOptional],
+    routes.api.dropdowns.subTheme.list,
+  );
+
+  app.get(
+    `${subThemePath}/:thematicPillar_id`,
+    [authOptional],
+    routes.api.dropdowns.subTheme.list,
+  );
+
+  app.put(
+    `${subThemePath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.subTheme.addSubTheme),
+    ],
+    routes.api.dropdowns.subTheme.updateMany,
+  );
+  app.put(
+    `${subThemePath}/:id`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.subTheme.addSubTheme),
+    ],
+    routes.api.dropdowns.subTheme.update,
+  );
+  app.delete(
+    `${subThemePath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.subTheme.remove,
+  );
+
   /* ---------- Amount Invested Dropdown ----------- */
   app.post(
     `${amountInvested}`,
@@ -1392,6 +1443,59 @@ const App = (app) => {
     `${subThemePath}/:id`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.subTheme.remove,
+  );
+
+  /* ---------- Focus Area Dropdown ----------- */
+
+  app.post(
+    `${focusAreaPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      keystone.middleware.api,
+      validate(validator.focusArea.focusArea),
+    ],
+    routes.api.dropdowns.focusArea.create,
+  );
+
+  app.get(
+    `${focusAreaPath}`,
+    [authOptional],
+    routes.api.dropdowns.focusArea.list,
+  );
+
+  app.get(
+    `${focusAreaPath}/:subTheme_id`,
+    [authOptional],
+    routes.api.dropdowns.focusArea.list,
+  );
+
+  app.put(
+    `${focusAreaPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.focusArea.focusArea),
+    ],
+    routes.api.dropdowns.focusArea.updateMany,
+  );
+
+  app.put(
+    `${focusAreaPath}/:id`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.focusArea.focusArea),
+    ],
+    routes.api.dropdowns.focusArea.update,
+  );
+
+  app.delete(
+    `${focusAreaPath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.focusArea.remove,
   );
 
   app.use(errorHandler);

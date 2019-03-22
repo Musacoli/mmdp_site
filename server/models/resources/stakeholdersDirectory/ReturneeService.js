@@ -16,6 +16,7 @@ ReturneeService.add({
   averageNumberOfFemaleBeneficiaries: { type: Number },
   averageNumberOfBeneficiary: { type: Number },
   amountInvestedRange: { type: Types.Relationship, ref: 'AmountInvestedRange' },
+  focusArea: { type: Types.Relationship, ref: 'FocusArea' },
   duration: { type: Number },
   note: { type: String },
   beneficiaryTypeId: { type: Types.Relationship, ref: 'BeneficiaryType' },

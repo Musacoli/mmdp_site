@@ -5,6 +5,7 @@ import responseCodes from '../../../constants/responseCodes';
 
 export const ThematicPillars = () => keystone.list('ThematicPillarDropdown');
 export const StakeholderAddress = () => keystone.list('StakeholderAddress');
+export const SubTheme = () => keystone.list('SubTheme');
 
 export const create = async (req, res) => {
   try {
@@ -121,7 +122,7 @@ export const updateMany = async (req, res) => {
 export const stateInModel = (model, id) => {
   const results = model()
     .model.find()
-    .where('pillarName', id)
+    .where('thematicPillarId', id)
     .lean();
   return results;
 };
@@ -135,6 +136,14 @@ export const remove = async (req, res) => {
         const message = `You cannot delete this thematic pillar. It is already assigned to ${
           results.length
         } stakeholder(s) `;
+        errorMessage.push(message);
+      }
+    }),
+    stateInModel(SubTheme, id).then((results) => {
+      if (results.length > 0) {
+        const message = `You cannot delete this thematic pillar. It is already assigned to ${
+          results.length
+        } sub theme(s) `;
         errorMessage.push(message);
       }
     }),

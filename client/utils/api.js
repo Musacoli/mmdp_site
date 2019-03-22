@@ -16,6 +16,7 @@ const communityApiPrefix = `${apiVersion}community`;
 const frequencyApiPrefix = `${apiVersion}frequency`;
 const amountInvestedPrefix = `${apiVersion}amount-invested`;
 const subThemeApiPrefix = `${apiVersion}sub-theme`;
+const focusAreaPrefix = `${apiVersion}focus-area`;
 
 // mock server
 const thematicPillarsApiPrefix = `${apiVersion}thematic-pillars`;
@@ -185,6 +186,12 @@ export const api = {
       list: (data) => server.get(subThemeApiPrefix, data),
       update: (data) => server.put(`${subThemeApiPrefix}`, data),
       delete: (id) => server.delete(`${subThemeApiPrefix}/${id}`),
+    },
+    focusArea: {
+      create: (data) => server.post(focusAreaPrefix, data),
+      list: (data) => server.get(focusAreaPrefix, data),
+      update: (data) => server.put(`${focusAreaPrefix}`, data),
+      delete: (id) => server.delete(`${focusAreaPrefix}/${id}`),
     },
   },
 };

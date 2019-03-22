@@ -120,22 +120,28 @@ import {
 } from './dropdowns/frequency';
 
 import {
-  watchAddThematicPillars,
-  watchFetchThematicPillars,
-  watchDeleteThematicPillars,
-} from './dropdowns/thematicPillars';
-
-import {
   watchAddAmount,
   watchDeleteAmount,
   watchFetchAmount,
 } from './dropdowns/amountInvested';
 
 import {
+  watchAddThematicPillars,
+  watchFetchThematicPillars,
+  watchDeleteThematicPillars,
+} from './dropdowns/thematicPillars';
+
+import {
   watchAddSubThemes,
   watchFetchSubThemes,
   watchDeleteSubThemes,
 } from './dropdowns/subTheme';
+
+import {
+  watchAddFocusArea,
+  watchFetchFocusArea,
+  watchDeleteFocusArea,
+} from './dropdowns/focusArea';
 
 export default function* root() {
   yield all([
@@ -270,5 +276,9 @@ export default function* root() {
     fork(watchAddSubThemes),
     fork(watchFetchSubThemes),
     fork(watchDeleteSubThemes),
+
+    fork(watchAddFocusArea),
+    fork(watchFetchFocusArea),
+    fork(watchDeleteFocusArea),
   ]);
 }

@@ -66,9 +66,12 @@ export class ThematicPillars extends Component {
   deleteADropdown = (item) => {
     const { deletethematicPillar } = this.props;
     const { dropdowns } = this.state;
-    const thematicPillars = dropdowns;
+    const thematicPillars = dropdowns.slice();
     if (item._id) {
       deletethematicPillar({ id: item._id });
+      // eslint-disable-next-line react/no-unused-state
+      this.setState({ refresh: true });
+      return false;
     }
     const index = thematicPillars.indexOf(item);
     if (index > -1) {

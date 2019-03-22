@@ -52,6 +52,7 @@ import FrequencyView from '../views/DropDowns/Frequency';
 import ThematicPillarsView from '../views/DropDowns/ThematicPillars';
 import AmountInvestedView from '../views/DropDowns/AmountInvested';
 import SubThemeView from '../views/DropDowns/SubTheme';
+import FocusAreaView from '../views/DropDowns/FocusArea';
 
 const routes = [
   {
@@ -459,6 +460,11 @@ const routes = [
     path: '/dropdowns/amount-invested',
     name: 'Frequency Options',
     component: AmountInvestedView,
+  },
+  {
+    path: '/dropdowns/focus-area',
+    name: 'Focus Area Options',
+    component: FocusAreaView,
     exact: true,
     protected: true,
   },
