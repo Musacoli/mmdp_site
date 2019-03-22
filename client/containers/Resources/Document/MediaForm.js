@@ -10,6 +10,7 @@ import {
   addDocumentFailure,
 } from '../../../store/actions/resources/document';
 import documentFormConstraint from '../../../utils/constraints/report';
+import { validateFields } from '../../../utils/validations';
 
 export class MediaForm extends Component {
   static propTypes = {
@@ -110,6 +111,9 @@ export class MediaForm extends Component {
         onSubmit={this.handleSubmit}
         errors={errors}
         mediaLabel={mediaType}
+        disabled={validateFields({
+          ReportFileName: document.name ? document.name : '',
+        })}
       />
     );
   }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ResearchForm from '../../../components/Resources/Research/ResearchForm';
 import { addResearch } from '../../../store/actions/resources/research';
+import { validateFields } from '../../../utils/validations';
 
 export class AddResearch extends Component {
   state = {
@@ -35,13 +36,12 @@ export class AddResearch extends Component {
   };
 
   render() {
-    const { fileName } = this.state;
+    const { fileName, title } = this.state;
     const { loading, history, research } = this.props;
     const { payload } = research;
     if (payload && payload.status === 'success') {
       history.push('/resources/research/all');
     }
-
     return (
       <div>
         <ResearchForm
@@ -49,6 +49,7 @@ export class AddResearch extends Component {
           onSubmit={this.onFormSubmit}
           fileName={fileName}
           loading={loading}
+          disabled={validateFields({ title, fileName })}
         />
       </div>
     );

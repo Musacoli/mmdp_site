@@ -45,3 +45,16 @@ button.ui.button.archive-doc.delete-doc.red {
 button#document_edit_btn {
   padding-left: .2px;
 }
+.disable-btn {
+  background-color: #81BDD4;
+  opacity: 0.5;
+  cursor: default !important;
+}
+.disable-btn-area button {
+  background-color: #81BDD4;
+  opacity: 0.5;
+  cursor: default !important;
+}
+button{
+  cursor:pointer;
+}

@@ -32,6 +32,7 @@ exports[`<ResearchContainer />  renders the container without crashing 1`] = `
 >
   <div>
     <ResearchForm
+      disabled={true}
       fileName=""
       loading={true}
       onChange={[Function]}
@@ -155,29 +156,34 @@ exports[`<ResearchContainer />  renders the container without crashing 1`] = `
           </FormGroup>
           <FormButton
             as={[Function]}
-            className="btn__upload"
+            className="btn__upload disable-btn-area"
             control={[Function]}
+            disabled={true}
             id="research__upload__btn"
             type="submit"
           >
             <FormField
-              className="btn__upload"
+              className="btn__upload disable-btn-area"
               control={[Function]}
+              disabled={true}
               id="research__upload__btn"
               type="submit"
             >
               <div
-                className="field btn__upload"
+                className="disabled field btn__upload disable-btn-area"
               >
                 <Button
                   as="button"
+                  disabled={true}
                   id="research__upload__btn"
                   type="submit"
                 >
                   <button
-                    className="ui button"
+                    className="ui disabled button"
+                    disabled={true}
                     id="research__upload__btn"
                     onClick={[Function]}
+                    tabIndex={-1}
                     type="submit"
                   >
                     Upload Research

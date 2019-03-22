@@ -10,6 +10,7 @@ import {
   fetchReport,
 } from '../../../store/actions/resources/report';
 import reportFormConstraint from '../../../utils/constraints/report';
+import { validateFields } from '../../../utils/validations';
 
 export class ReportForm extends Component {
   state = {
@@ -102,6 +103,11 @@ export class ReportForm extends Component {
             onChange={this.handleChange}
             onSubmit={this.handleSubmit}
             errors={errors}
+            disabled={validateFields({
+              title,
+              report: reportFile.name === undefined ? '' : reportFile.name,
+              reportType,
+            })}
           />
         )}
       </>

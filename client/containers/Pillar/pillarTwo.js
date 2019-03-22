@@ -6,6 +6,7 @@ import MarkdownEditor from '../../components/common/MarkdownEditor';
 import { FileInput } from '../../components/common/Inputs/FileInput';
 import { TextInput } from '../../components/common/Inputs/TextInput';
 import '../../assets/styles/Pillars/index.scss';
+import { disable } from '../../utils/validations';
 
 export class PillarTwo extends Component {
   // const { pillars } = this.props;
@@ -200,7 +201,11 @@ export class PillarTwo extends Component {
           />
 
           <div className="button__area">
-            <button disabled={loading} type="submit">
+            <button
+              className={disable(this.state) ? ' button__area disable-btn' : ''}
+              disabled={disable(this.state) || loading}
+              type="submit"
+            >
               Save
             </button>
           </div>

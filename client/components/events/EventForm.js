@@ -19,6 +19,7 @@ const EventForm = ({
   defaults,
   ImageName,
   loading,
+  disabled,
 }) => (
   <Form onSubmit={handleSubmit} loading={loading} className="event-form">
     <Grid columns={2}>
@@ -89,7 +90,11 @@ const EventForm = ({
       required
     />
     <br />
-    <button type="submit" className="btn-save">
+    <button
+      type="submit"
+      className={disabled ? 'btn-save disable-btn' : 'btn-save'}
+      disabled={disabled}
+    >
       Save
     </button>
   </Form>
@@ -106,6 +111,7 @@ EventForm.propTypes = {
   defaults: PropTypes.shape({}).isRequired,
   ImageName: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 export default EventForm;
