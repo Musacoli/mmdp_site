@@ -118,6 +118,11 @@ import {
   watchFetchFrequency,
   watchDeleteFrequency,
 } from './dropdowns/frequency';
+import {
+  watchAddThematicPillars,
+  watchFetchThematicPillars,
+  watchDeleteThematicPillars,
+} from './dropdowns/thematicPillars';
 
 export default function* root() {
   yield all([
@@ -240,5 +245,8 @@ export default function* root() {
     fork(watchAddFrequency),
     fork(watchFetchFrequency),
     fork(watchDeleteFrequency),
+    fork(watchAddThematicPillars),
+    fork(watchFetchThematicPillars),
+    fork(watchDeleteThematicPillars),
   ]);
 }

@@ -52,6 +52,7 @@ const fundingSourcePath = `${baseUrl}/funding-source`;
 const impactTypePath = `${baseUrl}/impact-type`;
 const truncatePath = `${baseUrl}/truncate`;
 const FrequencyPath = `${baseUrl}/frequency`;
+const thematicPillarsDropdownPath = `${baseUrl}/thematic-pillars`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -774,6 +775,54 @@ const App = (app) => {
     `${stateDropdownPath}/:id`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.state.remove,
+  );
+  // Thematic pillars
+  app.post(
+    `${thematicPillarsDropdownPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.thematicPillars.addThermaticPillar),
+    ],
+    routes.api.dropdowns.thematicPillars.create,
+  );
+
+  app.get(
+    `${thematicPillarsDropdownPath}/:id`,
+    [authOptional],
+    routes.api.dropdowns.thematicPillars.get,
+  );
+
+  app.get(
+    `${thematicPillarsDropdownPath}`,
+    [authOptional],
+    routes.api.dropdowns.thematicPillars.list,
+  );
+
+  app.put(
+    `${thematicPillarsDropdownPath}/:id`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      validate(validator.thematicPillars.updateThermaticPillar),
+      keystone.middleware.api,
+    ],
+    routes.api.dropdowns.thematicPillars.update,
+  );
+  app.put(
+    `${thematicPillarsDropdownPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      validate(validator.thematicPillars.updateManyThermaticPillars),
+      keystone.middleware.api,
+    ],
+    routes.api.dropdowns.thematicPillars.updateMany,
+  );
+  app.delete(
+    `${thematicPillarsDropdownPath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.thematicPillars.remove,
   );
 
   // partnership Types

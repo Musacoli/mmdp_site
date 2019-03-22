@@ -49,6 +49,7 @@ import OrganizationTypeView from '../views/DropDowns/OrganizationType';
 import WardView from '../views/DropDowns/Ward';
 import ImpactTypeView from '../views/DropDowns/ImpactType';
 import FrequencyView from '../views/DropDowns/Frequency';
+import ThematicPillarsView from '../views/DropDowns/ThematicPillars';
 
 const routes = [
   {
@@ -404,6 +405,11 @@ const routes = [
     path: '/dropdowns/impact-type',
     name: 'Impact Type Dropdown',
     component: ImpactTypeView,
+  },
+  {
+    path: '/dropdowns/thematic-pillars',
+    name: 'Thematic pillars Dropdown',
+    component: ThematicPillarsView,
     exact: true,
     protected: true,
   },

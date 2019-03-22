@@ -248,7 +248,7 @@ exports[`<countryComponent /> should render country component without crashing 1
                 </Input>
                  
                 <div
-                  className="dropdowns__actions undefined"
+                  className="dropdowns__actions undefined __two_fields"
                 >
                   <ActionModal
                     className=""
@@ -560,7 +560,7 @@ exports[`<countryComponent /> should render country component without crashing 1
                 </Input>
                  
                 <div
-                  className="dropdowns__actions undefined"
+                  className="dropdowns__actions undefined __two_fields"
                 >
                   <ActionModal
                     className=""

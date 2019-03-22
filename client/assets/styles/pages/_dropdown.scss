@@ -1,4 +1,4 @@
-.dropdowns {
+.dropdowns, .dropdown {
     &__actions {
         color: white;
         background: $cool-blue;
@@ -55,4 +55,8 @@
 
 .duo {
   width: 74px !important;
+}
+
+.__two_fields {
+    width: 76px;
 }

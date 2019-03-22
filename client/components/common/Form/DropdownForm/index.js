@@ -50,7 +50,11 @@ const DropdownForm = ({
         );
       })}
 
-      <div className={`dropdowns__actions ${className}`}>
+      <div
+        className={`dropdowns__actions ${className} ${
+          inputs.length === 2 ? '__two_fields' : ''
+        }`}
+      >
         <ActionModal
           confirmDeleteGroup={deleteAState}
           group={item}
