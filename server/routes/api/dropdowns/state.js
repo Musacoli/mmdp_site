@@ -5,6 +5,8 @@ import modelHelper from '../../../helpers/modelHelper';
 import responseMessage from '../../../constants/responseMessage';
 
 export const State = () => keystone.list('State');
+export const StakeholderAddress = () => keystone.list('StakeholderAddress');
+export const LGA = () => keystone.list('LGA');
 
 export const create = async (req, res) => {
   State()
@@ -18,21 +20,6 @@ export const create = async (req, res) => {
     .catch((err) => {
       res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, err);
     });
-};
-
-export const get = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const state = await State().model.findById(id);
-    if (!state)
-      return res.sendError(
-        sprintf(responseMessage.RESOURCE_NOT_FOUND, 'State'),
-        404,
-      );
-    return res.sendSuccess({ state });
-  } catch (error) {
-    res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
-  }
 };
 
 export const list = async (req, res) => {
@@ -100,21 +87,55 @@ export const update = async (req, res) => {
   }
 };
 
+export const stateInModel = (model, id) => {
+  const results = model()
+    .model.find()
+    .where('stateId', id)
+    .lean();
+  return results;
+};
+
 export const remove = async (req, res) => {
   const { id } = req.params;
-  try {
-    const state = await State().model.findByIdAndRemove(id);
-    if (!state)
-      return res.sendError(
-        sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'state'),
-        404,
-      );
-    return res.sendSuccess(
-      undefined,
-      200,
-      sprintf(responseMessage.RESOURCE_DELETED, 'State'),
-    );
-  } catch (error) {
-    res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
-  }
+  const errorMessage = [];
+  Promise.all([
+    stateInModel(StakeholderAddress, id).then((results) => {
+      if (results.length > 0) {
+        const message = `You cannot delete this state. It is already assigned to ${
+          results.length
+        } stakeholder(s) `;
+        errorMessage.push(message);
+      }
+    }),
+    stateInModel(LGA, id).then((results) => {
+      if (results.length > 0) {
+        const message = `You cannot delete this state. It is already assigned to ${
+          results.length
+        }  Local governement(s)`;
+        errorMessage.push(message);
+      }
+    }),
+  ]).then(() => {
+    if (errorMessage.length > 0) {
+      return res.sendError(errorMessage[0], 400, errorMessage[0]);
+    }
+    try {
+      State()
+        .model.findByIdAndRemove(id)
+        .exec((error, state) => {
+          if (!state)
+            return res.sendError(
+              sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'state'),
+              404,
+            );
+          return res.sendSuccess(
+            undefined,
+            200,
+            sprintf(responseMessage.RESOURCE_DELETED, 'State'),
+          );
+        });
+    } catch (error) {
+      res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
+    }
+  });
 };
