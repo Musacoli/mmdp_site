@@ -79,6 +79,8 @@ export class ListReport extends Component {
         <ListReportGrid
           reports={reports}
           isOpen={isOpen}
+          instanceName="Report"
+          addReportUrl="/resources/reports/add"
           showModal={this.showModal}
           modalAction={modalAction}
           handleModalToggle={this.handleModalToggle}

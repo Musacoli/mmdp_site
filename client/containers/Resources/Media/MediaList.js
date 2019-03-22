@@ -47,7 +47,7 @@ export class MediaList extends Component {
 
 const mapStateToProps = (state) => ({
   documents: state.documents.data,
-  loading: state.documents.loading,
+  loading: state.documents.isFetching,
   isDeleting: state.media.isDeleting,
   deleteMediaId: state.media._id,
 });

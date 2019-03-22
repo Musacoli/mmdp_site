@@ -82,6 +82,8 @@ export class ListResearch extends Component {
         <SimpleLoader loading={loading} />
         <ListResearchGrid
           results={researchResults}
+          instanceName="Research"
+          addResearchUrl="/resources/research/add"
           isOpen={isOpen}
           showModal={this.showModal}
           modalAction={modalAction}
