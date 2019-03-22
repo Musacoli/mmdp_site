@@ -75,16 +75,6 @@ const App = (app) => {
     validate(validator.login),
     routes.api.auth.login,
   );
-  app.post(
-    `${baseUrl}/auth/reset-password`,
-    [validate(validator.resetPassword), keystone.middleware.api],
-    routes.api.auth.resetPassword,
-  );
-  app.post(
-    `${baseUrl}/auth/change-password`,
-    [validate(validator.changePassword), authenticate],
-    routes.api.auth.changePassword,
-  );
 
   app.get('/', (req, res) => {
     res.json({ message: 'MMDP CMS API v1' });
