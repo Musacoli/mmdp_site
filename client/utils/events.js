@@ -9,5 +9,6 @@ export const api = {
     ),
   retrieve: (id) => server.get(`/api/v1/events/${id}`),
   edit: (id, data) => server.put(`/api/v1/events/${id}`, data),
+  archive: (id) => server.patch(`/api/v1/events/${id}/archive`),
   delete: (id) => server.delete(`/api/v1/events/${id}`),
 };

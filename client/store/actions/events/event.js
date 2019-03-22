@@ -15,6 +15,9 @@ import {
   DELETE_EVENT_REQUEST,
   DELETE_EVENT_SUCCESS,
   DELETE_EVENT_FAILURE,
+  ARCHIVE_EVENT,
+  ARCHIVE_EVENT_SUCCESS,
+  ARCHIVE_EVENT_FAILURE,
 } from '../../../constants/events';
 
 export const eventCreated = (payload) => ({
@@ -93,5 +96,20 @@ export const UpdateEventFailure = (payload) => ({
 
 export const UpdateEventSuccess = (payload) => ({
   type: UPDATE_EVENT_SUCCESS,
+  payload,
+});
+
+export const archiveEvent = (payload) => ({
+  type: ARCHIVE_EVENT,
+  payload,
+});
+
+export const archiveSuccess = (payload) => ({
+  type: ARCHIVE_EVENT_SUCCESS,
+  payload,
+});
+
+export const archiveFailed = (payload) => ({
+  type: ARCHIVE_EVENT_FAILURE,
   payload,
 });

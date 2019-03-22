@@ -34,6 +34,22 @@ describe('create event action creators', () => {
   });
 });
 
+describe('archive event actions', () => {
+  it('should dispatch archive event request', () => {
+    expect(actions.archiveEvent({}).type).toEqual(types.ARCHIVE_EVENT);
+  });
+
+  it('should dispatch archive event success action', () => {
+    expect(actions.archiveSuccess({}).type).toEqual(
+      types.ARCHIVE_EVENT_SUCCESS,
+    );
+  });
+
+  it('should dispatch archive event failure', () => {
+    expect(actions.archiveFailed({}).type).toEqual(types.ARCHIVE_EVENT_FAILURE);
+  });
+});
+
 describe('delete event action creators', () => {
   it('should dispatch delete event request action', () => {
     expect(actions.deleteEvent({}).type).toEqual(types.DELETE_EVENT_REQUEST);

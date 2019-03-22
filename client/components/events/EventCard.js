@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Truncate from 'react-truncate';
 import moment from 'moment';
+import ArchiveEvent from '../../containers/events/ArchiveEvent';
 import { ConfirmationModal } from '../../containers/events/deleteModal';
 
 const EventCard = ({ props }) => {
-  const { headerImage, eventDate, title, _id } = props;
+  const { headerImage, eventDate, title, _id, archived } = props;
   return (
     <div className="ui event-card">
       <div className="event-card__header">
@@ -25,18 +26,16 @@ const EventCard = ({ props }) => {
           {moment(eventDate).format('dddd D, MMMM YYYY')}
         </span>
       </div>
-      <div className="ui grid card-footer">
+      <div className="ui grid card-footer" id="eventstyle">
         <Link to={`/edit-event/${_id}`}>
           <button type="button" className="footer-btn txt-blue">
             Edit
           </button>
         </Link>
-        <button type="button" className="footer-btn txt-blue">
-          Archive
-        </button>
+        <ArchiveEvent archived={archived} id={_id} /> &nbsp;&nbsp;
         <ConfirmationModal
           triggerText="Delete"
-          content="Are you sure you want to this event?"
+          content="Are you sure you want to delete this event?"
           className="footer-btn txt-red"
           _id={_id}
         />
