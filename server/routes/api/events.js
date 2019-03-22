@@ -4,6 +4,12 @@ import keystone from 'keystone';
 import Events from '../../models/Event';
 import modelHelper from '../../helpers/modelHelper';
 import { filterAndPaginate, getPaginationData } from '../../utils/search';
+import {
+  eventArchiveState,
+  eventMessage,
+} from '../../middleware/repository/archiveHelper';
+
+export const Event = keystone.list('Event');
 
 const updateMainEvent = (mainEvent) => {
   if (mainEvent && mainEvent === true) {
@@ -97,6 +103,22 @@ export const update = (req, res) => {
       });
     });
   });
+};
+
+export const archive = async (req, res) => {
+  try {
+    const archived = await eventArchiveState(req.params.id);
+
+    await Event.model.findByIdAndUpdate(req.params.id, archived);
+    return res.status(200).json({
+      message: eventMessage(archived.archived),
+      archived: archived.archived,
+    });
+  } catch (e) {
+    return res.status(404).send({
+      message: 'Event with that id doesnot exist',
+    });
+  }
 };
 
 export const remove = (req, res) => {

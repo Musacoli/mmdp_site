@@ -308,7 +308,7 @@ const App = (app) => {
     fileUploadValidator.fileUpload,
     routes.api.file.create,
   );
-
+  // events
   app.post(
     '/api/v1/events',
     [
@@ -331,6 +331,13 @@ const App = (app) => {
     [authOptional, keystone.middleware.api],
     routes.api.events.get,
   );
+
+  app.patch(
+    '/api/v1/events/:id/archive',
+    [authenticate, authorize.cms.events.update, keystone.middleware.api],
+    routes.api.events.archive,
+  );
+
   app.put(
     '/api/v1/events/:id',
     [authenticate, authorize.cms.events.update, keystone.middleware.api],
