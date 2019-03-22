@@ -19,6 +19,7 @@ import country from './dropdowns/country';
 import frequency from './dropdowns/frequency';
 import thematicPillars from './dropdowns/thematicPillars';
 import amountInvested from './dropdowns/amountInvested';
+import subTheme from './dropdowns/subTheme';
 
 export default {
   login,
@@ -43,4 +44,5 @@ export default {
   frequency,
   thematicPillars,
   amountInvested,
+  subTheme,
 };

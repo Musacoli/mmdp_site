@@ -51,6 +51,7 @@ import impactTypes from './dropdowns/impactTypes';
 import frequency from './dropdowns/frequency';
 import thematicPillars from './dropdowns/thematicPillar';
 import amountInvested from './dropdowns/amountInvested';
+import subTheme from './dropdowns/subTheme';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -103,6 +104,7 @@ const rootReducer = combineReducers({
   frequency,
   thematicPillars,
   amountInvested,
+  subTheme,
 });
 
 export default rootReducer;

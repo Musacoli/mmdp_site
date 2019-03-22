@@ -51,6 +51,7 @@ import ImpactTypeView from '../views/DropDowns/ImpactType';
 import FrequencyView from '../views/DropDowns/Frequency';
 import ThematicPillarsView from '../views/DropDowns/ThematicPillars';
 import AmountInvestedView from '../views/DropDowns/AmountInvested';
+import SubThemeView from '../views/DropDowns/SubTheme';
 
 const routes = [
   {
@@ -418,6 +419,20 @@ const routes = [
     path: '/dropdowns/ward',
     name: 'Ward Dropdown',
     component: WardView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/dropdowns/frequency',
+    name: 'Frequency Options',
+    component: FrequencyView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/dropdowns/sub-theme',
+    name: 'Sub theme Dropdown',
+    component: SubThemeView,
     exact: true,
     protected: true,
   },

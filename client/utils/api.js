@@ -15,6 +15,7 @@ const impactTypePrefix = `${apiVersion}impact-type`;
 const communityApiPrefix = `${apiVersion}community`;
 const frequencyApiPrefix = `${apiVersion}frequency`;
 const amountInvestedPrefix = `${apiVersion}amount-invested`;
+const subThemeApiPrefix = `${apiVersion}sub-theme`;
 
 // mock server
 const thematicPillarsApiPrefix = `${apiVersion}thematic-pillars`;
@@ -133,7 +134,6 @@ export const api = {
       update: (data) => server.put(`${partnershipTypeApiPrefix}`, data),
       delete: (id) => server.delete(`${partnershipTypeApiPrefix}/${id}`),
     },
-
     funding: {
       create: (data) => server.post(sourceOfFundingPrefix, data),
       list: (data) => server.get(sourceOfFundingPrefix, data),
@@ -179,6 +179,12 @@ export const api = {
       list: (data) => server.get(amountInvestedPrefix, data),
       update: (data) => server.put(`${amountInvestedPrefix}`, data),
       delete: (id) => server.delete(`${amountInvestedPrefix}/${id}`),
+    },
+    subTheme: {
+      create: (data) => server.post(subThemeApiPrefix, data),
+      list: (data) => server.get(subThemeApiPrefix, data),
+      update: (data) => server.put(`${subThemeApiPrefix}`, data),
+      delete: (id) => server.delete(`${subThemeApiPrefix}/${id}`),
     },
   },
 };

@@ -118,6 +118,7 @@ import {
   watchFetchFrequency,
   watchDeleteFrequency,
 } from './dropdowns/frequency';
+
 import {
   watchAddThematicPillars,
   watchFetchThematicPillars,
@@ -129,6 +130,12 @@ import {
   watchDeleteAmount,
   watchFetchAmount,
 } from './dropdowns/amountInvested';
+
+import {
+  watchAddSubThemes,
+  watchFetchSubThemes,
+  watchDeleteSubThemes,
+} from './dropdowns/subTheme';
 
 export default function* root() {
   yield all([
@@ -251,6 +258,7 @@ export default function* root() {
     fork(watchAddFrequency),
     fork(watchFetchFrequency),
     fork(watchDeleteFrequency),
+
     fork(watchAddThematicPillars),
     fork(watchFetchThematicPillars),
     fork(watchDeleteThematicPillars),
@@ -258,5 +266,9 @@ export default function* root() {
     fork(watchAddAmount),
     fork(watchFetchAmount),
     fork(watchDeleteAmount),
+
+    fork(watchAddSubThemes),
+    fork(watchFetchSubThemes),
+    fork(watchDeleteSubThemes),
   ]);
 }

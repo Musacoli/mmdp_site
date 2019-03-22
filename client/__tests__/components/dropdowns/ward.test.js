@@ -25,6 +25,7 @@ describe('<Ward />', () => {
     addTempState: jest.fn(),
     loading: false,
     lgas: [],
+    lgaOptions: [],
   };
   const wrapper = mount(<Ward {...props} />);
   it('should render Ward component without crashing', () => {

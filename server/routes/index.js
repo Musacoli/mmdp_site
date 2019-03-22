@@ -54,6 +54,7 @@ const truncatePath = `${baseUrl}/truncate`;
 const FrequencyPath = `${baseUrl}/frequency`;
 const thematicPillarsDropdownPath = `${baseUrl}/thematic-pillars`;
 const amountInvested = `${baseUrl}/amount-invested`;
+const subThemePath = `${baseUrl}/sub-theme`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -1252,7 +1253,6 @@ const App = (app) => {
   );
 
   /* ---------- Frequency Dropdown ----------- */
-
   app.post(
     `${FrequencyPath}`,
     [
@@ -1342,6 +1342,56 @@ const App = (app) => {
     `${amountInvested}/:id`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.amountInvested.remove,
+  );
+
+  /* ---------- Sub Theme Dropdown ----------- */
+  app.post(
+    `${subThemePath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.subTheme.addSubTheme),
+      keystone.middleware.api,
+    ],
+    routes.api.dropdowns.subTheme.create,
+  );
+
+  app.get(
+    `${subThemePath}`,
+    [authOptional],
+    routes.api.dropdowns.subTheme.list,
+  );
+
+  app.get(
+    `${subThemePath}/:thematicPillar_id`,
+    [authOptional],
+    routes.api.dropdowns.subTheme.list,
+  );
+
+  app.put(
+    `${subThemePath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.subTheme.addSubTheme),
+    ],
+    routes.api.dropdowns.subTheme.updateMany,
+  );
+  app.put(
+    `${subThemePath}/:id`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.subTheme.addSubTheme),
+    ],
+    routes.api.dropdowns.subTheme.update,
+  );
+  app.delete(
+    `${subThemePath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.subTheme.remove,
   );
 
   app.use(errorHandler);
