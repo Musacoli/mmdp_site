@@ -157,6 +157,7 @@ try {
   mongoose.model('Community', new mongoose.Schema({}));
   mongoose.model('FocusArea', new mongoose.Schema({}));
   mongoose.model('Ward', new mongoose.Schema({}));
+  mongoose.model('PartnershipType', new mongoose.Schema({}));
   ImpactType = mongoose.model('ImpactType', new mongoose.Schema({}));
 } catch (e) {
   throw e;

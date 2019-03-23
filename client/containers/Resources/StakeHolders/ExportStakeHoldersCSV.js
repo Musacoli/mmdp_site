@@ -6,6 +6,14 @@ import converter from 'json-2-csv';
 import FileSaver from 'file-saver';
 import toastr from 'toastr';
 import _ from 'lodash';
+import {
+  handleFocusAreas,
+  handleGetPartnerships,
+  handleGetValue,
+  handleMultipleStrings,
+  handleStakeholderAddresses,
+  handleTotals,
+} from '../../../utils/resources/Stakeholders';
 
 class ExportStakeHoldersCsv extends Component {
   constructor(props) {
@@ -40,25 +48,22 @@ class ExportStakeHoldersCsv extends Component {
 
   handleData = () => {
     // remove nested lists from lists
+    // debugger;
     const { data } = this.props;
     const temp = _.cloneDeep(data);
     const beneficiaries = [];
     const filtered = temp.map((item) => {
       // remove the beneficiaries from the original data
-      if (item[0].beneficiaryService) {
-        beneficiaries.push(item[0].beneficiaryService);
-        // delete item[0].beneficiaryService;
+      if (item.beneficiaries) {
+        beneficiaries.push(item.beneficiaries);
       }
-      return item[0];
+      return item;
     });
 
     // update state
     this.setState({
       stakeholderData: filtered.map((values) =>
-        this.mapValuesToStakeholdersSchema(
-          values.basicInformation,
-          values.beneficiaryService,
-        ),
+        this.mapValuesToStakeholdersSchema(values, values.beneficiaries),
       ),
       beneficiaryService: beneficiaries.map((value) =>
         this.mapValuesToBeneficiariesSchema(value[0]),
@@ -66,119 +71,173 @@ class ExportStakeHoldersCsv extends Component {
     });
   };
 
-  handleMultipleStringValues = (beneficiaries, target) => {
-    const values = beneficiaries.map((value) => value[target]);
-    return values.join();
+  mapValuesToStakeholdersSchema = (item, beneficiaries) => {
+    const FocusAreas = handleFocusAreas(beneficiaries);
+    return {
+      'S/N': handleGetValue(item, '_id'),
+      'Name of Organization': handleGetValue(item, 'organisationName'),
+      'Category / Type': handleGetValue(item, 'organisationTypeId', 'typeName'),
+      // Country: values.country,
+      // State: values.state,
+      'Head Office Location/Address': handleStakeholderAddresses(item, 'HOME'),
+      'State Office Location/Address': handleStakeholderAddresses(
+        item,
+        'BRANCH',
+      ),
+      'Registration Status': handleGetValue(
+        item,
+        'registrationStatusId',
+        'registrationStatus',
+      ),
+      'Year of Registration': handleGetValue(item, 'yearOfCacREG'),
+      'RC Number': handleGetValue(item, 'cacRcNumber'),
+      'Number of Staff': handleGetValue(
+        item,
+        'staffStrengthRangeId',
+        'staffStrength',
+      ),
+      'Volunteers?':
+        typeof handleGetValue(item, 'volunteersCount') === 'number',
+      'Number of Volunteers': handleGetValue(item, 'volunteersCount'),
+      Partnerships: handleGetPartnerships(item),
+      'Partnership Type': handleGetPartnerships(item, 'partnershipType'),
+      'Operating in Edo State?':
+        handleGetValue(item, 'edoStateOperationStartYear') !== '-',
+      'Year Started in Edo State': handleGetValue(
+        item,
+        'edoStateOperationStartYear',
+      ),
+      'Willing to partner with Edo State Government?': handleGetValue(
+        item,
+        'partnerWithGovernment',
+      ),
+      'Impact Type': handleGetValue(item, 'impactTypeID', 'impactTypeName'),
+      'Total Amount Invested': handleTotals('amountInvested', beneficiaries),
+      Founder: handleGetValue(item, 'founder'),
+      'Phone Number': handleGetValue(item, 'phoneNumber'),
+      'Email Address': handleGetValue(item, 'email'),
+      'Local Contact Person': handleGetValue(item, 'localManagerName'),
+      'Phone number of contact Person': handleGetValue(
+        item,
+        'localManagerMobile',
+      ),
+      'Email address of contact person': handleGetValue(
+        item,
+        'localManagerEmail',
+      ),
+      Website: handleGetValue(item, 'email'),
+      Notes: handleGetValue(item, 'note'),
+      'Name of Service': handleMultipleStrings(
+        'serviceName',
+        '',
+        beneficiaries,
+      ),
+      'Target Audience': handleMultipleStrings(
+        'targetAudienceId',
+        'audienceType',
+        beneficiaries,
+      ),
+      'Beneficiary Type(Migrants, displaced persons)': handleMultipleStrings(
+        'beneficiaryTypeId',
+        'beneficiaryTypeName',
+        beneficiaries,
+      ),
+      'Number of Male Beneficiaries': handleTotals(
+        'averageNumberOfMaleBeneficiaries',
+        beneficiaries,
+      ),
+      'Number of Female Beneficiaries': handleTotals(
+        'averageNumberOfFemaleBeneficiaries',
+        beneficiaries,
+      ),
+      'Number of Beneficiary': handleTotals(
+        'averageNumberOfMaleBeneficiaries',
+        beneficiaries,
+      ),
+      'Thematic Pillar': FocusAreas[1],
+      'Sub Theme': FocusAreas[0],
+      'Focus Area': FocusAreas[2],
+      'Source of Funding': handleMultipleStrings(
+        'sourceOfFundingId',
+        'sourceOfFundingName',
+        beneficiaries,
+      ),
+      'LGA of operation': handleMultipleStrings(
+        'localGovernmentArea',
+        'lgaName',
+        beneficiaries,
+      ),
+      Ward: handleMultipleStrings('ward', 'wardName', beneficiaries),
+      'Local Community': handleMultipleStrings(
+        'community',
+        'communityName',
+        beneficiaries,
+      ),
+      'Total number of beneficiaries reached by stakeholder': handleTotals(
+        'totalNumberOfBeneficiaries',
+        beneficiaries,
+      ),
+    };
   };
 
-  handleTotals = (beneficiaries, target) => {
-    let total = 0;
-    beneficiaries.forEach((value) => {
-      total += value[target];
-    });
-    return total;
+  mapValuesToBeneficiariesSchema = (item) => {
+    return {
+      'S/N': handleGetValue(item, '_id'),
+      'Name of Service': handleGetValue(item, 'serviceName'),
+      'Target Audience': handleGetValue(
+        item,
+        'targetAudienceId',
+        'audienceType',
+      ),
+      'Beneficiary Type(Migrants, displaced persons)': handleGetValue(
+        item,
+        'beneficiaryTypeId',
+        'beneficiaryTypeName',
+      ),
+      'Number of Male Beneficiaries': handleGetValue(
+        item,
+        'averageNumberOfMaleBeneficiaries',
+      ),
+      'Number of Female Beneficiaries': handleGetValue(
+        item,
+        'averageNumberOfFemaleBeneficiaries',
+      ),
+      'Frequency(days)': handleGetValue(item, 'frequency'),
+      'Duration(Days)': handleGetValue(item, 'duration'),
+      'Number of Beneficiary': handleGetValue(
+        item,
+        'totalNumberOfBeneficiaries',
+      ),
+      'Thematic Pillar': handleGetValue(
+        item,
+        'focusArea',
+        'thematicPillarName',
+      ),
+      'Sub Theme': handleGetValue(item, 'focusArea', 'subThemeName'),
+      'Focus Area': handleGetValue(item, 'focusArea', 'focusAreaName'),
+      'Source of Funding': handleGetValue(
+        item,
+        'sourceOfFundingId',
+        'sourceOfFundingName',
+      ),
+      'Amount Invested per service': handleGetValue(
+        item,
+        'amountInvestedRange',
+        'amountInvestedRange',
+      ),
+      'LGA of operation': handleGetValue(
+        item,
+        'localGovernmentArea',
+        'lgaName',
+      ),
+      Ward: handleGetValue(item, 'ward', 'wardName'),
+      'Local Community': handleGetValue(item, 'community', 'communityName'),
+      'Total number of beneficiaries reached by stakeholder': handleGetValue(
+        item,
+        'totalNumberOfBeneficiaries',
+      ),
+    };
   };
-
-  mapValuesToStakeholdersSchema = (values, beneficiaries) => ({
-    'S/N': values._id,
-    'Name of Organization': values.stakeholderName,
-    'Category / Type': values.organisationType,
-    Country: values.country,
-    State: values.state,
-    'Head Office Location/Address': values.headOfficeAddress,
-    'State Office Location/Address': values.stateOfficeAddress,
-    'Registration Status': values.registrationStatus,
-    'Year of Registration': values.yearOfRegistration,
-    'RC Number': values.registrationNumber,
-    'Number of Staff': values.staffStrength,
-    'Volunteers?': values.volunteers,
-    'Number of Volunteers': values.numberOfVolunteers,
-    Partnerships: values.partnerships,
-    'Partnership Type': values.partnershipType,
-    'Operating in Edo State?': values.operatingInEdoState,
-    'Year Started in Edo State': values.edoStateOperationStartYear,
-    'Willing to partner with Edo State Government?':
-      values.partnerWithEdoStateGovernment,
-    'Impact Type': values.impactType,
-    'Total Amount Invested': this.handleTotals(beneficiaries, 'amountInvested'),
-    Founder: values.founder,
-    'Phone Number': values.phoneNumberOne,
-    'Email Address': values.email,
-    'Local Contact Person': values.localContactPerson,
-    'Phone number of contact Person': values.contactPersonPhoneNumber,
-    'Email address of contact person': values.contactPersonEmailAddress,
-    Website: values.website,
-    Notes: values.notes,
-    'Name of Service': this.handleMultipleStringValues(
-      beneficiaries,
-      'serviceName',
-    ),
-    'Target Audience': this.handleMultipleStringValues(
-      beneficiaries,
-      'targetAudience',
-    ),
-    'Beneficiary Type(Migrants, displaced persons)': this.handleMultipleStringValues(
-      beneficiaries,
-      'beneficiaryType',
-    ),
-    'Number of Male Beneficiaries': this.handleTotals(
-      beneficiaries,
-      'numberOfMaleBeneciaries',
-    ),
-    'Number of Female Beneficiaries': this.handleTotals(
-      beneficiaries,
-      'numberOfFemaleBeneciaries',
-    ),
-    'Number of Beneficiary': this.handleTotals(
-      beneficiaries,
-      'numberOfBeneciariesPerService',
-    ),
-    'Thematic Pillar': this.handleMultipleStringValues(
-      beneficiaries,
-      'thematicPillars',
-    ),
-    'Sub Theme': this.handleMultipleStringValues(beneficiaries, 'subTheme'),
-    'Focus Area': this.handleMultipleStringValues(beneficiaries, 'focusArea'),
-    'Source of Funding': this.handleMultipleStringValues(
-      beneficiaries,
-      'fundingSource',
-    ),
-    'LGA of operation': this.handleMultipleStringValues(
-      beneficiaries,
-      'localGovernment',
-    ),
-    Ward: this.handleMultipleStringValues(beneficiaries, 'ward'),
-    'Local Community': this.handleMultipleStringValues(
-      beneficiaries,
-      'localCommunities',
-    ),
-    'Total number of beneficiaries reached by stakeholder': this.handleTotals(
-      beneficiaries,
-      'totalNumberOfBeneficiaries',
-    ),
-  });
-
-  mapValuesToBeneficiariesSchema = (values) => ({
-    'S/N': values._id,
-    'Name of Service': values.serviceName,
-    'Target Audience': values.targetAudience,
-    'Beneficiary Type(Migrants, displaced persons)': values.beneficiaryType,
-    'Number of Male Beneficiaries': values.numberOfMaleBeneciaries,
-    'Number of Female Beneficiaries': values.numberOfFemaleBeneciaries,
-    'Frequency(days)': values.frequency,
-    'Duration(Days)': values.duration,
-    'Number of Beneficiary': values.numberOfBeneciariesPerService,
-    'Thematic Pillar': values.thematicPillars,
-    'Sub Theme': values.subTheme,
-    'Focus Area': values.focusArea,
-    'Source of Funding': values.fundingSource,
-    'Amount Invested per service': values.amountInvested,
-    'LGA of operation': values.localGovernment,
-    Ward: values.ward,
-    'Local Community': values.localCommunities,
-    'Total number of beneficiaries reached by stakeholder':
-      values.totalNumberOfBeneficiaries,
-  });
 
   writeToCSV = (data, options, filename) => {
     converter.json2csv(

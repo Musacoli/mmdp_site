@@ -1,5 +1,5 @@
 /** fetch transactions methods */
-import { Partnerships, returneeService, Address } from './static';
+import { Address, Partnerships, returneeService } from './static';
 import FocusArea from '../../models/dropdowns/FocusArea';
 import ThematicPillars from '../../models/dropdowns/ThematicPillarsDropdown';
 
@@ -78,6 +78,8 @@ export const fetchPartners = async (stakeholders = []) => {
         ])
         .populate('stakeholder1Id')
         .populate('stakeholder2Id')
+        .populate('partnershipTypeId')
+        .lean()
         .then((results) => {
           const fetchedPartners = results.map((partner) => {
             let response;
@@ -86,12 +88,14 @@ export const fetchPartners = async (stakeholders = []) => {
                 _id: partner._id,
                 stakeholder1Id: partner.stakeholder1Id.organisationName,
                 stakeholder2Id: partner.stakeholder2Id.organisationName,
+                partnershipType: partner.partnershipTypeId.partnershipTypeName,
               };
             } catch (e) {
               response = {
                 _id: partner._id,
                 stakeholder1Id: '',
                 stakeholder2Id: '',
+                partnershipType: '',
               };
             }
             return response;
