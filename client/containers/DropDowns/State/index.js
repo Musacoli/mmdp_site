@@ -157,7 +157,11 @@ export class State extends Component {
 }
 
 export const mapStateToProps = (state) => ({
-  countries: state.country.data,
+  countries: state.country.data.map((x, index) => ({
+    text: x.countryName,
+    value: x._id,
+    key: index,
+  })),
   states: state.states.data,
   loading: state.states.loading,
 });

@@ -37,7 +37,11 @@ import {
 } from './resources/document';
 import { watchDeleteMedia } from './resources/media';
 import { AddStakeholderWatcher } from './stakeholders/addStakeholder';
-import { watchFetchCountry } from './dropdowns/country';
+import {
+  watchFetchCountry,
+  watchAddCountries,
+  watchDeleteCountry,
+} from './dropdowns/country';
 import {
   watchAddStates,
   watchFetchStates,
@@ -161,7 +165,6 @@ export default function* root() {
     fork(watchDeleteMedia),
 
     fork(AddStakeholderWatcher),
-    fork(watchFetchCountry),
     fork(watchAddStates),
     fork(watchFetchStates),
     fork(watchDeleteStates),
@@ -169,6 +172,9 @@ export default function* root() {
     fork(watchAddWards),
     fork(watchFetchWards),
     fork(watchDeleteWards),
+    fork(watchFetchCountry),
+    fork(watchAddCountries),
+    fork(watchDeleteCountry),
 
     fork(watchAddStatuses),
     fork(watchFetchStatuses),

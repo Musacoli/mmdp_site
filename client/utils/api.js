@@ -102,6 +102,9 @@ export const api = {
 
     country: {
       list: () => server.get(`${countryApiPrefix}`),
+      create: (data) => server.post(countryApiPrefix, data),
+      update: (data) => server.put(`${countryApiPrefix}`, data),
+      delete: (id) => server.delete(`${countryApiPrefix}/${id}`),
     },
 
     partnershipType: {

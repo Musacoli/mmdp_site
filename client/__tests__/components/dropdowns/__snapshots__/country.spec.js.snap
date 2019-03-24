@@ -1,0 +1,737 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<countryComponent /> should render country component without crashing 1`] = `
+<Country
+  addNewDropDown={[MockFunction]}
+  dropdowns={
+    Array [
+      Object {
+        "__v": 0,
+        "_id": "5c90de765a04a53d87040c5e",
+        "countryId": "5c878ecd6d5a6b1184b93519",
+        "countryName": "Ug",
+        "description": "yoooooo",
+      },
+      Object {
+        "__v": 0,
+        "countryId": "5c878ecd6d5a6b1184b93519",
+        "countryName": "Ke",
+        "description": "East africa",
+        "id": "5c90de765a04a53d87040c5e",
+      },
+    ]
+  }
+  handleChange={[MockFunction]}
+  handleDelete={[MockFunction]}
+  handleSubmit={[MockFunction]}
+  loading={false}
+>
+  <GridRow
+    className="dropdowns"
+  >
+    <div
+      className="row dropdowns"
+    >
+      <Form
+        as="form"
+      >
+        <form
+          className="ui form"
+          onSubmit={[Function]}
+        >
+          <DropdownForm
+            header="Delete Country"
+            inputs={
+              Array [
+                Object {
+                  "className": "animated fadeIn",
+                  "fluid": true,
+                  "label": "Country name",
+                  "name": "countryName",
+                  "placeholder": "Enter country name",
+                  "type": "text",
+                  "value": "Ug",
+                },
+                Object {
+                  "className": "animated fadeIn",
+                  "fluid": true,
+                  "label": "Description",
+                  "name": "description",
+                  "placeholder": "description",
+                  "type": "text",
+                  "value": "yoooooo",
+                },
+              ]
+            }
+            item={
+              Object {
+                "__v": 0,
+                "_id": "5c90de765a04a53d87040c5e",
+                "countryId": "5c878ecd6d5a6b1184b93519",
+                "countryName": "Ug",
+                "description": "yoooooo",
+              }
+            }
+            key="0"
+            label="Confirm Delete Country"
+          >
+            <FormGroup
+              widths="equal"
+            >
+              <div
+                className="equal width fields"
+              >
+                <Input
+                  attributes={
+                    Object {
+                      "className": "animated fadeIn",
+                      "fluid": true,
+                      "label": "Country name",
+                      "name": "countryName",
+                      "placeholder": "Enter country name",
+                      "type": "text",
+                      "value": "Ug",
+                    }
+                  }
+                  dropdownItem={
+                    Object {
+                      "__v": 0,
+                      "_id": "5c90de765a04a53d87040c5e",
+                      "countryId": "5c878ecd6d5a6b1184b93519",
+                      "countryName": "Ug",
+                      "description": "yoooooo",
+                    }
+                  }
+                  handleChange={[Function]}
+                >
+                  <FormField>
+                    <div
+                      className="field"
+                    >
+                      <FormInput
+                        as={[Function]}
+                        className="animated fadeIn"
+                        control={[Function]}
+                        fluid={true}
+                        label="Country name"
+                        name="countryName"
+                        onChange={[Function]}
+                        placeholder="Enter country name"
+                        type="text"
+                        value="Ug"
+                      >
+                        <FormField
+                          className="animated fadeIn"
+                          control={[Function]}
+                          fluid={true}
+                          label="Country name"
+                          name="countryName"
+                          onChange={[Function]}
+                          placeholder="Enter country name"
+                          type="text"
+                          value="Ug"
+                        >
+                          <div
+                            className="field animated fadeIn"
+                          >
+                            <label>
+                              Country name
+                            </label>
+                            <Input
+                              fluid={true}
+                              name="countryName"
+                              onChange={[Function]}
+                              placeholder="Enter country name"
+                              type="text"
+                              value="Ug"
+                            >
+                              <div
+                                className="ui fluid input"
+                              >
+                                <input
+                                  name="countryName"
+                                  onChange={[Function]}
+                                  placeholder="Enter country name"
+                                  type="text"
+                                  value="Ug"
+                                />
+                              </div>
+                            </Input>
+                          </div>
+                        </FormField>
+                      </FormInput>
+                    </div>
+                  </FormField>
+                </Input>
+                 
+                <Input
+                  attributes={
+                    Object {
+                      "className": "animated fadeIn",
+                      "fluid": true,
+                      "label": "Description",
+                      "name": "description",
+                      "placeholder": "description",
+                      "type": "text",
+                      "value": "yoooooo",
+                    }
+                  }
+                  dropdownItem={
+                    Object {
+                      "__v": 0,
+                      "_id": "5c90de765a04a53d87040c5e",
+                      "countryId": "5c878ecd6d5a6b1184b93519",
+                      "countryName": "Ug",
+                      "description": "yoooooo",
+                    }
+                  }
+                  handleChange={[Function]}
+                >
+                  <FormField>
+                    <div
+                      className="field"
+                    >
+                      <FormInput
+                        as={[Function]}
+                        className="animated fadeIn"
+                        control={[Function]}
+                        fluid={true}
+                        label="Description"
+                        name="description"
+                        onChange={[Function]}
+                        placeholder="description"
+                        type="text"
+                        value="yoooooo"
+                      >
+                        <FormField
+                          className="animated fadeIn"
+                          control={[Function]}
+                          fluid={true}
+                          label="Description"
+                          name="description"
+                          onChange={[Function]}
+                          placeholder="description"
+                          type="text"
+                          value="yoooooo"
+                        >
+                          <div
+                            className="field animated fadeIn"
+                          >
+                            <label>
+                              Description
+                            </label>
+                            <Input
+                              fluid={true}
+                              name="description"
+                              onChange={[Function]}
+                              placeholder="description"
+                              type="text"
+                              value="yoooooo"
+                            >
+                              <div
+                                className="ui fluid input"
+                              >
+                                <input
+                                  name="description"
+                                  onChange={[Function]}
+                                  placeholder="description"
+                                  type="text"
+                                  value="yoooooo"
+                                />
+                              </div>
+                            </Input>
+                          </div>
+                        </FormField>
+                      </FormInput>
+                    </div>
+                  </FormField>
+                </Input>
+                 
+                <div
+                  className="dropdowns__actions undefined"
+                >
+                  <ActionModal
+                    className=""
+                    confirmDeleteGroup={[Function]}
+                    content="Confirm Delete Country"
+                    group={
+                      Object {
+                        "__v": 0,
+                        "_id": "5c90de765a04a53d87040c5e",
+                        "countryId": "5c878ecd6d5a6b1184b93519",
+                        "countryName": "Ug",
+                        "description": "yoooooo",
+                      }
+                    }
+                    header="Delete Country"
+                    triggerText={
+                      <Icon
+                        as="i"
+                        name="trash alternate outline"
+                        size="large"
+                      />
+                    }
+                  >
+                    <Modal
+                      centered={true}
+                      className="show"
+                      closeOnDimmerClick={true}
+                      closeOnDocumentClick={false}
+                      dimmer={true}
+                      eventPool="Modal"
+                      open={false}
+                      size="mini"
+                      trigger={
+                        <span
+                          className=""
+                          onClick={[Function]}
+                          role="presentation"
+                        >
+                          <Icon
+                            as="i"
+                            name="trash alternate outline"
+                            size="large"
+                          />
+                        </span>
+                      }
+                    >
+                      <Portal
+                        closeOnDocumentClick={false}
+                        closeOnEscape={true}
+                        eventPool="Modal"
+                        mountNode={<body />}
+                        onClose={[Function]}
+                        onMount={[Function]}
+                        onOpen={[Function]}
+                        onUnmount={[Function]}
+                        open={false}
+                        openOnTriggerClick={true}
+                        trigger={
+                          <span
+                            className=""
+                            onClick={[Function]}
+                            role="presentation"
+                          >
+                            <Icon
+                              as="i"
+                              name="trash alternate outline"
+                              size="large"
+                            />
+                          </span>
+                        }
+                      >
+                        <Ref
+                          innerRef={[Function]}
+                        >
+                          <span
+                            className=""
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="presentation"
+                          >
+                            <Icon
+                              as="i"
+                              name="trash alternate outline"
+                              size="large"
+                            >
+                              <i
+                                aria-hidden="true"
+                                className="trash alternate outline large icon"
+                              />
+                            </Icon>
+                          </span>
+                        </Ref>
+                      </Portal>
+                    </Modal>
+                  </ActionModal>
+                </div>
+              </div>
+            </FormGroup>
+          </DropdownForm>
+          <DropdownForm
+            header="Delete Country"
+            inputs={
+              Array [
+                Object {
+                  "className": "animated fadeIn",
+                  "fluid": true,
+                  "label": "Country name",
+                  "name": "countryName",
+                  "placeholder": "Enter country name",
+                  "type": "text",
+                  "value": "Ke",
+                },
+                Object {
+                  "className": "animated fadeIn",
+                  "fluid": true,
+                  "label": "Description",
+                  "name": "description",
+                  "placeholder": "description",
+                  "type": "text",
+                  "value": "East africa",
+                },
+              ]
+            }
+            item={
+              Object {
+                "__v": 0,
+                "countryId": "5c878ecd6d5a6b1184b93519",
+                "countryName": "Ke",
+                "description": "East africa",
+                "id": "5c90de765a04a53d87040c5e",
+              }
+            }
+            key="1"
+            label="Confirm Delete Country"
+          >
+            <FormGroup
+              widths="equal"
+            >
+              <div
+                className="equal width fields"
+              >
+                <Input
+                  attributes={
+                    Object {
+                      "className": "animated fadeIn",
+                      "fluid": true,
+                      "label": "Country name",
+                      "name": "countryName",
+                      "placeholder": "Enter country name",
+                      "type": "text",
+                      "value": "Ke",
+                    }
+                  }
+                  dropdownItem={
+                    Object {
+                      "__v": 0,
+                      "countryId": "5c878ecd6d5a6b1184b93519",
+                      "countryName": "Ke",
+                      "description": "East africa",
+                      "id": "5c90de765a04a53d87040c5e",
+                    }
+                  }
+                  handleChange={[Function]}
+                >
+                  <FormField>
+                    <div
+                      className="field"
+                    >
+                      <FormInput
+                        as={[Function]}
+                        className="animated fadeIn"
+                        control={[Function]}
+                        fluid={true}
+                        label="Country name"
+                        name="countryName"
+                        onChange={[Function]}
+                        placeholder="Enter country name"
+                        type="text"
+                        value="Ke"
+                      >
+                        <FormField
+                          className="animated fadeIn"
+                          control={[Function]}
+                          fluid={true}
+                          label="Country name"
+                          name="countryName"
+                          onChange={[Function]}
+                          placeholder="Enter country name"
+                          type="text"
+                          value="Ke"
+                        >
+                          <div
+                            className="field animated fadeIn"
+                          >
+                            <label>
+                              Country name
+                            </label>
+                            <Input
+                              fluid={true}
+                              name="countryName"
+                              onChange={[Function]}
+                              placeholder="Enter country name"
+                              type="text"
+                              value="Ke"
+                            >
+                              <div
+                                className="ui fluid input"
+                              >
+                                <input
+                                  name="countryName"
+                                  onChange={[Function]}
+                                  placeholder="Enter country name"
+                                  type="text"
+                                  value="Ke"
+                                />
+                              </div>
+                            </Input>
+                          </div>
+                        </FormField>
+                      </FormInput>
+                    </div>
+                  </FormField>
+                </Input>
+                 
+                <Input
+                  attributes={
+                    Object {
+                      "className": "animated fadeIn",
+                      "fluid": true,
+                      "label": "Description",
+                      "name": "description",
+                      "placeholder": "description",
+                      "type": "text",
+                      "value": "East africa",
+                    }
+                  }
+                  dropdownItem={
+                    Object {
+                      "__v": 0,
+                      "countryId": "5c878ecd6d5a6b1184b93519",
+                      "countryName": "Ke",
+                      "description": "East africa",
+                      "id": "5c90de765a04a53d87040c5e",
+                    }
+                  }
+                  handleChange={[Function]}
+                >
+                  <FormField>
+                    <div
+                      className="field"
+                    >
+                      <FormInput
+                        as={[Function]}
+                        className="animated fadeIn"
+                        control={[Function]}
+                        fluid={true}
+                        label="Description"
+                        name="description"
+                        onChange={[Function]}
+                        placeholder="description"
+                        type="text"
+                        value="East africa"
+                      >
+                        <FormField
+                          className="animated fadeIn"
+                          control={[Function]}
+                          fluid={true}
+                          label="Description"
+                          name="description"
+                          onChange={[Function]}
+                          placeholder="description"
+                          type="text"
+                          value="East africa"
+                        >
+                          <div
+                            className="field animated fadeIn"
+                          >
+                            <label>
+                              Description
+                            </label>
+                            <Input
+                              fluid={true}
+                              name="description"
+                              onChange={[Function]}
+                              placeholder="description"
+                              type="text"
+                              value="East africa"
+                            >
+                              <div
+                                className="ui fluid input"
+                              >
+                                <input
+                                  name="description"
+                                  onChange={[Function]}
+                                  placeholder="description"
+                                  type="text"
+                                  value="East africa"
+                                />
+                              </div>
+                            </Input>
+                          </div>
+                        </FormField>
+                      </FormInput>
+                    </div>
+                  </FormField>
+                </Input>
+                 
+                <div
+                  className="dropdowns__actions undefined"
+                >
+                  <ActionModal
+                    className=""
+                    confirmDeleteGroup={[Function]}
+                    content="Confirm Delete Country"
+                    group={
+                      Object {
+                        "__v": 0,
+                        "countryId": "5c878ecd6d5a6b1184b93519",
+                        "countryName": "Ke",
+                        "description": "East africa",
+                        "id": "5c90de765a04a53d87040c5e",
+                      }
+                    }
+                    header="Delete Country"
+                    triggerText={
+                      <Icon
+                        as="i"
+                        name="trash alternate outline"
+                        size="large"
+                      />
+                    }
+                  >
+                    <Modal
+                      centered={true}
+                      className="show"
+                      closeOnDimmerClick={true}
+                      closeOnDocumentClick={false}
+                      dimmer={true}
+                      eventPool="Modal"
+                      open={false}
+                      size="mini"
+                      trigger={
+                        <span
+                          className=""
+                          onClick={[Function]}
+                          role="presentation"
+                        >
+                          <Icon
+                            as="i"
+                            name="trash alternate outline"
+                            size="large"
+                          />
+                        </span>
+                      }
+                    >
+                      <Portal
+                        closeOnDocumentClick={false}
+                        closeOnEscape={true}
+                        eventPool="Modal"
+                        mountNode={<body />}
+                        onClose={[Function]}
+                        onMount={[Function]}
+                        onOpen={[Function]}
+                        onUnmount={[Function]}
+                        open={false}
+                        openOnTriggerClick={true}
+                        trigger={
+                          <span
+                            className=""
+                            onClick={[Function]}
+                            role="presentation"
+                          >
+                            <Icon
+                              as="i"
+                              name="trash alternate outline"
+                              size="large"
+                            />
+                          </span>
+                        }
+                      >
+                        <Ref
+                          innerRef={[Function]}
+                        >
+                          <span
+                            className=""
+                            onBlur={[Function]}
+                            onClick={[Function]}
+                            onFocus={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            role="presentation"
+                          >
+                            <Icon
+                              as="i"
+                              name="trash alternate outline"
+                              size="large"
+                            >
+                              <i
+                                aria-hidden="true"
+                                className="trash alternate outline large icon"
+                              />
+                            </Icon>
+                          </span>
+                        </Ref>
+                      </Portal>
+                    </Modal>
+                  </ActionModal>
+                </div>
+              </div>
+            </FormGroup>
+          </DropdownForm>
+          <DropdownActions
+            handleSubmit={[MockFunction]}
+          >
+            <FormGroup>
+              <div
+                className="fields"
+              >
+                <FormButton
+                  as={[Function]}
+                  className="dropdowns__add"
+                  control={[Function]}
+                  onClick={[Function]}
+                >
+                  <FormField
+                    className="dropdowns__add"
+                    control={[Function]}
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="field dropdowns__add"
+                    >
+                      <Button
+                        as="button"
+                        onClick={[Function]}
+                      >
+                        <button
+                          className="ui button"
+                          onClick={[Function]}
+                        >
+                          Add more options
+                        </button>
+                      </Button>
+                    </div>
+                  </FormField>
+                </FormButton>
+                <FormButton
+                  as={[Function]}
+                  className="dropdowns__save bg-transparent"
+                  control={[Function]}
+                  onClick={[MockFunction]}
+                >
+                  <FormField
+                    className="dropdowns__save bg-transparent"
+                    control={[Function]}
+                    onClick={[MockFunction]}
+                  >
+                    <div
+                      className="field dropdowns__save bg-transparent"
+                    >
+                      <Button
+                        as="button"
+                        onClick={[MockFunction]}
+                      >
+                        <button
+                          className="ui button"
+                          onClick={[Function]}
+                        >
+                          Save dropdown
+                        </button>
+                      </Button>
+                    </div>
+                  </FormField>
+                </FormButton>
+              </div>
+            </FormGroup>
+          </DropdownActions>
+        </form>
+      </Form>
+    </div>
+  </GridRow>
+</Country>
+`;
