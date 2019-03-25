@@ -38,6 +38,7 @@ import addStakeholder from './stakeholders/addStakeholder';
 import country from './dropdowns/country';
 import states from './dropdowns/state';
 import statuses from './dropdowns/status';
+import staffStrengths from './dropdowns/staffStrength';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -77,6 +78,7 @@ const rootReducer = combineReducers({
   country,
   states,
   statuses,
+  staffStrengths,
 });
 
 export default rootReducer;

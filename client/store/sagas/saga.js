@@ -49,6 +49,12 @@ import {
   watchFetchStatuses,
   watchDeleteStatuses,
 } from './dropdowns/status';
+import {
+  watchUpdateStaffStrengths,
+  watchCreateStaffStrengths,
+  watchDeleteStaffStrength,
+  watchFetchingStaffStrengths,
+} from './dropdowns/staffStrength';
 
 export default function* root() {
   yield all([
@@ -121,5 +127,9 @@ export default function* root() {
     fork(watchAddStatuses),
     fork(watchFetchStatuses),
     fork(watchDeleteStatuses),
+    fork(watchFetchingStaffStrengths),
+    fork(watchDeleteStaffStrength),
+    fork(watchUpdateStaffStrengths),
+    fork(watchCreateStaffStrengths),
   ]);
 }

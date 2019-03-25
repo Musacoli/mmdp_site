@@ -83,5 +83,15 @@ export const api = {
     country: {
       list: () => server.get(`${countryApiPrefix}`),
     },
+    staffStrength: {
+      create: (data) =>
+        server.post(`${apiVersion}dropdowns/staff-strength/create`, data),
+      list: () => server.get(`${apiVersion}dropdowns/staff-strength`),
+      update: (data) =>
+        server.put(`${apiVersion}dropdowns/staff-strength/update`, data),
+      get: (id) => server.get(`${apiVersion}dropdowns/staff-strength/${id}`),
+      delete: (id) =>
+        server.delete(`${apiVersion}dropdowns/staff-strength/${id}/remove`),
+    },
   },
 };

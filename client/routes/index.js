@@ -37,6 +37,9 @@ import AddStakeholderView from '../views/Stakeholders/addBasicInfo';
 import BeneficiaryServicesView from '../views/Stakeholders/addBeneficiaryServices';
 import StateView from '../views/DropDowns/State';
 import RegistrationStatusView from '../views/DropDowns/RegistrationStatus';
+// import StaffStrengthView from  '../views/Stakeholders/ManageStaffStrength';
+import StaffStrengthsView from '../views/DropDowns/StaffStrength';
+
 
 const routes = [
   {
@@ -331,6 +334,21 @@ const routes = [
     exact: true,
     protected: true,
   },
+  {
+    path: '/dropdowns/staff-strength',
+    name: 'Staff Strength Dropdown',
+    component: StaffStrengthsView,
+    exact: true,
+    protected: true,
+  },
+  // {
+  //   path: '/dropdowns/staffstrength',
+  //   name: 'Manage Staff Strength',
+  //   component: StaffStrengthView,
+  //   exact: true,
+  //   protected: true,
+  // },
+
   {
     path: '*',
     component: Dashboard,

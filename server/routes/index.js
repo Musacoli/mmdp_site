@@ -41,6 +41,7 @@ export const baseUrl = '/api/v1';
 
 const aboutPath = `${baseUrl}/about`;
 const stakeholdersPath = `${baseUrl}/stakeholders-directory`;
+const dropdownsPath = `${baseUrl}/dropdowns`;
 const stateDropdownPath = `${baseUrl}/state`;
 const registrationStatusPath = `${baseUrl}/registration-status`;
 
@@ -729,6 +730,49 @@ const App = (app) => {
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.registrationStatus.remove,
   );
+
+  /* ---------- Stakeholders Directory Dropdowns ----------- */
+  app.post(
+    `${dropdownsPath}/staff-strength/create`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.staffStrength),
+      keystone.middleware.api,
+    ],
+    routes.api.dropdowns.staffStrength.create,
+  );
+
+  app.get(
+    `${dropdownsPath}/staff-strength`,
+    [authenticate, authorize.cms.dropdowns.get, keystone.middleware.api],
+    routes.api.dropdowns.staffStrength.list,
+  );
+
+  app.get(
+    `${dropdownsPath}/staff-strength/:id`,
+    [authenticate, authorize.cms.dropdowns.get, keystone.middleware.api],
+    routes.api.dropdowns.staffStrength.get,
+  );
+
+  app.put(
+    `${dropdownsPath}/staff-strength/update`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      validate(validator.staffStrength),
+      keystone.middleware.api,
+    ],
+    routes.api.dropdowns.staffStrength.update,
+  );
+
+  app.delete(
+    `${dropdownsPath}/staff-strength/:id/remove`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.staffStrength.remove,
+  );
+
+  /* ---------- Stakeholders Directory Dropdowns ----------- */
 
   app.use(errorHandler);
 };
