@@ -9,6 +9,7 @@ const regStatusApiPrefix = `${apiVersion}registration-status`;
 const countryApiPrefix = `${apiVersion}country`;
 const partnershipTypeApiPrefix = `${apiVersion}partnership-type`;
 const beneficiaryTypeApiPrefix = `${apiVersion}beneficiary-type`;
+const sourceOfFundingPrefix = `${apiVersion}funding-source`;
 
 export const api = {
   group: {
@@ -91,11 +92,19 @@ export const api = {
     country: {
       list: () => server.get(`${countryApiPrefix}`),
     },
+
     partnershipType: {
       create: (data) => server.post(partnershipTypeApiPrefix, data),
       list: (data) => server.get(partnershipTypeApiPrefix, data),
       update: (data) => server.put(`${partnershipTypeApiPrefix}`, data),
       delete: (id) => server.delete(`${partnershipTypeApiPrefix}/${id}`),
+    },
+
+    funding: {
+      create: (data) => server.post(sourceOfFundingPrefix, data),
+      list: (data) => server.get(sourceOfFundingPrefix, data),
+      update: (data) => server.put(`${sourceOfFundingPrefix}`, data),
+      delete: (id) => server.delete(`${sourceOfFundingPrefix}/${id}`),
     },
   },
 };

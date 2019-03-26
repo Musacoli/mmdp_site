@@ -122,9 +122,9 @@ export class State extends Component {
       // console.warn(duplicates)
       return duplicates.map((value) => {
         // eslint-disable-next-line
-        value.errors = value.errors ? value.errors :{};
+        value.errors = value.errors ? value.errors : {};
         // eslint-disable-next-line
-        value.errors.stateName = value.stateName +' state name exists';
+        value.errors.stateName = value.stateName + ' state name exists';
         errors.push(value);
         return this.editAState(value, false);
       });

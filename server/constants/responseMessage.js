@@ -11,5 +11,6 @@ export default {
   RESOURCE_CREATED: '%s has been successfully added!',
   RESOURCE_UPDATED: '%s has been successfully updated!',
   RESOURCE_DELETED: '%s has been successfully deleted!',
+  RESOURCE_NONE: '%s does not exist!',
   RESOURCE_FETCHED: '%s fetched successfully!',
 };

@@ -1,6 +1,9 @@
 import keystone from 'keystone';
 import sock from 'socket.io';
+import dotEnv from 'dotenv';
 import routes from './routes';
+
+dotEnv.config();
 
 const mongodbURL = () => {
   if (process.env.NODE_ENV === 'test') {

@@ -67,6 +67,12 @@ import {
   watchUpdateTypes,
 } from './dropdowns/beneficiaryTypes';
 
+import {
+  watchAddFunding,
+  watchFetchFunding,
+  watchDeleteFunding,
+} from './dropdowns/funding';
+
 export default function* root() {
   yield all([
     fork(watchFetchingGroups),
@@ -151,5 +157,8 @@ export default function* root() {
     fork(watchFetchTypes),
     fork(watchDeleteTypes),
     fork(watchUpdateTypes),
+    fork(watchAddFunding),
+    fork(watchFetchFunding),
+    fork(watchDeleteFunding),
   ]);
 }

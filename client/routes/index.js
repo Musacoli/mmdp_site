@@ -36,6 +36,7 @@ import StakeholdersView from '../views/Stakeholders/stakeholderDirectory';
 import AddStakeholderView from '../views/Stakeholders/addBasicInfo';
 import BeneficiaryServicesView from '../views/Stakeholders/addBeneficiaryServices';
 import StateView from '../views/DropDowns/State';
+import FundingView from '../views/DropDowns/SourceOfFunding';
 import RegistrationStatusView from '../views/DropDowns/RegistrationStatus';
 import LGAView from '../views/DropDowns/LGA';
 import PartnershipType from '../views/DropDowns/PartnershipType';
@@ -348,6 +349,11 @@ const routes = [
     path: '/dropdowns/beneficiary-type',
     name: 'Beneficiary Type Dropdown',
     component: BeneficiaryTypeView,
+  },
+  {
+    path: '/dropdowns/funding-source',
+    name: 'Funding Dropdown',
+    component: FundingView,
     exact: true,
     protected: true,
   },

@@ -32,7 +32,6 @@ const app = (
               />
             );
           }
-
           return (
             <Route
               exact={route.exact}
