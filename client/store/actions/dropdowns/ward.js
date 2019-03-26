@@ -25,6 +25,7 @@ export const deleteWardFailure = (payload) => ({
   type: DELETE_WARD_FAILURE,
   payload,
 });
+
 /** FETCH WARDS */
 export const fetchWards = (payload) => ({
   type: FETCH_WARDS,

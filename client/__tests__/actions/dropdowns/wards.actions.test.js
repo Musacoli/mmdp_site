@@ -23,14 +23,10 @@ describe('create wards action tests', () => {
     expect(actions.addWards({}).type).toEqual(types.ADD_WARDS);
   });
   it('should dispatch ADD_WARDS_SUCCESS', () => {
-    expect(actions.addWardsSuccess({}).type).toEqual(
-      types.ADD_WARDS_SUCCESS,
-    );
+    expect(actions.addWardsSuccess({}).type).toEqual(types.ADD_WARDS_SUCCESS);
   });
   it('should dispatch ADD_WARDS_FAILURE', () => {
-    expect(actions.addWardsFailure({}).type).toEqual(
-      types.ADD_WARDS_FAILURE,
-    );
+    expect(actions.addWardsFailure({}).type).toEqual(types.ADD_WARDS_FAILURE);
   });
 });
 describe('Delete ward action tests', () => {

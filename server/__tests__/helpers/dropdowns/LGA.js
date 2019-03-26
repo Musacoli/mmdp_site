@@ -16,4 +16,3 @@ export const createLGA = async (stateId, times = 1) => {
   }
   return times === 1 ? localGovernments[0] : localGovernments;
 };
-

@@ -11,7 +11,7 @@ export const create = async (req, res) => {
     .model.insertMany(req.body.data)
     .then((response) =>
       res.status(201).json({
-        message: `${req.body.data.length} funding source(s) successfully added`,
+        message: `${req.body.data.length} source(s) of funding successfully added`,
         data: response,
       }),
     )

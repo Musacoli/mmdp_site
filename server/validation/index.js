@@ -6,6 +6,7 @@ import media from './resources/media';
 import state from './dropdowns/state';
 import ward from './dropdowns/ward';
 import status from './dropdowns/status';
+import community from './dropdowns/communities';
 import partnershipType from './dropdowns/partnershipType';
 import targetAudience from './dropdowns/targetAudience';
 import LGA from './dropdowns/LGA';
@@ -25,6 +26,7 @@ export default {
   ward,
   status,
   staffStrength,
+  community,
   partnershipType,
   targetAudience,
   LGA,

@@ -10,7 +10,6 @@ const ImpactType = ({
   handleSubmit,
   addTempImpactType,
   deleteAnImpactType,
-  impactTypeInput,
 }) => (
   <Grid.Row className={loading ? 'dropdowns ui form loading' : 'dropdowns'}>
     <Form>

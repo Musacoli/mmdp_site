@@ -14,4 +14,5 @@ export default {
   RESOURCE_DELETED: '%s has been successfully deleted!',
   RESOURCE_NONE: '%s does not exist!',
   RESOURCE_FETCHED: '%s fetched successfully!',
+  RESOURCE_NOT_FOUND: '%s not found!',
 };

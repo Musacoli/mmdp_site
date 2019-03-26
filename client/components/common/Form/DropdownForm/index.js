@@ -63,7 +63,7 @@ const DropdownForm = ({
   );
 };
 
-DropdownForm.propTyes = {
+DropdownForm.propTypes = {
   inputs: PropTypes.arrayOf(PropTypes.object),
 };
 

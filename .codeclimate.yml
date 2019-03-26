@@ -1,4 +1,4 @@
-version: "2" 
+version: "2"
 checks:
   similar-code:
     config:
@@ -10,7 +10,7 @@ checks:
     config:
       threshold: 40
 
-plugins: 
+plugins:
   eslint:
     enabled: true
     channel: eslint-5

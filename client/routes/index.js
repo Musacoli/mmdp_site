@@ -40,6 +40,7 @@ import FundingView from '../views/DropDowns/SourceOfFunding';
 import Country from '../views/DropDowns/Country';
 import RegistrationStatusView from '../views/DropDowns/RegistrationStatus';
 import StaffStrengthsView from '../views/DropDowns/StaffStrength';
+import CommunityView from '../views/DropDowns/Community';
 import TargetAudienceView from '../views/DropDowns/TargetAudience';
 import LGAView from '../views/DropDowns/LGA';
 import PartnershipType from '../views/DropDowns/PartnershipType';
@@ -359,6 +360,13 @@ const routes = [
     path: '/dropdowns/target-audience',
     name: 'Target Audience Dropdown',
     component: TargetAudienceView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/dropdowns/community',
+    name: 'Community Dropdown',
+    component: CommunityView,
     exact: true,
     protected: true,
   },

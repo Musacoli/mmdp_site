@@ -100,6 +100,11 @@ import {
   updateOrganizationTypeWatcher,
   addOrganizationTypeWatcher,
 } from './dropdowns/organizationType';
+import {
+  watchAddCommunities,
+  watchFetchCommunities,
+  watchDeleteCommunity,
+} from './dropdowns/communities';
 
 import {
   watchCreateTargetAudiences,
@@ -194,6 +199,10 @@ export default function* root() {
     fork(watchCreateTargetAudiences),
     fork(watchDeleteTargetAudience),
     fork(watchUpdateTargetAudiences),
+
+    fork(watchFetchCommunities),
+    fork(watchAddCommunities),
+    fork(watchDeleteCommunity),
 
     fork(getAllwatcher),
     fork(deleteLGAwatcher),

@@ -1,7 +1,5 @@
 import * as types from '../../../constants/dropdowns/ward';
-import reducer, {
-  initialState,
-} from '../../../store/reducers/dropdowns/ward';
+import reducer, { initialState } from '../../../store/reducers/dropdowns/ward';
 
 describe('Fetch wards reducer tests', () => {
   it('should return the initial state', () => {
