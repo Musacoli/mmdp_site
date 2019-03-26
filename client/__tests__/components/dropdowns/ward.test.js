@@ -7,18 +7,18 @@ describe('<Ward />', () => {
     fetchWards: jest.fn(),
     dropdowns: [
       {
-        "__v": 0,
-        "wardName": "nairobi ward",
-        "lgaId": "5c98cab726abf99ee88b9a13",
-        "description": "nairobi description",
-        "_id": "5c9cbe7070979672295f2b03"
+        __v: 0,
+        wardName: 'nairobi ward',
+        lgaId: '5c98cab726abf99ee88b9a13',
+        description: 'nairobi description',
+        _id: '5c9cbe7070979672295f2b03',
       },
       {
-        "__v": 0,
-        "wardName": "kampala ward",
-        "lgaId": "5c98cab726abf99ee88b9a14",
-        "description": "kampala description",
-        "_id": "5c9cbe7070979672295f2b04"
+        __v: 0,
+        wardName: 'kampala ward',
+        lgaId: '5c98cab726abf99ee88b9a14',
+        description: 'kampala description',
+        _id: '5c9cbe7070979672295f2b04',
       },
     ],
     handleSubmit: jest.fn(),

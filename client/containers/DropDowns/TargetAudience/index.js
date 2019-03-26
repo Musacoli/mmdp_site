@@ -5,9 +5,9 @@ import TargetAudienceForm from '../../../components/DropDowns/TargetAudience/ind
 import { filterDropdowns, hasId, hasNoId } from '../../../utils/dropdowns';
 import {
   createTargetAudiences,
+  deleteTargetAudience,
   fetchingTargetAudiences,
   updateTargetAudiences,
-  deleteTargetAudience,
 } from '../../../store/actions/dropdowns/targetAudience';
 
 export class TargetAudienceDropdown extends Component {
@@ -93,10 +93,11 @@ export class TargetAudienceDropdown extends Component {
 
     const Replicas = (copies) => {
       copies.map((result) => {
-        result.errors = result.errors ? result.errors : {};
-        result.errors.audienceType = `${result.audienceType} already exists`;
-        errors.push(result);
-        return this.handleChange(result, false);
+        const data = { ...result };
+        data.errors = data.errors ? data.errors : {};
+        data.errors.audienceType = `${data.audienceType} already exists`;
+        errors.push(data);
+        return this.handleChange(data, false);
       });
     };
 

@@ -46,5 +46,9 @@ export const disable = (object) => {
     imageTwoFileName,
   });
 };
+// checks if value is empty
+export const valueIsEmpty = (value) => {
+  return !value.trim();
+};
 
 export default groupValidationSchema;

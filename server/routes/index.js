@@ -43,8 +43,9 @@ const aboutPath = `${baseUrl}/about`;
 const stakeholdersPath = `${baseUrl}/stakeholders-directory`;
 const dropdownsPath = `${baseUrl}/dropdowns`;
 const stateDropdownPath = `${baseUrl}/state`;
-const wardDropdownPath = `${baseUrl}/ward`;
 const registrationStatusPath = `${baseUrl}/registration-status`;
+const wardDropdownPath = `${baseUrl}/ward`;
+const communityDropdownPath = `${baseUrl}/community`;
 const partnershipTypePath = `${baseUrl}/partnership-type`;
 const beneficiaryTypePath = `${baseUrl}/beneficiary-type`;
 const fundingSourcePath = `${baseUrl}/funding-source`;
@@ -894,6 +895,7 @@ const App = (app) => {
   /* ---------- Stakeholders Directory Dropdowns ----------- */
 
   /* Beneficiary Type dropdown */
+
   app.post(
     `${beneficiaryTypePath}`,
     [
@@ -1012,6 +1014,47 @@ const App = (app) => {
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.organizationType.remove,
   );
+
+  /* -------- Community Resources  ---------- */
+  app.post(
+    `${communityDropdownPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.community.addCommunity),
+    ],
+    routes.api.dropdowns.communities.create,
+  );
+  app.get(
+    `${communityDropdownPath}`,
+    [authOptional],
+    routes.api.dropdowns.communities.list,
+  );
+  app.get(
+    `${communityDropdownPath}/:ward_Id`,
+    [authOptional],
+    routes.api.dropdowns.communities.list,
+  );
+  app.delete(
+    `${communityDropdownPath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.communities.remove,
+  );
+  app.put(
+    `${communityDropdownPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      validate(validator.community.addCommunity),
+    ],
+    routes.api.dropdowns.communities.updateMany,
+  );
+  app.put(
+    `${communityDropdownPath}/:id`,
+    [authenticate, authorize.cms.dropdowns.update],
+    routes.api.dropdowns.communities.update,
+  );
+  /* -------- End Community Resources  ---------- */
 
   // Ward resources
   app.post(

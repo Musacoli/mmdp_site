@@ -29,9 +29,12 @@ ReturneeService.add({
     type: Types.Select,
     options: ['Ongoing', 'Completed', 'Abandoned'],
   },
+  localGovernmentArea: { type: Types.Relationship, ref: 'LGA' },
+  community: { type: Types.Relationship, ref: 'Community' },
 });
 
 ReturneeService.defaultColumns = 'serviceName';
+
 ReturneeService.register();
 
 export default ReturneeService;

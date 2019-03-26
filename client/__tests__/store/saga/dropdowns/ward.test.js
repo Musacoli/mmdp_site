@@ -31,7 +31,7 @@ describe('Ward type saga', () => {
   });
 
   describe('addWardsAsync', async () => {
-    const it = sagaHelper(addWardsAsync({ payload }));
+    let it = sagaHelper(addWardsAsync({ payload }));
     it('should have yield add wards types', (result) => {
       expect(result).toEqual(call(api.dropdowns.ward.create, payload.data));
     });

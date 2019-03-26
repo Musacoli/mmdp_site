@@ -30,7 +30,6 @@ describe('<Ward />', () => {
           id: '5c9cbe7070979672k295f2b05',
         },
       ],
-
     };
     wrapper = mount(<Ward {...props} />);
   });

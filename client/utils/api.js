@@ -12,6 +12,9 @@ const partnershipTypeApiPrefix = `${apiVersion}partnership-type`;
 const beneficiaryTypeApiPrefix = `${apiVersion}beneficiary-type`;
 const sourceOfFundingPrefix = `${apiVersion}funding-source`;
 const impactTypePrefix = `${apiVersion}impact-type`;
+const communityApiPrefix = `${apiVersion}community`;
+
+// mock server
 
 export const api = {
   group: {
@@ -100,6 +103,12 @@ export const api = {
       delete: (id) => server.delete(`${beneficiaryTypeApiPrefix}/${id}`),
     },
 
+    community: {
+      create: (data) => server.post(communityApiPrefix, data),
+      list: (data) => server.get(`${communityApiPrefix}`, data),
+      update: (data) => server.put(`${communityApiPrefix}`, data),
+      delete: (id) => server.delete(`${communityApiPrefix}/${id}`),
+    },
     country: {
       list: () => server.get(`${countryApiPrefix}`),
       create: (data) => server.post(countryApiPrefix, data),

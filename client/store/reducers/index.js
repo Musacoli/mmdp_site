@@ -40,6 +40,7 @@ import states from './dropdowns/state';
 import statuses from './dropdowns/status';
 import staffStrengths from './dropdowns/staffStrength';
 import targetAudience from './dropdowns/targetAudience';
+import communities from './dropdowns/communities';
 import LGA from './dropdowns/LGA';
 import partnershipType from './dropdowns/partnershipType';
 import beneficiaryTypes from './dropdowns/beneficiaryTypes';
@@ -88,6 +89,7 @@ const rootReducer = combineReducers({
   statuses,
   staffStrengths,
   targetAudience,
+  communities,
   LGA,
   partnershipType,
   beneficiaryTypes,

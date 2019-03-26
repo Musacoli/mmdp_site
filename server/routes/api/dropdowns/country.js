@@ -10,10 +10,11 @@ export const create = async (req, res) => {
   Country()
     .model.insertMany(req.body.data)
     .then((result) => {
-      return res.status(201).json({
-        message: `${req.body.data.length} countries successfully added`,
-        data: result,
-      });
+      const {
+        data: { length },
+      } = req.body;
+      const count = length > 1 ? `${length} countries ` : '1 country';
+      return res.sendSuccess(result, 201, `${count} added successfully`);
     })
     .catch((err) => {
       res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, err);
@@ -60,11 +61,11 @@ export const updateMany = (req, res) => {
         { upsert: true },
       )
       .then(() => {
-        res.sendSuccess(
-          '',
-          201,
-          `${req.body.data.length} country(s) updated successfully`,
-        );
+        const {
+          data: { length },
+        } = req.body;
+        const count = length > 1 ? `${length} countries ` : '1 country';
+        res.sendSuccess('', 201, `${count}  updated successfully`);
       })
       .catch((err) => {
         res.sendError('failed', 500, err);

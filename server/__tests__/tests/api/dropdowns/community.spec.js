@@ -6,46 +6,45 @@ import {
   removeAllGroupsAndUsers,
   faker,
 } from '../../../helpers/commons/base';
-import { createFunding } from '../../../helpers/dropdowns/funding';
-import { createReturneeService } from '../../../helpers/dropdowns/returnServices';
+import { createCommunity } from '../../../helpers/dropdowns/communities';
 
-const SourceOfFunding = keystone.list('SourceOfFunding');
+const Community = keystone.list('Community');
 
 const { expect } = chai;
 
-const route = '/api/v1/funding-source';
+const route = '/api/v1/community';
 const routeWithId = (id) => `${route}/${id}`;
-const deleteRoute = routeWithId;
 const updateRoute = routeWithId;
-let source;
+const deleteRoute = routeWithId;
+let community;
 
-describe('Funding route', () => {
+describe('Community route', () => {
   beforeEach(async () => {
     await removeAllGroupsAndUsers();
-    await removeAllCollections(SourceOfFunding);
+    await removeAllCollections(Community);
   });
 
   describe(`POST ${route}`, () => {
     beforeEach(async () => {
       await app.loginRandom(['cms.dropdowns.create']);
-      source = await createFunding();
+      community = await createCommunity();
     });
 
-    it('should return a 400 status when sourceOfFundingName is not provided', async () => {
+    it('should return a 400 status when wardId is not given', async () => {
       const res = await app
         .post(route)
-        .send({ data: [{ description: 'name' }] });
+        .send({ data: [{ communityName: 'name' }] });
       expect(res.status).to.equal(400);
       expect(res.body).to.have.property('error');
       expect(res.body.error).to.have.property('data');
     });
-
-    it('should return a 201 status when valid sourceOfFundingName and description is sent', async () => {
+    it('should return a 201 status when valid data is given', async () => {
       const res = await app.post(route).send({
         data: [
           {
-            sourceOfFundingName: source.sourceName + faker.random.uuid(),
-            description: 'sdfsdf',
+            communityName: `community${faker.random.uuid()}`,
+            wardId: community.wardId,
+            description: 'descriptions',
           },
         ],
       });
@@ -55,29 +54,27 @@ describe('Funding route', () => {
       expect(res.body).to.have.property('data');
     });
   });
-
-  describe(`GET request to ${route}`, () => {
+  describe(`GET ${route}`, () => {
     beforeEach(async () => {
       await app.loginRandom(['cms.dropdowns.create']);
-      source = await createFunding();
+      community = await createCommunity();
     });
 
-    it('should get all funding sources', async () => {
+    it('should get all communities', async () => {
       const res = await app.get(route);
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property('data');
     });
   });
-
   describe(`DELETE request`, () => {
     beforeEach(async () => {
       await app.loginRandom(['cms.dropdowns.delete']);
-      source = await createFunding();
+      community = await createCommunity();
     });
 
-    it('should delete a source of funding', async () => {
-      const source = await createFunding();
-      const { _id: id } = source;
+    it('should delete a community', async () => {
+      const community = await createCommunity();
+      const { _id: id } = community;
       let res = await app.delete(deleteRoute(id));
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property('message');
@@ -86,28 +83,21 @@ describe('Funding route', () => {
       expect(res.status).to.equal(404);
       expect(res.body).to.have.property('message');
     });
-
-    it('should return a 404  if id passed doesnot exist', async () => {
-      const id = '5c9b27e320bed68318c5396d';
-      await createReturneeService(id);
-      const res = await app.delete(deleteRoute(id));
-      expect(res.status).to.equal(404);
-      expect(res.body).to.have.property('message');
-    });
   });
-
   describe(`PUT request`, () => {
     beforeEach(async () => {
       await app.loginRandom(['cms.dropdowns.update']);
     });
 
-    it('should update a funding source', async () => {
-      const sourceName = 'new name';
-      const source = await createFunding();
-      const { _id: id } = source;
-      const res = await app.put(updateRoute(id)).send({ sourceName });
+    it('should update a community', async () => {
+      const communityName = 'new community name';
+      const community = await createCommunity();
+      const { _id: id } = community;
+      const res = await app.put(updateRoute(id)).send({ communityName });
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property('data');
+      expect(res.body.data).to.have.property('community');
+      expect(res.body.data.community.communityName).to.equal(communityName);
     });
   });
 });
