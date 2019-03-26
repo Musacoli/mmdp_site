@@ -78,6 +78,11 @@ import {
   watchFetchFunding,
   watchDeleteFunding,
 } from './dropdowns/funding';
+import {
+  watchAddImpactType,
+  watchFetchImpactTypes,
+  watchDeleteImpactType,
+} from './dropdowns/impactTypes';
 
 import {
   getOrganizationTypewatcher,
@@ -178,6 +183,7 @@ export default function* root() {
     fork(deleteLGAwatcher),
     fork(updateLGAWatcher),
     fork(addLGAWatcher),
+
     fork(watchAddPartnershipTypes),
     fork(watchFetchPartnershipTypes),
     fork(watchDeletePartnershipTypes),
@@ -186,6 +192,7 @@ export default function* root() {
     fork(watchFetchTypes),
     fork(watchDeleteTypes),
     fork(watchUpdateTypes),
+
     fork(watchAddFunding),
     fork(watchFetchFunding),
     fork(watchDeleteFunding),
@@ -194,5 +201,9 @@ export default function* root() {
     fork(deleteOrganizationTypewatcher),
     fork(updateOrganizationTypeWatcher),
     fork(addOrganizationTypeWatcher),
+
+    fork(watchAddImpactType),
+    fork(watchFetchImpactTypes),
+    fork(watchDeleteImpactType),
   ]);
 }

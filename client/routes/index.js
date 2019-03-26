@@ -44,6 +44,7 @@ import PartnershipType from '../views/DropDowns/PartnershipType';
 import BeneficiaryTypeView from '../views/DropDowns/BeneficiaryType';
 import OrganizationTypeView from '../views/DropDowns/OrganizationType';
 import WardView from '../views/DropDowns/Ward';
+import ImpactTypeView from '../views/DropDowns/ImpactType';
 
 const routes = [
   {
@@ -373,6 +374,11 @@ const routes = [
     path: '/dropdowns/funding-source',
     name: 'Funding Dropdown',
     component: FundingView,
+  },
+  {
+    path: '/dropdowns/impact-type',
+    name: 'Impact Type Dropdown',
+    component: ImpactTypeView,
     exact: true,
     protected: true,
   },

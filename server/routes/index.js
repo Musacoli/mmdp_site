@@ -48,6 +48,7 @@ const registrationStatusPath = `${baseUrl}/registration-status`;
 const partnershipTypePath = `${baseUrl}/partnership-type`;
 const beneficiaryTypePath = `${baseUrl}/beneficiary-type`;
 const fundingSourcePath = `${baseUrl}/funding-source`;
+const impactTypePath = `${baseUrl}/impact-type`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -1019,6 +1020,41 @@ const App = (app) => {
   );
 
   /* ---------- Target Audience Dropdown ----------- */
+
+  // impact type
+  app.post(
+    `${impactTypePath}`,
+    [authenticate, authorize.cms.dropdowns.create],
+    routes.api.dropdowns.impactType.create,
+  );
+
+  app.get(
+    `${impactTypePath}`,
+    [authOptional],
+    routes.api.dropdowns.impactType.list,
+  );
+
+  app.get(
+    `${impactTypePath}/:_id`,
+    [authOptional],
+    routes.api.dropdowns.impactType.list,
+  );
+
+  app.put(
+    `${impactTypePath}`,
+    [authenticate, authorize.cms.dropdowns.update, keystone.middleware.api],
+    routes.api.dropdowns.impactType.updateMany,
+  );
+  app.put(
+    `${impactTypePath}/:id`,
+    [authenticate, authorize.cms.dropdowns.update, keystone.middleware.api],
+    routes.api.dropdowns.impactType.update,
+  );
+  app.delete(
+    `${impactTypePath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.impactType.remove,
+  );
 
   app.use(errorHandler);
 };

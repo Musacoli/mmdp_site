@@ -26,3 +26,4 @@ export * from './resources/document';
 export * from './dropdowns/country';
 export * from './dropdowns/state';
 export * from './dropdowns/partnershipTypes';
+export * from './dropdowns/impactTypes';

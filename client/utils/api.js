@@ -11,6 +11,7 @@ const countryApiPrefix = `${apiVersion}country`;
 const partnershipTypeApiPrefix = `${apiVersion}partnership-type`;
 const beneficiaryTypeApiPrefix = `${apiVersion}beneficiary-type`;
 const sourceOfFundingPrefix = `${apiVersion}funding-source`;
+const impactTypePrefix = `${apiVersion}impact-type`;
 
 export const api = {
   group: {
@@ -19,7 +20,10 @@ export const api = {
       if (payload) {
         const { page, search } = payload;
         return server.get(
-          `api/groups?${formatObjectToParams({ page, name: search })}`,
+          `api/groups?${formatObjectToParams({
+            page,
+            name: search,
+          })}`,
         );
       }
       return server.get('api/groups');
@@ -127,6 +131,12 @@ export const api = {
       get: (id) => server.get(`${apiVersion}dropdowns/target-audience/${id}`),
       delete: (id) =>
         server.delete(`${apiVersion}dropdowns/target-audience/${id}/remove`),
+    },
+    impactType: {
+      create: (data) => server.post(impactTypePrefix, data),
+      list: (data) => server.get(impactTypePrefix, data),
+      update: (data) => server.put(`${impactTypePrefix}`, data),
+      delete: (id) => server.delete(`${impactTypePrefix}/${id}`),
     },
   },
 };
