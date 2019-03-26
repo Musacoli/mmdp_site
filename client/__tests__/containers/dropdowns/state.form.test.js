@@ -41,6 +41,6 @@ describe('<State />', () => {
     wrapper = mount(<State {...props} />);
   });
   it('should render State component without crashing', () => {
-    expect(wrapper.find('StateForm').length).toEqual(1);
+    expect(wrapper.find('DropdownForm').length).toEqual(1);
   });
 });
