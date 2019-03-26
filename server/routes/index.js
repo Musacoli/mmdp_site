@@ -43,6 +43,7 @@ const aboutPath = `${baseUrl}/about`;
 const stakeholdersPath = `${baseUrl}/stakeholders-directory`;
 const stateDropdownPath = `${baseUrl}/state`;
 const registrationStatusPath = `${baseUrl}/registration-status`;
+const partnershipTypePath = `${baseUrl}/partnership-type`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -684,6 +685,39 @@ const App = (app) => {
     `${stateDropdownPath}/:id`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.state.remove,
+  );
+
+  // partnership Types
+  app.post(
+    `${partnershipTypePath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.partnershipType.partnershipType),
+    ],
+    routes.api.dropdowns.partnershipType.create,
+  );
+
+  app.get(
+    `${partnershipTypePath}`,
+    [authOptional],
+    routes.api.dropdowns.partnershipType.list,
+  );
+
+  app.put(
+    `${partnershipTypePath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.partnershipType.partnershipType),
+    ],
+    routes.api.dropdowns.partnershipType.updateMany,
+  );
+  app.delete(
+    `${partnershipTypePath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.partnershipType.remove,
   );
 
   /* Registration Status Dropdown */
