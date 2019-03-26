@@ -13,6 +13,7 @@ const beneficiaryTypeApiPrefix = `${apiVersion}beneficiary-type`;
 const sourceOfFundingPrefix = `${apiVersion}funding-source`;
 const impactTypePrefix = `${apiVersion}impact-type`;
 const communityApiPrefix = `${apiVersion}community`;
+<<<<<<< HEAD
 const frequencyApiPrefix = `${apiVersion}frequency`;
 const amountInvestedPrefix = `${apiVersion}amount-invested`;
 const subThemeApiPrefix = `${apiVersion}sub-theme`;
@@ -22,6 +23,10 @@ const manageDropdownsPrefix = `${apiVersion}dropdowns-list`;
 
 // mock server
 const thematicPillarsApiPrefix = `${apiVersion}thematic-pillars`;
+=======
+
+// mock server
+>>>>>>> ft(communityDropDown): manage community dropdown
 
 export const api = {
   group: {
@@ -109,6 +114,10 @@ export const api = {
       update: (data) => server.put(`${beneficiaryTypeApiPrefix}`, data),
       delete: (id) => server.delete(`${beneficiaryTypeApiPrefix}/${id}`),
     },
+<<<<<<< HEAD
+=======
+
+>>>>>>> ft(communityDropDown): manage community dropdown
     community: {
       create: (data) => server.post(communityApiPrefix, data),
       list: (data) => server.get(`${communityApiPrefix}`, data),
