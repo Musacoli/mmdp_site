@@ -4,6 +4,7 @@ import research from './resources/research';
 import document from './resources/document';
 import media from './resources/media';
 import state from './dropdowns/state';
+import ward from './dropdowns/ward';
 import status from './dropdowns/status';
 import partnershipType from './dropdowns/partnershipType';
 import LGA from './dropdowns/LGA';
@@ -18,6 +19,7 @@ export default {
   document,
   media,
   state,
+  ward,
   status,
   partnershipType,
   LGA,

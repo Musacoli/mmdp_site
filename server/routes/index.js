@@ -42,6 +42,7 @@ export const baseUrl = '/api/v1';
 const aboutPath = `${baseUrl}/about`;
 const stakeholdersPath = `${baseUrl}/stakeholders-directory`;
 const stateDropdownPath = `${baseUrl}/state`;
+const wardDropdownPath = `${baseUrl}/ward`;
 const registrationStatusPath = `${baseUrl}/registration-status`;
 const partnershipTypePath = `${baseUrl}/partnership-type`;
 const beneficiaryTypePath = `${baseUrl}/beneficiary-type`;
@@ -807,7 +808,6 @@ const App = (app) => {
   );
 
   /* Beneficiary Type dropdown */
-
   app.post(
     `${beneficiaryTypePath}`,
     [
@@ -925,6 +925,55 @@ const App = (app) => {
     `${baseUrl}/organizationTypes/:id`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.organizationType.remove,
+  );
+
+  // Ward resources
+  app.post(
+    `${wardDropdownPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.ward.addWard),
+    ],
+    routes.api.dropdowns.ward.create,
+  );
+
+  app.get(
+    `${wardDropdownPath}`,
+    [authOptional],
+    routes.api.dropdowns.ward.list,
+  );
+
+  app.get(
+    `${wardDropdownPath}/:lga_id`,
+    [authOptional],
+    routes.api.dropdowns.ward.list,
+  );
+
+  app.put(
+    `${wardDropdownPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.ward.addWard),
+    ],
+    routes.api.dropdowns.ward.updateMany,
+  );
+  app.put(
+    `${wardDropdownPath}/:id`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.ward.addWard),
+    ],
+    routes.api.dropdowns.ward.update,
+  );
+  app.delete(
+    `${wardDropdownPath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.ward.remove,
   );
 
   app.use(errorHandler);

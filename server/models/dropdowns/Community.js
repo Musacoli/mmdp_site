@@ -5,7 +5,7 @@ const { Types } = keystone.Field;
 const Community = new keystone.List('Community');
 
 Community.add({
-  lgaId: { type: Types.Relationship, ref: 'LGA' },
+  wardId: { type: Types.Relationship, ref: 'Ward' },
   communityName: { type: String },
 });
 

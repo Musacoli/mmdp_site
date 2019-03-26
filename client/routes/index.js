@@ -42,6 +42,7 @@ import LGAView from '../views/DropDowns/LGA';
 import PartnershipType from '../views/DropDowns/PartnershipType';
 import BeneficiaryTypeView from '../views/DropDowns/BeneficiaryType';
 import OrganizationTypeView from '../views/DropDowns/OrganizationType';
+import WardView from '../views/DropDowns/Ward';
 
 const routes = [
   {
@@ -364,6 +365,13 @@ const routes = [
     path: '/dropdowns/funding-source',
     name: 'Funding Dropdown',
     component: FundingView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/dropdowns/ward',
+    name: 'Ward Dropdown',
+    component: WardView,
     exact: true,
     protected: true,
   },

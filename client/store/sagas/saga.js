@@ -51,6 +51,12 @@ import {
 } from './dropdowns/LGA';
 
 import {
+  watchAddWards,
+  watchFetchWards,
+  watchDeleteWards,
+} from './dropdowns/ward';
+
+import {
   watchAddStatuses,
   watchFetchStatuses,
   watchDeleteStatuses,
@@ -147,6 +153,10 @@ export default function* root() {
     fork(watchAddStates),
     fork(watchFetchStates),
     fork(watchDeleteStates),
+
+    fork(watchAddWards),
+    fork(watchFetchWards),
+    fork(watchDeleteWards),
 
     fork(watchAddStatuses),
     fork(watchFetchStatuses),
