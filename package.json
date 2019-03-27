@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "yarn run build && node ./dist-server/index.js",
+    "start:server": "yarn run clean && yarn run build:server && node ./dist-server/index.js",
+    "start:client": "yarn run clean && yarn run build:client",
     "build": "yarn run clean && yarn run build:client && yarn run build:server",
     "clean": "rimraf dist-client/ dist-server/",
     "dev": "concurrently --kill-others \"npm run run:server\" \"npm run client:dev\"",

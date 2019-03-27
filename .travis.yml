@@ -20,7 +20,11 @@ jobs:
     - stage: build client
       script:
           - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+<<<<<<< HEAD
           - docker build -t mmdp_client -f ./Dockerfile-client .
+=======
+          - docker build --build-arg SERVER_APP_API_URL=$SERVER_APP_URL --build-arg NODE_ENV=$NODE_ENV --build-arg DEV_SERVER_API_URL=$DEV_SERVER_APP_URL  -t mmdp_client -f ./Dockerfile-client .
+>>>>>>> feat(fix-remote-deployment): Fix deployment issues
           - docker images
           - docker tag mmdp_client $DOCKER_ID/mmdp_client
           - docker push $DOCKER_ID/mmdp_client
@@ -43,7 +47,11 @@ deploy:
   provider: elasticbeanstalk
   region: us-west-2
   app:  mmdp-cms
+<<<<<<< HEAD
   env:  mmdp-cms-app
+=======
+  env:  MmdpCms-env-1
+>>>>>>> feat(fix-remote-deployment): Fix deployment issues
   bucket_name: elasticbeanstalk-us-west-2-817932213731
   bucket_path: mmdp_cms
   on:
