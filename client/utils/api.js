@@ -118,6 +118,15 @@ export const api = {
       list: () => server.get(`${apiVersion}organizationTypes`),
       update: (data) => server.put(`${apiVersion}organizationTypes`, data),
       delete: (id) => server.delete(`${apiVersion}organizationTypes/${id}`),
+    targetAudience: {
+      create: (data) =>
+        server.post(`${apiVersion}dropdowns/target-audience/create`, data),
+      list: () => server.get(`${apiVersion}dropdowns/target-audience`),
+      update: (data) =>
+        server.put(`${apiVersion}dropdowns/target-audience/update`, data),
+      get: (id) => server.get(`${apiVersion}dropdowns/target-audience/${id}`),
+      delete: (id) =>
+        server.delete(`${apiVersion}dropdowns/target-audience/${id}/remove`),
     },
   },
 };

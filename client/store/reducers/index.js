@@ -38,6 +38,7 @@ import addStakeholder from './stakeholders/addStakeholder';
 import country from './dropdowns/country';
 import states from './dropdowns/state';
 import statuses from './dropdowns/status';
+import targetAudience from './dropdowns/targetAudience';
 import LGA from './dropdowns/LGA';
 import partnershipType from './dropdowns/partnershipType';
 import beneficiaryTypes from './dropdowns/beneficiaryTypes';
@@ -83,6 +84,7 @@ const rootReducer = combineReducers({
   country,
   states,
   statuses,
+  targetAudience,
   LGA,
   partnershipType,
   beneficiaryTypes,

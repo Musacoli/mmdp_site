@@ -41,6 +41,7 @@ export const baseUrl = '/api/v1';
 
 const aboutPath = `${baseUrl}/about`;
 const stakeholdersPath = `${baseUrl}/stakeholders-directory`;
+const dropdownsPath = `${baseUrl}/dropdowns`;
 const stateDropdownPath = `${baseUrl}/state`;
 const wardDropdownPath = `${baseUrl}/ward`;
 const registrationStatusPath = `${baseUrl}/registration-status`;
@@ -807,6 +808,7 @@ const App = (app) => {
     routes.api.dropdowns.registrationStatus.remove,
   );
 
+<<<<<<< HEAD
   /* Beneficiary Type dropdown */
   app.post(
     `${beneficiaryTypePath}`,
@@ -976,6 +978,51 @@ const App = (app) => {
     routes.api.dropdowns.ward.remove,
   );
 
+=======
+  /* ---------- Target Audience Dropdown ----------- */
+  app.post(
+    `${dropdownsPath}/target-audience/create`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.targetAudience),
+      keystone.middleware.api,
+    ],
+    routes.api.dropdowns.targetAudience.create,
+  );
+
+  app.get(
+    `${dropdownsPath}/target-audience`,
+    [authenticate, authorize.cms.dropdowns.get, keystone.middleware.api],
+    routes.api.dropdowns.targetAudience.list,
+  );
+
+  app.get(
+    `${dropdownsPath}/target-audience/:id`,
+    [authenticate, authorize.cms.dropdowns.get, keystone.middleware.api],
+    routes.api.dropdowns.targetAudience.get,
+  );
+
+  app.put(
+    `${dropdownsPath}/target-audience/update`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      validate(validator.targetAudience),
+      keystone.middleware.api,
+    ],
+    routes.api.dropdowns.targetAudience.update,
+  );
+
+  app.delete(
+    `${dropdownsPath}/target-audience/:id/remove`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.targetAudience.remove,
+  );
+
+  /* ---------- Target Audience Dropdown ----------- */
+
+>>>>>>> feat(cms-dropdowns-target-audience): Admin should be able to manage Target Audience dropdown options.
   app.use(errorHandler);
 };
 

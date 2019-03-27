@@ -38,6 +38,7 @@ yarn-error.log*
 
 # private files
 .env
+.env*
 dist/
 .nyc_output/
 yarn-error.log

@@ -38,6 +38,7 @@ import BeneficiaryServicesView from '../views/Stakeholders/addBeneficiaryService
 import StateView from '../views/DropDowns/State';
 import FundingView from '../views/DropDowns/SourceOfFunding';
 import RegistrationStatusView from '../views/DropDowns/RegistrationStatus';
+import TargetAudienceView from '../views/DropDowns/TargetAudience';
 import LGAView from '../views/DropDowns/LGA';
 import PartnershipType from '../views/DropDowns/PartnershipType';
 import BeneficiaryTypeView from '../views/DropDowns/BeneficiaryType';
@@ -334,6 +335,13 @@ const routes = [
     path: '/dropdowns/registration-status',
     name: 'Registration Status Dropdown',
     component: RegistrationStatusView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/dropdowns/target-audience',
+    name: 'Target Audience Dropdown',
+    component: TargetAudienceView,
     exact: true,
     protected: true,
   },

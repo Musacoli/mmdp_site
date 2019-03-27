@@ -86,6 +86,13 @@ import {
   addOrganizationTypeWatcher,
 } from './dropdowns/organizationType';
 
+import {
+  watchCreateTargetAudiences,
+  watchFetchingTargetAudiences,
+  watchDeleteTargetAudience,
+  watchUpdateTargetAudiences,
+} from './dropdowns/targetAudience';
+
 export default function* root() {
   yield all([
     fork(watchFetchingGroups),
@@ -161,6 +168,11 @@ export default function* root() {
     fork(watchAddStatuses),
     fork(watchFetchStatuses),
     fork(watchDeleteStatuses),
+
+    fork(watchFetchingTargetAudiences),
+    fork(watchCreateTargetAudiences),
+    fork(watchDeleteTargetAudience),
+    fork(watchUpdateTargetAudiences),
 
     fork(getAllwatcher),
     fork(deleteLGAwatcher),

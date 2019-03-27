@@ -7,6 +7,7 @@ import state from './dropdowns/state';
 import ward from './dropdowns/ward';
 import status from './dropdowns/status';
 import partnershipType from './dropdowns/partnershipType';
+import targetAudience from './dropdowns/targetAudience';
 import LGA from './dropdowns/LGA';
 import beneficiaryType from './dropdowns/beneficiaryType';
 import funding from './dropdowns/funding';
@@ -22,6 +23,7 @@ export default {
   ward,
   status,
   partnershipType,
+  targetAudience,
   LGA,
   beneficiaryType,
   funding,
