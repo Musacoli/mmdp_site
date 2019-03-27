@@ -3,12 +3,17 @@ import toastr from 'toastr';
 import { authUserHeader } from './auth';
 
 const serverUrl = () => {
+  let dbURl = null;
   if (process.env.NODE_ENV === 'production') {
-    return process.env.SERVER_APP_API_URL;
+    dbURl = process.env.SERVER_APP_API_URL;
   }
   if (process.env.NODE_ENV === 'development') {
-    return process.env.DEV_SERVER_API_URL;
+    dbURl = process.env.DEV_SERVER_API_URL;
   }
+  if (!dbURl) {
+    dbURl = 'http://localhost:3000';
+  }
+  return dbURl;
 };
 
 const server = axios.create({
