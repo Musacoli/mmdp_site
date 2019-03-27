@@ -25,6 +25,7 @@ and then you are set.
 - Parcel - A web application bundler
 - MongoDb - A noSql database
 
+
 ## 🚀 Getting started
 
 Follow these steps to set up the project in development mode

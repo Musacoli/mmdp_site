@@ -3,17 +3,14 @@ import toastr from 'toastr';
 import { authUserHeader } from './auth';
 
 const serverUrl = () => {
-  let dbURl = null;
+  let apiURl = null;
   if (process.env.NODE_ENV === 'production') {
-    dbURl = process.env.SERVER_APP_API_URL;
+    apiURl = process.env.SERVER_APP_API_URL;
   }
   if (process.env.NODE_ENV === 'development') {
-    dbURl = process.env.DEV_SERVER_API_URL;
+    apiURl = process.env.DEV_SERVER_API_URL;
   }
-  if (!dbURl) {
-    dbURl = 'http://staging2.mmdp.ng:3000';
-  }
-  return dbURl;
+  return apiURl;
 };
 
 const server = axios.create({

@@ -1,0 +1,21 @@
+client:
+  image: shemogumbe/mmdp_client
+  links:
+  - server:server
+mongo:
+  image: shemogumbe/mmdp_db
+  ports:
+  - 27017:27017
+  volumes:
+    - /mmdp_data:/mmdp_data
+nginx:
+  image: shemogumbe/mmdp_server
+  links:
+  - client:client
+  - server:server
+  ports:
+  - 80:80
+server:
+  image: shemogumbe/mmdp_api
+  links:
+  - mongo:mongo

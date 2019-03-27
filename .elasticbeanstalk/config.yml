@@ -9,8 +9,13 @@ environment-defaults:
     repository: null
 global:
   application_name: mmdp-cms
+<<<<<<< HEAD
   default_ec2_keyname: mmdpCms
   default_platform: Docker 18.06.1-ce
+=======
+  default_ec2_keyname: mmdp-dev-key
+  default_platform: Multi-container Docker 18.06.1-ce (Generic)
+>>>>>>> feat(fix-remote-deployment): Fix deployment issues
   default_region: us-west-2
   include_git_submodules: true
   instance_profile: null
