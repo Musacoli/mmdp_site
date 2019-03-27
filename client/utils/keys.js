@@ -11,7 +11,7 @@ const serverUrl = () => {
     dbURl = process.env.DEV_SERVER_API_URL;
   }
   if (!dbURl) {
-    dbURl = 'http://localhost:3000';
+    dbURl = 'http://staging2.mmdp.ng:3000';
   }
   return dbURl;
 };
