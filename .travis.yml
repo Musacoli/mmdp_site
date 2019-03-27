@@ -1,4 +1,7 @@
 sudo: required
+language: node_js
+node_js:
+  - "9"
 services:
   - docker
 
@@ -26,12 +29,12 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
         - docker build -t mmdp_db -f ./Dockerfile-db .
         - docker images
-        - docker tag mmdp_cdb $DOCKER_ID/mmdp_db
+        - docker tag mmdp_db $DOCKER_ID/mmdp_db
         - docker push $DOCKER_ID/mmdp_db
     - stage: build server
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-        - docker build -t mmdp_server -f ./Dockerfile-server .
+        - docker build -t mmdp_server -f ./Dockerfile-nginx .
         - docker images
         - docker tag mmdp_server $DOCKER_ID/mmdp_server
         - docker push $DOCKER_ID/mmdp_server
@@ -39,8 +42,8 @@ jobs:
 deploy:
   provider: elasticbeanstalk
   region: us-west-2
-  app: mmdp_cms
-  env: MmdpCms-env
+  app:  mmdp-cms
+  env:  mmdp-cms-app
   bucket_name: elasticbeanstalk-us-west-2-817932213731
   bucket_path: mmdp_cms
   on:

@@ -1,48 +1,36 @@
 {
-    "AWSEBDockerrunVersion": 2,
-    "containerDefinitions": [
+  "AWSEBDockerrunVersion": 2,
+  "authentication": {
+    "Bucket": "mmdp-devops",
+    "KEY": "config.json"
+  },
+  "volumes": [],
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "shemogumbe/mmdp_client",
+      "hostname": "client",
+      "essential": false,
+      "portMappings": [
         {
-            "name": "client",
-            "image": "shemogumbe/mmdp_client",
-            "hostname": "client",
-            "essential": false,
-            "links": ["server"],
-            "memory": 512
-        },
-        {
-            "name": "server",
-            "image": "shemogumbe/mmdp_api",
-            "hostname": "api",
-            "essential": false,
-            "links": ["mongo"],
-            "memory": 512
-        },
-        {
-            "name": "mongo",
-            "image": "shemogumbe/mmdp_db",
-            "hostname": "mongo",
-            "essential": false,
-            "portMappings": [
-                {
-                    "hostPort": 27017,
-                    "containerPort": 27017
-                }
-            ],
-            "memory": 512
-        },
-        {
-            "name": "nginx",
-            "image": "shemogumbe/mmdp_server",
-            "hostname": "nginx",
-            "essential": true,
-            "portMappings": [
-                {
-                    "hostPort": 80,
-                    "containerPort": 80
-                }
-            ],
-            "links": ["client", "server"],
-            "memory": 512
+          "hostPort": 1234,
+          "containerPort": 1234
         }
-    ]
+      ],
+      "memory": 1024
+    },
+    {
+      "name": "server",
+      "image": "shemogumbe/mmdp_api",
+      "hostname": "api",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 3000,
+          "containerPort": 3000
+        }
+      ],
+      "memory": 1024
+    }
+  ]
 }
