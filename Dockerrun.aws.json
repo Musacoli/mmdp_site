@@ -11,9 +11,6 @@
       "image": "shemogumbe/mmdp_client",
       "hostname": "client",
       "essential": false,
-      "links": [
-        "server"
-      ],
       "portMappings": [
         {
           "hostPort": 80,
