@@ -1,16 +1,15 @@
 import React from 'react';
 import { Form, Grid } from 'semantic-ui-react';
-import StateForm from '../../common/Form/DropdownForm';
+import PartnershipTypeForm from '../../common/Form/DropdownForm';
 import DropdownActions from '../../common/Button/DropdownActions';
 
 const State = (props) => {
   const { dropdowns, addTempState, handleSubmit, loading, countries } = props;
-  let inputs = [];
   return (
     <Grid.Row className={loading ? 'dropdowns ui form loading' : 'dropdowns'}>
       <Form>
         {dropdowns.map((item, index) => {
-          inputs = [
+          const inputs = [
             {
               type: 'text',
               name: 'stateName',
@@ -41,11 +40,11 @@ const State = (props) => {
             },
           ];
           return (
-            <StateForm
+            <PartnershipTypeForm
               // eslint-disable-next-line
               key={index}              
               item={item}
-              inputs={inputs || []}
+              inputs={inputs}
               {...props}
               countries={false}
             />

@@ -156,13 +156,13 @@ export class State extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   countries: state.country.data,
   states: state.states.data,
   loading: state.states.loading,
 });
 
-const mapDispatchToProps = {
+export const mapDispatchToProps = {
   fetchCountries: countryActions.fetchCountry,
   addStates: stateActions.addStates,
   fetchStates: stateActions.fetchStates,

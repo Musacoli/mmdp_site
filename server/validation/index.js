@@ -5,6 +5,7 @@ import document from './resources/document';
 import media from './resources/media';
 import state from './dropdowns/state';
 import status from './dropdowns/status';
+import partnershipType from './dropdowns/partnershipType';
 
 export default {
   login,
@@ -14,4 +15,5 @@ export default {
   media,
   state,
   status,
+  partnershipType,
 };
