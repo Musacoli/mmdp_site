@@ -32,7 +32,7 @@ deploy:
   bucket_name: elasticbeanstalk-us-west-2-817932213731
   bucket_path: mmdp_cms
   on:
-    branch: ft-fix-remote-deployment
+    branch: develop
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key:
     secure: $AWS_SECRET_KEY

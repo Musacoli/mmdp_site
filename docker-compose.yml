@@ -18,8 +18,8 @@ services:
       context: ./
       dockerfile: Dockerfile-api
     volumes:
+      - "/mmdp/node_modules"
       - "./server:$HOME/mmdp/"
-      - "./node_modules:$HOME/mmdp/node_modules"
     ports:
       - "3000:3000"
     depends_on:
@@ -33,6 +33,11 @@ services:
 
   client:
     restart: always
+    links:
+      - mongo
+
+  client:
+    restart: always
     build:
       context: ./
       dockerfile: Dockerfile-client
@@ -41,6 +46,12 @@ services:
       - "/mmdp/node_modules"
     ports:
       - "1234:1234"
+    links:
+      - api
+    depends_on:
+      - api
+    networks:
+      - backend
     links:
       - api
     depends_on:
