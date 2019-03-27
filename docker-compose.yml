@@ -2,14 +2,18 @@ version: "3"
 
 services:
   mongo:
+    restart: always
     build:
       context: ./
       dockerfile: Dockerfile-db
     ports:
       - "27017:27017"
+    networks:
+      - backend
 
 
   api:
+    restart: always
     build:
       context: ./
       dockerfile: Dockerfile-api
@@ -22,8 +26,13 @@ services:
       - mongo
     links:
       - mongo
+    networks:
+      - backend
+    env_file:
+      - ./.env
 
   client:
+    restart: always
     build:
       context: ./
       dockerfile: Dockerfile-client
@@ -34,6 +43,10 @@ services:
       - "1234:1234"
     links:
       - api
+    depends_on:
+      - api
+    networks:
+      - backend
 
   nginx:
     restart: always
@@ -42,3 +55,10 @@ services:
       dockerfile: Dockerfile-nginx
     ports:
       - "8080:80"
+    networks:
+      - backend
+    depends_on:
+      - client
+networks:
+  backend:
+    driver: bridge

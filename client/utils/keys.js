@@ -2,6 +2,8 @@ import axios from 'axios';
 import toastr from 'toastr';
 import { authUserHeader } from './auth';
 
+console.log(process.env);
+
 const serverUrl = () => {
   let apiURl = null;
   if (process.env.NODE_ENV === 'production') {

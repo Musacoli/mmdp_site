@@ -11,26 +11,68 @@
       "image": "shemogumbe/mmdp_client",
       "hostname": "client",
       "essential": false,
+      "links": [
+        "server"
+      ],
       "portMappings": [
         {
           "hostPort": 1234,
           "containerPort": 1234
         }
       ],
-      "memory": 1024
+      "memory": 200
     },
     {
       "name": "server",
       "image": "shemogumbe/mmdp_api",
       "hostname": "api",
-      "essential": true,
+      "essential": false,
+      "links": [
+        "mongo"
+      ],
       "portMappings": [
         {
           "hostPort": 3000,
           "containerPort": 3000
         }
       ],
-      "memory": 1024
+      "memory": 245
+    },
+    {
+      "name": "mongo",
+      "image": "shemogumbe/mmdp_db",
+      "hostname": "mongo",
+      "essential": false,
+      "portMappings": [
+        {
+          "hostPort": 27017,
+          "containerPort": 27017
+        }
+      ],
+      "memory": 400,
+      "mountPoints": [
+        {
+          "sourceVolume": "mmdp_data",
+          "containerPath": "/mmdp_data"
+        }
+      ]
+    },
+    {
+      "name": "nginx",
+      "image": "shemogumbe/mmdp_server",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": [
+        "client",
+        "server"
+      ],
+      "memory": 130
     }
   ]
 }
