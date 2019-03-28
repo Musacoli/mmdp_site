@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import BlueCard from '../../common/Card/BlueCard';
 import ConfirmModal from '../../common/Modal/ConfirmModal';
 import InvalidPage from '../../common/InvalidPage';
@@ -10,6 +10,7 @@ import {
   UNARCHIVE_ACTION,
 } from '../../../utils/helper';
 import Search from '../../common/Search';
+import AddNewButton from '../../common/AddNewButton';
 
 const ListResearch = ({
   results,
@@ -52,10 +53,12 @@ const ListResearch = ({
             placeholder="Search research"
           />
         </Grid.Column>
-        <Grid.Column>
-          <a href="/resources/research/add" className="btn__add">
-            <Button className="btn__add">New Research</Button>
-          </a>
+        <Grid.Column width={3}>
+          <AddNewButton
+            url="/resources/research/add"
+            text="Research"
+            className="common__button bg-ugly-blue"
+          />
         </Grid.Column>
       </Grid>
       <Grid relaxed>

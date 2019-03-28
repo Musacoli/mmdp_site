@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Input, Button } from 'semantic-ui-react';
+import AddNewButton from '../../common/AddNewButton';
 
 const TopBar = ({ instanceName, addMediaUrl }) => {
   return (
@@ -15,11 +16,11 @@ const TopBar = ({ instanceName, addMediaUrl }) => {
           </Button>
         </Grid.Column>
         <Grid.Column width={3}>
-          <a href={addMediaUrl}>
-            <Button className="common__button bg-ugly-blue" fluid>
-              Add {instanceName}
-            </Button>
-          </a>
+          <AddNewButton
+            url={addMediaUrl}
+            className="common__button bg-ugly-blue"
+            text={instanceName}
+          />
         </Grid.Column>
       </Grid.Row>
     </Grid>

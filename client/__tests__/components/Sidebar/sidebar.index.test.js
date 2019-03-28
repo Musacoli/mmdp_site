@@ -1,6 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { mount } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Sidebar from '../../../components/Sidebar';
 import sidebarItems from '../../../containers/Sidebar/sidebarItems';
 
@@ -13,9 +14,11 @@ const props = {
   children: <div>hello</div>,
 };
 const wrapper = mount(
-  <Sidebar {...props}>
-    <div>Hello world</div>
-  </Sidebar>,
+  <Router>
+    <Sidebar {...props}>
+      <div>Hello world</div>
+    </Sidebar>
+  </Router>,
 );
 
 describe('<Sidebar /> ', () => {
