@@ -9,6 +9,7 @@ import partnershipType from './dropdowns/partnershipType';
 import LGA from './dropdowns/LGA';
 import beneficiaryType from './dropdowns/beneficiaryType';
 import funding from './dropdowns/funding';
+import organizationTypes from './dropdowns/organizationDropdown';
 
 export default {
   login,
@@ -22,4 +23,5 @@ export default {
   LGA,
   beneficiaryType,
   funding,
+  organizationTypes,
 };

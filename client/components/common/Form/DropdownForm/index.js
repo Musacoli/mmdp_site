@@ -8,8 +8,8 @@ import SelectInput from './Select';
 
 const DropdownForm = ({
   header,
-  label,
   item,
+  label,
   editAState,
   deleteAState,
   inputs,

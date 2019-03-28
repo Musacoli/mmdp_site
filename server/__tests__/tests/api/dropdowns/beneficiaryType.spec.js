@@ -18,7 +18,7 @@ const updateRoute = routeWithId;
 const deleteRoute = routeWithId;
 let type;
 
-describe.only('Beneficiary type route', () => {
+describe('Beneficiary type route', () => {
   beforeEach(async () => {
     await removeAllGroupsAndUsers();
     await removeAllCollections(BeneficiaryType);

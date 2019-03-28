@@ -44,6 +44,10 @@ describe('LGA Saga', () => {
     it('and then yield dispatch deleteLGAFailure', (result) => {
       expect(result).toEqual(put(actions.deleteLGAFailure(undefined)));
     });
+
+    it('and then yield Local Government Areas Failure', (result) => {
+      expect(result).toBeUndefined();
+    });
   });
 
   describe('Add Local Government Areas', async () => {
@@ -63,6 +67,10 @@ describe('LGA Saga', () => {
     it('and then yield dispatch addLGAFailure', (result) => {
       expect(result).toEqual(put(actions.addLGAFailure(undefined)));
     });
+
+    it('and then yield Local Government Areas Failure', (result) => {
+      expect(result).toBeUndefined();
+    });
   });
 
   describe('Update Local Government Areas', async () => {
@@ -81,6 +89,9 @@ describe('LGA Saga', () => {
 
     it('and then yield dispatch addLGAFailure', (result) => {
       expect(result).toEqual(put(actions.updateLGAFailure(undefined)));
+    });
+    it('and then yield Local Government Areas Failure', (result) => {
+      expect(result).toBeUndefined();
     });
   });
 });

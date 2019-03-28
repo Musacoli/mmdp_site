@@ -106,5 +106,11 @@ export const api = {
       update: (data) => server.put(`${sourceOfFundingPrefix}`, data),
       delete: (id) => server.delete(`${sourceOfFundingPrefix}/${id}`),
     },
+    organizationType: {
+      create: (data) => server.post(`${apiVersion}organizationTypes`, data),
+      list: () => server.get(`${apiVersion}organizationTypes`),
+      update: (data) => server.put(`${apiVersion}organizationTypes`, data),
+      delete: (id) => server.delete(`${apiVersion}organizationTypes/${id}`),
+    },
   },
 };

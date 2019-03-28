@@ -41,6 +41,7 @@ import RegistrationStatusView from '../views/DropDowns/RegistrationStatus';
 import LGAView from '../views/DropDowns/LGA';
 import PartnershipType from '../views/DropDowns/PartnershipType';
 import BeneficiaryTypeView from '../views/DropDowns/BeneficiaryType';
+import OrganizationTypeView from '../views/DropDowns/OrganizationType';
 
 const routes = [
   {
@@ -339,6 +340,15 @@ const routes = [
     path: '/dropdowns/LGA',
     name: 'State Dropdown',
     component: LGAView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/dropdowns/organization-type',
+    name: 'OrganizationType Dropdown',
+    component: OrganizationTypeView,
+    exact: true,
+    protected: true,
   },
   {
     path: '/dropdowns/partnership-type',
