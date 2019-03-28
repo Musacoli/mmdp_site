@@ -1,12 +1,12 @@
 {
-    "AWSRBDockerrunVersion": 2,
+    "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
         {
             "name": "client",
-            "image": "shemogumbe/mmdp_lient",
+            "image": "shemogumbe/mmdp_client",
             "hostname": "client",
             "essential": false,
-            "links": ["serverI"],
+            "links": ["server"],
             "memory": 512
         },
         {
