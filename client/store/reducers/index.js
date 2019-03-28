@@ -40,6 +40,7 @@ import states from './dropdowns/state';
 import statuses from './dropdowns/status';
 import LGA from './dropdowns/LGA';
 import partnershipType from './dropdowns/partnershipType';
+import beneficiaryTypes from './dropdowns/beneficiaryTypes';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -81,6 +82,7 @@ const rootReducer = combineReducers({
   statuses,
   LGA,
   partnershipType,
+  beneficiaryTypes,
 });
 
 export default rootReducer;

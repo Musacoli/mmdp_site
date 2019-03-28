@@ -1,19 +1,19 @@
-/* eslint-disable radix */
 import keystone from 'keystone';
 import { sprintf } from 'sprintf-js';
 import modelHelper from '../../../helpers/modelHelper';
 import responseMessage from '../../../constants/responseMessage';
-import Stakeholder from '../../../models/resources/stakeholdersDirectory/Stakeholders';
+import ReturneeService from '../../../models/resources/stakeholdersDirectory/ReturneeService';
 
-// export const Stakeholder = () => keystone.List('Stakeholders');
-export const RegistrationStatus = () => keystone.list('RegistrationStatus');
+export const BeneficiaryType = () => keystone.list('BeneficiaryType');
 
 export const create = async (req, res) => {
-  RegistrationStatus()
+  BeneficiaryType()
     .model.insertMany(req.body.data)
     .then((result) => {
-      res.status(201).json({
-        message: `${req.body.data.length} statuses successfully added`,
+      return res.status(201).json({
+        message: `${
+          req.body.data.length
+        } beneficiary type(s) successfully added`,
         data: result,
       });
     })
@@ -22,26 +22,10 @@ export const create = async (req, res) => {
     });
 };
 
-export const get = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const status = await RegistrationStatus().model.findById(id);
-    if (!status)
-      return res.sendError(
-        sprintf(responseMessage.RESOURCE_NOT_FOUND, 'Status'),
-        404,
-      );
-    return res.sendSuccess({ status });
-  } catch (error) {
-    res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
-  }
-};
-
 export const list = async (req, res) => {
-  //   const id = req.params.country_id;
+  const types = BeneficiaryType().model.find();
 
-  const statuses = RegistrationStatus().model.find();
-  statuses.exec((err, response) => {
+  types.exec((err, response) => {
     if (err) return res.status(400).json(err);
     res.sendSuccess(
       {
@@ -54,11 +38,11 @@ export const list = async (req, res) => {
 
 export const updateMany = (req, res) => {
   req.body.data.forEach((data) => {
-    RegistrationStatus()
+    BeneficiaryType()
       .model.update(
         { _id: data._id },
         {
-          registrationStatus: data.registrationStatus,
+          beneficiaryTypeName: data.beneficiaryTypeName,
           description: data.description,
         },
         { upsert: true },
@@ -67,7 +51,7 @@ export const updateMany = (req, res) => {
         res.sendSuccess(
           '',
           201,
-          `${req.body.data.length} status(es) updated successfully`,
+          `${req.body.data.length} beneficiary type(s) updated successfully`,
         );
       })
       .catch((err) => {
@@ -79,29 +63,29 @@ export const updateMany = (req, res) => {
 export const update = async (req, res) => {
   const { id } = req.params;
   try {
-    const status = await RegistrationStatus().model.findOne({ _id: id });
-    if (!status)
+    const type = await BeneficiaryType().model.findOne({ _id: id });
+    if (!type)
       return res.sendError(
-        sprintf(responseMessage.RESOURCE_TO_EDIT_NOT_FOUND, 'status'),
+        sprintf(responseMessage.RESOURCE_TO_EDIT_NOT_FOUND, 'type'),
         404,
       );
-    const updatedStatus = await modelHelper.process(status, req);
+    const updatedType = await modelHelper.process(type, req);
     return res.sendSuccess(
       {
-        status: updatedStatus,
+        type: updatedType,
       },
       200,
-      sprintf(responseMessage.RESOURCE_UPDATED, 'Status'),
+      sprintf(responseMessage.RESOURCE_UPDATED, 'type'),
     );
   } catch (error) {
     res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
   }
 };
 
-export const statusInModel = (model, id) => {
+export const typeInModel = (model, id) => {
   const results = model.model
     .find()
-    .where('registrationStatusId', id)
+    .where('beneficiaryTypeId', id)
     .lean();
   return results;
 };
@@ -110,11 +94,11 @@ export const remove = async (req, res) => {
   const { id } = req.params;
   const errorMessage = [];
   Promise.all([
-    statusInModel(Stakeholder, id).then((results) => {
+    typeInModel(ReturneeService, id).then((results) => {
       if (results.length > 0) {
-        const message = `You cannot delete this status. It is already assigned to ${
+        const message = `You cannot delete this beneficiary type. It is already assigned to ${
           results.length
-        } stakeholder(s) `;
+        } returnee service(s) `;
         errorMessage.push(message);
       }
     }),
@@ -123,18 +107,21 @@ export const remove = async (req, res) => {
       return res.sendError(errorMessage[0], 400, errorMessage[0]);
     }
     try {
-      RegistrationStatus()
+      BeneficiaryType()
         .model.findByIdAndRemove(id)
-        .exec((error, status) => {
-          if (!status)
-            return res.sendError(
-              sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'status'),
+        .exec((error, type) => {
+          if (!type)
+            res.sendError(
+              sprintf(
+                responseMessage.RESOURCE_T0_DELETE_NOT_FOUND,
+                'Beneficiary type',
+              ),
               404,
             );
-          return res.sendSuccess(
+          res.sendSuccess(
             undefined,
             200,
-            sprintf(responseMessage.RESOURCE_DELETED, 'Status'),
+            sprintf(responseMessage.RESOURCE_DELETED, 'Beneficiary type'),
           );
         });
     } catch (error) {

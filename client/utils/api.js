@@ -8,6 +8,7 @@ const stateApiPrefix = `${apiVersion}state`;
 const regStatusApiPrefix = `${apiVersion}registration-status`;
 const countryApiPrefix = `${apiVersion}country`;
 const partnershipTypeApiPrefix = `${apiVersion}partnership-type`;
+const beneficiaryTypeApiPrefix = `${apiVersion}beneficiary-type`;
 
 export const api = {
   group: {
@@ -79,6 +80,12 @@ export const api = {
       list: (data) => server.get(regStatusApiPrefix, data),
       update: (data) => server.put(`${regStatusApiPrefix}`, data),
       delete: (id) => server.delete(`${regStatusApiPrefix}/${id}`),
+    },
+    beneficiaryType: {
+      create: (data) => server.post(beneficiaryTypeApiPrefix, data),
+      list: (data) => server.get(beneficiaryTypeApiPrefix, data),
+      update: (data) => server.put(`${beneficiaryTypeApiPrefix}`, data),
+      delete: (id) => server.delete(`${beneficiaryTypeApiPrefix}/${id}`),
     },
 
     country: {

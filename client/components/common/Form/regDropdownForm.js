@@ -38,7 +38,7 @@ const RegistrationStatusForm = ({ item, editAStatus, deleteAStatus }) => {
         value={item.description}
         name="description"
       />
-      <div className="stateDropdown__actions two-fields">
+      <div className="dropdowns__actions two-fields">
         <ActionModal
           confirmDeleteGroup={deleteAStatus}
           group={item}

@@ -7,6 +7,7 @@ import state from './dropdowns/state';
 import status from './dropdowns/status';
 import partnershipType from './dropdowns/partnershipType';
 import LGA from './dropdowns/LGA';
+import beneficiaryType from './dropdowns/beneficiaryType';
 
 export default {
   login,
@@ -18,4 +19,5 @@ export default {
   status,
   partnershipType,
   LGA,
+  beneficiaryType,
 };

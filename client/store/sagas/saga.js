@@ -60,6 +60,12 @@ import {
   watchFetchPartnershipTypes,
   watchDeletePartnershipTypes,
 } from './dropdowns/partnershipType';
+import {
+  watchAddTypes,
+  watchFetchTypes,
+  watchDeleteTypes,
+  watchUpdateTypes,
+} from './dropdowns/beneficiaryTypes';
 
 export default function* root() {
   yield all([
@@ -140,5 +146,10 @@ export default function* root() {
     fork(watchAddPartnershipTypes),
     fork(watchFetchPartnershipTypes),
     fork(watchDeletePartnershipTypes),
+
+    fork(watchAddTypes),
+    fork(watchFetchTypes),
+    fork(watchDeleteTypes),
+    fork(watchUpdateTypes),
   ]);
 }

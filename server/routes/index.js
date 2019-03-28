@@ -44,6 +44,7 @@ const stakeholdersPath = `${baseUrl}/stakeholders-directory`;
 const stateDropdownPath = `${baseUrl}/state`;
 const registrationStatusPath = `${baseUrl}/registration-status`;
 const partnershipTypePath = `${baseUrl}/partnership-type`;
+const beneficiaryTypePath = `${baseUrl}/beneficiary-type`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -802,6 +803,50 @@ const App = (app) => {
     `${registrationStatusPath}/:id`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.registrationStatus.remove,
+  );
+
+  /* Beneficiary Type dropdown */
+
+  app.post(
+    `${beneficiaryTypePath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      validate(validator.beneficiaryType.addBeneficiaryType),
+    ],
+    routes.api.dropdowns.beneficiaryType.create,
+  );
+
+  app.get(
+    `${beneficiaryTypePath}`,
+    [authOptional],
+    routes.api.dropdowns.beneficiaryType.list,
+  );
+
+  app.put(
+    `${beneficiaryTypePath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.beneficiaryType.addBeneficiaryType),
+    ],
+    routes.api.dropdowns.beneficiaryType.updateMany,
+  );
+  app.put(
+    `${beneficiaryTypePath}/:id`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.beneficiaryType.addBeneficiaryType),
+    ],
+    routes.api.dropdowns.beneficiaryType.update,
+  );
+  app.delete(
+    `${beneficiaryTypePath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.beneficiaryType.remove,
   );
 
   app.use(errorHandler);

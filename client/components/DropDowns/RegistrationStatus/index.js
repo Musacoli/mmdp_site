@@ -5,9 +5,7 @@ import RegistrationStatusForm from '../../common/Form/regDropdownForm';
 const Status = (props) => {
   const { dropdowns, addTempState, handleSubmit, loading } = props;
   return (
-    <Grid.Row
-      className={loading ? 'stateDropdown ui form loading' : 'stateDropdown'}
-    >
+    <Grid.Row className={loading ? 'dropdowns ui form loading' : 'dropdowns'}>
       <Form>
         {dropdowns.map((item, index) => {
           return (
@@ -22,13 +20,13 @@ const Status = (props) => {
 
         <Form.Group>
           <Form.Button
-            className="stateDropdown__add"
+            className="dropdowns__add"
             onClick={() => addTempState()}
           >
             Add more options
           </Form.Button>
           <Form.Button
-            className="stateDropdown__save bg-transparent"
+            className="dropdowns__save bg-transparent"
             onClick={handleSubmit}
           >
             Save dropdown
