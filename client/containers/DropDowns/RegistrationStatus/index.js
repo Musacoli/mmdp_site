@@ -116,7 +116,8 @@ export class RegistrationStatusDropdown extends Component {
         // eslint-disable-next-line
         value.errors = value.errors ? value.errors : {};
         // eslint-disable-next-line
-        value.errors.registrationStatus = value.registrationStatus + ' registration status exists';
+        value.errors.registrationStatus =`
+          ${value.registrationStatus} registration status exists`;
         errors.push(value);
         return this.editAStatus(value, false);
       });

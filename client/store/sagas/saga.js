@@ -43,6 +43,12 @@ import {
   watchFetchStates,
   watchDeleteStates,
 } from './dropdowns/state';
+import {
+  getAllwatcher,
+  updateLGAWatcher,
+  deleteLGAwatcher,
+  addLGAWatcher,
+} from './dropdowns/LGA';
 
 import {
   watchAddStatuses,
@@ -121,5 +127,10 @@ export default function* root() {
     fork(watchAddStatuses),
     fork(watchFetchStatuses),
     fork(watchDeleteStatuses),
+
+    fork(getAllwatcher),
+    fork(deleteLGAwatcher),
+    fork(updateLGAWatcher),
+    fork(addLGAWatcher),
   ]);
 }

@@ -6,6 +6,7 @@ const LGA = keystone.list('LGA');
 export const createLGA = async (stateId, times = 1) => {
   const data = {
     lgaName: faker.random.words(3),
+    description: faker.random.words(3),
     stateId,
   };
   const localGovernments = [];
