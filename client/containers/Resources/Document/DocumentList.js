@@ -86,7 +86,7 @@ export class DocumentList extends Component {
         <div className="doc__pagination">
           <Pagination
             handlePageChange={this.fetchDocuments}
-            data={documents.pagination}
+            data={documents.pagination || {}}
           />
         </div>
       </React.Fragment>

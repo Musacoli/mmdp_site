@@ -12,10 +12,16 @@ const MediaCard = ({ item, deleteMedia, isDeleting, deleteMediaId }) => (
     <Card className="media">
       <div className="media__view">
         {item.mediaType === 'video' && <Embed url={item.mediaFile.url} />}
-        {item.mediaType !== 'video' && <Image src={item.mediaFile.url} />}
+        {/* eslint-disable */}
+        {item.mediaType === 'photo' && item.mediaType && (
+          <Image src={item.mediaFile.url} />
+        )}
+        {/* eslint-enable */}
       </div>
       <Card.Content className="show" extra>
-        <Card.Meta>{item.mediaFile.filename}</Card.Meta>
+        <Card.Meta>
+          {item.mediaFile && <span>{item.mediaFile.filename}</span>}
+        </Card.Meta>
         <Card.Description>
           <ActionModal
             triggerText="Delete"
@@ -29,14 +35,12 @@ const MediaCard = ({ item, deleteMedia, isDeleting, deleteMediaId }) => (
     </Card>
   </Grid.Column>
 );
-
 MediaCard.propTypes = {
   item: PropTypes.shape({}).isRequired,
   deleteMedia: PropTypes.func,
   isDeleting: PropTypes.bool,
   deleteMediaId: PropTypes.string,
 };
-
 MediaCard.defaultProps = {
   deleteMedia: () => {},
   isDeleting: false,

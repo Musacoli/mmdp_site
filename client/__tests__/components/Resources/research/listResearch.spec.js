@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { ListResearch } from '../../../../containers/Resources/Research/ListResearch';
 import ListResearchGrid from '../../../../components/Resources/Research/ListResearch';
 import SimpleLoader from '../../../../components/common/Loader/SimpleLoader';
@@ -33,7 +34,11 @@ describe('ListResearch', () => {
     event = {
       preventDefault: jest.fn(),
     };
-    wrapper = mount(<ListResearch {...props} />);
+    wrapper = mount(
+      <Router>
+        <ListResearch {...props} />
+      </Router>,
+    ).find(ListResearch);
   });
   describe('ListResearch without pagination', () => {
     it('should mount without crashing', () => {
