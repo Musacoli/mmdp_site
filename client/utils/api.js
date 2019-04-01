@@ -7,6 +7,7 @@ const mediaApiPrefix = `${apiVersion}resources/repository/media`;
 const stateApiPrefix = `${apiVersion}state`;
 const regStatusApiPrefix = `${apiVersion}registration-status`;
 const countryApiPrefix = `${apiVersion}country`;
+const partnershipTypeApiPrefix = `${apiVersion}partnership-type`;
 
 export const api = {
   group: {
@@ -82,6 +83,12 @@ export const api = {
 
     country: {
       list: () => server.get(`${countryApiPrefix}`),
+    },
+    partnershipType: {
+      create: (data) => server.post(partnershipTypeApiPrefix, data),
+      list: (data) => server.get(partnershipTypeApiPrefix, data),
+      update: (data) => server.put(`${partnershipTypeApiPrefix}`, data),
+      delete: (id) => server.delete(`${partnershipTypeApiPrefix}/${id}`),
     },
   },
 };

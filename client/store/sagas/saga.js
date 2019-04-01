@@ -55,6 +55,11 @@ import {
   watchFetchStatuses,
   watchDeleteStatuses,
 } from './dropdowns/status';
+import {
+  watchAddPartnershipTypes,
+  watchFetchPartnershipTypes,
+  watchDeletePartnershipTypes,
+} from './dropdowns/partnershipType';
 
 export default function* root() {
   yield all([
@@ -132,5 +137,8 @@ export default function* root() {
     fork(deleteLGAwatcher),
     fork(updateLGAWatcher),
     fork(addLGAWatcher),
+    fork(watchAddPartnershipTypes),
+    fork(watchFetchPartnershipTypes),
+    fork(watchDeletePartnershipTypes),
   ]);
 }

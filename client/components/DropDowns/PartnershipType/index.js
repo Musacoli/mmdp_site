@@ -4,7 +4,7 @@ import PartnershipTypeForm from '../../common/Form/DropdownForm';
 import DropdownActions from '../../common/Button/DropdownActions';
 
 const State = (props) => {
-  const { dropdowns, addTempState, handleSubmit, loading, countries } = props;
+  const { dropdowns, addTempState, handleSubmit, loading } = props;
   return (
     <Grid.Row className={loading ? 'dropdowns ui form loading' : 'dropdowns'}>
       <Form>
@@ -12,22 +12,12 @@ const State = (props) => {
           const inputs = [
             {
               type: 'text',
-              name: 'stateName',
-              label: 'State name',
+              name: 'partnershipTypeName',
+              label: 'Partnership type name',
               className: 'animated fadeIn',
               fluid: true,
-              placeholder: 'Enter state name',
-              value: item.stateName,
-            },
-            {
-              type: 'select',
-              name: 'countryId',
-              label: 'Country',
-              className: '',
-              fluid: true,
-              placeholder: 'Country',
-              value: item.countryId,
-              options: countries,
+              placeholder: 'Enter partnership type name',
+              value: item.partnershipTypeName || '',
             },
             {
               type: 'text',
@@ -36,7 +26,7 @@ const State = (props) => {
               className: 'animated fadeIn',
               fluid: true,
               placeholder: 'description',
-              value: item.description,
+              value: item.description || '',
             },
           ];
           return (
@@ -49,6 +39,7 @@ const State = (props) => {
               countries={false}
               header="Delete Partnership Type"
               label="Confirm Delete a Partnership Type"
+              className="two-fields"
             />
           );
         })}
