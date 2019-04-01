@@ -406,6 +406,18 @@ const routes = [
     protected: true,
   },
   {
+    path: '/dropdowns/partnership-type',
+    name: 'Partnership Type',
+    component: PartnershipType,
+  },
+  {
+    path: '/dropdowns/beneficiary-type',
+    name: 'Beneficiary Type Dropdown',
+    component: BeneficiaryTypeView,
+    exact: true,
+    protected: true,
+  },
+  {
     path: '*',
     component: Dashboard,
     protected: true,

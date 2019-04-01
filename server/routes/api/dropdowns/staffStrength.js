@@ -18,7 +18,7 @@ export const create = (req, res) => {
           .insertMany(staffStrength)
           .then((result) => {
             res.status(201).json({
-              message: 'Staff Strength options successfully added',
+              message: 'Staff Strength option(s) successfully added',
               staffStrengths: result,
             });
           })
@@ -46,7 +46,7 @@ export const update = (req, res) => {
       )
       .then((result) => {
         res.status(200).json({
-          message: 'Staff Strength options successfully updated',
+          message: 'Staff Strength option(s) successfully updated',
           staffStrengths: result,
         });
       })

@@ -11,9 +11,7 @@ const DropdownForm = ({
   item,
   label,
   editAState,
-  twoFieldsClass,
   deleteAState,
-  twoFieldsClass,
   inputs,
   className,
 }) => {

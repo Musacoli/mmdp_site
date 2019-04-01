@@ -93,7 +93,9 @@ export class StaffStrengthDropdown extends Component {
 
     const Replicas = (copies) => {
       copies.map((result) => {
+        // eslint-disable-next-line
         result.errors = result.errors ? result.errors : {};
+        // eslint-disable-next-line
         result.errors.staffStrength = `${result.staffStrength} already exists`;
         errors.push(result);
         return this.handleChange(result, false);

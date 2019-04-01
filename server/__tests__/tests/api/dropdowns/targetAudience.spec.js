@@ -36,7 +36,7 @@ describe('Stakeholders Target Audience API', () => {
       });
       expect(res.status).toBe(201);
       expect(res.body.message).toBe(
-        'Target Audience options successfully added',
+        'Target Audience option(s) successfully added',
       );
       expect(res.body.TargetAudiences).toBeDefined();
     });

@@ -36,7 +36,7 @@ const data = (props) => {
         deleteAState={deleteAStaffStrength}
         header="Delete a Range"
         label="Confirm to delete Range"
-        twoFieldsClass="two-fields"
+        className="two-fields"
       />
     );
   });

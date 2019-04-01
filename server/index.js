@@ -4,7 +4,6 @@ import dotEnv from 'dotenv';
 import routes from './routes';
 
 dotEnv.config();
-
 const mongodbURL = () => {
   if (process.env.NODE_ENV === 'test') {
     const MONGODB_URL = process.env.TEST_MONGODB_URL;

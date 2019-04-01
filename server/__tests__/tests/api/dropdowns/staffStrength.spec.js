@@ -37,7 +37,7 @@ describe('Stakeholders staffStrength API', () => {
       });
       expect(res.status).toBe(201);
       expect(res.body.message).toBe(
-        'Staff Strength options successfully added',
+        'Staff Strength option(s) successfully added',
       );
       expect(res.body.staffStrengths).toBeDefined();
     });

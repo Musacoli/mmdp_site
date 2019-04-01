@@ -36,7 +36,7 @@ const data = (props) => {
         deleteAState={deleteATargetAudience}
         header="Delete an Audience type"
         label="Confirm to delete Audience type"
-        twoFieldsClass="two-fields"
+        className="two-fields"
       />
     );
   });
