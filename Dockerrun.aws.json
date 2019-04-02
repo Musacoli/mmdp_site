@@ -33,47 +33,7 @@
           "containerPort": 3000
         }
       ],
-<<<<<<< HEAD
-      "memory": 245
-    },
-    {
-      "name": "mongo",
-      "image": "shemogumbe/mmdp_db",
-      "hostname": "mongo",
-      "essential": false,
-      "portMappings": [
-        {
-          "hostPort": 27017,
-          "containerPort": 27017
-        }
-      ],
-      "memory": 400,
-      "mountPoints": [
-        {
-          "sourceVolume": "mmdp_data",
-          "containerPath": "/mmdp_data"
-        }
-      ]
-    },
-    {
-      "name": "nginx",
-      "image": "shemogumbe/mmdp_server",
-      "hostname": "nginx",
-      "essential": true,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 80
-        }
-      ],
-      "links": [
-        "client",
-        "server"
-      ],
-      "memory": 130
-=======
       "memory": 512
->>>>>>> fixed dockerrun and travis files
     }
   ]
 }
