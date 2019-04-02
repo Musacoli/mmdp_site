@@ -16,7 +16,7 @@
       ],
       "portMappings": [
         {
-          "hostPort": 1234,
+          "hostPort": 80,
           "containerPort": 1234
         }
       ],
@@ -27,15 +27,13 @@
       "image": "shemogumbe/mmdp_api",
       "hostname": "api",
       "essential": false,
-      "links": [
-        "mongo"
-      ],
       "portMappings": [
         {
           "hostPort": 3000,
           "containerPort": 3000
         }
       ],
+<<<<<<< HEAD
       "memory": 245
     },
     {
@@ -73,6 +71,9 @@
         "server"
       ],
       "memory": 130
+=======
+      "memory": 512
+>>>>>>> fixed dockerrun and travis files
     }
   ]
 }
