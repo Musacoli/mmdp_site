@@ -13,6 +13,7 @@ const DropdownForm = ({
   editAState,
   deleteAState,
   inputs,
+  className,
 }) => {
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -49,7 +50,7 @@ const DropdownForm = ({
         );
       })}
 
-      <div className="dropdowns__actions">
+      <div className={`dropdowns__actions ${className}`}>
         <ActionModal
           confirmDeleteGroup={deleteAState}
           group={item}
