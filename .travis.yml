@@ -8,7 +8,7 @@ services:
 script:
   - echo "skipping tests"
 
-jobs:
+before_deploy:
   include:
     - stage: build api
       script:
