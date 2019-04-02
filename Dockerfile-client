@@ -5,10 +5,10 @@ WORKDIR $HOME/mmdp/
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
 
-ARG SERVER_APP_API_URL=http://0.0.0.0:3000
+ARG SERVER_APP_API_URL=http://mmdp-env.4rpphcs76y.us-west-2.elasticbeanstalk.com:3000
 ENV SERVER_APP_API_URL=$SERVER_APP_API_URL
 
-ARG DEV_SERVER_API_URL=http://0.0.0.0:3000
+ARG DEV_SERVER_API_URL=http://mmdp-env.4rpphcs76y.us-west-2.elasticbeanstalk.com:3000
 ENV DEV_SERVER_API_URL=$DEV_SERVER_API_URL
 
 COPY ./package.json ./
