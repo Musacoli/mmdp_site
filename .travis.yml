@@ -8,22 +8,21 @@ services:
 script:
   - echo "skipping tests"
 
-before_deploy:
-  include:
-    - stage: build api
-      script:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-        - docker build -t mmdp_api -f ./Dockerfile-api .
-        - docker images
-        - docker tag mmdp_api $DOCKER_ID/mmdp_api
-        - docker push $DOCKER_ID/mmdp_api
-    - stage: build client
-      script:
-          - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-          - docker build -t mmdp_client -f ./Dockerfile-client .
-          - docker images
-          - docker tag mmdp_client $DOCKER_ID/mmdp_client
-          - docker push $DOCKER_ID/mmdp_client
+jobs:
+  - stage: build api
+    script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+      - docker build -t mmdp_api -f ./Dockerfile-api .
+      - docker images
+      - docker tag mmdp_api $DOCKER_ID/mmdp_api
+      - docker push $DOCKER_ID/mmdp_api
+  - stage: build client
+    script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+      - docker build -t mmdp_client -f ./Dockerfile-client .
+      - docker images
+      - docker tag mmdp_client $DOCKER_ID/mmdp_client
+      - docker push $DOCKER_ID/mmdp_client
 
 deploy:
   provider: elasticbeanstalk
