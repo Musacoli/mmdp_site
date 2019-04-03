@@ -1,5 +1,6 @@
 client:
   image: shemogumbe/mmdp_client
+<<<<<<< HEAD
   links:
   - server:server
   ports:
@@ -21,5 +22,11 @@ server:
   image: shemogumbe/mmdp_api
   links:
   - mongo:mongo
+=======
+  ports:
+  - 1234:1234
+server:
+  image: shemogumbe/mmdp_api
+>>>>>>> changed run command for api
   ports:
   - 3000:3000
