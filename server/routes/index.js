@@ -977,8 +977,6 @@ const App = (app) => {
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.ward.remove,
   );
-
-=======
   /* ---------- Target Audience Dropdown ----------- */
   app.post(
     `${dropdownsPath}/target-audience/create`,
@@ -1022,7 +1020,6 @@ const App = (app) => {
 
   /* ---------- Target Audience Dropdown ----------- */
 
->>>>>>> feat(cms-dropdowns-target-audience): Admin should be able to manage Target Audience dropdown options.
   app.use(errorHandler);
 };
 
