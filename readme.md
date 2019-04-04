@@ -7,8 +7,7 @@ The Edo State Government, in a bid to eradicate illegal migration and promote ec
 ---
 
 ## Build status
-
-[![Test Coverage](https://api.codeclimate.com/v1/badges/144a347123fc9ec7f179/test_coverage)](https://codeclimate.com/github/andela/mmdp_site/test_coverage) [![Maintainability](https://api.codeclimate.com/v1/badges/144a347123fc9ec7f179/maintainability)](https://codeclimate.com/github/andela/mmdp_site/maintainability)
+[![Build Status](https://travis-ci.org/andela/mmdp_site.svg?branch=develop)](https://travis-ci.org/andela/mmdp_site)[![Test Coverage](https://api.codeclimate.com/v1/badges/144a347123fc9ec7f179/test_coverage)](https://codeclimate.com/github/andela/mmdp_site/test_coverage) [![Maintainability](https://api.codeclimate.com/v1/badges/144a347123fc9ec7f179/maintainability)](https://codeclimate.com/github/andela/mmdp_site/maintainability)
 
 ### For team thor members about run the project on local machine
 
