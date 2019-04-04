@@ -850,7 +850,6 @@ const App = (app) => {
     routes.api.dropdowns.registrationStatus.remove,
   );
 
-<<<<<<< HEAD
   /* Beneficiary Type dropdown */
   app.post(
     `${beneficiaryTypePath}`,
