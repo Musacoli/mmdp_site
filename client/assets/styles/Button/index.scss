@@ -58,3 +58,9 @@ button#document_edit_btn {
 button{
   cursor:pointer;
 }
+button.ui.button.map-btn {
+  background: transparent !important;
+  color: #3faaca;
+  width: 3.5em;
+  padding-left: 6px;
+}

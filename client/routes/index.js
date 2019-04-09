@@ -48,6 +48,7 @@ import BeneficiaryTypeView from '../views/DropDowns/BeneficiaryType';
 import OrganizationTypeView from '../views/DropDowns/OrganizationType';
 import WardView from '../views/DropDowns/Ward';
 import ImpactTypeView from '../views/DropDowns/ImpactType';
+import StateMatrixView from '../views/Matrix/State';
 
 const routes = [
   {
@@ -422,6 +423,13 @@ const routes = [
     path: '/dropdowns/beneficiary-type',
     name: 'Beneficiary Type Dropdown',
     component: BeneficiaryTypeView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/matrix/state',
+    name: 'state matrix',
+    component: StateMatrixView,
     exact: true,
     protected: true,
   },
