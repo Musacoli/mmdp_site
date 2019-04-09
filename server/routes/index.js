@@ -53,6 +53,7 @@ const impactTypePath = `${baseUrl}/impact-type`;
 const truncatePath = `${baseUrl}/truncate`;
 const FrequencyPath = `${baseUrl}/frequency`;
 const thematicPillarsDropdownPath = `${baseUrl}/thematic-pillars`;
+const amountInvested = `${baseUrl}/amount-invested`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -1285,6 +1286,52 @@ const App = (app) => {
     `${FrequencyPath}/:id`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.Frequency.remove,
+  );
+
+  /* ---------- Amount Invested Dropdown ----------- */
+  app.post(
+    `${amountInvested}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      keystone.middleware.api,
+      validate(validator.amountInvested.validateAmount),
+    ],
+    routes.api.dropdowns.amountInvested.create,
+  );
+
+  app.get(
+    `${amountInvested}`,
+    [authenticate, authorize.cms.dropdowns.create],
+    routes.api.dropdowns.amountInvested.list,
+  );
+
+  app.put(
+    `${amountInvested}/:id`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.amountInvested.validateAmount),
+    ],
+    routes.api.dropdowns.amountInvested.update,
+  );
+
+  app.put(
+    `${amountInvested}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.amountInvested.validateAmount),
+    ],
+    routes.api.dropdowns.amountInvested.updateMany,
+  );
+
+  app.delete(
+    `${amountInvested}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.amountInvested.remove,
   );
 
   app.use(errorHandler);

@@ -124,6 +124,12 @@ import {
   watchDeleteThematicPillars,
 } from './dropdowns/thematicPillars';
 
+import {
+  watchAddAmount,
+  watchDeleteAmount,
+  watchFetchAmount,
+} from './dropdowns/amountInvested';
+
 export default function* root() {
   yield all([
     fork(watchFetchingGroups),
@@ -248,5 +254,9 @@ export default function* root() {
     fork(watchAddThematicPillars),
     fork(watchFetchThematicPillars),
     fork(watchDeleteThematicPillars),
+
+    fork(watchAddAmount),
+    fork(watchFetchAmount),
+    fork(watchDeleteAmount),
   ]);
 }

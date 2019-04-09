@@ -17,6 +17,7 @@ import organizationTypes from './dropdowns/organizationDropdown';
 import country from './dropdowns/country';
 import frequency from './dropdowns/frequency';
 import thematicPillars from './dropdowns/thematicPillars';
+import amountInvested from './dropdowns/amountInvested';
 
 export default {
   login,
@@ -38,4 +39,5 @@ export default {
   country,
   frequency,
   thematicPillars,
+  amountInvested,
 };

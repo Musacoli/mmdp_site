@@ -50,6 +50,7 @@ import wards from './dropdowns/ward';
 import impactTypes from './dropdowns/impactTypes';
 import frequency from './dropdowns/frequency';
 import thematicPillars from './dropdowns/thematicPillar';
+import amountInvested from './dropdowns/amountInvested';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -101,6 +102,7 @@ const rootReducer = combineReducers({
   impactTypes,
   frequency,
   thematicPillars,
+  amountInvested,
 });
 
 export default rootReducer;
