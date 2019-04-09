@@ -69,11 +69,12 @@ export const sidebarItems = [
   {
     title: 'National level',
     menuItems: [],
-    path: '/national-level',
+    path: '/matrix/country',
   },
   {
     title: 'State level',
     menuItems: [],
+    path: '/matrix/states/Nigeria',
     dividerTitle: 'DROPDOWNS',
   },
   {

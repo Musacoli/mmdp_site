@@ -48,6 +48,7 @@
     "jest-mock-axios": "^2.1.11",
     "joi": "^14.3.1",
     "jsdom": "^14.0.0",
+    "json-2-csv": "^3.5.3",
     "jsonwebtoken": "^8.4.0",
     "jwt-decode": "^2.2.0",
     "keystone": "^4.0.0",

@@ -4582,6 +4582,13 @@ decode-uri-component@^0.2.0:
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
 
+deeks@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/deeks/-/deeks-2.2.1.tgz#4de360652998fd0a681153a9ffde5dcc6c983f4a"
+  integrity sha512-D2Qu3Fv5zBtBzXjXIUgWPRYn30d/IG6SCPOKIz42+LVTwhPeRI5+DAxdzap0vI2zYheiErIpVLwaUQBoA/iENw==
+  dependencies:
+    underscore "1.9.1"
+
 deep-diff@^0.3.5:
   version "0.3.8"
   resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-0.3.8.tgz#c01de63efb0eec9798801d40c7e0dae25b582c84"
@@ -4800,6 +4807,11 @@ dnd-core@^2.6.0:
     invariant "^2.0.0"
     lodash "^4.2.0"
     redux "^3.7.1"
+
+doc-path@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/doc-path/-/doc-path-2.0.1.tgz#d2adb8bcd31c895b17b92f61eff39aaec04430d2"
+  integrity sha512-/CCG157H//3l513omROUzaREChY/OYpxqYXvQcv7gsrwGfjVOh5d/1gJigHJ6iTnO77pA8rMLZ63CgEPEM6+9Q==
 
 doctrine@1.5.0:
   version "1.5.0"
@@ -8109,6 +8121,15 @@ jsesc@~0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
+
+json-2-csv@^3.5.3:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/json-2-csv/-/json-2-csv-3.5.3.tgz#3011bc4b9af7a510e2a4fa9f505de5bbace72855"
+  integrity sha512-Wvii+XAMjSDm9oMwRIrUsOjo5Sib6fP3PXPQ871+JdNnJNppdhMF3l+82MPUKJGIr0rXDMo9LuYFvr6FE05YeQ==
+  dependencies:
+    deeks "2.2.1"
+    doc-path "2.0.1"
+    underscore "1.9.1"
 
 json-parse-better-errors@^1.0.1:
   version "1.0.2"
@@ -14097,7 +14118,7 @@ undefsafe@^2.0.2:
   dependencies:
     debug "^2.2.0"
 
-underscore@^1.9.1:
+underscore@1.9.1, underscore@^1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.1.tgz#06dce34a0e68a7babc29b365b8e74b8925203961"
   integrity sha512-5/4etnCkd9c8gwgowi5/om/mYO5ajCaOgdzj/oW+0eQV9WxKBDZw5+ycmKmeaTXjInS/W0BzpGLo2xR2aBwZdg==

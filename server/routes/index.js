@@ -73,7 +73,9 @@ const App = (app) => {
   );
 
   app.get('/', (req, res) => {
-    res.json({ message: 'MMDP CMS API v1' });
+    res.json({
+      message: 'MMDP CMS API v1',
+    });
   });
 
   app.post(
@@ -1214,6 +1216,24 @@ const App = (app) => {
     routes.api.matrix.state.update,
   );
   /* End National coordination matrix */
+
+  /* State level coordination matrix svg */
+  // update state, create state svg map, create LGAs'
+  app.put(
+    `${baseUrl}/matrix/state`,
+    [authenticate, appendFilesToBody, validate(validator.stateSVG.addStateSVG)],
+    routes.api.matrix.lga.update,
+  );
+
+  app.get(`${baseUrl}/matrix/lga`, [authenticate], routes.api.matrix.lga.list);
+
+  // update LGAID
+  app.put(
+    `${baseUrl}/matrix/lga/:uniqueId`,
+    [authenticate],
+    routes.api.matrix.updateLGA.update,
+  );
+  /* End of State level coordination matrix svg */
 
   app.use(errorHandler);
 };

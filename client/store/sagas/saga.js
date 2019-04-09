@@ -122,6 +122,11 @@ import {
   watchFetchStateMap,
   watchUpdateStateMap,
 } from './matrix/state';
+import {
+  watchLGAMap,
+  watchAddStateSVG,
+  watchUpdateLGAMapID,
+} from './matrix/lga';
 
 export default function* root() {
   yield all([
@@ -248,5 +253,9 @@ export default function* root() {
     fork(watchAddStateMap),
     fork(watchFetchStateMap),
     fork(watchUpdateStateMap),
+
+    fork(watchLGAMap),
+    fork(watchAddStateSVG),
+    fork(watchUpdateLGAMapID),
   ]);
 }

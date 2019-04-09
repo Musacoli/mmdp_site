@@ -15,6 +15,7 @@ const impactTypePrefix = `${apiVersion}impact-type`;
 const communityApiPrefix = `${apiVersion}community`;
 const nationalMatrixApiPrefix = `${apiVersion}national-matrix`;
 const stateMatrixApiPrefix = `${apiVersion}states`;
+const lgaMatrixApiPrefix = `${apiVersion}matrix/lga`;
 
 // mock server
 
@@ -174,6 +175,9 @@ export const api = {
       create: (data) => server.post(stateMatrixApiPrefix, data),
       list: (country) => server.get(`${stateMatrixApiPrefix}/${country}`),
       update: (id, data) => server.put(`${stateMatrixApiPrefix}/${id}`, data),
+    },
+    lga: {
+      update: (id, data) => server.put(`${lgaMatrixApiPrefix}/${id}`, data),
     },
   },
 };

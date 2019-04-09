@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+ import { call, put } from 'redux-saga/effects';
 import sagaHelper from 'redux-saga-testing';
 
 import { api } from '../../../../utils/api';

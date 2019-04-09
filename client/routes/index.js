@@ -51,6 +51,7 @@ import ImpactTypeView from '../views/DropDowns/ImpactType';
 import StateMatrixView from '../views/Matrix/Country';
 import StatesBoundary from '../views/Matrix/StatesBoundary';
 import StateSVGView from '../views/Matrix/State';
+import LGAMapView from '../views/Matrix/LGABoundary';
 
 const routes = [
   {
@@ -434,6 +435,13 @@ const routes = [
     path: '/matrix/state',
     name: 'State Level Coordination matrix',
     component: StateSVGView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/matrix/lga/:state',
+    name: 'Local Government Area Coordination matrix',
+    component: LGAMapView,
     exact: true,
     protected: true,
   },

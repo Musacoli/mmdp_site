@@ -64,3 +64,17 @@ button.ui.button.map-btn {
   padding-left: 6px;
   width: 60px !important;
 }
+button.ui.button.no-map-found {
+  background: transparent !important;
+  color: #808283 !important;
+  width: 60px !important;
+  padding-left: 6px;
+  cursor: default;
+}
+button.ui.button.modal-close {
+  background: transparent !important;
+  color: #d3281f !important;
+  padding-left: 6px;
+  width: 60px !important;
+  float: right;
+}

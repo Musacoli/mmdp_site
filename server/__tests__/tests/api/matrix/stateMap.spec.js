@@ -8,17 +8,18 @@ import {
 import { createCountryMaps } from '../../../helpers/matrix/countryMap';
 import { stubModelUpdateProcess } from '../../../helpers/files';
 
-const CountryMap = keystone.list('CountryMap');
+const StateMap = keystone.list('StateMap');
 
 const { expect } = chai;
-const route = '/api/v1/national-matrix';
-const title = 'Nigeria states svg';
+const route = '/api/v1/matrix/state';
+const getRoute = '/api/v1/matrix/lga';
+const title = 'States svg';
 
-describe('CountryMap route', () => {
+describe('StateMap route', () => {
   let stub;
 
   before(() => {
-    stub = stubModelUpdateProcess('svg', 'countrySvgFile', { title });
+    stub = stubModelUpdateProcess('svg', 'stateSvgFile', { title });
   });
 
   after(() => {
@@ -26,31 +27,25 @@ describe('CountryMap route', () => {
   });
   beforeEach(async () => {
     await removeAllGroupsAndUsers();
-    await removeAllCollections(CountryMap);
+    await removeAllCollections(StateMap);
   });
-  describe(`POST ${route}`, () => {
+  describe(`PUT ${route}`, () => {
     beforeEach(async () => {
       await app.loginRandom([]);
     });
-    it('should return a 400 status when countryName is not provided', async () => {
-      const res = await app.post(route).send({ countryName: '' });
-      expect(res.status).to.equal(400);
-      expect(res.body).to.have.property('error');
-    });
     it('should return a 400 status when svgFile is not provided', async () => {
-      const res = await app.post(route).send({ countryName: 'Kenya' });
+      const res = await app.put(route).send({});
       expect(res.status).to.equal(400);
       expect(res.body).to.have.property('error');
     });
     it('should return a 201 status when valid data is sent', async () => {
       const res = await app
-        .post(route)
-        .field('countryName', 'Kenya')
-        .attach('countrySvgFile', './server/__tests__/helpers/files/blank.svg');
+        .put(route)
+        .attach('StateSVGFile', './server/__tests__/helpers/files/blank.svg');
       expect(res.status).to.equal(201);
       expect(res.body).not.to.have.property('error');
       expect(res.body).to.have.property('message');
-      expect(res.body).to.have.property('newNationalSvg');
+      expect(res.body).to.have.property('State SVG Map');
     });
   });
   describe(`GET request to ${route}`, () => {
@@ -60,7 +55,7 @@ describe('CountryMap route', () => {
     });
 
     it('should get all countryMaps ', async () => {
-      const res = await app.get(route);
+      const res = await app.get(getRoute);
       expect(res.status).to.equal(200);
       expect(res.body).to.have.property('data');
     });

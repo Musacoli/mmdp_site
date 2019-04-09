@@ -28,7 +28,11 @@ export class StateMap extends Component {
     const pagination = fetchedMaps.pagination;
     if (data !== prevProps.stateMaps && data.length > 0 && !refresh) {
       // eslint-disable-next-line
-      this.setState({ stateMaps: data, pagination, refresh: false });
+      this.setState({
+        stateMaps: data,
+        pagination,
+        refresh: false,
+      });
     }
   }
 
@@ -40,6 +44,11 @@ export class StateMap extends Component {
         fileName: file.name || '',
         // eslint-disable-next-line react/no-unused-state
         countrySvgFile: file,
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+        refresh: true,
       });
     }
   };
@@ -85,6 +94,7 @@ export class StateMap extends Component {
         id: item.uniqueId,
         name: item.name,
         path: item.path,
+        url: item.url,
       };
     });
   };
@@ -96,6 +106,11 @@ export class StateMap extends Component {
     } = this.props;
     const country = params.country;
     fetchStateMaps({ page, country, query: '' });
+  };
+
+  onMapView = ({ name }) => {
+    const { history } = this.props;
+    history.push(`/matrix/lga/${name}`);
   };
 
   render() {
@@ -115,6 +130,7 @@ export class StateMap extends Component {
           fileName={fileName}
           errors={errors}
           country={country}
+          onMapView={this.onMapView}
         />
         <MapListing
           Maps={maps}

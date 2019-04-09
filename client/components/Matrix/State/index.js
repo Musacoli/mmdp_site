@@ -23,9 +23,9 @@ const StateSVGForm = ({ fileName, onChange }) => (
 );
 
 StateSVGForm.propTypes = {
-//   loading: PropTypes.bool.isRequired,
+  //   loading: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
-//   onSubmit: PropTypes.func.isRequired,
+  //   onSubmit: PropTypes.func.isRequired,
   fileName: PropTypes.string.isRequired,
 };
 

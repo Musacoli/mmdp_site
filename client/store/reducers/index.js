@@ -50,6 +50,7 @@ import wards from './dropdowns/ward';
 import impactTypes from './dropdowns/impactTypes';
 import countryMaps from './matrix/country';
 import stateMaps from './matrix/state';
+import LGAMap from './matrix/lga';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -101,6 +102,7 @@ const rootReducer = combineReducers({
   impactTypes,
   countryMaps,
   stateMaps,
+  LGAMap,
 });
 
 export default rootReducer;
