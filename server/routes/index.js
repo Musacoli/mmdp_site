@@ -51,6 +51,7 @@ const beneficiaryTypePath = `${baseUrl}/beneficiary-type`;
 const fundingSourcePath = `${baseUrl}/funding-source`;
 const impactTypePath = `${baseUrl}/impact-type`;
 const truncatePath = `${baseUrl}/truncate`;
+const FrequencyPath = `${baseUrl}/frequency`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -1188,6 +1189,53 @@ const App = (app) => {
     `${truncatePath}/:name`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.truncateCollection.remove,
+  );
+
+  /* ---------- Frequency Dropdown ----------- */
+
+  app.post(
+    `${FrequencyPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.create,
+      keystone.middleware.api,
+      validate(validator.frequency.frequencyNew),
+    ],
+    routes.api.dropdowns.Frequency.create,
+  );
+
+  app.get(
+    `${FrequencyPath}`,
+    [authenticate, authorize.cms.dropdowns.create],
+    routes.api.dropdowns.Frequency.list,
+  );
+
+  app.put(
+    `${FrequencyPath}/:id`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.frequency.frequencyNew),
+    ],
+    routes.api.dropdowns.Frequency.update,
+  );
+
+  app.put(
+    `${FrequencyPath}`,
+    [
+      authenticate,
+      authorize.cms.dropdowns.update,
+      keystone.middleware.api,
+      validate(validator.frequency.frequencyNew),
+    ],
+    routes.api.dropdowns.Frequency.updateMany,
+  );
+
+  app.delete(
+    `${FrequencyPath}/:id`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.Frequency.remove,
   );
 
   app.use(errorHandler);

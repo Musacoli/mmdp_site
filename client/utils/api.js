@@ -13,6 +13,7 @@ const beneficiaryTypeApiPrefix = `${apiVersion}beneficiary-type`;
 const sourceOfFundingPrefix = `${apiVersion}funding-source`;
 const impactTypePrefix = `${apiVersion}impact-type`;
 const communityApiPrefix = `${apiVersion}community`;
+const frequencyApiPrefix = `${apiVersion}frequency`;
 
 // mock server
 
@@ -160,6 +161,12 @@ export const api = {
       list: (data) => server.get(impactTypePrefix, data),
       update: (data) => server.put(`${impactTypePrefix}`, data),
       delete: (id) => server.delete(`${impactTypePrefix}/${id}`),
+    },
+    frequency: {
+      create: (data) => server.post(frequencyApiPrefix, data),
+      list: (data) => server.get(frequencyApiPrefix, data),
+      update: (data) => server.put(`${frequencyApiPrefix}`, data),
+      delete: (id) => server.delete(`${frequencyApiPrefix}/${id}`),
     },
   },
 };
