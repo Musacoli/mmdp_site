@@ -50,6 +50,7 @@ import WardView from '../views/DropDowns/Ward';
 import ImpactTypeView from '../views/DropDowns/ImpactType';
 import StateMatrixView from '../views/Matrix/Country';
 import StatesBoundary from '../views/Matrix/StatesBoundary';
+import StateSVGView from '../views/Matrix/State';
 
 const routes = [
   {
@@ -427,6 +428,17 @@ const routes = [
     exact: true,
     protected: true,
   },
+
+  /** State svg  */
+  {
+    path: '/matrix/state',
+    name: 'State Level Coordination matrix',
+    component: StateSVGView,
+    exact: true,
+    protected: true,
+  },
+  /** State svg  */
+
   {
     path: '/matrix/country',
     name: 'country matrix',
