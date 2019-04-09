@@ -19,11 +19,11 @@ import CreateEvent from '../views/Events/AddEventView';
 import ListEvents from '../views/Events/ListEventsView';
 import EditEvents from '../views/Events/EditEvent';
 import {
+  GovernorMessage,
   AboutMMDP,
   Coordination,
-  EdoStateApproach,
-  GovernorMessage,
   Objectives,
+  EdoStateApproach,
 } from '../views/About';
 import PillarOneView from '../views/Pillar/pillarOne';
 import PillarTwoView from '../views/Pillar/pillarTwo';
@@ -54,6 +54,7 @@ import FrequencyView from '../views/DropDowns/Frequency';
 import AmountInvestedView from '../views/DropDowns/AmountInvested';
 import SubThemeView from '../views/DropDowns/SubTheme';
 import FocusAreaView from '../views/DropDowns/FocusArea';
+import StateMatrixView from '../views/Matrix/State';
 
 const routes = [
   {
@@ -457,15 +458,15 @@ const routes = [
     protected: true,
   },
   {
-    path: '/dropdowns/frequency',
-    name: 'Frequency Options',
-    component: FrequencyView,
+    path: '/matrix/state',
+    name: 'state matrix',
+    component: StateMatrixView,
     exact: true,
     protected: true,
   },
   {
     path: '/dropdowns/amount-invested',
-    name: 'Frequency Options',
+    name: 'Amount invested',
     component: AmountInvestedView,
   },
   {
