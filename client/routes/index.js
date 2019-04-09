@@ -48,6 +48,7 @@ import BeneficiaryTypeView from '../views/DropDowns/BeneficiaryType';
 import OrganizationTypeView from '../views/DropDowns/OrganizationType';
 import WardView from '../views/DropDowns/Ward';
 import ImpactTypeView from '../views/DropDowns/ImpactType';
+import FrequencyView from '../views/DropDowns/Frequency';
 
 const routes = [
   {
@@ -422,6 +423,13 @@ const routes = [
     path: '/dropdowns/beneficiary-type',
     name: 'Beneficiary Type Dropdown',
     component: BeneficiaryTypeView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/dropdowns/frequency',
+    name: 'Frequency Options',
+    component: FrequencyView,
     exact: true,
     protected: true,
   },

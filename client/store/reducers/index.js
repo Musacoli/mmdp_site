@@ -48,6 +48,7 @@ import funding from './dropdowns/funding';
 import ogranizationType from './dropdowns/organizationType';
 import wards from './dropdowns/ward';
 import impactTypes from './dropdowns/impactTypes';
+import frequency from './dropdowns/frequency';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -97,6 +98,7 @@ const rootReducer = combineReducers({
   ogranizationType,
   wards,
   impactTypes,
+  frequency,
 });
 
 export default rootReducer;

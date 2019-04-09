@@ -113,6 +113,12 @@ import {
   watchUpdateTargetAudiences,
 } from './dropdowns/targetAudience';
 
+import {
+  watchAddFrequency,
+  watchFetchFrequency,
+  watchDeleteFrequency,
+} from './dropdowns/frequency';
+
 export default function* root() {
   yield all([
     fork(watchFetchingGroups),
@@ -230,5 +236,9 @@ export default function* root() {
     fork(watchAddImpactType),
     fork(watchFetchImpactTypes),
     fork(watchDeleteImpactType),
+
+    fork(watchAddFrequency),
+    fork(watchFetchFrequency),
+    fork(watchDeleteFrequency),
   ]);
 }
