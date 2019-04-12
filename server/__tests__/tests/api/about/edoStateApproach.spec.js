@@ -65,7 +65,6 @@ describe('Edo State Approach API', () => {
       });
       expect(res.body.errors).toEqual([
         'The Edo State Approach must be twenty(20)  characters minimum',
-        'Background text must be twenty(20)  characters minimum',
       ]);
     });
 
@@ -73,7 +72,6 @@ describe('Edo State Approach API', () => {
       const res = await apiCreateEdoStateApproach({});
       expect(res.body.errors).toEqual([
         'The Edo State Approach is required',
-        'Background information is required',
       ]);
     });
 

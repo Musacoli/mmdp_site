@@ -31,7 +31,7 @@ const validators = {
   },
 
   edoStateApproach(req, res, next) {
-    const { theEdoStateApproach, background } = req.body;
+    const { theEdoStateApproach } = req.body;
     let errors = [];
 
     if (helpers.isNullOrUndefined(theEdoStateApproach)) {
@@ -44,15 +44,6 @@ const validators = {
       errors = [
         ...errors,
         'The Edo State Approach must be twenty(20)  characters minimum',
-      ];
-    }
-    if (helpers.isNullOrUndefined(background)) {
-      errors = [...errors, 'Background information is required'];
-    }
-    if (helpers.isString(background) && background.length < 20) {
-      errors = [
-        ...errors,
-        'Background text must be twenty(20)  characters minimum',
       ];
     }
 
