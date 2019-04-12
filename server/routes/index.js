@@ -50,6 +50,7 @@ const partnershipTypePath = `${baseUrl}/partnership-type`;
 const beneficiaryTypePath = `${baseUrl}/beneficiary-type`;
 const fundingSourcePath = `${baseUrl}/funding-source`;
 const impactTypePath = `${baseUrl}/impact-type`;
+const truncatePath = `${baseUrl}/truncate`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -1180,6 +1181,13 @@ const App = (app) => {
     `${impactTypePath}/:id`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.impactType.remove,
+  );
+
+  // remove all collections
+  app.delete(
+    `${truncatePath}/:name`,
+    [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
+    routes.api.dropdowns.truncateCollection.remove,
   );
 
   app.use(errorHandler);

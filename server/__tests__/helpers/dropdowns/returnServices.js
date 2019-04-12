@@ -6,6 +6,7 @@ export const ReturneeService = () => keystone.list('ReturneeService');
 export const createReturneeService = async (description, times = 1) => {
   const data = {
     address: faker.random.words(3),
+    serviceName: faker.random.words(3),
     description,
     stakeholderId: '5c9b27e320bed68318c5396d',
   };
