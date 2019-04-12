@@ -15,6 +15,7 @@ import beneficiaryType from './dropdowns/beneficiaryType';
 import funding from './dropdowns/funding';
 import organizationTypes from './dropdowns/organizationDropdown';
 import country from './dropdowns/country';
+import addCountrySvg from './matrix/country';
 
 export default {
   login,
@@ -34,4 +35,5 @@ export default {
   funding,
   organizationTypes,
   country,
+  addCountrySvg,
 };

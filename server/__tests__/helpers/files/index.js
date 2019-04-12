@@ -28,6 +28,15 @@ export const data = {
     bucket: 'mmdp-img-assets',
     url: 'urltoaws/aUMGKPJFfDntrMlm.mov',
   },
+  svg: {
+    mimetype: 'image/svg+xml',
+    filename: 'aUMGKPJFfDntrMlmere',
+    path: '/assets/repository/media',
+    size: 4934657,
+    etag: '82cf3cba-4a54-40ef-b70a-7e6cbc61e581',
+    bucket: 'mmdp-img-assets',
+    url: 'http://freda.info',
+  },
 };
 
 /**

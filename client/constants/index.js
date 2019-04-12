@@ -28,3 +28,5 @@ export * from './dropdowns/state';
 export * from './dropdowns/partnershipTypes';
 export * from './dropdowns/impactTypes';
 export * from './dropdowns/communities';
+export * from './matrix/country';
+export * from './matrix/state';

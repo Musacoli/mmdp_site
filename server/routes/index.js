@@ -1,4 +1,5 @@
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import keystone from 'keystone';
 import validate from 'express-validation';
 import YAML from 'yamljs';
@@ -50,6 +51,8 @@ const partnershipTypePath = `${baseUrl}/partnership-type`;
 const beneficiaryTypePath = `${baseUrl}/beneficiary-type`;
 const fundingSourcePath = `${baseUrl}/funding-source`;
 const impactTypePath = `${baseUrl}/impact-type`;
+const nationalMatrixPath = `${baseUrl}/national-matrix`;
+const stateBoundaryPath = `${baseUrl}/state-boundary`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -60,8 +63,8 @@ const App = (app) => {
   };
 
   app.use(cors());
-
   app.use(apiResponse);
+  app.use(bodyParser({ limit: '150MB' }));
 
   app.post(
     `${baseUrl}/auth/login`,
@@ -1181,6 +1184,36 @@ const App = (app) => {
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.impactType.remove,
   );
+
+  /* National coordination matrix */
+  app.post(
+    `${nationalMatrixPath}`,
+    [authenticate, appendFilesToBody, validate(validator.addCountrySvg)],
+    routes.api.matrix.country.create,
+  );
+
+  app.get(
+    `${nationalMatrixPath}`,
+    [authOptional],
+    routes.api.matrix.country.list,
+  );
+  app.put(
+    `${nationalMatrixPath}`,
+    [authenticate, appendFilesToBody, validate(validator.addCountrySvg)],
+    routes.api.matrix.country.update,
+  );
+  app.post(
+    `${stateBoundaryPath}`,
+    [authenticate],
+    routes.api.matrix.state.create,
+  );
+  app.get(`${baseUrl}/states`, [authOptional], routes.api.matrix.state.list);
+  app.put(
+    `${baseUrl}/states/:uniqueId/`,
+    [authenticate],
+    routes.api.matrix.state.update,
+  );
+  /* End National coordination matrix */
 
   app.use(errorHandler);
 };

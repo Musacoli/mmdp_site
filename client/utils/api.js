@@ -13,6 +13,8 @@ const beneficiaryTypeApiPrefix = `${apiVersion}beneficiary-type`;
 const sourceOfFundingPrefix = `${apiVersion}funding-source`;
 const impactTypePrefix = `${apiVersion}impact-type`;
 const communityApiPrefix = `${apiVersion}community`;
+const nationalMatrixApiPrefix = `${apiVersion}national-matrix`;
+const stateMatrixApiPrefix = `${apiVersion}states`;
 
 // mock server
 
@@ -160,6 +162,18 @@ export const api = {
       list: (data) => server.get(impactTypePrefix, data),
       update: (data) => server.put(`${impactTypePrefix}`, data),
       delete: (id) => server.delete(`${impactTypePrefix}/${id}`),
+    },
+  },
+  matrix: {
+    national: {
+      create: (data) => server.post(nationalMatrixApiPrefix, data),
+      list: (data) => server.get(nationalMatrixApiPrefix, data),
+      update: (data) => server.put(nationalMatrixApiPrefix, data),
+    },
+    state: {
+      create: (data) => server.post(stateMatrixApiPrefix, data),
+      list: (country) => server.get(`${stateMatrixApiPrefix}/${country}`),
+      update: (id, data) => server.put(`${stateMatrixApiPrefix}/${id}`, data),
     },
   },
 };

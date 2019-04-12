@@ -48,6 +48,8 @@ import funding from './dropdowns/funding';
 import ogranizationType from './dropdowns/organizationType';
 import wards from './dropdowns/ward';
 import impactTypes from './dropdowns/impactTypes';
+import countryMaps from './matrix/country';
+import stateMaps from './matrix/state';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -97,6 +99,8 @@ const rootReducer = combineReducers({
   ogranizationType,
   wards,
   impactTypes,
+  countryMaps,
+  stateMaps,
 });
 
 export default rootReducer;

@@ -48,7 +48,8 @@ import BeneficiaryTypeView from '../views/DropDowns/BeneficiaryType';
 import OrganizationTypeView from '../views/DropDowns/OrganizationType';
 import WardView from '../views/DropDowns/Ward';
 import ImpactTypeView from '../views/DropDowns/ImpactType';
-import StateMatrixView from '../views/Matrix/State';
+import StateMatrixView from '../views/Matrix/Country';
+import StatesBoundary from '../views/Matrix/StatesBoundary';
 
 const routes = [
   {
@@ -427,9 +428,16 @@ const routes = [
     protected: true,
   },
   {
-    path: '/matrix/state',
-    name: 'state matrix',
+    path: '/matrix/country',
+    name: 'country matrix',
     component: StateMatrixView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/matrix/states/:country',
+    name: 'country states matrix',
+    component: StatesBoundary,
     exact: true,
     protected: true,
   },

@@ -112,6 +112,16 @@ import {
   watchDeleteTargetAudience,
   watchUpdateTargetAudiences,
 } from './dropdowns/targetAudience';
+import {
+  watchAddCountryMap,
+  watchFetchCountryMap,
+  watchUpdateCountryMap,
+} from './matrix/country';
+import {
+  watchAddStateMap,
+  watchFetchStateMap,
+  watchUpdateStateMap,
+} from './matrix/state';
 
 export default function* root() {
   yield all([
@@ -230,5 +240,13 @@ export default function* root() {
     fork(watchAddImpactType),
     fork(watchFetchImpactTypes),
     fork(watchDeleteImpactType),
+
+    fork(watchFetchCountryMap),
+    fork(watchAddCountryMap),
+    fork(watchUpdateCountryMap),
+
+    fork(watchAddStateMap),
+    fork(watchFetchStateMap),
+    fork(watchUpdateStateMap),
   ]);
 }

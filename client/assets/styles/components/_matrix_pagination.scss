@@ -1,0 +1,32 @@
+$cool-blue: #3faaca;
+$ugly-blue: #296d81;
+$dark: #1a1f37;
+$pale-gray: #fafeff;
+// color: #3faaca;
+.app-pagination {
+  height: 31px;
+
+  .page-number-entries {
+    width: 20px;
+    height: 29px;
+    line-height: 2.07;
+    color: $cool-blue;
+  }
+
+  .page-angle-icon {
+    line-height: 2.37;
+    width: 10px;
+    color: $cool-blue;
+    margin: 0;
+    padding-left: 6px;
+  }
+
+  .Entries-per-page {
+    width: 148px;
+    padding-left: 8px;
+    height: 29px;
+    line-height: 2.07;
+    letter-spacing: -0.3px;
+    margin-right: 5px;
+  }
+}

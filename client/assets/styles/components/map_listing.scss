@@ -1,6 +1,16 @@
-table.ui.basic.table.table-list, th, td{
-  border-top: solid 1px gray !important;
+table.ui.basic.table.map-list{
+  margin-left: 2em !important;
 }
 .ui.label.states-label {
   background: transparent !important;
+  margin-top: 30px !important;
+  margin-left: 2em;
 }
+tr.map-inline {
+  height: 150px !important;
+}
+.ui.input.state-edit > input {
+  border: 0 !important;
+  background: #f8fdff;
+}
+
