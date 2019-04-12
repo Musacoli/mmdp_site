@@ -19,6 +19,8 @@ const subThemeApiPrefix = `${apiVersion}sub-theme`;
 const focusAreaPrefix = `${apiVersion}focus-area`;
 const truncateApiPrefix = `${apiVersion}truncate`;
 const manageDropdownsPrefix = `${apiVersion}dropdowns-list`;
+const nationalMatrixApiPrefix = `${apiVersion}national-matrix`;
+const stateMatrixApiPrefix = `${apiVersion}states`;
 
 // mock server
 const thematicPillarsApiPrefix = `${apiVersion}thematic-pillars`;
@@ -220,5 +222,17 @@ export const api = {
     delete: (id) => server.delete(`/api/v1/stakeholders-directory/${id}`),
     edit: (id, data) =>
       server.put(`/api/v1/stakeholders-directory/${id}`, data),
+  },
+  matrix: {
+    national: {
+      create: (data) => server.post(nationalMatrixApiPrefix, data),
+      list: (data) => server.get(nationalMatrixApiPrefix, data),
+      update: (data) => server.put(nationalMatrixApiPrefix, data),
+    },
+    state: {
+      create: (data) => server.post(stateMatrixApiPrefix, data),
+      list: (country) => server.get(`${stateMatrixApiPrefix}/${country}`),
+      update: (id, data) => server.put(`${stateMatrixApiPrefix}/${id}`, data),
+    },
   },
 };

@@ -1,6 +1,49 @@
-table.ui.basic.table.table-list, th, td{
-  border-top: solid 1px gray !important;
+table.ui.basic.table.map-list{
+  margin-left: 2em !important;
 }
 .ui.label.states-label {
   background: transparent !important;
+  margin-top: 30px !important;
+  margin-left: 1em;
+  color: #1a1f37;
+  font-family: Muli,sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.81;
+  letter-spacing: -0.3px;
+}
+tr.map-inline {
+  height: 150px !important;
+}
+.ui.input.state-edit > input {
+  border: 0 !important;
+  background: #f8fdff;
+}
+td.map-data {
+  height: 29px;
+  font-family: Muli,sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.07;
+  letter-spacing: -0.3px;
+  width: 27%;
+}
+
+tr.title-cell th {
+  width: 64px;
+  height: 29px;
+  font-family: Muli,sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.07;
+  letter-spacing: -0.3px;
+}
+.field.form__text-input.country-input {
+  width: 64em;
 }

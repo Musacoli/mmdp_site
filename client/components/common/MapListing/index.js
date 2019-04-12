@@ -1,22 +1,35 @@
 import React from 'react';
-import { Table, Label } from 'semantic-ui-react';
+import { Table, Label, Grid } from 'semantic-ui-react';
 import TableRowItem from './TableRowItem';
 import TableHeader from './TableHeader';
 
-const maps = [1, 2, 3];
-
-const MapListing = () => (
-  <React.Fragment>
-    <Label content="States maps found (0)" className="states-label" />
-    <Table basic className="table-list">
-      <TableHeader />
-      <Table.Body>
-        {maps.map(() => {
-          return <TableRowItem />;
-        })}
-      </Table.Body>
-    </Table>
-  </React.Fragment>
-);
+const MapListing = (props) => {
+  const { Maps, loading, onUpdate, headers, label, btnName, onMapView } = props;
+  const itemsCount = Maps ? Maps.length : 0;
+  const content = `${label} (${itemsCount})`;
+  return (
+    Maps && (
+      <Grid.Row loading={loading}>
+        <Label content={content} className="states-label" />
+        <Table basic className="map-list">
+          <TableHeader headers={headers} />
+          <Table.Body>
+            {Maps.map((item, index) => {
+              return (
+                <TableRowItem
+                  key={item.id || index}
+                  mapData={item}
+                  onUpdate={onUpdate}
+                  btnName={btnName}
+                  onMapView={onMapView}
+                />
+              );
+            })}
+          </Table.Body>
+        </Table>
+      </Grid.Row>
+    )
+  );
+};
 
 export default MapListing;

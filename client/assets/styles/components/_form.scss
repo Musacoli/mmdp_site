@@ -18,7 +18,7 @@ button, input, optgroup, select, textarea {
   }
   &__radio-input {
     display: none;
-  } 
+  }
   &__radio-label {
     font-size: 1.4em;
     position: relative;
@@ -88,4 +88,8 @@ button, input, optgroup, select, textarea {
   .error &__custom-file-input {
     color: #e0b4b4;
   }
+}
+.field.svg-input {
+  width: 64em;
+  height: 50px;
 }

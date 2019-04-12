@@ -21,6 +21,7 @@ import thematicPillars from './dropdowns/thematicPillars';
 import amountInvested from './dropdowns/amountInvested';
 import subTheme from './dropdowns/subTheme';
 import focusArea from './dropdowns/focusArea';
+import addCountrySvg from './matrix/country';
 
 export default {
   login,
@@ -47,4 +48,5 @@ export default {
   amountInvested,
   subTheme,
   focusArea,
+  addCountrySvg,
 };

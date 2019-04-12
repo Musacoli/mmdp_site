@@ -118,6 +118,16 @@ import {
   watchDeleteTargetAudience,
   watchUpdateTargetAudiences,
 } from './dropdowns/targetAudience';
+import {
+  watchAddCountryMap,
+  watchFetchCountryMap,
+  watchUpdateCountryMap,
+} from './matrix/country';
+import {
+  watchAddStateMap,
+  watchFetchStateMap,
+  watchUpdateStateMap,
+} from './matrix/state';
 
 import {
   watchAddFrequency,
@@ -291,5 +301,13 @@ export default function* root() {
 
     fork(watchFetchDropdowns),
     fork(watchDeleteDropdowns),
+
+    fork(watchFetchCountryMap),
+    fork(watchAddCountryMap),
+    fork(watchUpdateCountryMap),
+
+    fork(watchAddStateMap),
+    fork(watchFetchStateMap),
+    fork(watchUpdateStateMap),
   ]);
 }

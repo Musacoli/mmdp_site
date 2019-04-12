@@ -57,6 +57,8 @@ import subTheme from './dropdowns/subTheme';
 import focusArea from './dropdowns/focusArea';
 import dropdowns from './manageDropdowns/dropdowns';
 import completeUserRegistration from './users/completeRegistration';
+import countryMaps from './matrix/country';
+import stateMaps from './matrix/state';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -115,6 +117,8 @@ const rootReducer = combineReducers({
   dropdowns,
   deleteD,
   completeUserRegistration,
+  countryMaps,
+  stateMaps,
 });
 
 export default rootReducer;

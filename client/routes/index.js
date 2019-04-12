@@ -54,7 +54,8 @@ import FrequencyView from '../views/DropDowns/Frequency';
 import AmountInvestedView from '../views/DropDowns/AmountInvested';
 import SubThemeView from '../views/DropDowns/SubTheme';
 import FocusAreaView from '../views/DropDowns/FocusArea';
-import StateMatrixView from '../views/Matrix/State';
+import CountryMapView from '../views/Matrix/Country';
+import StatesBoundary from '../views/Matrix/StatesBoundary';
 
 const routes = [
   {
@@ -458,9 +459,16 @@ const routes = [
     protected: true,
   },
   {
-    path: '/matrix/state',
-    name: 'state matrix',
-    component: StateMatrixView,
+    path: '/matrix/country',
+    name: 'country matrix',
+    component: CountryMapView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/matrix/states/:country',
+    name: 'country states matrix',
+    component: StatesBoundary,
     exact: true,
     protected: true,
   },
