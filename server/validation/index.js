@@ -1,4 +1,5 @@
 import login from './auth/login';
+import { resetPassword, changePassword } from './auth';
 import report from './resources/report';
 import research from './resources/research';
 import document from './resources/document';
@@ -21,6 +22,8 @@ import amountInvested from './dropdowns/amountInvested';
 
 export default {
   login,
+  resetPassword,
+  changePassword,
   report,
   research,
   document,

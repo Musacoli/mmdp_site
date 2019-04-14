@@ -13,7 +13,6 @@ function setup() {
   });
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export function sendConfirmationEmail(data) {
   const transport = setup();
   const userEmail = data.email;
@@ -36,4 +35,34 @@ export function sendConfirmationEmail(data) {
     `,
   };
   transport.sendMail(email);
+}
+
+export async function sendResetPasswordEmail(data) {
+  let transport;
+  try {
+    transport = await setup();
+    const { email, baseUrl } = data;
+
+    const generateConfirmationUrl = () =>
+      `${baseUrl}/change-password.html?token=${token(email)}`;
+
+    const confirmationUrl = generateConfirmationUrl();
+    const ResetEmail = {
+      from,
+      to: email,
+      subject: 'Reset your Password to MMPD Coordination Matrix',
+      text: `
+      Please, reset your password using the link below.
+      ${confirmationUrl}
+      `,
+      html: `
+      <h2 style="display: flex; align-items: center;"><img style="height: 25px; margin-right: .5em" src="http://3.17.158.38/assets/images/common/group-2@2x.png" alt="mmdp logo"> Welcome to MMPD</h2>
+     <p>Please, reset your password using the link below.</p>
+      ${confirmationUrl}
+      `,
+    };
+    await transport.sendMail(ResetEmail);
+  } catch (err) {
+    return false;
+  }
 }
