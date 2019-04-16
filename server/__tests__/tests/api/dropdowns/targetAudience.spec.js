@@ -34,8 +34,8 @@ describe('Stakeholders Target Audience API', () => {
       const res = await app.post(`${route}/create`).send({
         TargetAudience: [{ audienceType: '10 - 20', description: 'Range 1' }],
       });
-      expect(res.status).to.equal(201);
-      expect(res.body).to.have.property('data');
+      expect(res.status).toBe(201);
+      expect(res.body.data).toBeTruthy;
       expect(res.body.TargetAudiences).toBeDefined();
     });
 

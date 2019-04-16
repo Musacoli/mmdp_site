@@ -82,8 +82,8 @@ describe('Sub theme type saga', () => {
       return new Error('Some error');
     });
 
-    it('and then yield dispatch deleteSubTheme', (result) => {
-      expect(result).toEqual(put(actions.deleteSubTheme({})));
+    it('and then yield dispatch deleteSubThemeFailure', (result) => {
+      expect(result).toEqual(put(actions.deleteSubThemeFailure({})));
     });
     it('and then yield dispatch call toastr error', (result) => {
       expect(result).toEqual(call(toastr.warning, 'Error deleting sub themes'));

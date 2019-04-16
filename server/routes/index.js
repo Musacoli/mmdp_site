@@ -56,6 +56,7 @@ const thematicPillarsDropdownPath = `${baseUrl}/thematic-pillars`;
 const amountInvested = `${baseUrl}/amount-invested`;
 const subThemePath = `${baseUrl}/sub-theme`;
 const focusAreaPath = `${baseUrl}/focus-area`;
+const listDropdownsPath = `${baseUrl}/dropdowns-list`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -1496,6 +1497,13 @@ const App = (app) => {
     `${focusAreaPath}/:id`,
     [authenticate, authorize.cms.dropdowns.delete, keystone.middleware.api],
     routes.api.dropdowns.focusArea.remove,
+  );
+
+  // manage dropdowns
+  app.get(
+    `${listDropdownsPath}`,
+    [authOptional],
+    routes.api.dropdowns.manageDropdowns.list,
   );
 
   app.use(errorHandler);

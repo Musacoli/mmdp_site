@@ -17,6 +17,8 @@ const frequencyApiPrefix = `${apiVersion}frequency`;
 const amountInvestedPrefix = `${apiVersion}amount-invested`;
 const subThemeApiPrefix = `${apiVersion}sub-theme`;
 const focusAreaPrefix = `${apiVersion}focus-area`;
+const truncateApiPrefix = `${apiVersion}truncate`;
+const manageDropdownsPrefix = `${apiVersion}dropdowns-list`;
 
 // mock server
 const thematicPillarsApiPrefix = `${apiVersion}thematic-pillars`;
@@ -192,6 +194,14 @@ export const api = {
       list: (data) => server.get(focusAreaPrefix, data),
       update: (data) => server.put(`${focusAreaPrefix}`, data),
       delete: (id) => server.delete(`${focusAreaPrefix}/${id}`),
+    },
+    manageDropdowns: {
+      list: (data) => server.get(manageDropdownsPrefix, data),
+    },
+  },
+  manageDropdowns: {
+    truncate: {
+      delete: (id) => server.delete(`${truncateApiPrefix}/${id}`),
     },
   },
 };

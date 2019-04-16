@@ -10,6 +10,7 @@ import EditReport from '../views/Resources/Report/EditReport';
 import ListReport from '../views/Resources/Report/ListReport';
 import AddDocument from '../views/Resources/Document/AddDocument';
 import EditDocument from '../views/Resources/Document/EditDocument';
+import DropdownsList from '../views/ManageDropdowns/DropdownsList';
 import DocumentList from '../views/Resources/Document/DocumentList';
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
@@ -337,6 +338,13 @@ const routes = [
     path: '/dropdowns/state',
     name: 'State Dropdown',
     component: StateView,
+    exact: true,
+    protected: true,
+  },
+  {
+    path: '/manage/dropdowns',
+    name: 'Manage Dropdowns',
+    component: DropdownsList,
     exact: true,
     protected: true,
   },

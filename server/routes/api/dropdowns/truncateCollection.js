@@ -24,7 +24,7 @@ export const itemInModel = async (model, id, field) => {
 
 export const whitelist = [
   {
-    partnertype: 'PartnershipType',
+    partnershiptype: 'PartnershipType',
     field: 'partnershipTypeId',
     records: ['StakeholderAddress', 'StakeholderPartnership'],
   },
@@ -54,7 +54,7 @@ export const whitelist = [
     records: ['State'],
   },
   {
-    organisationtype: 'OrganisationType',
+    organizationtype: 'OrganisationType',
     field: 'organizationTypeId',
     records: ['Stakeholder'],
   },
@@ -79,9 +79,39 @@ export const whitelist = [
     records: ['ReturneeService'],
   },
   {
-    sourceOffunding: 'SourceOfFunding',
+    sourceoffunding: 'SourceOfFunding',
     field: 'sourceoffundingId',
-    records: ['ReturneeServiceFundingSource'],
+    records: ['ReturneeService'],
+  },
+  {
+    focusarea: 'FocusArea',
+    field: 'focusAreaId',
+    records: ['ReturneeService'],
+  },
+  {
+    amountinvested: 'AmountInvestedRange',
+    field: 'amountInvestedId',
+    records: ['ReturneeService'],
+  },
+  {
+    subtheme: 'SubTheme',
+    field: 'subThemeId',
+    records: ['FocusArea'],
+  },
+  {
+    frequency: 'Frequency',
+    field: 'frequencyId',
+    records: ['Frequency'],
+  },
+  {
+    thematicpillars: 'ThematicPillarDropdown',
+    field: 'thematicPillarId',
+    records: ['SubTheme', 'StakeholderAddress'],
+  },
+  {
+    beneficiarytype: 'BeneficiaryType',
+    field: 'beneficiatyTypeId',
+    records: ['ReturneeService'],
   },
 ];
 
@@ -103,6 +133,7 @@ export const remove = async (req, res) => {
 
   const Model = getModel(modelDetails[name]); // Models to truncate
   const results = await Model.model.find({}); // get a list of all items in the Model
+
   const referencedItems = []; // items existing in other models that are being referenced
   for (let instance = 0; instance < results.length; instance++) {
     for (let item = 0; item < modelDetails.records.length; item++) {
@@ -113,7 +144,9 @@ export const remove = async (req, res) => {
         : Model.model.remove({ _id: results[instance]._id }).exec();
     }
   }
+
   return res.status(200).json({
+    entries: results.length,
     message: `${results.length -
       referencedItems.length} deleted successfully & ${
       referencedItems.length

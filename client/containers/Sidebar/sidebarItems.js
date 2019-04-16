@@ -79,6 +79,7 @@ export const sidebarItems = [
   {
     title: 'Manage dropdowns',
     menuItems: [],
+    path: '/manage/dropdowns',
     dividerTitle: 'USERS & GROUPS',
     permissions: ['user', 'group'],
   },

@@ -12085,6 +12085,11 @@ scss-tokenizer@^0.2.3:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
 
+sema@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/sema/-/sema-2.0.3.tgz#f3cdd26068a118eab4d2d8209f7d184c98ed5643"
+  integrity sha1-883SYGihGOq00tggn30YTJjtVkM=
+
 semantic-ui-calendar-react@^0.13.0:
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/semantic-ui-calendar-react/-/semantic-ui-calendar-react-0.13.0.tgz#c826827fc846641aba2d81f53744d474784bfe22"

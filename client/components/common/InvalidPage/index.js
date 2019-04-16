@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import emptybox from './img/empty-box@3x.png';
 
 const EmptyView = ({ errorMessage, errorDescription, path, pathLabel }) => (
-  <div className="events-container empty-view">
+  <div className="events-container empty-view empty-view-search">
     <img
       className="image-empty"
       src={emptybox}

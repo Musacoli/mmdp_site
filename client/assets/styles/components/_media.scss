@@ -1,3 +1,17 @@
 .card.media {
-    box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.column.dropdown-card {
+  width: 22%;
+  margin-left: 1.5em;
+}
+
+.content.show.dropdown-content {
+  height: 10%;
+}
+
+.ui.card.media.dropdown__card {
+  width: 97%;
+  height: auto;
 }

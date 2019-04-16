@@ -32,6 +32,7 @@ import {
 } from './pillar/pillar';
 import archive from './resources/archive';
 import deleteDoc from './resources/deleteDoc';
+import deleteD from './manageDropdowns/deleteD';
 import getResearch from './resources/getResearch';
 import media from './resources/media';
 import addStakeholder from './stakeholders/addStakeholder';
@@ -53,6 +54,7 @@ import thematicPillars from './dropdowns/thematicPillar';
 import amountInvested from './dropdowns/amountInvested';
 import subTheme from './dropdowns/subTheme';
 import focusArea from './dropdowns/focusArea';
+import dropdowns from './manageDropdowns/dropdowns';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -107,6 +109,8 @@ const rootReducer = combineReducers({
   amountInvested,
   subTheme,
   focusArea,
+  dropdowns,
+  deleteD,
 });
 
 export default rootReducer;

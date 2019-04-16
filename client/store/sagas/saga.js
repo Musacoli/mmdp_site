@@ -43,6 +43,10 @@ import {
   watchDeleteCountry,
 } from './dropdowns/country';
 import {
+  watchFetchDropdowns,
+  watchDeleteDropdowns,
+} from './manageDropdowns/dropdowns';
+import {
   watchAddStates,
   watchFetchStates,
   watchDeleteStates,
@@ -280,5 +284,8 @@ export default function* root() {
     fork(watchAddFocusArea),
     fork(watchFetchFocusArea),
     fork(watchDeleteFocusArea),
+
+    fork(watchFetchDropdowns),
+    fork(watchDeleteDropdowns),
   ]);
 }
