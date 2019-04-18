@@ -15,7 +15,7 @@ export const create = async (req, res) => {
     return res.status(201).json({
       message: sprintf(
         responseMessage.RESOURCE_CREATED,
-        `${req.body.data.length} thematic pillar(s)`,
+        `${req.body.data.length} Thematic Pillar(s)`,
       ),
       data: thematicPillars,
     });
@@ -34,7 +34,7 @@ export const get = async (req, res) => {
     const thematicPillar = await ThematicPillars().model.findById(id);
     if (!thematicPillar)
       return res.sendError(
-        sprintf(responseMessage.RESOURCE_NOT_FOUND, 'Thematic pillar'),
+        sprintf(responseMessage.RESOURCE_NOT_FOUND, 'Thematic Pillar'),
         responseCodes.NOT_FOUND,
       );
     return res.sendSuccess({ thematicPillar });
@@ -67,7 +67,7 @@ export const update = async (req, res) => {
     const thematicPillar = await ThematicPillars().model.findById(id);
     if (!thematicPillar) {
       return res.sendError(
-        sprintf(responseMessage.RESOURCE_NOT_FOUND, 'Thematic pillar'),
+        sprintf(responseMessage.RESOURCE_NOT_FOUND, 'Thematic Pillar'),
         responseCodes.NOT_FOUND,
       );
     }
@@ -81,7 +81,7 @@ export const update = async (req, res) => {
     res.sendSuccess(
       { thematicPillar: updatedThematicPillar },
       responseCodes.FOUND,
-      sprintf(responseMessage.RESOURCE_UPDATED, 'Thematic pillars'),
+      sprintf(responseMessage.RESOURCE_UPDATED, 'Thematic Pillars'),
     );
   } catch (error) {
     res.sendError(
@@ -108,7 +108,7 @@ export const updateMany = async (req, res) => {
     res.sendSuccess(
       '',
       responseCodes.FOUND,
-      sprintf(responseMessage.RESOURCE_UPDATED, 'Thematic pillars'),
+      sprintf(responseMessage.RESOURCE_UPDATED, 'Thematic Pillars'),
     );
   } catch (error) {
     res.sendError(
@@ -166,7 +166,7 @@ export const remove = async (req, res) => {
       return res.sendSuccess(
         undefined,
         responseCodes.FOUND,
-        sprintf(responseMessage.RESOURCE_DELETED, 'Thematic pillar'),
+        sprintf(responseMessage.RESOURCE_DELETED, 'Thematic Pillar'),
       );
     } catch (error) {
       res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);
