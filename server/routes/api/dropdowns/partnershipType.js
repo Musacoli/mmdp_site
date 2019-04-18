@@ -15,7 +15,7 @@ export const create = async (req, res) => {
       return res.status(201).json({
         message: `${
           req.body.data.length
-        } Partnership type(s) successfully added`,
+        } Partnership Type(s) successfully added`,
         data: result,
       });
     })
@@ -57,7 +57,7 @@ export const updateMany = (req, res) => {
         res.sendSuccess(
           '',
           201,
-          `${req.body.data.length} Partnership type(s) updated successfully`,
+          `${req.body.data.length} Partnership Type(s) updated successfully`,
         );
       })
       .catch((err) => {
@@ -102,7 +102,7 @@ export const remove = async (req, res) => {
           return res.sendSuccess(
             undefined,
             200,
-            sprintf(responseMessage.RESOURCE_DELETED, 'PartnershipType'),
+            sprintf(responseMessage.RESOURCE_DELETED, 'Partnership Type'),
           );
         });
     } catch (error) {

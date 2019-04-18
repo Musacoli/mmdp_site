@@ -13,7 +13,7 @@ export const create = async (req, res) => {
     .model.insertMany(req.body.data)
     .then((result) => {
       return res.status(201).json({
-        message: `${req.body.data.length} states successfully added`,
+        message: `${req.body.data.length} States successfully added`,
         data: result,
       });
     })
@@ -56,7 +56,7 @@ export const updateMany = (req, res) => {
         res.sendSuccess(
           '',
           201,
-          `${req.body.data.length} state(s) updated successfully`,
+          `${req.body.data.length} State(s) updated successfully`,
         );
       })
       .catch((err) => {
@@ -71,7 +71,7 @@ export const update = async (req, res) => {
     const state = await State().model.findOne({ _id: id });
     if (!state)
       return res.sendError(
-        sprintf(responseMessage.RESOURCE_TO_EDIT_NOT_FOUND, 'state'),
+        sprintf(responseMessage.RESOURCE_TO_EDIT_NOT_FOUND, 'State'),
         404,
       );
     const updatedState = await modelHelper.process(state, req);
@@ -125,7 +125,7 @@ export const remove = async (req, res) => {
         .exec((error, state) => {
           if (!state)
             return res.sendError(
-              sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'state'),
+              sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'State'),
               404,
             );
           return res.sendSuccess(

@@ -13,7 +13,7 @@ export const create = async (req, res) => {
       res.status(201).json({
         message: `${
           req.body.data.length
-        } source(s) of funding successfully added`,
+        } Source(s) of Funding successfully added`,
         data: response,
       }),
     )
@@ -55,7 +55,7 @@ export const updateMany = (req, res) => {
         res.sendSuccess(
           '',
           201,
-          `${req.body.data.length} source(s) of funding updated successfully`,
+          `${req.body.data.length} Source(s) of Funding updated successfully`,
         );
       })
       .catch((err) => {
@@ -118,7 +118,7 @@ export const remove = async (req, res) => {
           return res.sendSuccess(
             undefined,
             200,
-            sprintf(responseMessage.RESOURCE_DELETED, 'source of funding'),
+            sprintf(responseMessage.RESOURCE_DELETED, 'Source of Funding'),
           );
         });
     } catch (err) {

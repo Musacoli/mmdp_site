@@ -7,7 +7,6 @@ const targetAudience = {
         audienceType: Joi.string()
           .required()
           .label('audienceType'),
-        description: Joi.string().label('description'),
       },
     ]),
   },

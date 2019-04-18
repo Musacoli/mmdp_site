@@ -137,13 +137,6 @@ export class TargetAudienceDropdown extends Component {
         collection.errors = collection.errors ? collection.errors : {};
         collection.errors.audienceType = 'Please enter an Audience type';
         errors.push(collection.errors.audienceType);
-      } else if (
-        collection.description.trim() === '' ||
-        collection.description === undefined
-      ) {
-        collection.errors = collection.errors ? collection.errors : {};
-        collection.errors.description = 'Please enter a description';
-        errors.push(collection.errors.description);
       }
       return TargetAudiences.push(collection);
     });

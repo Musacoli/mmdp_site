@@ -5,7 +5,7 @@ import { ThematicPillars } from '../../../containers/DropDowns/ThematicPillars';
 describe('< ThematicPillarDropdown/>', () => {
   let wrapper;
   let props;
-  const thematicPillar = 'option2';
+  const thematicPillar = 'option1';
   beforeEach(() => {
     props = {
       addTempState: jest.fn(),

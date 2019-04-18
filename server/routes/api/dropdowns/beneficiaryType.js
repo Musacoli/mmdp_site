@@ -13,7 +13,7 @@ export const create = async (req, res) => {
       return res.status(201).json({
         message: `${
           req.body.data.length
-        } beneficiary type(s) successfully added`,
+        } Beneficiary Type(s) successfully added`,
         data: result,
       });
     })
@@ -51,7 +51,7 @@ export const updateMany = (req, res) => {
         res.sendSuccess(
           '',
           201,
-          `${req.body.data.length} beneficiary type(s) updated successfully`,
+          `${req.body.data.length} Beneficiary Type(s) updated successfully`,
         );
       })
       .catch((err) => {
@@ -114,14 +114,14 @@ export const remove = async (req, res) => {
             res.sendError(
               sprintf(
                 responseMessage.RESOURCE_T0_DELETE_NOT_FOUND,
-                'Beneficiary type',
+                'Beneficiary Type',
               ),
               404,
             );
           res.sendSuccess(
             undefined,
             200,
-            sprintf(responseMessage.RESOURCE_DELETED, 'Beneficiary type'),
+            sprintf(responseMessage.RESOURCE_DELETED, 'Beneficiary Type'),
           );
         });
     } catch (error) {

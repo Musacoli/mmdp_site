@@ -13,7 +13,7 @@ export const create = async (req, res) => {
       const {
         data: { length },
       } = req.body;
-      const count = length > 1 ? `${length} countries ` : '1 country';
+      const count = length > 1 ? `${length} Countries ` : '1 Country';
       return res.sendSuccess(result, 201, `${count} added successfully`);
     })
     .catch((err) => {
@@ -64,7 +64,7 @@ export const updateMany = (req, res) => {
         const {
           data: { length },
         } = req.body;
-        const count = length > 1 ? `${length} countries ` : '1 country';
+        const count = length > 1 ? `${length} Countries ` : '1 Country';
         res.sendSuccess('', 201, `${count}  updated successfully`);
       })
       .catch((err) => {
@@ -103,13 +103,13 @@ export const remove = async (req, res) => {
         .exec((error, country) => {
           if (!country)
             return res.sendError(
-              sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'country'),
+              sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'Country'),
               404,
             );
           return res.sendSuccess(
             undefined,
             200,
-            sprintf(responseMessage.RESOURCE_DELETED, 'country'),
+            sprintf(responseMessage.RESOURCE_DELETED, 'Country'),
           );
         });
     } catch (error) {

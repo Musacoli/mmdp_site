@@ -119,7 +119,7 @@ export const remove = async (req, res) => {
           return res.sendSuccess(
             undefined,
             200,
-            sprintf(responseMessage.RESOURCE_DELETED, 'impact type'),
+            sprintf(responseMessage.RESOURCE_DELETED, 'Impact Type'),
           );
         });
     } catch (error) {

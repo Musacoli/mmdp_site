@@ -13,7 +13,7 @@ export const create = async (req, res) => {
     .model.insertMany(req.body.data)
     .then((result) => {
       res.status(201).json({
-        message: `${req.body.data.length} statuses successfully added`,
+        message: `${req.body.data.length} Statuses successfully added`,
         data: result,
       });
     })
@@ -67,7 +67,7 @@ export const updateMany = (req, res) => {
         res.sendSuccess(
           '',
           201,
-          `${req.body.data.length} status(es) updated successfully`,
+          `${req.body.data.length} Status(es) updated successfully`,
         );
       })
       .catch((err) => {
@@ -128,7 +128,7 @@ export const remove = async (req, res) => {
         .exec((error, status) => {
           if (!status)
             return res.sendError(
-              sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'status'),
+              sprintf(responseMessage.RESOURCE_T0_DELETE_NOT_FOUND, 'Status'),
               404,
             );
           return res.sendSuccess(
