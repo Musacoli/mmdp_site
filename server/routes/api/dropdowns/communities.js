@@ -24,7 +24,7 @@ export const create = async (req, res) => {
       const {
         data: { length },
       } = req.body;
-      const count = length > 1 ? `${length} communities ` : '1 community';
+      const count = length > 1 ? `${length} Communities ` : '1 Community';
       return res
         .status(201)
         .json({
@@ -75,11 +75,11 @@ export const remove = async (req, res) => {
         .exec((err, community) => {
           if (!community) {
             return res.status(404).send({
-              message: sprintf(responseMessage.RESOURCE_NOT_FOUND, 'community'),
+              message: sprintf(responseMessage.RESOURCE_NOT_FOUND, 'Community'),
             });
           }
           return res.status(200).send({
-            message: sprintf(responseMessage.RESOURCE_DELETED, 'community'),
+            message: sprintf(responseMessage.RESOURCE_DELETED, 'Community'),
           });
         });
     } catch (error) {
@@ -106,7 +106,7 @@ export const updateMany = async (req, res) => {
         const {
           data: { length },
         } = req.body;
-        const count = length > 1 ? `${length} communities ` : '1 community';
+        const count = length > 1 ? `${length} Communities ` : '1 community';
         res.sendSuccess('', 201, `${count} updated successfully`);
       })
       .catch((err) => {
@@ -121,7 +121,7 @@ export const update = async (req, res) => {
     const community = await Community().model.findOne({ _id });
     if (!community) {
       return res.sendError(
-        sprintf(responseMessage.RESOURCE_NOT_FOUND, 'community'),
+        sprintf(responseMessage.RESOURCE_NOT_FOUND, 'Community'),
         404,
       );
     }
@@ -131,7 +131,7 @@ export const update = async (req, res) => {
         community: updatedCommunity,
       },
       200,
-      sprintf(responseMessage.RESOURCE_UPDATED, 'community'),
+      sprintf(responseMessage.RESOURCE_UPDATED, 'Community'),
     );
   } catch (error) {
     res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, error);

@@ -22,8 +22,10 @@ export const create = (req, res) => {
         TargetAudience.model
           .insertMany(TargetAudiences)
           .then((result) => {
-            res.status(201).json({
-              message: 'Target Audience option(s) successfully added',
+            return res.status(201).json({
+              message: `${
+                req.body.TargetAudience.length
+              } Target Audience option(s) successfully added`,
               TargetAudiences: result,
             });
           })
@@ -51,7 +53,9 @@ export const update = (req, res) => {
       )
       .then((result) => {
         res.status(200).json({
-          message: 'Target Audience option(s) successfully updated',
+          message: `${
+            req.body.TargetAudience.length
+          } Target Audience option(s) successfully updated`,
           TargetAudiences: result,
         });
       })
