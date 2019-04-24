@@ -672,17 +672,17 @@ exports[`<countryComponent /> should render country component without crashing 1
               >
                 <FormButton
                   as={[Function]}
-                  className="dropdowns__add"
+                  className="dropdowns__add button-more"
                   control={[Function]}
                   onClick={[Function]}
                 >
                   <FormField
-                    className="dropdowns__add"
+                    className="dropdowns__add button-more"
                     control={[Function]}
                     onClick={[Function]}
                   >
                     <div
-                      className="field dropdowns__add"
+                      className="field dropdowns__add button-more"
                     >
                       <Button
                         as="button"

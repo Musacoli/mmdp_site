@@ -57,6 +57,7 @@ Pillar.add({
   },
   pillarNumber: {
     type: Number,
+    unique: true,
   },
 });
 
