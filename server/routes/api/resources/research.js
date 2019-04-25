@@ -66,16 +66,18 @@ export const list = async (req, res) => {
   // don't show archived events for unauthenticated users
   if (!req.user) otherFilters.archived = false;
 
-  filterAndPaginate(Research(), req, {}, otherFilters).exec((err, results) => {
-    if (err) {
-      return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, err);
-    }
-    res.status(200).send({
-      status: 'success',
-      message: sprintf(responseMessage.RESOURCE_FETCHED, 'Research'),
-      data: results,
+  filterAndPaginate(Research(), req, {}, otherFilters)
+    .sort({ createdAt: -1 })
+    .exec((err, results) => {
+      if (err) {
+        return res.sendError(responseMessage.INTERNAL_SERVER_ERROR, 500, err);
+      }
+      res.status(200).send({
+        status: 'success',
+        message: sprintf(responseMessage.RESOURCE_FETCHED, 'Research'),
+        data: results,
+      });
     });
-  });
 };
 
 export const remove = (req, res) => {

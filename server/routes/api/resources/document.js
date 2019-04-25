@@ -59,7 +59,7 @@ export const list = async (req, res) => {
     if (!req.user) otherFilters.archived = false;
 
     filterAndPaginate(Document, req, {}, otherFilters)
-      .sort('-created_at')
+      .sort({ createdAt: -1 })
       .exec((err, data) => {
         return res.sendSuccess(
           {
