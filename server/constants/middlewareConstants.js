@@ -26,6 +26,7 @@ export default {
   usernameLength: 'username must be 5 or more characters',
   accVerified: 'account already verified.',
   passRequired: 'please provide password',
+  passMatchError: "Password and confirm password don't match",
   usernameRequired: 'please provide username',
   bothEmails: 'please check your emails',
   newOldEmail: 'Both new and old emails are required',
@@ -36,4 +37,6 @@ export default {
   onlyEmail: 'Only email is required',
   passwordRequired: 'please input a valid email',
   usernameDublicate: 'username is already taken',
+  phoneNumberError:
+    "Sorry a phone number should only contain digits (0-9) or '+' sign or paranthesis '()' or an underscore '-'",
 };

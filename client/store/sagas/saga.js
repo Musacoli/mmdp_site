@@ -20,6 +20,7 @@ import { watchRegistration, watchUserEdit } from './users/AddUsersSaga';
 import { watchDeleteUser } from './users/deleteUser';
 import { watchFetchingUsers } from './users/fetchUsers';
 import { watchFetchingOneUser } from './users/fetchOneUser';
+import { watchCompleteUserRegistration } from './users/completeRegistration';
 import { watchAddEventWatcher } from './events/addEventSaga';
 import { watcherListEvent } from './events/listEventsSaga';
 import { singleEventWatcher } from './events/singleEventSaga';
@@ -206,6 +207,7 @@ export default function* root() {
     fork(watchArchive),
     fork(watchDelete),
     fork(getUserResearchWatcher),
+    fork(watchCompleteUserRegistration),
     fork(deleteUserResearchWatcher),
     fork(archiveUserResearchWatcher),
     fork(watchDeleteMedia),

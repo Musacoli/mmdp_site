@@ -7,6 +7,7 @@ import {
   hasPassword,
   passwordvalidator,
   usernamevalidator,
+  phoneNumberValidator,
 } from '../utils/validators';
 import resp, { status } from '../constants/middlewareConstants';
 import { passwordError } from '../constants/controllerConstants';
@@ -121,6 +122,19 @@ export const verifyAccount = (req, res, next) => {
           return res.status(401).json({
             status: FAIL,
             message: resp.passRequired,
+          });
+        }
+        if (req.body.password !== req.body.confirmPassword) {
+          return res.status(400).json({
+            status: FAIL,
+            message: resp.passMatchError,
+          });
+        }
+        // Checks whether the provided phoneNumber meets phoneNumber standards
+        if (req.body.phone && !phoneNumberValidator(req.body.phone)) {
+          return res.status(400).json({
+            status: FAIL,
+            error: resp.phoneNumberError,
           });
         }
         // If user is confirmed abort this operation

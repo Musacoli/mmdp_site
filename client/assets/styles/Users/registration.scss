@@ -1,0 +1,93 @@
+.registration__container {
+  font-size: larger;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fafeff;
+  margin-bottom: 20px;
+  width: 70%;
+}
+
+.confirmation__form {
+  width: 100%;
+  border: 1px solid #d9eaef;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  transition: all .4s;
+}
+
+.confirmation__form:focus,
+.confirmation__form:hover {
+  box-shadow: -13px 25px 45px -2px rgba(0,0,0,0.04);
+}
+
+.confirmation__form__header {
+  display: grid;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+.confirm_form_logo {
+  justify-self: center;
+}
+
+#mmdp__logo {
+  padding-left: 0;
+}
+
+.form__input {
+  width: 80%;
+  height: 50px;
+  border-radius: 3px;
+}
+
+.registration__buttons {
+  margin-top: 15px;
+}
+
+#reg__btn,
+#reg__btn_cancel {
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.81;
+  letter-spacing: -0.3px;
+  text-align: center;
+  background-color: #3faaca;
+  color: azure;
+}
+
+.header_desc {
+  padding-top: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.36;
+  letter-spacing: -0.3px;
+  text-align: center;
+}
+
+#form_holder {
+  font-family: Muli, serif;
+}
+
+.input__fields {
+  padding-top: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .confirmation__form__header {
+    width: 90%;
+  }
+
+  .header_desc {
+    margin-bottom: 60px;
+  }
+
+}

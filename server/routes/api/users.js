@@ -26,10 +26,16 @@ export const createUser = (req, res) => {
 };
 
 export const confirmed = (req, res) => {
-  return res.status(200).json({
-    status: SUCCESS,
-    message: resp.verified,
-  });
+  User.model
+    .findOne({ username: req.body.username }, fields)
+    .populate('groups')
+    .exec((err, user) => {
+      return res.status(200).json({
+        status: SUCCESS,
+        message: resp.verified,
+        user,
+      });
+    });
 };
 
 export const updateEmail = (req, res) => {
