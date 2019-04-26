@@ -29,3 +29,10 @@ export const initialStateFetchOne = {
   success: false,
   error: false,
 };
+
+export const completeRegistrationInitialState = {
+  message: '',
+  isRegistering: false,
+  success: false,
+  groups: null,
+};

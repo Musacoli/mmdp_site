@@ -256,6 +256,7 @@ describe('Users', () => {
         phone: '0700111222',
         firstName: 'firstName',
         lastName: 'lastName',
+        confirmPassword: 'Qixndbx34',
       });
       res.status.should.equal(401);
       res.body.message.should.equal(errorresp.tokenMissing);
@@ -270,6 +271,7 @@ describe('Users', () => {
         firstName: 'firstName',
         lastName: 'lastName',
         token: token(data.newEmail),
+        confirmPassword: 'Qixndbx34',
       });
       res.status.should.equal(200);
       res.body.status.should.equal(status.SUCCESS);
@@ -283,6 +285,7 @@ describe('Users', () => {
         firstName: 'firstName',
         lastName: 'lastName',
         token: token(data.email),
+        confirmPassword: 'Qixndbx34',
       });
       res.status.should.equal(400);
       res.body.message.should.equal(errorresp.notFound);
@@ -296,6 +299,7 @@ describe('Users', () => {
         firstName: 'firstName',
         lastName: 'lastName',
         token: token(data.newEmail),
+        confirmPassword: 'Qixndbx34',
       });
       res.status.should.equal(401);
       res.body.message.should.equal(errorresp.passRequired);
@@ -309,6 +313,7 @@ describe('Users', () => {
         firstName: 'firstName',
         lastName: 'lastName',
         token: token(data.newEmail),
+        confirmPassword: 'Qixndbx34',
       });
       res.status.should.equal(401);
       res.body.message.should.equal(errorresp.usernameRequired);
@@ -323,6 +328,7 @@ describe('Users', () => {
         firstName: 'firstName',
         lastName: 'lastName',
         token: token(data.newEmail),
+        confirmPassword: 'Qixndbx34',
       };
       await app.put('/api/v1/users/confirmation').send(verifyData); // verification
       const res = await app.put('/api/v1/users/confirmation').send(verifyData); // attempt to verify again
@@ -339,6 +345,7 @@ describe('Users', () => {
         firstName: 'firstName',
         lastName: 'lastName',
         token: token(data.newEmail),
+        confirmPassword: 'Q1234',
       });
       res.status.should.equal(400);
       res.body.status.should.equal(status.FAIL);
@@ -352,10 +359,26 @@ describe('Users', () => {
         firstName: 'firstName',
         lastName: 'lastName',
         token: token(data.newEmail),
+        confirmPassword: 'Qixndbx34',
       });
       res.status.should.equal(400);
       res.body.message.should.equal(errorresp.usernameLength);
     });
+
+    it('should raise an error if password and confirmPassword dont match', async () => {
+      const res = await app.put('/api/v1/users/confirmation').send({
+        password: 'Qixndbx34',
+        username: 'new',
+        phone: '0700111222',
+        firstName: 'firstName',
+        lastName: 'lastName',
+        token: token(data.newEmail),
+        confirmPassword: 'Qixndbx',
+      });
+      res.status.should.equal(400);
+      res.body.message.should.equal(errorresp.passMatchError);
+    });
+
   });
 
   describe('Update user details - self', () => {
