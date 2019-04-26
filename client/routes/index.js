@@ -5,6 +5,7 @@ import GroupForm from '../views/Group/GroupForm';
 import GroupUpdateForm from '../views/Group/GroupUpdateView';
 import Login from '../containers/Login';
 import Logout from '../containers/Login/logout';
+import CompleteRegistration from '../containers/Users/CompleteRegistration';
 import AddReport from '../views/Resources/Report/AddReport';
 import EditReport from '../views/Resources/Report/EditReport';
 import ListReport from '../views/Resources/Report/ListReport';
@@ -475,6 +476,12 @@ const routes = [
     component: FocusAreaView,
     exact: true,
     protected: true,
+  },
+  {
+    path: '/confirmation/:token',
+    name: 'Account Confirmation',
+    component: CompleteRegistration,
+    exact: true,
   },
   {
     path: '*',

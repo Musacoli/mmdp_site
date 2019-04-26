@@ -55,6 +55,7 @@ import amountInvested from './dropdowns/amountInvested';
 import subTheme from './dropdowns/subTheme';
 import focusArea from './dropdowns/focusArea';
 import dropdowns from './manageDropdowns/dropdowns';
+import completeUserRegistration from './users/completeRegistration';
 
 const rootReducer = combineReducers({
   sidebar,
@@ -111,6 +112,7 @@ const rootReducer = combineReducers({
   focusArea,
   dropdowns,
   deleteD,
+  completeUserRegistration,
 });
 
 export default rootReducer;
