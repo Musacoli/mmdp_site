@@ -17,21 +17,20 @@ export function sendConfirmationEmail(data) {
   const transport = setup();
   const userEmail = data.email;
 
-  const generateConfirmationUrl = () =>
-    `${process.env.HOST}/confirmation/${token(userEmail)}`;
-
+  const generateConfirmationUrl = () => {
+    return `http://cms-staging.mmdp.ng/confirmation/${token(userEmail)}`;
+  };
   const email = {
     from,
     to: userEmail,
     subject: 'Welcome to MMDP',
     text: `
-    Welcome to MMDP. We are very happy to have you here. Please activate your account using the link below.
-    ${generateConfirmationUrl()}
+    Welcome to MMDP. We are very happy to have you here. Please activate your account by clicking on the link below.
     `,
     html: `
     <h2 style="display: flex; align-items: center;"><img style="height: 25px; margin-right: .5em" src="http://3.17.158.38/assets/images/common/group-2@2x.png" alt="mmdp logo"> Welcome to MMDP</h2>
-   <p>We are very happy to have you here. Please activate your account using the link below.</p>
-    ${generateConfirmationUrl()}
+   <p>We are very happy to have you here. Please activate your account by clicking on the link below.</p>
+   <a href='${generateConfirmationUrl()}'>Link</a>
     `,
   };
   transport.sendMail(email);
