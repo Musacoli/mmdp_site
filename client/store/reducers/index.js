@@ -13,6 +13,7 @@ import documents from './resources/document';
 import report from './resources/report';
 import Users from './users/fetchUsers';
 import deleteUser from './users/deleteUser';
+import updateUserProfile from './users/updateUserProfile';
 import createEntry from './events/event';
 import listEvents from './events/events';
 import singleEvent from './events/singleEvent';
@@ -72,6 +73,7 @@ const rootReducer = combineReducers({
   userEdit,
   Users,
   deleteUser,
+  updateUserProfile,
   fetchOneUser,
   createEntry,
   listEvents,

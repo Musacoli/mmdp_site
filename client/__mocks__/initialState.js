@@ -36,3 +36,9 @@ export const completeRegistrationInitialState = {
   success: false,
   groups: null,
 };
+
+export const initialUpdateUserProfile = {
+  response: null,
+  isUpdating: false,
+  success: false,
+};

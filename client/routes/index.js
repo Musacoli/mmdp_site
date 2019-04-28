@@ -15,6 +15,7 @@ import DropdownsList from '../views/ManageDropdowns/DropdownsList';
 import DocumentList from '../views/Resources/Document/DocumentList';
 import editEmailView from '../views/Users/editEmailView';
 import AddUserView, { EditUserView } from '../views/Users';
+import UpdateProfile from '../containers/Users/UpdateProfile';
 import CreateEvent from '../views/Events/AddEventView';
 import ListEvents from '../views/Events/ListEventsView';
 import EditEvents from '../views/Events/EditEvent';
@@ -480,6 +481,13 @@ const routes = [
     name: 'Account Confirmation',
     component: CompleteRegistration,
     exact: true,
+  },
+  {
+    path: '/users/profile/edit',
+    name: 'Edit User Profile',
+    component: UpdateProfile,
+    exact: true,
+    protected: true,
   },
   {
     path: '*',

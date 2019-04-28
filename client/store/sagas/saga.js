@@ -18,9 +18,13 @@ import { watchFetchingPermissions } from './permission';
 import * as aboutWatcher from './about';
 import { watchRegistration, watchUserEdit } from './users/AddUsersSaga';
 import { watchDeleteUser } from './users/deleteUser';
+import { watchUpdateUserProfile } from './users/updateUserProfile';
 import { watchFetchingUsers } from './users/fetchUsers';
-import { watchFetchingOneUser } from './users/fetchOneUser';
 import { watchCompleteUserRegistration } from './users/completeRegistration';
+import {
+  watchFetchingOneUser,
+  watchFetchingUserByToken,
+} from './users/fetchOneUser';
 import { watchAddEventWatcher } from './events/addEventSaga';
 import { watcherListEvent } from './events/listEventsSaga';
 import { singleEventWatcher } from './events/singleEventSaga';
@@ -179,7 +183,9 @@ export default function* root() {
     fork(watchUserEdit),
     fork(watchFetchingUsers),
     fork(watchDeleteUser),
+    fork(watchUpdateUserProfile),
     fork(watchFetchingOneUser),
+    fork(watchFetchingUserByToken),
     fork(watchAddEventWatcher),
     fork(watcherListEvent),
     fork(singleEventWatcher),

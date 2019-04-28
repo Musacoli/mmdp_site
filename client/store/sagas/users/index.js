@@ -19,6 +19,9 @@ import {
   FETCHING_ONE,
   FETCHING_ONE_USER_SUCCESS,
   FETCHING_ONE_USER_ERROR,
+  FETCH_USER_BY_TOKEN,
+  UPDATE_USER_PROFILE,
+  UPDATE_USER_PROFILE_COMPLETE,
 } from '../../../constants/users';
 
 export const registrationStarted = () => ({
@@ -116,5 +119,20 @@ export const FetchingOneComplete = (payload) => ({
 
 export const fetchingOneError = (payload) => ({
   type: FETCHING_ONE_USER_ERROR,
+  payload,
+});
+
+export const fetchUserByToken = (payload) => ({
+  type: FETCH_USER_BY_TOKEN,
+  payload,
+});
+
+export const updateUserProfile = (payload) => ({
+  type: UPDATE_USER_PROFILE,
+  payload,
+});
+
+export const updateUserProfileComplete = (payload) => ({
+  type: UPDATE_USER_PROFILE_COMPLETE,
   payload,
 });

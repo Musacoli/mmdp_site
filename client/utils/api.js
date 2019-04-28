@@ -58,6 +58,7 @@ export const api = {
       ),
     getOne: (username) => server.get(`api/v1/users/${username}`),
     delete: (data) => server.delete(`api/v1/users/${data}`),
+    updateProflie: (data) => server.put('api/v1/users/profile/edit', data),
   },
   resources: {
     document: {
