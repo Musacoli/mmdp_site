@@ -27,21 +27,17 @@ export class AddResearch extends Component {
   onFormSubmit = (e) => {
     e.preventDefault();
     const details = this.state;
-    const { addResearch: addResearchAction } = this.props;
+    const { addResearch: addResearchAction, history } = this.props;
     const formData = new FormData();
     Object.keys(details).forEach((key) => {
       formData.append(key, details[key]);
     });
-    addResearchAction(formData);
+    addResearchAction({ formData, history });
   };
 
   render() {
     const { fileName, title } = this.state;
-    const { loading, history, research } = this.props;
-    const { payload } = research;
-    if (payload && payload.status === 'success') {
-      history.push('/resources/research/all');
-    }
+    const { loading } = this.props;
     return (
       <div>
         <ResearchForm

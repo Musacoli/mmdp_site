@@ -22,9 +22,10 @@ toastr.options = {
 };
 export function* addUserResearch(action) {
   try {
-    const response = yield call(research.create, action.payload);
+    const response = yield call(research.create, action.payload.formData);
     yield put(addResearchSuccessfull(response.data));
     if (response.data.status === 'success') {
+      action.payload.history.push('/resources/research/all');
       toastr.success(response.data.message);
     }
   } catch (error) {

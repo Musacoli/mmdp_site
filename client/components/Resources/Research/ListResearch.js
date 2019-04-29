@@ -55,7 +55,7 @@ const ListResearch = ({
         </Grid.Column>
         <Grid.Column width={3}>
           <AddNewButton
-            url="/resources/research/add"
+            url={addResearchUrl}
             text="Research"
             className="common__button bg-ugly-blue"
           />

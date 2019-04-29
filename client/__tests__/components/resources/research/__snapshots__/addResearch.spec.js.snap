@@ -5,19 +5,7 @@ exports[`<ResearchContainer />  renders the container without crashing 1`] = `
   addResearch={[Function]}
   history={
     Object {
-      "push": [MockFunction] {
-        "calls": Array [
-          Array [
-            "/resources/research/all",
-          ],
-        ],
-        "results": Array [
-          Object {
-            "isThrow": false,
-            "value": undefined,
-          },
-        ],
-      },
+      "push": [MockFunction],
     }
   }
   loading={true}
