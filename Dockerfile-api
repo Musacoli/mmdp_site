@@ -2,7 +2,7 @@ FROM python:3.6-alpine as Builder
 
 WORKDIR $HOME/mmdp/
 
-RUN apk add build-essential libpq-dev --no-install-recommends && \
+RUN apk  add --update alpine-sdk  && \
     apk add curl && \
     apk autoclean && \
     curl -sL https://deb.nodesource.com/setup_5.x | bash && \
