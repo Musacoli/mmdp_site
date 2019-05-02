@@ -6,8 +6,8 @@ COPY ./package.json ./
 
 COPY ./ ./
 
-RUN yarn install
+RUN yarn install --ignore-optional
 
-EXPOSE 3000 --ignore-optional
+EXPOSE 3000 
 
 CMD ["yarn", "run", "start:server"]
