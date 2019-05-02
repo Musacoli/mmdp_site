@@ -4,8 +4,7 @@ WORKDIR $HOME/mmdp/
 
 RUN apk  add --update alpine-sdk  && \
     apk add curl && \
-    curl -sL https://deb.nodesource.com/setup_5.x | bash && \
-    apk add --update nodejs
+    curl -sL https://deb.nodesource.com/setup_5.x | bash
  
 RUN npm install -g yarn
 
