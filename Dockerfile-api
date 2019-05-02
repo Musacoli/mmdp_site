@@ -3,8 +3,7 @@ FROM python:3.6-alpine as Builder
 WORKDIR $HOME/mmdp/
 
 RUN apk  add --update alpine-sdk  && \
-    apk add curl && \
-    curl -sL https://deb.nodesource.com/setup_5.x | bash
+    apk add curl
  
 RUN npm install -g yarn
 
