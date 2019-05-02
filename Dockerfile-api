@@ -1,3 +1,16 @@
+FROM python:3.6-alpine as Builder
+
+WORKDIR $HOME/mmdp/
+
+RUN apk add build-essential libpq-dev --no-install-recommends && \
+    apk add curl && \
+    apk autoclean && \
+    curl -sL https://deb.nodesource.com/setup_5.x | bash && \
+    apk add  nodejs && \
+    apk add yarn
+
+
+
 FROM node:alpine
 
 WORKDIR $HOME/mmdp/
@@ -6,10 +19,7 @@ COPY ./package.json ./
 
 COPY ./ ./
 
-RUN apk add --no-cache make gcc g++ python3 && \
-  npm install --production --silent && \
-  apk del make gcc g++ python && \
-  yarn install
+RUN yarn install
 
 EXPOSE 3000 
 
