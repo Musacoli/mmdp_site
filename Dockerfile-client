@@ -6,7 +6,10 @@ COPY ./package.json ./
 
 COPY ./ ./
 
-RUN yarn install
+RUN RUN apk add --no-cache make gcc g++ python && \
+  npm install --production --silent && \
+  apk del make gcc g++ python && \
+  yarn install
 
 EXPOSE 1234
 CMD ["yarn", "run", "client:dev"]
