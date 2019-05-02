@@ -1,23 +1,17 @@
-FROM python:3.6-alpine as Builder
-
-WORKDIR $HOME/mmdp/
-
-RUN apk  add --update alpine-sdk  && \
-    apk add  --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.7/main/ nodejs=8.9.3-r1 && \
-    apk add curl
- 
-RUN npm install -g yarn
-
-
 FROM node:alpine
 
 WORKDIR $HOME/mmdp/
 
+RUN apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++ \
+    && yarn install \
+    && apk del build-dependencies
+
 COPY ./package.json ./
 
 COPY ./ ./
-
-RUN yarn install
 
 EXPOSE 3000 
 
