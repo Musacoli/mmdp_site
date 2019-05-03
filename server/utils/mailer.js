@@ -25,12 +25,13 @@ export function sendConfirmationEmail(data) {
     to: userEmail,
     subject: 'Welcome to MMDP',
     text: `
-    Welcome to MMDP. We are very happy to have you here. Please activate your account by clicking on the link below.
+    Welcome to MMDP. We are very happy to have you here. Please activate your account using the link below.
+    ${generateConfirmationUrl()}
     `,
     html: `
     <h2 style="display: flex; align-items: center;"><img style="height: 25px; margin-right: .5em" src="http://3.17.158.38/assets/images/common/group-2@2x.png" alt="mmdp logo"> Welcome to MMDP</h2>
-   <p>We are very happy to have you here. Please activate your account by clicking on the link below.</p>
-   <a href='${generateConfirmationUrl()}'>Link</a>
+   <p>We are very happy to have you here. Please activate your account using the link below.</p>
+    ${generateConfirmationUrl()}
     `,
   };
   transport.sendMail(email);

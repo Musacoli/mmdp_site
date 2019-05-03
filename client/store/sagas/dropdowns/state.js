@@ -57,7 +57,7 @@ export function* deleteStatesAsync({ payload }) {
     const response = yield call(api.dropdowns.state.delete, payload.id);
     const data = response ? response.data : {};
     yield put(actions.deleteStateSuccess(data));
-    yield put(actions.fetchStates({}));
+    yield put(actions.fetchStates());
     const message = response
       ? response.data.message
       : 'State deleted successfully';

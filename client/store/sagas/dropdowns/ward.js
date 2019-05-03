@@ -61,7 +61,7 @@ export function* deleteWardsAsync({ payload }) {
     const response = yield call(api.dropdowns.ward.delete, payload.id);
     const data = response ? response.data : {};
     yield put(actions.deleteWardSuccess(data));
-    yield put(actions.fetchWards({}));
+    yield put(actions.fetchWards());
     const message = response
       ? response.data.message
       : 'Ward deleted successfully';

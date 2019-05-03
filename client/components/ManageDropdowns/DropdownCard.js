@@ -16,7 +16,7 @@ const DropdownCard = ({ dropdown, goTo }) => (
         <div className="ui three buttons">
           <Button
             loading={false}
-            id="document_edit_btn"
+            id="dropdown_edit_btn"
             onClick={() => goTo(`/dropdowns/${dropdown.route}`)}
           >
             Edit

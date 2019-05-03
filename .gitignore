@@ -11,7 +11,7 @@ pids
 *.seed
 
 # Coverage directory
-coverage 
+coverage
 /client/coverage
 /server/coverage
 /server/upload/images
@@ -51,3 +51,4 @@ yarn-error.log
 .editorConfig
 data/
 !/client/__tests__/common/stakeholders/dataGenerationFixtures.js
+/.elasticbeanstalk/config.yml
