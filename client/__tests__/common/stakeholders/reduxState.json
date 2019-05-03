@@ -1,0 +1,406 @@
+{
+  "sidebar": {
+    "activeIndex": 0
+  },
+  "groups": {
+    "groups": [],
+    "pagination": {},
+    "isFetching": false,
+    "success": false,
+    "errors": "",
+    "group": {}
+  },
+  "permissions": {
+    "permissions": [],
+    "isFetching": false,
+    "options": []
+  },
+  "groupCart": [],
+  "loginReducer": {},
+  "governorMessage": {
+    "error": null,
+    "loading": false,
+    "message": {}
+  },
+  "aboutMMDP": {
+    "error": null,
+    "loading": false
+  },
+  "report": {
+    "loading": false,
+    "response": {}
+  },
+  "documents": {
+    "loading": false,
+    "document": {},
+    "success": false,
+    "data": {
+      "results": [],
+      "pagination": {}
+    },
+    "isFetching": false,
+    "errors": ""
+  },
+  "register": {
+    "status": false,
+    "success": false,
+    "isRegistering": false
+  },
+  "userEdit": {
+    "status": false,
+    "success": false,
+    "isEditing": false
+  },
+  "Users": {
+    "users": [],
+    "pagination": {},
+    "isFetching": false,
+    "success": false,
+    "error": false
+  },
+  "deleteUser": {
+    "message": "",
+    "error": "",
+    "isDeleting": false,
+    "success": false
+  },
+  "fetchOneUser": {
+    "singleUser": null,
+    "isFetching": false,
+    "success": false,
+    "error": false
+  },
+  "createEntry": {
+    "response": null,
+    "adding": false,
+    "error": null
+  },
+  "listEvents": {
+    "events": [],
+    "pagination": {},
+    "fetching": false,
+    "error": null
+  },
+  "singleEvent": {
+    "data": {},
+    "error": {},
+    "inputData": {}
+  },
+  "deleteEvent": {
+    "deleting": false,
+    "status": null,
+    "error": null
+  },
+  "updateEvent": {
+    "data": {},
+    "error": {},
+    "loading": false
+  },
+  "archiveEvents": {
+    "loading": false,
+    "_id": ""
+  },
+  "coordination": {
+    "error": null,
+    "loading": false,
+    "highlight": [],
+    "highlightIds": []
+  },
+  "edoStateApproach": {
+    "error": null,
+    "loading": false
+  },
+  "objectives": {
+    "error": null,
+    "loading": false
+  },
+  "research": {
+    "loading": false
+  },
+  "pillarOneReducer": {
+    "error": null,
+    "loading": false
+  },
+  "pillarTwoReducer": {
+    "error": null,
+    "loading": false
+  },
+  "pillarThreeReducer": {
+    "error": null,
+    "loading": false
+  },
+  "pillarFourReducer": {
+    "error": null,
+    "loading": false
+  },
+  "archive": {
+    "loading": false,
+    "_id": ""
+  },
+  "deleteDoc": {
+    "loading": false,
+    "_id": ""
+  },
+  "editResearch": {
+    "loading": false,
+    "researchItem": {},
+    "updateInput": {},
+    "error": {}
+  },
+  "getResearch": {
+    "loading": false
+  },
+  "media": {
+    "isDeleting": false,
+    "_id": ""
+  },
+  "addStakeholder": {
+    "response": null,
+    "adding": false,
+    "error": null
+  },
+  "country": {
+    "loading": false,
+    "data": [
+      {
+        "_id": "5c9256d40167a3091877c5b4",
+        "description": "",
+        "countryName": "Nigeria",
+        "__v": 0
+      },
+      {
+        "_id": "5c937142df3bf4429e470475",
+        "description": "description",
+        "countryName": "Nigeria ",
+        "__v": 0
+      },
+      {
+        "_id": "5cb6d52f6360a36733f0779d",
+        "description": "description",
+        "countryName": "Kenya ",
+        "__v": 0
+      }
+    ]
+  },
+  "states": {
+    "data": [
+      {
+        "_id": "5c9256d50167a3091877c5b9",
+        "__v": 0,
+        "countryId": "5c9256d40167a3091877c5b4",
+        "stateName": "Apkwon"
+      },
+      {
+        "_id": "5c925752ead60bd2a3fd2104",
+        "countryId": "5c9256d40167a3091877c5b4",
+        "stateName": "Edo"
+      },
+      {
+        "_id": "5c92579dbf38aed2a34d3ee1",
+        "countryId": "5c9256d40167a3091877c5b4",
+        "stateName": "Delta"
+      }
+    ],
+    "loading": false
+  },
+  "statuses": {
+    "data": [
+      {
+        "_id": "5c9256d30167a3091877c5a7",
+        "description": "",
+        "registrationStatus": "Not Registered",
+        "__v": 0
+      },
+      {
+        "_id": "5c9256d30167a3091877c5a6",
+        "description": "",
+        "registrationStatus": "Registered",
+        "__v": 0
+      }
+    ],
+    "loading": false
+  },
+  "staffStrengths": {
+    "staffStrengths": [],
+    "isFetching": false,
+    "success": false,
+    "errors": ""
+  },
+  "targetAudience": {
+    "TargetAudiences": [],
+    "isFetching": false,
+    "success": false,
+    "errors": ""
+  },
+  "communities": {
+    "data": [
+      {
+        "_id": "5c928f7d289f5712139bcc6c",
+        "__v": 0,
+        "wardId": "5c9256d40167a3091877c5b7",
+        "communityName": "community 1"
+      },
+      {
+        "_id": "5c92902cbf38aed2a34d3ee8",
+        "__v": 0,
+        "wardId": "5c9256d40167a3091877c5b7",
+        "communityName": "community 2"
+      }
+    ],
+    "loading": false,
+    "isFetched": false,
+    "isDeleted": false
+  },
+  "LGA": {
+    "data": [],
+    "loading": false
+  },
+  "partnershipType": {
+    "data": [],
+    "loading": false
+  },
+  "beneficiaryTypes": {
+    "data": [
+      {
+        "_id": "5c9256d20167a3091877c59d",
+        "description": "",
+        "beneficiaryTypeName": "Returnee",
+        "__v": 0
+      },
+      {
+        "_id": "5c9256d20167a3091877c59e",
+        "description": "",
+        "beneficiaryTypeName": "Trafficked Victim",
+        "__v": 0
+      },
+      {
+        "_id": "5c9256d20167a3091877c59f",
+        "description": "",
+        "beneficiaryTypeName": "Others",
+        "__v": 0
+      }
+    ],
+    "loading": false
+  },
+  "funding": {
+    "data": [],
+    "loading": false
+  },
+  "ogranizationType": {
+    "data": [],
+    "loading": false
+  },
+  "wards": {
+    "data": [
+      {
+        "_id": "5c9256d40167a3091877c5b7",
+        "__v": 0,
+        "lgaId": "5c925891bf38aed2a34d3ee2",
+        "wardName": "ward 1",
+        "description": null
+      },
+      {
+        "_id": "5c925906bf38aed2a34d3ee3",
+        "__v": 0,
+        "lgaId": "5c9256d50167a3091877c5b8",
+        "wardName": "ward 2",
+        "description": null
+      }
+    ],
+    "loading": false
+  },
+  "impactTypes": {
+    "data": [],
+    "loading": false
+  },
+  "frequency": {
+    "data": [],
+    "loading": false
+  },
+  "thematicPillars": {
+    "data": [],
+    "loading": false
+  },
+  "stakeholdersDirectory": {
+    "loading": false,
+    "stakeholdersLoading": true,
+    "payload": [],
+    "payload2": [],
+    "stakeholders": {
+      "stakeholders": {
+        "data": [
+          {
+            "adresses": [
+              {
+                "stateId": "5c925752ead60bd2a3fd2104",
+                "countryId": "5c9256d40167a3091877c5b4",
+                "address": "Home",
+                "__v": 0,
+                "stakeholderId": "5cbef17175e2db32d6a600a9",
+                "addressType": "HOME",
+                "_id": "5cbef17175e2db32d6a600af"
+              },
+              {
+                "stateId": "5c925752ead60bd2a3fd2104",
+                "countryId": "5c9256d40167a3091877c5b4",
+                "address": "Away",
+                "__v": 0,
+                "stakeholderId": "5cbef17175e2db32d6a600a9",
+                "addressType": "BRANCH",
+                "_id": "5cbef17175e2db32d6a600ad"
+              }
+            ],
+            "partnerships": [],
+            "_id": "5cbef17175e2db32d6a600a9",
+            "organisationName": "Name",
+            "__v": 0,
+            "cacRcNumber": "jjfjfjfe",
+            "email": "name@email.com",
+            "founder": "Founder",
+            "impactTypeID": "5c9256d30167a3091877c5a1",
+            "localManagerEmail": "manager@email.com",
+            "localManagerMobile": 844848948,
+            "localManagerName": "Manager",
+            "locality": "local",
+            "organisationTypeId": {
+              "_id": "5c9256d30167a3091877c5a2",
+              "description": "",
+              "typeName": "NGO",
+              "__v": 0
+            },
+            "phoneNumber": "758585859",
+            "registrationStatusId": {
+              "_id": "5c9256d30167a3091877c5a6",
+              "description": "",
+              "registrationStatus": "Registered",
+              "__v": 0
+            },
+            "staffStrengthRangeId": {
+              "_id": "5c9256d40167a3091877c5ad",
+              "description": "",
+              "staffStrength": "51-100",
+              "__v": 0
+            },
+            "volunteersCount": 657,
+            "website": "http://localhost:1234/stakeholder-directory/add-basic-information",
+            "yearOfCacREG": "2017",
+            "partnerWithGovernment": true
+          }
+        ]
+      }
+    },
+    "filterStatus": false
+  },
+  "amountInvested": {
+    "data": [],
+    "loading": false
+  },
+  "subTheme": {
+    "data": [],
+    "loading": false
+  },
+  "focusArea": {
+    "data": [],
+    "loading": false
+  }
+}

@@ -114,7 +114,7 @@ export class SourceOfFunding extends Component {
         // eslint-disable-next-line
         value.errors = value.errors ? value.errors : {};
         // eslint-disable-next-line
-        value.errors.sourceOfFundingName =`${value.sourceOfFundingName} source of funding name exists`
+        value.errors.sourceOfFundingName =`${value.sourceOfFundingName} source of funding name exists`;
         errors.push(value);
         return this.editFunding(value, false);
       });

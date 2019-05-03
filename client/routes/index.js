@@ -18,11 +18,11 @@ import CreateEvent from '../views/Events/AddEventView';
 import ListEvents from '../views/Events/ListEventsView';
 import EditEvents from '../views/Events/EditEvent';
 import {
-  GovernorMessage,
   AboutMMDP,
   Coordination,
-  Objectives,
   EdoStateApproach,
+  GovernorMessage,
+  Objectives,
 } from '../views/About';
 import PillarOneView from '../views/Pillar/pillarOne';
 import PillarTwoView from '../views/Pillar/pillarTwo';
@@ -35,7 +35,6 @@ import ListResearch from '../views/Resources/Research/ListResearch';
 import MediaListView from '../views/Resources/Media/MediaList';
 import StakeholdersView from '../views/Stakeholders/stakeholderDirectory';
 import AddStakeholderView from '../views/Stakeholders/addBasicInfo';
-import BeneficiaryServicesView from '../views/Stakeholders/addBeneficiaryServices';
 import StateView from '../views/DropDowns/State';
 import FundingView from '../views/DropDowns/SourceOfFunding';
 import Country from '../views/DropDowns/Country';
@@ -309,11 +308,10 @@ const routes = [
     exact: true,
   },
   {
-    path: '/stakeholder-directory/add-beneficiary-services',
-    name: 'add-beneficiary-services',
-    component: BeneficiaryServicesView,
+    path: '/stakeholder-directory/edit-basic-information/:id',
+    name: 'edit-stakeholder',
+    component: AddStakeholderView,
     exact: true,
-    protected: true,
   },
   {
     path: '/resources/media/edit/:id',

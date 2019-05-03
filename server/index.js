@@ -4,18 +4,16 @@ import dotEnv from 'dotenv';
 import routes from './routes';
 
 dotEnv.config();
-const mongodbURL = () => {
+export const mongodbURL = () => {
   if (process.env.NODE_ENV === 'test') {
-    const MONGODB_URL = process.env.TEST_MONGODB_URL;
-    return MONGODB_URL;
+    return process.env.TEST_MONGODB_URL;
   }
   if (process.env.NODE_ENV === 'production') {
     const { MONGODB_URL } = process.env;
     return MONGODB_URL;
   }
   if (process.env.NODE_ENV === 'development') {
-    const MONGODB_URL = process.env.DEV_MONGODB_URL;
-    return MONGODB_URL;
+    return process.env.DEV_MONGODB_URL;
   }
 };
 

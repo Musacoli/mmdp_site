@@ -7,7 +7,7 @@ ImpactType.add({
   description: { type: String },
 });
 
-ImpactType.defaultColumns = 'ImpactType';
+ImpactType.defaultColumns = 'impactTypeName';
 
 ImpactType.register();
 

@@ -40,7 +40,7 @@ export const get = async (req, res) => {
       if (err) {
         return res.status(404).send({
           status: 'error',
-          message: 'Invalid Object Id',
+          message: 'Invalid State Id',
         });
       }
       return res.status(200).send({ data });

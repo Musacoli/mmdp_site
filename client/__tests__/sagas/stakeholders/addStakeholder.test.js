@@ -1,6 +1,6 @@
 import { runSaga } from 'redux-saga';
-import { apiRequest } from '../../../utils/stakeholders';
-import { addStakeholder } from '../../../store/sagas/stakeholders/addStakeholder';
+import { api } from '../../../utils/api';
+import { addStakeholder } from '../../../store/sagas/resources/Stakeholders';
 import * as constants from '../../../constants/stakeholderDirectory';
 
 describe('Add stakeholder saga', () => {
@@ -8,7 +8,7 @@ describe('Add stakeholder saga', () => {
     const dispatchedActions = [];
 
     const payload = {};
-    apiRequest.create = jest.fn(() => Promise.resolve(payload));
+    api.stakeholdersDirectory.create = jest.fn(() => Promise.resolve(payload));
 
     const mockStore = {
       dispatch: (action) => dispatchedActions.push(action),
@@ -27,7 +27,7 @@ describe('Add stakeholder saga', () => {
     const dispatchedActions = [];
 
     const payload = { name: 'prossie', state: 'edo' };
-    apiRequest.create = jest.fn(() => Promise.reject(payload));
+    api.stakeholdersDirectory.create = jest.fn(() => Promise.resolve(payload));
 
     const mockStore = {
       dispatch: (action) => dispatchedActions.push(action),

@@ -1,23 +1,9 @@
-const validateString = (name) => {
-  if (typeof name !== 'string') {
-    return true;
-  }
-  return false;
-};
+const validateString = (name) => typeof name !== 'string';
 
-const validateLength = (name) => {
-  if (name && name.length < 5) {
-    return true;
-  }
-  return false;
-};
+const validateLength = (name) => !!(name && name.length < 5);
 
-const validateNullorUndefined = (name) => {
-  if (!name || typeof name === 'undefined') {
-    return true;
-  }
-  return false;
-};
+const validateNullorUndefined = (name) => !name || typeof name === 'undefined';
+
 const middlelware = {
   eventsMiddlewares(req, res, next) {
     let errors = [];

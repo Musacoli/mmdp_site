@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import toastr from 'toastr';
 import { api } from '../../../utils/api';
-import { ADD_STATES, FETCH_STATES, DELETE_STATE } from '../../../constants';
+import { ADD_STATES, DELETE_STATE, FETCH_STATES } from '../../../constants';
 import * as actions from '../../actions/dropdowns/state';
 
 toastr.options = {
@@ -33,13 +33,18 @@ export function* addStatesAsync({ payload }) {
   }
 }
 
-export function* fetchStatesAsync() {
+export function* fetchStatesAsync(payload) {
   try {
-    const response = yield call(api.dropdowns.state.list);
+    let response;
+    if (payload.payload === undefined) {
+      response = yield call(api.dropdowns.state.list);
+    } else {
+      response = yield call(api.dropdowns.state.get, payload.payload.countryId);
+    }
     const data = response ? response.data.data : {};
     yield put(actions.fetchStatesSuccess(data));
   } catch (error) {
-    yield put(actions.fetchStatesFailure({}));
+    yield put(actions.fetchStatesFailure({ error }));
     const message = error.response
       ? error.response.data.message
       : 'Error listing states';
