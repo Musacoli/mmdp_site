@@ -4,8 +4,8 @@ import {
   ADD_THEMATIC_PILLAR,
   FETCH_THEMATIC_PILLARS,
   DELETE_THEMATIC_PILLAR,
-} from '../../../constants/dropdowns/ThematicPillars';
-import * as actions from '../../actions/dropdowns/ThematicPillars';
+} from '../../../constants/dropdowns/thematicPillars';
+import * as actions from '../../actions/dropdowns/thematicPillars';
 import {
   addAsyncCreator,
   fetchAsyncCreator,

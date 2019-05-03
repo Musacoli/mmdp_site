@@ -2,6 +2,8 @@ FROM node:alpine
 
 WORKDIR $HOME/mmdp/
 
+COPY ./package.json ./
+
 RUN apk --no-cache --virtual build-dependencies add \
     python \
     make \
@@ -9,7 +11,6 @@ RUN apk --no-cache --virtual build-dependencies add \
     && yarn install \
     && apk del build-dependencies
 
-COPY ./package.json ./
 
 COPY ./ ./
 
