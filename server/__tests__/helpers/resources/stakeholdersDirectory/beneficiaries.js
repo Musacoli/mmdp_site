@@ -14,42 +14,34 @@ export const createReturneeServices = async (times = 1) => {
   const temp = new Array(times);
   temp.fill(1);
   let services = [];
-
   let stakeholder = '';
   await createStaholders().then((res) => {
     stakeholder = res._id;
   });
-
   let funding = '';
   await createFunding().then((res) => {
     funding = res._id;
   });
-
   let investmentRange = '';
   await createAmountInvested().then((res) => {
     investmentRange = res._id;
   });
-
   let focusArea = '';
   await createFocusArea().then((res) => {
     focusArea = res._id;
   });
-
   let beneficiaryTypeId = '';
   await createBeneficiaryType().then((res) => {
     beneficiaryTypeId = res._id;
   });
-
   let frequency = '';
   await createFrequency().then((res) => {
     frequency = res._id;
   });
-
   let targetAudienceId = '';
   await createTargetAudience().then((res) => {
     targetAudienceId = res._id;
   });
-
   await Promise.all(
     temp.map(() =>
       ReturneeServicesModel.model.create({
@@ -76,7 +68,6 @@ export const createReturneeServices = async (times = 1) => {
   ).then((res) => {
     services = res;
   });
-
   return times === 1 ? services[0] : services;
 };
 

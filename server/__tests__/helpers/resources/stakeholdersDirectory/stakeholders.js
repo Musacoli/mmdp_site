@@ -11,27 +11,22 @@ export const createStaholders = async (times = 1) => {
   const temp = new Array(times);
   temp.fill(1);
   let stakeholders = [];
-
   let organisationType = '';
   await createOrganisationType().then((res) => {
     organisationType = res._id;
   });
-
   let regStatus = '';
   await createStatus().then((res) => {
     regStatus = res._id;
   });
-
   let impactType = '';
   await createImpactType().then((res) => {
     impactType = res._id;
   });
-
   let staffStrength = '';
   await createStaffStrength().then((res) => {
     staffStrength = res._id;
   });
-
   await Promise.all(
     temp.map(() =>
       StakeholdersModel.model.create({

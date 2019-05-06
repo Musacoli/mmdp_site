@@ -8,31 +8,24 @@ import BeneficiaryServiceCommunity from '../../../../models/resources/stakeholde
 const Ward = keystone.list('Ward');
 
 export const createReturneeServiceCommunities = async () => {
-  const temp = new Array(1);
-  temp.fill(1);
   let beneficiaryCommunities = [];
-
   let beneficiaryServiceId = '';
   await createReturneeServices().then((res) => {
     beneficiaryServiceId = res._id;
   });
-
   let wardId;
   let communityId;
   let countryId;
   let stateId;
   let lgaId;
-
   await createCommunity().then((res) => {
     communityId = res._id;
     wardId = res.wardId;
   });
-
   await createState().then((res) => {
     stateId = res._id;
     countryId = res.countryId;
   });
-
   await Ward.model
     .findById(wardId)
     .populate({
@@ -42,7 +35,6 @@ export const createReturneeServiceCommunities = async () => {
     .then((res) => {
       lgaId = res.lgaId._id;
     });
-
   await BeneficiaryServiceCommunity.model
     .create({
       beneficiaryServiceId,
@@ -54,7 +46,6 @@ export const createReturneeServiceCommunities = async () => {
     .then((res) => {
       beneficiaryCommunities = res;
     });
-
   return beneficiaryCommunities;
 };
 

@@ -56,6 +56,7 @@ const subThemePath = `${baseUrl}/sub-theme`;
 const focusAreaPath = `${baseUrl}/focus-area`;
 const listDropdownsPath = `${baseUrl}/dropdowns-list`;
 const AllActiveStates = `${baseUrl}/ActiveStates`;
+const listStakeholdersByLocation = `${baseUrl}/location`;
 
 const swaggerDoc = YAML.load('./documentation.yml');
 
@@ -1470,6 +1471,12 @@ const App = (app) => {
     `${listDropdownsPath}`,
     [authOptional],
     routes.api.dropdowns.manageDropdowns.list,
+  );
+  // search the stakeholders directory by location filters
+  app.get(
+    `${listStakeholdersByLocation}`,
+    [authOptional],
+    routes.api.resources.stakeholders.listStakeholdersByLocation.list,
   );
 
   app.get(`${AllActiveStates}`, [authOptional], routes.api.AllStates.list);

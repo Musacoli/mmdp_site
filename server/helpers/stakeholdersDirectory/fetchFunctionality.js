@@ -36,6 +36,9 @@ const handleFocusArea = async (focusAreaId) => {
             };
           }
           results = response;
+        })
+        .catch((e) => {
+          throw e;
         });
     });
 
