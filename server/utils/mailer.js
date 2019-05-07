@@ -18,9 +18,7 @@ export function sendConfirmationEmail(data) {
   const userEmail = data.email;
 
   const generateConfirmationUrl = () => {
-    return `${process.env.PROTOCOL}://${process.env.HOST}/confirmation/${token(
-      userEmail,
-    )}`;
+    return `${process.env.HOST}/confirmation/${token(userEmail)}`;
   };
   const email = {
     from,
