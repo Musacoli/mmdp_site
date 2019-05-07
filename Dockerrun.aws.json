@@ -10,7 +10,7 @@
       "name": "client",
       "image": "shemogumbe/mmdp_client",
       "hostname": "client",
-      "essential": false,
+      "essential": true,
       "portMappings": [
         {
           "hostPort": 80,
@@ -23,7 +23,7 @@
       "name": "server",
       "image": "shemogumbe/mmdp_api",
       "hostname": "api",
-      "essential": true,
+      "essential": false,
       "portMappings": [
         {
           "hostPort": 3000,
