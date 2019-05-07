@@ -18,7 +18,7 @@ export function sendConfirmationEmail(data) {
   const userEmail = data.email;
 
   const generateConfirmationUrl = () => {
-    return `${process.env.HOST}/confirmation/${token(userEmail)}`;
+    return `http://cms-staging.mmdp.ng/confirmation/${token(userEmail)}`;
   };
   const email = {
     from,
