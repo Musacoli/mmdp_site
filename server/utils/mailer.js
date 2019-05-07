@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import token from './tokenGenerator';
 
-const from = '"MMPD" <info@mmdp.com>';
+const from = '"MMDP" <info@mmdp.com>';
 
 function setup() {
   return nodemailer.createTransport({
@@ -17,21 +17,20 @@ export function sendConfirmationEmail(data) {
   const transport = setup();
   const userEmail = data.email;
 
-  const generateConfirmationUrl = () =>
-    `${process.env.HOST}/confirmation/${token(userEmail)}`;
-
+  const generateConfirmationUrl = () => {
+    return `${process.env.HOST}/confirmation/${token(userEmail)}`;
+  };
   const email = {
     from,
     to: userEmail,
-    subject: 'Welcome to MMPD',
+    subject: 'Welcome to MMDP',
     text: `
-    Welcome to MMPD. We are very happy to have you here. Please activate your account using the link below.
-    ${generateConfirmationUrl()}
+    Welcome to MMDP. We are very happy to have you here. Please activate your account by clicking on the link below.
     `,
     html: `
-    <h2 style="display: flex; align-items: center;"><img style="height: 25px; margin-right: .5em" src="http://3.17.158.38/assets/images/common/group-2@2x.png" alt="mmdp logo"> Welcome to MMPD</h2>
-   <p>We are very happy to have you here. Please activate your account using the link below.</p>
-    ${generateConfirmationUrl()}
+    <h2 style="display: flex; align-items: center;"><img style="height: 25px; margin-right: .5em" src="http://3.17.158.38/assets/images/common/group-2@2x.png" alt="mmdp logo"> Welcome to MMDP</h2>
+   <p>We are very happy to have you here. Please activate your account by clicking on the link below.</p>
+   <a href='${generateConfirmationUrl()}'>Link</a>
     `,
   };
   transport.sendMail(email);
@@ -50,13 +49,13 @@ export async function sendResetPasswordEmail(data) {
     const ResetEmail = {
       from,
       to: email,
-      subject: 'Reset your Password to MMPD Coordination Matrix',
+      subject: 'Reset your Password to MMDP Coordination Matrix',
       text: `
       Please, reset your password using the link below.
       ${confirmationUrl}
       `,
       html: `
-      <h2 style="display: flex; align-items: center;"><img style="height: 25px; margin-right: .5em" src="http://3.17.158.38/assets/images/common/group-2@2x.png" alt="mmdp logo"> Welcome to MMPD</h2>
+      <h2 style="display: flex; align-items: center;"><img style="height: 25px; margin-right: .5em" src="http://3.17.158.38/assets/images/common/group-2@2x.png" alt="mmdp logo"> Welcome to MMDP</h2>
      <p>Please, reset your password using the link below.</p>
       ${confirmationUrl}
       `,
