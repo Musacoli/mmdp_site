@@ -18,7 +18,7 @@ User.add({
   username: {
     type: Types.Text,
     min: 5,
-    required: true,
+    required: false,
     index: true,
     unique: true,
     default: 'new@User',
@@ -29,7 +29,7 @@ User.add({
   },
   email: {
     type: Types.Email,
-    required: true,
+    required: false,
     index: true,
     initial: true,
     unique: true,

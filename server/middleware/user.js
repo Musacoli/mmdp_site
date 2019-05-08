@@ -351,3 +351,65 @@ export const verifyEdit = (req, res, next) => {
     }
   });
 };
+
+// update user profile
+export const updateUserProfile = (req, res, next) => {
+  const { email } = req.params;
+  if (!email || !validator.isEmail(email)) {
+    return res.status(400).json({
+      status: FAIL,
+      message: resp.noEmail,
+    });
+  }
+  User.model.findOne({ email }).then((foundUser) => {
+    if (!foundUser) {
+      return res.status(400).json({
+        status: FAIL,
+        message: resp.notFound,
+      });
+    }
+    if (req.body && Object.entries(req.body).length > 0) {
+      if (!req.body.username || usernamevalidator(req.body.username)) {
+        return res.status(400).json({
+          status: FAIL,
+          message: resp.usernameLength,
+        });
+      }
+      if (req.body.phone && !phoneNumberValidator(req.body.phone)) {
+        return res.status(400).json({
+          status: FAIL,
+          error: resp.phoneNumberError,
+        });
+      }
+      User.model.findOne({ username: req.body.username }).then((user) => {
+        if (
+          foundUser.username !== req.body.username &&
+          user.username === req.body.username
+        ) {
+          return res.status(400).json({
+            status: FAIL,
+            message: resp.usernameTaken,
+          });
+        }
+      });
+      User.model
+        .findOneAndUpdate(
+          { email },
+          {
+            username: req.body.username,
+            first_name: req.body.firstName,
+            last_name: req.body.lastName,
+            phone: req.body.phone,
+          },
+        )
+        .then(() => {
+          next();
+        });
+    } else {
+      return res.status(400).json({
+        status: FAIL,
+        message: resp.noDetails,
+      });
+    }
+  });
+};

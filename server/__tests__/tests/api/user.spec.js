@@ -468,4 +468,98 @@ describe('Users', () => {
       res.status.should.equal(401);
     });
   });
+
+  describe(`PUT /api/v1/users/profile`, () => {
+    const route = '/api/v1/users/profile';
+    beforeEach(async () => {
+      await removeAllGroupsAndUsers();
+      // create a verified account
+      const user = await createUser([], {
+        email: data.newEmail,
+        confirmed: true,
+        username: 'shemmmm',
+        phone: '7989998878',
+      });
+      await app.login(user);
+    });
+
+    it('should update user profile successfully', async () => {
+      const res = await app.put(`${route}/${data.newEmail}`).send({
+        username: 'chinedu',
+        firstName: 'Chinn',
+        lastName: 'Nedddu',
+        phone: '7989998878',
+      });
+      res.status.should.equal(200);
+      res.body.status.should.equal(status.SUCCESS);
+    });
+
+    it('should fail updating user profile if username is short', async () => {
+      const res = await app.put(`${route}/${data.newEmail}`).send({
+        username: 'chin',
+      });
+      res.status.should.equal(400);
+      res.body.status.should.equal(status.FAIL);
+    });
+
+    it('should fail updating user profile if phone number is invalid', async () => {
+      const res = await app.put(`${route}/${data.newEmail}`).send({
+        phone: 'chin24',
+        username: 'shemmmm',
+      });
+      res.status.should.equal(400);
+      res.body.status.should.equal(status.FAIL);
+    });
+
+    it('should not update if a username already exists', async () => {
+      const user = await createUser([], {
+        confirmed: true,
+        username: 'shellll',
+      });
+      await app.login(user);
+      const res = await app.put(`${route}/${data.newEmail}`).send({
+        username: 'shellll',
+      });
+      res.body.message.should.equal(errorresp.usernameTaken);
+      res.status.should.equal(400);
+      res.body.status.should.equal(status.FAIL);
+    });
+
+    it('should not update if no paramaters where provided', async () => {
+      const user = await createUser([], { confirmed: true });
+      await app.login(user);
+      const res = await app.put(`${route}/${data.newEmail}`).send({});
+      res.status.should.equal(400);
+      res.body.status.should.equal(status.FAIL);
+      res.body.message.should.equal(errorresp.noDetails);
+    });
+
+    describe(`GET ${route}`, () => {
+      beforeEach(async () => {
+        await removeAllGroupsAndUsers();
+        // create a verified account
+        const user = await createUser([], {
+          email: data.newEmail,
+          confirmed: true,
+          username: 'shemmmm',
+          phone: '7989998878',
+        });
+        await app.login(user);
+      });
+
+      it('should retrieve a user details', async () => {
+        const res = await app.get(`${route}/${data.newEmail}`);
+        res.status.should.equal(200);
+        res.body.status.should.equal(status.SUCCESS);
+      });
+
+      it('should not retrieve user details if email provided doesnot match any user', async () => {
+        const res = await app.get(`${route}/fahdlammm@ll.pop`);
+        res.status.should.equal(404);
+        res.body.status.should.equal(status.FAIL);
+      });
+    });
+
+  });
+
 });

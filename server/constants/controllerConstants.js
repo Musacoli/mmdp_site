@@ -28,6 +28,9 @@ export default {
   tryAgain: 'something went wrong, try again',
   userDeleted: 'User was deleted successfully',
   detailsUpdated: 'Your details have been successfully updated.',
+  profileUpdated: 'Your profile has been successfully updated.',
+  userNotFound: 'Sorry no user with that token was found',
+  missingEmail: 'Sorry you are missing an email',
 };
 
 export const status = {

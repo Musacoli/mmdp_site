@@ -138,3 +138,31 @@ export const edited = (req, res) => {
     message: resp.detailsUpdated,
   });
 };
+
+export const updateProfile = (req, res) => {
+  return res.json({
+    status: SUCCESS,
+    message: resp.profileUpdated,
+  });
+};
+
+export const fetchUserProfile = async (req, res) => {
+  const email = req.params.email;
+  await User.model.findOne({ email }).exec((err, user) => {
+    if (!user)
+      return res.status(404).json({
+        status: FAIL,
+        message: resp.notFound,
+      });
+    const data = {
+      first_name: user.first_name,
+      last_name: user.last_name,
+      phone: user.phone,
+      username: user.username,
+    };
+    return res.json({
+      status: SUCCESS,
+      data,
+    });
+  });
+};

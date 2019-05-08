@@ -19,6 +19,7 @@ import {
   validateEmail,
   verifyAccount,
   verifyEdit,
+  updateUserProfile,
 } from '../middleware/user';
 import { checkIfDocument } from '../middleware/repository/validateDocument';
 import {
@@ -276,6 +277,16 @@ const App = (app) => {
     `${baseUrl}/users/edit`,
     [authenticate, verifyEdit],
     routes.api.users.edited,
+  );
+  app.get(
+    `${baseUrl}/users/profile/:email`,
+    [authenticate],
+    routes.api.users.fetchUserProfile,
+  );
+  app.put(
+    `${baseUrl}/users/profile/:email`,
+    [authenticate, updateUserProfile],
+    routes.api.users.updateProfile,
   );
 
   // groups
