@@ -1,4 +1,0 @@
-exports.create = {
-  StakeholderAddress: [{}],
-  StakeholderPartnership: [{}],
-};

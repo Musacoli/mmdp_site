@@ -36,13 +36,15 @@ const StakeHoldersCardsList = (props) => {
   }
 
   return (
-    <Grid.Row className="ui loading center aligned animated fade">
-      <EmptyView
-        pathLabel="Add"
-        errorDescription="There are no Stakeholders to display"
-        path="/stakeholder-directory/add-basic-information"
-        errorMessage="Please add a Stakeholder"
-      />
+    <Grid.Row>
+      <Grid.Column>
+        <EmptyView
+          pathLabel="Add"
+          errorDescription="There are no Stakeholders to display"
+          path="/stakeholder-directory/add-basic-information"
+          errorMessage="Please add a Stakeholder"
+        />
+      </Grid.Column>
     </Grid.Row>
   );
 };

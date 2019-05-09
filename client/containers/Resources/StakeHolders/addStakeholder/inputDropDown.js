@@ -37,14 +37,16 @@ class InputDropDown extends Component {
       // handle a unique case where a keyValue is Provided
       if (keyVal !== undefined) {
         onChange(keyVal, { event, name: nameValue, value: dropDownValue });
-      }
-      if (event !== null) {
-        this.handleRequiredValues();
-        this.handleValueUpdate(event);
-        updateRequiredFields(nameValue, isRequired, isDisabled);
-      } // perform any custom dropdown behavior if necessary
-      if (customBehaviourLists.find((item) => item === nameValue)) {
-        customBehaviour();
+      } else {
+        // handle a  case where a keyValue is not Provided
+        if (event !== null) {
+          this.handleRequiredValues();
+          this.handleValueUpdate(event);
+          updateRequiredFields(nameValue, isRequired, isDisabled);
+        } // perform any custom dropdown behavior if necessary
+        if (customBehaviourLists.find((item) => item === nameValue)) {
+          customBehaviour();
+        }
       }
     }
   }
