@@ -1,6 +1,7 @@
 import User from '../../models/User';
 import username from '../../utils/usernameGenerator';
 import { sendConfirmationEmail } from '../../utils/mailer';
+import { hasPassword } from '../../utils/validators';
 import resp, {
   fields,
   exclude,
@@ -137,4 +138,20 @@ export const edited = (req, res) => {
     status: SUCCESS,
     message: resp.detailsUpdated,
   });
+};
+
+// Updating a users password when they log into the system.
+export const changePassword = async (req, res) => {
+  const { username } = req.params;
+  User.model
+    .findOneAndUpdate(
+      { username },
+      { password: hasPassword(req.body.newPassword) },
+    )
+    .then(() => {
+      return res.json({
+        status: SUCCESS,
+        message: resp.passwordUpdated,
+      });
+    });
 };

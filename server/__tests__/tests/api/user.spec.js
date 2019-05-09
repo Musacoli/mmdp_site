@@ -468,4 +468,100 @@ describe('Users', () => {
       res.status.should.equal(401);
     });
   });
+
+  describe('PUT /api/v1/users/:username/password', () => {
+    const route = '/api/v1/users/';
+    beforeEach(async () => {
+      await removeAllGroupsAndUsers();
+      // create a verified account
+      const user = await createUser([], {
+        email: data.newEmail,
+        confirmed: true,
+        username: 'newuser',
+        password: 'Krs1krs1',
+      });
+      await app.login(user);
+    });
+
+    it('should fail if user doesnot provide all required fields', async () => {
+      // create an unverified account
+      const user = await createUser([], { confirmed: false });
+      await app.login(user);
+      const res = await app.put(`${route}newuser/password`).send();
+      res.status.should.equal(400);
+      res.body.status.should.equal(status.FAIL);
+    });
+
+    it('should fail if account is not activated', async () => {
+      // create an unverified account
+      const user = await createUser([], { confirmed: false, username: 'Chinedu' });
+      await app.login(user);
+      const res = await app.put(`${route}Chinedu/password`).send({
+        oldPassword: 'Krs1krs1',
+        newPassword: 'Krs1krs1',
+        confirmPassword: 'Krs1krs133',
+      });
+      res.status.should.equal(400);
+      res.body.message.should.equal(errorresp.activateAcc);
+    });
+
+    it('should fail if newPassword and oldPassword are the same', async () => {
+      const res = await app.put(`${route}newuser/password`).send({
+        oldPassword: 'Krs1krs1',
+        newPassword: 'Krs1krs1',
+        confirmPassword: 'Krs1krs133',
+      });
+      res.status.should.equal(400);
+      res.body.status.should.equal(status.FAIL);
+    });
+
+    it('should fail if newPassword and confirmPassword dont match', async () => {
+      const res = await app.put(`${route}newuser/password`).send({
+        oldPassword: 'Krs1krs1',
+        newPassword: 'Krs1krs144',
+        confirmPassword: 'Krs1krs133',
+      });
+      res.status.should.equal(400);
+      res.body.status.should.equal(status.FAIL);
+      res.body.message.should.equal(passwordError.passwordsDontMatch);
+    });
+
+    it('should fail if user provides invalid password', async () => {
+      const res = await app.put(`${route}newuser/password`).send({
+        oldPassword: 'Krs1krs1',
+        newPassword: '11111',
+        confirmPassword: '11111',
+      });
+      res.status.should.equal(400);
+      res.body.status.should.equal(status.FAIL);
+      res.body.message.should.equal(passwordError.password);
+    });
+
+    it('should fail if oldPassword doesnot match the one stored in the DB', async () => {
+      const res = await app.put(`${route}newuser/password`).send({
+        oldPassword: 'Krs1krs000',
+        newPassword: 'Krs1krs12',
+        confirmPassword: 'Krs1krs12',
+      });
+      res.status.should.equal(400);
+      res.body.status.should.equal(status.FAIL);
+      res.body.message.should.equal(passwordError.oldPasswordMatchFail);
+    });
+
+    it('should change password successfully', async () => {
+      const res = await app.put(`${route}newuser/password`).send({
+        oldPassword: 'Krs1krs1',
+        newPassword: 'Krs1krs12',
+        confirmPassword: 'Krs1krs12',
+      });
+      res.status.should.equal(200);
+      res.body.status.should.equal(status.SUCCESS);
+    });
+
+    it('should fail if the user is not authenticated', async () => {
+      await app.logout();
+      const res = await app.put(`${route}newuser/password`).send();
+      res.status.should.equal(401);
+    });
+  });
 });

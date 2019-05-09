@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import validator, { isEmail } from 'validator';
 import User from '../models/User';
 import Group from '../models/Group';
@@ -351,3 +352,52 @@ export const verifyEdit = (req, res, next) => {
     }
   });
 };
+
+export const checkPasswordsValidity = async (req, res, next) => {
+  const { username } = req.params;
+  if (Object.entries(req.body).length <= 2) {
+    return res.status(400).json({
+      status: FAIL,
+      message: resp.allFieldsReq,
+    });
+  }
+  try {
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+    const userData = await User.model.findOne({ username }).exec();
+    if (!userData.confirmed) {
+      return res.status(400).json({
+        status: FAIL,
+        message: resp.activateAcc,
+      });
+    }
+    const existingPasswordMatch = await bcrypt.compare(oldPassword, userData.password);
+    const newPasswordExists = await bcrypt.compare(newPassword, userData.password);
+    if (!existingPasswordMatch) {
+      return res.status(400).json({
+        status: FAIL,
+        message: passwordError.oldPasswordMatchFail,
+      });
+    } else if (newPasswordExists) {
+      return res.status(400).json({
+        status: FAIL,
+        message: passwordError.samePasswords,
+      });
+    } else if (newPassword !== confirmPassword) {
+      return res.status(400).json({
+        status: FAIL,
+        message: passwordError.passwordsDontMatch,
+      });
+    } else if (!passwordvalidator(req.body.newPassword)) {
+      return res.status(400).json({
+        status: FAIL,
+        message: passwordError.password,
+      });
+    }
+    next();
+  } catch (error) {
+    return res.status(400).json({
+      status: FAIL,
+      message: resp.notFound,
+    });
+  }
+}
