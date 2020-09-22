@@ -1,9 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-    <g fill="none" fill-rule="evenodd">
-        <circle cx="20" cy="20" r="20" fill="#FAFEFF"/>
-        <g fill="#296D81" fill-rule="nonzero">
-            <path d="M30.316 9.255a.871.871 0 0 0-1.233 0L9.255 29.083a.871.871 0 1 0 1.233 1.233l19.828-19.829a.871.871 0 0 0 0-1.232z"/>
-            <path d="M30.316 29.083L10.487 9.255a.871.871 0 1 0-1.232 1.232l19.828 19.829a.869.869 0 0 0 1.233 0 .872.872 0 0 0 0-1.233z"/>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><g fill="none" fill-rule="evenodd"><circle cx="20" cy="20" r="20" fill="#FAFEFF"/><g fill="#296D81" fill-rule="nonzero"><path d="M30.316 9.255a.871.871 0 0 0-1.233 0L9.255 29.083a.871.871 0 1 0 1.233 1.233l19.828-19.829a.871.871 0 0 0 0-1.232z"/><path d="M30.316 29.083L10.487 9.255a.871.871 0 1 0-1.232 1.232l19.828 19.829a.869.869 0 0 0 1.233 0 .872.872 0 0 0 0-1.233z"/></g></g></svg>
